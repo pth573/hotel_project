@@ -1,4 +1,4 @@
 package com.project.hotel.service;
 
-public interface RoomTypeService {
+public interface RoomService {
 }

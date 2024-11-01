@@ -1,4 +1,4 @@
 package com.project.hotel.service.impl;
 
-public class RoomTypeServiceImpl {
+public class RoomServiceImpl {
 }
