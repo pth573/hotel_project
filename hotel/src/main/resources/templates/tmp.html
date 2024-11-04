@@ -1,0 +1,289 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Tải Lên Nhiều Ảnh</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>Tải Lên Nhiều Ảnh</h1>-->
+<!--<form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">-->
+<!--    <label for="images">Chọn các ảnh để tải lên:</label><br>-->
+<!--    <input type="file" id="images" name="images" accept="image/*" multiple required/><br><br>-->
+<!--    <button type="submit">Tải Lên</button>-->
+<!--</form>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Tải Lên Nhiều Ảnh</title>-->
+<!--    <style>-->
+<!--        .preview {-->
+<!--            display: flex;-->
+<!--            flex-wrap: wrap;-->
+<!--            margin-top: 10px;-->
+<!--        }-->
+<!--        .preview img {-->
+<!--            width: 100px; /* Đặt kích thước ảnh hiển thị */-->
+<!--            height: auto; /* Giữ tỷ lệ ảnh */-->
+<!--            margin-right: 10px; /* Khoảng cách giữa các ảnh */-->
+<!--            margin-bottom: 10px; /* Khoảng cách giữa các ảnh */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>Tải Lên Nhiều Ảnh</h1>-->
+<!--<form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">-->
+<!--    <label for="images">Chọn các ảnh để tải lên:</label><br>-->
+<!--    <input type="file" id="images" name="images" accept="image/*" multiple required onchange="previewImages()"/><br><br>-->
+<!--    <button type="submit">Tải Lên</button>-->
+<!--</form>-->
+
+<!--<div class="preview" id="imagePreview"></div> &lt;!&ndash; Nơi hiển thị ảnh xem trước &ndash;&gt;-->
+
+<!--<script>-->
+<!--    function previewImages() {-->
+<!--        const preview = document.getElementById('imagePreview');-->
+<!--        preview.innerHTML = ''; // Xóa nội dung trước đó-->
+
+<!--        const files = document.getElementById('images').files; // Lấy danh sách các tệp được chọn-->
+
+<!--        for (let i = 0; i < files.length; i++) {-->
+<!--            const file = files[i];-->
+<!--            const reader = new FileReader(); // Tạo FileReader để đọc nội dung tệp-->
+
+<!--            reader.onload = function(e) {-->
+<!--                // Tạo phần tử img và thêm vào vùng xem trước-->
+<!--                const img = document.createElement('img');-->
+<!--                img.src = e.target.result; // Gán nguồn ảnh từ FileReader-->
+<!--                preview.appendChild(img); // Thêm ảnh vào vùng xem trước-->
+<!--            };-->
+
+<!--            reader.readAsDataURL(file); // Đọc tệp như một URL dữ liệu-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Tải Lên Nhiều Ảnh</title>-->
+<!--    <style>-->
+<!--        .preview {-->
+<!--            display: flex;-->
+<!--            flex-wrap: wrap;-->
+<!--            margin-top: 10px;-->
+<!--        }-->
+<!--        .preview div {-->
+<!--            position: relative; /* Để định vị nút xóa */-->
+<!--            margin-right: 10px; /* Khoảng cách giữa các ảnh */-->
+<!--            margin-bottom: 10px; /* Khoảng cách giữa các ảnh */-->
+<!--        }-->
+<!--        .preview img {-->
+<!--            width: 100px; /* Đặt kích thước ảnh hiển thị */-->
+<!--            height: auto; /* Giữ tỷ lệ ảnh */-->
+<!--        }-->
+<!--        .close {-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            right: 0;-->
+<!--            background-color: red;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>Tải Lên Nhiều Ảnh</h1>-->
+<!--<form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">-->
+<!--    <label for="images">Chọn các ảnh để tải lên:</label><br>-->
+<!--    <input type="file" id="images" name="images" accept="image/*" multiple required onchange="previewImages()"/><br><br>-->
+<!--    <button type="submit">Tải Lên</button>-->
+<!--</form>-->
+
+<!--<div class="preview" id="imagePreview"></div> &lt;!&ndash; Nơi hiển thị ảnh xem trước &ndash;&gt;-->
+
+<!--<script>-->
+<!--    const selectedFiles = []; // Mảng để lưu trữ các tệp đã chọn-->
+
+<!--    function previewImages() {-->
+<!--        const preview = document.getElementById('imagePreview');-->
+<!--        preview.innerHTML = ''; // Xóa nội dung trước đó-->
+<!--        selectedFiles.length = 0; // Xóa danh sách tệp đã chọn-->
+
+<!--        const files = document.getElementById('images').files; // Lấy danh sách các tệp được chọn-->
+
+<!--        for (let i = 0; i < files.length; i++) {-->
+<!--            const file = files[i];-->
+<!--            const reader = new FileReader(); // Tạo FileReader để đọc nội dung tệp-->
+
+<!--            reader.onload = function(e) {-->
+<!--                // Tạo phần tử div để chứa ảnh và nút xóa-->
+<!--                const fileDiv = document.createElement('div');-->
+
+<!--                // Tạo phần tử img và thêm vào vùng xem trước-->
+<!--                const img = document.createElement('img');-->
+<!--                img.src = e.target.result; // Gán nguồn ảnh từ FileReader-->
+<!--                fileDiv.appendChild(img); // Thêm ảnh vào div-->
+
+<!--                // Tạo nút xóa-->
+<!--                const closeButton = document.createElement('button');-->
+<!--                closeButton.textContent = 'Xóa';-->
+<!--                closeButton.className = 'close';-->
+<!--                closeButton.onclick = function() {-->
+<!--                    // Xóa ảnh khỏi vùng xem trước và mảng tệp đã chọn-->
+<!--                    fileDiv.remove();-->
+<!--                    selectedFiles.splice(selectedFiles.indexOf(file), 1); // Xóa tệp khỏi mảng đã chọn-->
+<!--                    updateFileInput(); // Cập nhật input file-->
+<!--                };-->
+
+<!--                fileDiv.appendChild(closeButton); // Thêm nút xóa vào div-->
+<!--                preview.appendChild(fileDiv); // Thêm div vào vùng xem trước-->
+
+<!--                // Thêm tệp vào mảng đã chọn-->
+<!--                selectedFiles.push(file);-->
+<!--            };-->
+
+<!--            reader.readAsDataURL(file); // Đọc tệp như một URL dữ liệu-->
+<!--        }-->
+<!--    }-->
+
+<!--    function updateFileInput() {-->
+<!--        const fileInput = document.getElementById('images');-->
+<!--        const dataTransfer = new DataTransfer(); // Tạo đối tượng DataTransfer để cập nhật tệp-->
+
+<!--        selectedFiles.forEach(file => {-->
+<!--            dataTransfer.items.add(file); // Thêm các tệp đã chọn vào DataTransfer-->
+<!--        });-->
+
+<!--        fileInput.files = dataTransfer.files; // Cập nhật input file với các tệp mới-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tải Lên Nhiều Ảnh</title>
+    <style>
+        .preview {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .preview div {
+            position: relative; /* Để định vị nút x */
+            margin-right: 10px; /* Khoảng cách giữa các ảnh */
+            margin-bottom: 10px; /* Khoảng cách giữa các ảnh */
+        }
+        .preview img {
+            width: 100px; /* Đặt kích thước ảnh hiển thị */
+            height: auto; /* Giữ tỷ lệ ảnh */
+        }
+        .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: transparent; /* Nền trong suốt */
+            color: red; /* Màu chữ */
+            border: none; /* Không viền */
+            font-size: 16px; /* Kích thước chữ */
+            cursor: pointer; /* Con trỏ khi di chuột */
+            padding: 0; /* Không có padding */
+            margin: 0; /* Không có margin */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tải Lên Nhiều Ảnh</h1>
+<form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <label for="images">Chọn các ảnh để tải lên:</label><br>
+    <input type="file" id="images" name="images" accept="image/*" multiple required onchange="previewImages()"/><br><br>
+    <button type="submit">Tải Lên</button>
+</form>
+
+<div class="preview" id="imagePreview"></div> <!-- Nơi hiển thị ảnh xem trước -->
+
+<script>
+    const selectedFiles = []; // Mảng để lưu trữ các tệp đã chọn
+
+    function previewImages() {
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = ''; // Xóa nội dung trước đó
+        selectedFiles.length = 0; // Xóa danh sách tệp đã chọn
+
+        const files = document.getElementById('images').files; // Lấy danh sách các tệp được chọn
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader(); // Tạo FileReader để đọc nội dung tệp
+
+            reader.onload = function(e) {
+                // Tạo phần tử div để chứa ảnh và nút x
+                const fileDiv = document.createElement('div');
+
+                // Tạo phần tử img và thêm vào vùng xem trước
+                const img = document.createElement('img');
+                img.src = e.target.result; // Gán nguồn ảnh từ FileReader
+                fileDiv.appendChild(img); // Thêm ảnh vào div
+
+                // Tạo nút x
+                const closeButton = document.createElement('button');
+                closeButton.textContent = 'X'; // Chỉnh sửa văn bản nút
+                closeButton.className = 'close';
+                closeButton.onclick = function() {
+                    // Xóa ảnh khỏi vùng xem trước và mảng tệp đã chọn
+                    fileDiv.remove();
+                    selectedFiles.splice(selectedFiles.indexOf(file), 1); // Xóa tệp khỏi mảng đã chọn
+                    updateFileInput(); // Cập nhật input file
+                };
+
+                fileDiv.appendChild(closeButton); // Thêm nút x vào div
+                preview.appendChild(fileDiv); // Thêm div vào vùng xem trước
+
+                // Thêm tệp vào mảng đã chọn
+                selectedFiles.push(file);
+            };
+
+            reader.readAsDataURL(file); // Đọc tệp như một URL dữ liệu
+        }
+    }
+
+    function updateFileInput() {
+        const fileInput = document.getElementById('images');
+        const dataTransfer = new DataTransfer(); // Tạo đối tượng DataTransfer để cập nhật tệp
+
+        selectedFiles.forEach(file => {
+            dataTransfer.items.add(file); // Thêm các tệp đã chọn vào DataTransfer
+        });
+
+        fileInput.files = dataTransfer.files; // Cập nhật input file với các tệp mới
+    }
+</script>
+
+</body>
+</html>

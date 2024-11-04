@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Cập Nhật Dịch Vụ</title>
+</head>
+<body>
+<div class="container mt-4">
+    <h3>Cập Nhật Dịch Vụ</h3>
+    <hr>
+    <form th:action="@{/service/update/{serviceId}(serviceId=${service.serviceId})}" method="post">
+        <div class="mb-3">
+            <label for="serviceName" class="form-label">Tên Dịch Vụ</label>
+            <input type="text" class="form-control" id="serviceName" name="serviceName" th:value="${service.serviceName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Mô Tả</label>
+            <textarea class="form-control" id="description" name="description" required th:text="${service.description}"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Giá (VND)</label>
+            <input type="number" class="form-control" id="price" name="price" th:value="${service.price}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <a th:href="@{/service/list}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Danh sách phòng</title>
+</head>
+<body>
+
+<div class="container">
+
+    <h3>Danh sách phòng</h3>
+    <hr>
+    <a th:href="@{/room/add}"
+       class="btn btn-primary btn-sm mb-3">
+        Thêm phòng
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID phòng</th>
+            <th>Ảnh </th>>
+            <th>Tên phòng</th>
+            <th>Mô tả</th>
+            <th>Nhóm phòng</th>
+            <th>Dịch vụ</th>
+            <th>Khác</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="room : ${roomList}">
+            <td th:text="${room.roomId}"></td>
+            <td><img th:src="@{${room.roomGroup.imageUrl}}" alt="${room.roomName}" height="60px"/></td>
+            <td th:text="${room.roomName}"></td>
+            <td th:text="${room.description}"></td>
+            <td th:text="${room.roomGroup.groupName}"></td>
+            <td>
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th>ID dịch vụ</th>
+                        <th>Tên dịch vụ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="service : ${room.services}">
+                        <td th:text="${service.serviceId}"></td>
+                        <td th:text="${service.serviceName}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <a th:href="@{'/room/update/' + ${room.roomId}}"
+                   class="btn btn-info btn-sm">
+                    Cập nhật
+                </a>
+                <a th:href="@{'/room/delete/' + ${room.roomId}}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if (!(confirm('Bạn có chắc chắn muốn xóa phòng này?'))) return false">
+                    Xóa
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}"
+       class="btn btn-dark btn-sm mb-3">
+        Quay về trang chủ
+    </a>
+</div>
+
+</body>
+</html>

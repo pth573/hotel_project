@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Trang chủ</title>
 </head>
 <body>
-
+<a th:href="@{/user/update-info}">Thông tin cá nhân</a>
+<a th:href="@{/login}">Đăng nhập</a>
+<a th:href="@{/register}">Đăng kí</a>
 </body>
 </html>

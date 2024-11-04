@@ -30,11 +30,41 @@ public class RoomGroup extends BaseEntity {
 
     @OneToMany(mappedBy = "roomGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RoomImage> images;
-
     private Long pricePerNight;
     private Long comboPrice2H;
     private Long extraHourPrice;
     private String description;
     private Integer standardOccupancy;
     private String imageUrl;
+
+
+    public void addImage(RoomImage image) {
+        images.add(image);
+        image.setRoomGroup(this);
+    }
+
+    public void removeImage(RoomImage image) {
+        images.remove(image);
+        image.setRoomGroup(null);
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "RoomGroup{" +
+                "roomGroupId=" + roomGroupId +
+                ", groupName='" + groupName + '\'' +
+                ", area=" + area +
+                ", bedType=" + bedType +
+                ", rooms=" + rooms +
+                ", images=" + images +
+                ", pricePerNight=" + pricePerNight +
+                ", comboPrice2H=" + comboPrice2H +
+                ", extraHourPrice=" + extraHourPrice +
+                ", description='" + description + '\'' +
+                ", standardOccupancy=" + standardOccupancy +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

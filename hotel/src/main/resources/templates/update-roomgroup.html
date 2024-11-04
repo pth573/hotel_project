@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cập nhật loại phòng</title>
+</head>
+<body>
+<h1>Cập nhật loại phòng</h1>
+<form th:action="@{/roomgroup/update}" th:object="${roomGroup}" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" th:field="*{roomGroupId}" />
+
+    <label for="groupName">Tên loại phòng:</label>
+    <input type="text" id="groupName" th:field="*{groupName}" required/>
+    <br/>
+
+    <!-- Area -->
+    <label for="area">Diện tích:</label>
+    <input type="number" id="area" th:field="*{area}" required/>
+    <br/>
+
+    <!-- Bed Type -->
+    <label for="bedType">Loại giường:</label>
+    <select id="bedType" th:field="*{bedType}">
+        <option th:each="bedType : ${T(com.project.hotel.model.enumType.BedType).values()}"
+                th:value="${bedType}" th:text="${bedType}">Loại giường</option>
+    </select>
+    <br/>
+
+    <label for="pricePerNight">Giá 1 đêm:</label>
+    <input type="number" id="pricePerNight" th:field="*{pricePerNight}" required/>
+    <br/>
+
+    <label for="comboPrice2H">Giá combo 2h:</label>
+    <input type="number" id="comboPrice2H" th:field="*{comboPrice2H}" required/>
+    <br/>
+
+    <label for="extraHourPrice">Giá giờ thêm:</label>
+    <input type="number" id="extraHourPrice" th:field="*{extraHourPrice}" required/>
+    <br/>
+
+    <label for="description">Mô tả:</label>
+    <textarea id="description" th:field="*{description}"></textarea>
+    <br/>
+
+    <label for="standardOccupancy">Số người tiêu chuẩn:</label>
+    <input type="number" id="standardOccupancy" th:field="*{standardOccupancy}" required/>
+    <br/>
+
+    <label for="imageFile">Tải ảnh chính:</label>
+    <input type="file" id="imageFile" name="file" />
+    <br/>
+
+    <label for="imageFiles">Các ảnh khác:</label>
+    <input type="file" id="imageFiles" name="files" multiple />
+    <br/>
+
+    <button type="submit">Cập nhật loại phòng</button>
+</form>
+<a href="/roomgroup/list">Quay lại</a>
+</body>
+</html>
