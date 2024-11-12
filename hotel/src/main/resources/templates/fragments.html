@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:fragment="header">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title th:text = "${title}"></title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="top-header-area" th:fragment="nav-header">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6">
+                <div class="top-header-content">
+                    <a href="#"><i class="icon_phone"></i> <span>0123 456 789</span></a>
+                    <a href="#"><i class="icon_mail"></i> <span>hotel@gmail.com</span></a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="top-header-content">
+                    <!-- Top Social Area -->
+                    <div class="top-social-area ml-auto" >
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a th:href="@{/login}" class="login" th:if = "${user == null}">
+                            <i class="fa fa-sign-in mr-1" aria-hidden="true"></i>
+                            <span>Đăng nhập</span>
+                        </a>
+                        <a th:href="@{/register}" class="login" th:if = "${user == null}">
+                            <i class="fa fa-user-plus mr-1" aria-hidden="true"></i>
+                            <span>Đăng kí</span>
+                        </a>
+                        <a th:href="@{/user/update-info}" class="login" th:if = "${user != null}">
+                            <i class="fa fa-user mr-1" aria-hidden="true"></i>
+                            <span>Trang cá nhân</span>
+                        </a>
+
+                        <a th:href="@{/logout}" class="login" th:if = "${user != null}">
+                            <i class="fa fa-sign-out mr-1" aria-hidden="true"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer th:fragment="footer" class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Project SE</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+<!-- Scroll to Top Button-->
+<a th:fragment="scroll" class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<div th:fragment="script">
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+</div>
+</body>
+</html>
