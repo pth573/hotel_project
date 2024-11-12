@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface RoomImageRepository extends JpaRepository<RoomImage, Long> {
     List<RoomImage> findRoomImageByRoomGroup(RoomGroup roomGroup);
+
 }

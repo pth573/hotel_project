@@ -13,7 +13,7 @@
     <form th:action="@{/service/add}" method="post">
         <div class="mb-3">
             <label for="serviceName" class="form-label">Tên dịch vụ</label>
-            <input type="text" class="form-control" id="serviceName" name="serviceName" required>
+            <input type="text" field="*{checkInDate}" class="form-control" id="serviceName" name="serviceName" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Mô tả</label>

@@ -53,6 +53,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public void deleteById(Long id) {
+        ///
         serviceRepository.deleteById(id);
     }
 
@@ -69,6 +70,11 @@ public class ServiceServiceImpl implements ServiceService {
             throw new EntityNotFoundException("Service with id " + serviceId + " not found");
 
         }
+    }
+
+    @Override
+    public List<Service> getTop5Services() {
+        return serviceRepository.findTop5ByOrderByServiceIdAsc();
     }
 
 

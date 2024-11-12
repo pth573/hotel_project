@@ -3,6 +3,7 @@ package com.project.hotel.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,5 +23,15 @@ public class Service extends BaseEntity {
     private double price;
 
     @ManyToMany(mappedBy = "services")
-    private Set<Room> rooms;
+    private List<Room> rooms;
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "serviceId=" + serviceId +
+                ", serviceName='" + serviceName + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

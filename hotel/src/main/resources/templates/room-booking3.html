@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Selegend Hotel</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="./img/core-img/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!--    <style>-->
+    <!--        table {-->
+    <!--            width: 100%;-->
+    <!--            border-collapse: collapse;-->
+    <!--        }-->
+    <!--        th, td {-->
+    <!--            padding: 10px;-->
+    <!--            text-align: center;-->
+    <!--            border: 1px solid #ddd;-->
+    <!--        }-->
+    <!--        select {-->
+    <!--            width: 100%;-->
+    <!--            padding: 5px;-->
+    <!--            margin: 0;-->
+    <!--        }-->
+    <!--    </style>-->
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
+
+<!-- Header Area Start -->
+<!--<header class="header-area">-->
+<!--    &lt;!&ndash; Search Form &ndash;&gt;-->
+<!--    <div class="search-form d-flex align-items-center">-->
+<!--        <div class="container">-->
+<!--            <form action="index.html" method="get">-->
+<!--                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Type your keyword ...">-->
+<!--                <button type="submit"><i class="icon_search"></i></button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Top Header Area Start &ndash;&gt;-->
+<!--    <div class="top-header-area">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+
+<!--                <div class="col-6">-->
+<!--                    <div class="top-header-content">-->
+<!--                        <a href="#"><i class="icon_phone"></i> <span>(123) 456-789-1230</span></a>-->
+<!--                        <a href="#"><i class="icon_mail"></i> <span>info.colorlib@gmail.com</span></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-6">-->
+<!--                    <div class="top-header-content">-->
+<!--                        &lt;!&ndash; Top Social Area &ndash;&gt;-->
+<!--                        <div class="top-social-area ml-auto">-->
+<!--                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
+<!--                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
+<!--                            <a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>-->
+<!--                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Top Header Area End &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Main Header Start &ndash;&gt;-->
+<!--    <div class="main-header-area">-->
+<!--        <div class="classy-nav-container breakpoint-off">-->
+<!--            <div class="container">-->
+<!--                &lt;!&ndash; Classy Menu &ndash;&gt;-->
+<!--                <nav class="classy-navbar justify-content-between" id="robertoNav">-->
+
+<!--                    &lt;!&ndash; Logo &ndash;&gt;-->
+<!--                    <a class="nav-brand" href="index.html"><img src="./img/core-img/logo.png" alt=""></a>-->
+
+<!--                    &lt;!&ndash; Navbar Toggler &ndash;&gt;-->
+<!--                    <div class="classy-navbar-toggler">-->
+<!--                        <span class="navbarToggler"><span></span><span></span><span></span></span>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Menu &ndash;&gt;-->
+<!--                    <div class="classy-menu">-->
+<!--                        &lt;!&ndash; Menu Close Button &ndash;&gt;-->
+<!--                        <div class="classycloseIcon">-->
+<!--                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Nav Start &ndash;&gt;-->
+<!--                        <div class="classynav">-->
+<!--                            <ul id="nav">-->
+<!--                                <li class="active"><a href="./index.html">Home</a></li>-->
+<!--                                <li><a href="./room.html">Rooms</a></li>-->
+<!--                                <li><a href="./about.html">About Us</a></li>-->
+<!--                                <li><a href="#">Pages</a>-->
+<!--                                    <ul class="dropdown">-->
+<!--                                        <li><a href="./index.html">- Home</a></li>-->
+<!--                                        <li><a href="./room.html">- Rooms</a></li>-->
+<!--                                        <li><a href="./single-room.html">- Single Rooms</a></li>-->
+<!--                                        <li><a href="./about.html">- About Us</a></li>-->
+<!--                                        <li><a href="./blog.html">- Blog</a></li>-->
+<!--                                        <li><a href="./single-blog.html">- Single Blog</a></li>-->
+<!--                                        <li><a href="./contact.html">- Contact</a></li>-->
+<!--                                        <li><a href="#">- Dropdown</a>-->
+<!--                                            <ul class="dropdown">-->
+<!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+<!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+<!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+<!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+<!--                                            </ul>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!--                                <li><a href="./blog.html">News</a></li>-->
+<!--                                <li><a href="./contact.html">Contact</a></li>-->
+<!--                            </ul>-->
+
+<!--                            &lt;!&ndash; Search &ndash;&gt;-->
+<!--                            <div class="search-btn ml-4">-->
+<!--                                <i class="fa fa-search" aria-hidden="true"></i>-->
+<!--                            </div>-->
+
+<!--                            &lt;!&ndash; Book Now &ndash;&gt;-->
+<!--                            <div class="book-now-btn ml-3 ml-lg-5">-->
+<!--                                <a href="#">Book Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Nav End &ndash;&gt;-->
+<!--                    </div>-->
+<!--                </nav>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<header class="header-area">
+    <!-- Search Form -->
+    <div class="search-form d-flex align-items-center">
+        <div class="container">
+            <form action="index.html" method="get">
+                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">
+                <button type="submit"><i class="icon_search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Top Header Area Start -->
+    <div class="top-header-area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-6">
+                    <div class="top-header-content">
+                        <a href="#"><i class="icon_phone"></i> <span>0123 456 789</span></a>
+                        <a href="#"><i class="icon_mail"></i> <span>hotel@gmail.com</span></a>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="top-header-content">
+                        <!-- Top Social Area -->
+                        <div class="top-social-area ml-auto">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Top Header Area End -->
+
+    <!-- Main Header Start -->
+    <div class="main-header-area">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="robertoNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="index.html"><img src="./img/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+                        <!-- Menu Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li class="active"><a href="./index.html">Trang chủ</a></li>
+                                <li><a href="./room.html">Phòng nghỉ</a></li>
+                                <li><a href="./about.html">Chúng tôi</a></li>
+                                <!--                                <li><a href="#">Pages</a>-->
+                                <!--                                    <ul class="dropdown">-->
+                                <!--                                        <li><a href="./index.html">- Trang chủ</a></li>-->
+                                <!--                                        <li><a href="./room.html">- Phòng nghỉ</a></li>-->
+                                <!--                                        <li><a href="./single-room.html">- Single Rooms</a></li>-->
+                                <!--                                        <li><a href="./about.html">- Về chúng tôi</a></li>-->
+                                <!--                                        <li><a href="./blog.html">- Blog</a></li>-->
+                                <!--                                        <li><a href="./single-blog.html">- Single Blog</a></li>-->
+                                <!--                                        <li><a href="./contact.html">- Liên hệ</a></li>-->
+                                <!--                                        <li><a href="#">- Dropdown</a>-->
+                                <!--                                            <ul class="dropdown">-->
+                                <!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+                                <!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+                                <!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+                                <!--                                                <li><a href="#">- Dropdown Item</a></li>-->
+                                <!--                                            </ul>-->
+                                <!--                                        </li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </li>-->
+                                <li><a href="./blog.html">Mới</a></li>
+                                <li><a href="./contact.html">Liên hệ</a></li>
+                            </ul>
+
+                            <!-- Search -->
+                            <div class="search-btn ml-4">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+
+                            <!-- Book Now -->
+                            <div class="book-now-btn ml-3 ml-lg-5">
+                                <a href="#">Đặt phòng ngay <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Header Area End -->
+
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/16.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center">
+                    <h2 class="page-title">Phòng của chúng tôi</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Phòng nghỉ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+
+<!-- Rooms Area Start -->
+<div class="roberto-rooms-area section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div th:each="roomGroup : ${roomGroups}" class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
+                    <!-- Room Thumbnail -->
+                    <div class="room-thumbnail">
+                        <img th:src="@{${roomGroup.imageUrl}}" alt="Room Image">
+                    </div>
+                    <!-- Room Content -->
+                    <div class="room-content">
+                        <h2 th:text="${roomGroup.groupName}"></h2>
+                        <h4 th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>
+                        <h4 th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>
+                        <div class="room-feature">
+                            <h6>Diện tích: <span th:text="${roomGroup.area}">30 ft</span></h6>
+                            <h6>Số ngđi tối đa: <span th:text="${roomGroup.maxOccupancy}"></span></h6>
+                            <h6>Giường: <span th:text="${roomGroup.getBedDescription()}"></span></h6>
+                            <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>
+                            <h6>
+                                <span th:if="${roomGroup.availableRoomCount > 0}" th:text="'Số phòng trống: ' + ${roomGroup.availableRoomCount}"></span>
+                            </h6>                            
+                        </div>
+                        <a th:href="@{'/roomgrouplist-available/' + ${roomGroup.id}}" class="btn view-detail-btn">
+                            Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Single Room Area -->
+                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">-->
+                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
+                <!--                    <div class="room-thumbnail">-->
+                <!--                        <img src="img/bg-img/43.jpg" alt="">-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
+                <!--                    <div class="room-content">-->
+                <!--                        <h2>Room View Sea</h2>-->
+                <!--                        <h4>400$ <span>/ Day</span></h4>-->
+                <!--                        <div class="room-feature">-->
+                <!--                            <h6>Size: <span>30 ft</span></h6>-->
+                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
+                <!--                            <h6>Bed: <span>King beds</span></h6>-->
+                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
+                <!--                        </div>-->
+                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
+                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="300ms">-->
+                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
+                <!--                    <div class="room-thumbnail">-->
+                <!--                        <img src="img/bg-img/44.jpg" alt="">-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
+                <!--                    <div class="room-content">-->
+                <!--                        <h2>Small Room</h2>-->
+                <!--                        <h4>400$ <span>/ Day</span></h4>-->
+                <!--                        <div class="room-feature">-->
+                <!--                            <h6>Size: <span>30 ft</span></h6>-->
+                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
+                <!--                            <h6>Bed: <span>King beds</span></h6>-->
+                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
+                <!--                        </div>-->
+                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
+                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="500ms">-->
+                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
+                <!--                    <div class="room-thumbnail">-->
+                <!--                        <img src="img/bg-img/45.jpg" alt="">-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
+                <!--                    <div class="room-content">-->
+                <!--                        <h2>Premium King Room</h2>-->
+                <!--                        <h4>400$ <span>/ Day</span></h4>-->
+                <!--                        <div class="room-feature">-->
+                <!--                            <h6>Size: <span>30 ft</span></h6>-->
+                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
+                <!--                            <h6>Bed: <span>King beds</span></h6>-->
+                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
+                <!--                        </div>-->
+                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
+                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="700ms">-->
+                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
+                <!--                    <div class="room-thumbnail">-->
+                <!--                        <img src="img/bg-img/46.jpg" alt="">-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
+                <!--                    <div class="room-content">-->
+                <!--                        <h2>Room Vip King</h2>-->
+                <!--                        <h4>400$ <span>/ Day</span></h4>-->
+                <!--                        <div class="room-feature">-->
+                <!--                            <h6>Size: <span>30 ft</span></h6>-->
+                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
+                <!--                            <h6>Bed: <span>King beds</span></h6>-->
+                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
+                <!--                        </div>-->
+                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
+                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="900ms">-->
+                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
+                <!--                    <div class="room-thumbnail">-->
+                <!--                        <img src="img/bg-img/47.jpg" alt="">-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
+                <!--                    <div class="room-content">-->
+                <!--                        <h2>Royal Room</h2>-->
+                <!--                        <h4>400$ <span>/ Day</span></h4>-->
+                <!--                        <div class="room-feature">-->
+                <!--                            <h6>Size: <span>30 ft</span></h6>-->
+                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
+                <!--                            <h6>Bed: <span>King beds</span></h6>-->
+                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
+                <!--                        </div>-->
+                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!-- Pagination -->
+                <nav class="roberto-pagination wow fadeInUp mb-100" data-wow-delay="1000ms">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Tiếp <i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <!-- Hotel Reservation Area -->
+                <div class="hotel-reservation--area mb-100">
+                    <!--                    <form action="#" method="post">-->
+                    <!--                        <div class="form-group mb-30">-->
+                    <!--                            <label for="checkInDate">Ngày</label>-->
+                    <!--                            <div class="input-daterange" id="datepicker">-->
+                    <!--                                <div class="row no-gutters">-->
+                    <!--                                    <div class="col-6">-->
+                    <!--                                        <input type="text" class="input-small form-control" id="checkInDate" name="checkInDate" placeholder="Nhận phòng">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="col-6">-->
+                    <!--                                        <input type="text" class="input-small form-control" name="checkOutDate" placeholder="Trả phòng">-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group mb-30">-->
+                    <!--                            <label for="guests">Số người</label>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-6">-->
+                    <!--                                    <select name="adults" id="guests" class="form-control">-->
+                    <!--                                        <option value="adults">Người lớn</option>-->
+                    <!--                                        <option value="01">01</option>-->
+                    <!--                                        <option value="02">02</option>-->
+                    <!--                                        <option value="03">03</option>-->
+                    <!--                                        <option value="04">04</option>-->
+                    <!--                                        <option value="05">05</option>-->
+                    <!--                                        <option value="06">06</option>-->
+                    <!--                                    </select>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="col-6">-->
+                    <!--                                    <select name="children" id="children" class="form-control">-->
+                    <!--                                        <option value="children">Trẻ em</option>-->
+                    <!--                                        <option value="01">01</option>-->
+                    <!--                                        <option value="02">02</option>-->
+                    <!--                                        <option value="03">03</option>-->
+                    <!--                                        <option value="04">04</option>-->
+                    <!--                                        <option value="05">05</option>-->
+                    <!--                                        <option value="06">06</option>-->
+                    <!--                                    </select>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group mb-50">-->
+                    <!--                            <div class="slider-range">-->
+                    <!--                                <div class="range-price">Khoảng giá: 0 - 1.500.000.000 vnđ</div>-->
+                    <!--                                <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Max Price: ">-->
+                    <!--                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>-->
+                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
+                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <button type="submit" class="btn roberto-btn w-100">Tìm phòng trống</button>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
+
+
+                    <!--                    <form th:action="@{/bookRoom}" method="post">-->
+
+                    <!--                        <div class="form-group mb-30">-->
+                    <!--                            <label for="checkInDate">Ngày</label>-->
+                    <!--                            <div class="input-daterange" id="datepicker">-->
+                    <!--                                <div class="row no-gutters">-->
+                    <!--                                    <div class="col-6">-->
+                    <!--                                        <input type="text" class="input-small form-control" id="checkInDate" name="checkInDate" placeholder="Nhận phòng">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="col-6">-->
+                    <!--                                        <input type="text" class="input-small form-control" name="checkOutDate" placeholder="Trả phòng">-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label for="checkInTime">Giờ nhận phòng</label>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-6">-->
+                    <!--                                    <select id="checkInTime" name="checkInTime">-->
+                    <!--                                        <option value="00:00">00:00</option>-->
+                    <!--                                        <option value="00:30">00:30</option>-->
+                    <!--                                        <option value="01:00">01:00</option>-->
+                    <!--                                        <option value="01:30">01:30</option>-->
+                    <!--                                        <option value="02:00">02:00</option>-->
+                    <!--                                        <option value="02:30">02:30</option>-->
+                    <!--                                        <option value="03:00">03:00</option>-->
+                    <!--                                        <option value="03:30">03:30</option>-->
+                    <!--                                        <option value="04:00">04:00</option>-->
+                    <!--                                        <option value="04:30">04:30</option>-->
+                    <!--                                        <option value="05:00">05:00</option>-->
+                    <!--                                        <option value="05:30">05:30</option>-->
+                    <!--                                        <option value="06:00">06:00</option>-->
+                    <!--                                        <option value="06:30">06:30</option>-->
+                    <!--                                        <option value="07:00">07:00</option>-->
+                    <!--                                        <option value="07:30">07:30</option>-->
+                    <!--                                        <option value="08:00">08:00</option>-->
+                    <!--                                        <option value="08:30">08:30</option>-->
+                    <!--                                        <option value="09:00">09:00</option>-->
+                    <!--                                        <option value="09:30">09:30</option>-->
+                    <!--                                        <option value="10:00">10:00</option>-->
+                    <!--                                        <option value="10:30">10:30</option>-->
+                    <!--                                        <option value="11:00">11:00</option>-->
+                    <!--                                        <option value="11:30">11:30</option>-->
+                    <!--                                        <option value="12:00">12:00</option>-->
+                    <!--                                        <option value="12:30">12:30</option>-->
+                    <!--                                        <option value="13:00">13:00</option>-->
+                    <!--                                        <option value="13:30">13:30</option>-->
+                    <!--                                        <option value="14:00">14:00</option>-->
+                    <!--                                        <option value="14:30">14:30</option>-->
+                    <!--                                        <option value="15:00">15:00</option>-->
+                    <!--                                        <option value="15:30">15:30</option>-->
+                    <!--                                        <option value="16:00">16:00</option>-->
+                    <!--                                        <option value="16:30">16:30</option>-->
+                    <!--                                        <option value="17:00">17:00</option>-->
+                    <!--                                        <option value="17:30">17:30</option>-->
+                    <!--                                        <option value="18:00">18:00</option>-->
+                    <!--                                        <option value="18:30">18:30</option>-->
+                    <!--                                        <option value="19:00">19:00</option>-->
+                    <!--                                        <option value="19:30">19:30</option>-->
+                    <!--                                        <option value="20:00">20:00</option>-->
+                    <!--                                        <option value="20:30">20:30</option>-->
+                    <!--                                        <option value="21:00">21:00</option>-->
+                    <!--                                        <option value="21:30">21:30</option>-->
+                    <!--                                        <option value="22:00">22:00</option>-->
+                    <!--                                        <option value="22:30">22:30</option>-->
+                    <!--                                        <option value="23:00">23:00</option>-->
+                    <!--                                        <option value="23:30">23:30</option>-->
+                    <!--                                    </select>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label for="checkOutTime">Giờ trả phòng</label>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-6">-->
+                    <!--                                    <select id="checkOutTime" name="checkOutTime">-->
+                    <!--                                        <option value="00:00">00:00</option>-->
+                    <!--                                        <option value="00:30">00:30</option>-->
+                    <!--                                        <option value="01:00">01:00</option>-->
+                    <!--                                        <option value="01:30">01:30</option>-->
+                    <!--                                        <option value="02:00">02:00</option>-->
+                    <!--                                        <option value="02:30">02:30</option>-->
+                    <!--                                        <option value="03:00">03:00</option>-->
+                    <!--                                        <option value="03:30">03:30</option>-->
+                    <!--                                        <option value="04:00">04:00</option>-->
+                    <!--                                        <option value="04:30">04:30</option>-->
+                    <!--                                        <option value="05:00">05:00</option>-->
+                    <!--                                        <option value="05:30">05:30</option>-->
+                    <!--                                        <option value="06:00">06:00</option>-->
+                    <!--                                        <option value="06:30">06:30</option>-->
+                    <!--                                        <option value="07:00">07:00</option>-->
+                    <!--                                        <option value="07:30">07:30</option>-->
+                    <!--                                        <option value="08:00">08:00</option>-->
+                    <!--                                        <option value="08:30">08:30</option>-->
+                    <!--                                        <option value="09:00">09:00</option>-->
+                    <!--                                        <option value="09:30">09:30</option>-->
+                    <!--                                        <option value="10:00">10:00</option>-->
+                    <!--                                        <option value="10:30">10:30</option>-->
+                    <!--                                        <option value="11:00">11:00</option>-->
+                    <!--                                        <option value="11:30">11:30</option>-->
+                    <!--                                        <option value="12:00">12:00</option>-->
+                    <!--                                        <option value="12:30">12:30</option>-->
+                    <!--                                        <option value="13:00">13:00</option>-->
+                    <!--                                        <option value="13:30">13:30</option>-->
+                    <!--                                        <option value="14:00">14:00</option>-->
+                    <!--                                        <option value="14:30">14:30</option>-->
+                    <!--                                        <option value="15:00">15:00</option>-->
+                    <!--                                        <option value="15:30">15:30</option>-->
+                    <!--                                        <option value="16:00">16:00</option>-->
+                    <!--                                        <option value="16:30">16:30</option>-->
+                    <!--                                        <option value="17:00">17:00</option>-->
+                    <!--                                        <option value="17:30">17:30</option>-->
+                    <!--                                        <option value="18:00">18:00</option>-->
+                    <!--                                        <option value="18:30">18:30</option>-->
+                    <!--                                        <option value="19:00">19:00</option>-->
+                    <!--                                        <option value="19:30">19:30</option>-->
+                    <!--                                        <option value="20:00">20:00</option>-->
+                    <!--                                        <option value="20:30">20:30</option>-->
+                    <!--                                        <option value="21:00">21:00</option>-->
+                    <!--                                        <option value="21:30">21:30</option>-->
+                    <!--                                        <option value="22:00">22:00</option>-->
+                    <!--                                        <option value="22:30">22:30</option>-->
+                    <!--                                        <option value="23:00">23:00</option>-->
+                    <!--                                        <option value="23:30">23:30</option>-->
+                    <!--                                    </select>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+                    <!--                        <div class="form-group mb-30">-->
+                    <!--                            <label for="guests">Số người</label>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-6">-->
+                    <!--                                    <select name="adults" id="guests" class="form-control">-->
+                    <!--                                        <option value="adults">Người lớn</option>-->
+                    <!--                                        <option value="01">01</option>-->
+                    <!--                                        <option value="02">02</option>-->
+                    <!--                                        <option value="03">03</option>-->
+                    <!--                                        <option value="04">04</option>-->
+                    <!--                                        <option value="05">05</option>-->
+                    <!--                                        <option value="06">06</option>-->
+                    <!--                                    </select>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="col-6">-->
+                    <!--                                    <select name="children" id="children" class="form-control">-->
+                    <!--                                        <option value="children">Trẻ em</option>-->
+                    <!--                                        <option value="01">01</option>-->
+                    <!--                                        <option value="02">02</option>-->
+                    <!--                                        <option value="03">03</option>-->
+                    <!--                                        <option value="04">04</option>-->
+                    <!--                                        <option value="05">05</option>-->
+                    <!--                                        <option value="06">06</option>-->
+                    <!--                                    </select>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group mb-50">-->
+                    <!--                            <div class="slider-range">-->
+                    <!--                                <div class="range-price">Khoảng giá: 0 - 1.500.000.000 vnđ</div>-->
+                    <!--                                <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Max Price: ">-->
+                    <!--                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>-->
+                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
+                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <button type="submit" class="btn roberto-btn w-100">Tìm phòng trống</button>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
+
+                    <form th:action="@{/bookRoom}" th:object="${bookingRequest}" method="post">
+
+                        <label for="checkInDate">Ngày nhận phòng:</label>
+                        <input type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>
+
+                        <label for="checkOutDate">Ngày trả phòng:</label>
+                        <input type="date" id="checkOutDate" th:field="*{checkOutDate}" ><br><br>
+
+                        <label for="checkInTime">Giờ nhận phòng:</label>
+                        <input type="time" id="checkInTime" th:field="*{checkInTime}" ><br><br>
+
+                        <label for="checkOutTime">Giờ trả phòng:</label>
+                        <input type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>
+
+                        <label for="adults">Số người lớn:</label>
+                        <input type="number" id="adults" th:field="*{adults}" ><br><br>
+
+                        <label for="children">Số trẻ em:</label>
+                        <input type="number" id="children" th:field="*{children}" ><br><br>
+
+                        <button type="submit">Đặt phòng</button>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Rooms Area End -->
+
+<!-- Call To Action Area Start -->
+<section class="roberto-cta-area">
+    <div class="container">
+        <div class="cta-content bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/1.jpg);">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="cta-text mb-50">
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call To Action Area End -->
+
+<!-- Partner Area Start -->
+<div class="partner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single Partner Logo -->
+                    <a href="#" class="partner-logo"><img src="img/core-img/p1.png" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a href="#" class="partner-logo"><img src="img/core-img/p2.png" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a href="#" class="partner-logo"><img src="img/core-img/p3.png" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a href="#" class="partner-logo"><img src="img/core-img/p4.png" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a href="#" class="partner-logo"><img src="img/core-img/p5.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partner Area End -->
+
+
+
+
+<!-- Footer Area Start -->
+<footer class="footer-area section-padding-80-0">
+    <!-- Main Footer Area -->
+    <div class="main-footer-area">
+        <div class="container">
+            <div class="row align-items-baseline justify-content-between">
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-80">
+                        <!-- Footer Logo -->
+                        <a href="#" class="footer-logo"><img src="img/core-img/logo2.png" alt=""></a>
+
+                        <h4>0123 456 789</h4>
+                        <span>holel@gmail.com</span>
+                        <span>Trung Tâm Thành Phố Thái Bình</span>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <!--                <div class="col-12 col-sm-6 col-lg-3">-->
+                <!--                    <div class="single-footer-widget mb-80">-->
+                <!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
+                <!--                        <h5 class="widget-title">Bài viết của chúng tôi</h5>-->
+
+                <!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
+                <!--                        <div class="latest-blog-area">-->
+                <!--                            <a href="#" class="post-title">Freelance Design Tricks How</a>-->
+                <!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
+                <!--                        </div>-->
+
+                <!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
+                <!--                        <div class="latest-blog-area">-->
+                <!--                            <a href="#" class="post-title">Free Advertising For Your Online</a>-->
+                <!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-4 col-lg-2">
+                    <div class="single-footer-widget mb-80">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Liên kết</h5>
+
+                        <!-- Footer Nav -->
+                        <ul class="footer-nav">
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Về chúng tôi</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Phòng nghỉ</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Nghề nghiệp</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-8 col-lg-4">
+                    <div class="single-footer-widget mb-80">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Đăng kí email</h5>
+                        <span>Đăng kí để nhận thông tin mới nhất</span>
+
+                        <!-- Newsletter Form -->
+                        <form action="index.html" class="nl-form">
+                            <input type="email" class="form-control" placeholder="Enter your email...">
+                            <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copywrite Area -->
+    <div class="container">
+        <div class="copywrite-content">
+            <div class="row align-items-center">
+                <!--                <div class="col-12 col-md-8">-->
+                <!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
+                <!--                    <div class="copywrite-text">-->
+                <!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+                <!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+                <!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="col-12 col-md-4">
+                    <!-- Social Info -->
+                    <div class="social-info">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--&lt;!&ndash; Footer Area Start &ndash;&gt;-->
+<!--<footer class="footer-area section-padding-80-0">-->
+<!--    &lt;!&ndash; Main Footer Area &ndash;&gt;-->
+<!--    <div class="main-footer-area">-->
+<!--        <div class="container">-->
+<!--            <div class="row align-items-baseline justify-content-between">-->
+<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
+<!--                <div class="col-12 col-sm-6 col-lg-3">-->
+<!--                    <div class="single-footer-widget mb-80">-->
+<!--                        &lt;!&ndash; Footer Logo &ndash;&gt;-->
+<!--                        <a href="#" class="footer-logo"><img src="img/core-img/logo2.png" alt=""></a>-->
+
+<!--                        <h4>+12 345-678-9999</h4>-->
+<!--                        <span>Info.colorlib@gmail.com</span>-->
+<!--                        <span>856 Cordia Extension Apt. 356, Lake Deangeloburgh, South Africa</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
+<!--                <div class="col-12 col-sm-6 col-lg-3">-->
+<!--                    <div class="single-footer-widget mb-80">-->
+<!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
+<!--                        <h5 class="widget-title">Our Blog</h5>-->
+
+<!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
+<!--                        <div class="latest-blog-area">-->
+<!--                            <a href="#" class="post-title">Freelance Design Tricks How</a>-->
+<!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
+<!--                        <div class="latest-blog-area">-->
+<!--                            <a href="#" class="post-title">Free Advertising For Your Online</a>-->
+<!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
+<!--                <div class="col-12 col-sm-4 col-lg-2">-->
+<!--                    <div class="single-footer-widget mb-80">-->
+<!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
+<!--                        <h5 class="widget-title">Links</h5>-->
+
+<!--                        &lt;!&ndash; Footer Nav &ndash;&gt;-->
+<!--                        <ul class="footer-nav">-->
+<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> About Us</a></li>-->
+<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Our Room</a></li>-->
+<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Career</a></li>-->
+<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> FAQs</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
+<!--                <div class="col-12 col-sm-8 col-lg-4">-->
+<!--                    <div class="single-footer-widget mb-80">-->
+<!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
+<!--                        <h5 class="widget-title">Subscribe Newsletter</h5>-->
+<!--                        <span>Subscribe our newsletter gor get notification about new updates.</span>-->
+
+<!--                        &lt;!&ndash; Newsletter Form &ndash;&gt;-->
+<!--                        <form action="index.html" class="nl-form">-->
+<!--                            <input type="email" class="form-control" placeholder="Enter your email...">-->
+<!--                            <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Copywrite Area &ndash;&gt;-->
+<!--    <div class="container">-->
+<!--        <div class="copywrite-content">-->
+<!--            <div class="row align-items-center">-->
+<!--                <div class="col-12 col-md-8">-->
+<!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
+<!--                    <div class="copywrite-text">-->
+<!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+<!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-12 col-md-4">-->
+<!--                    &lt;!&ndash; Social Info &ndash;&gt;-->
+<!--                    <div class="social-info">-->
+<!--                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<!-- jQuery 2.2.4 -->
+<script src="js/jquery.min.js"></script>
+<!-- Popper -->
+<script src="js/popper.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- All Plugins -->
+<script src="js/roberto.bundle.js"></script>
+<!-- Active -->
+<script src="js/default-assets/active.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+</body>
+
+</html>

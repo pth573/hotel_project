@@ -28,8 +28,13 @@ public class RoomImageServiceImpl implements RoomImageService {
     @Override
     public void deleteByRoomGroup(RoomGroup roomGroup) {
         List<RoomImage> images = roomImageRepository.findRoomImageByRoomGroup(roomGroup);
-            for (RoomImage image : images) {
+        for (RoomImage image : images) {
             roomImageRepository.delete(image);
         }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        roomImageRepository.deleteById(id);
     }
 }

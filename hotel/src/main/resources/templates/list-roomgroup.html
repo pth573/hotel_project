@@ -102,7 +102,7 @@
             <td th:text="${roomGroup.roomGroupId}"></td>
             <td th:text="${roomGroup.groupName}"></td>
             <td th:text="${roomGroup.area}"></td>
-            <td th:text="${roomGroup.bedType}"></td>
+<!--            <td th:text="${roomGroup.bedType}"></td>-->
             <td th:text="${#numbers.formatInteger(roomGroup.pricePerNight, 0)}"></td>
             <td th:text="${#numbers.formatInteger(roomGroup.comboPrice2H, 0)}"></td>
             <td th:text="${#numbers.formatInteger(roomGroup.extraHourPrice, 0)}"></td>
@@ -125,6 +125,11 @@
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/rooms/manager}"
+       class="btn btn-dark btn-sm">
+        Quay lại
+    </a>
+
     <a th:href="@{/}"
        class="btn btn-dark btn-sm">
         Quay về trang chủ

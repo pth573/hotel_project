@@ -1,6 +1,9 @@
 package com.project.hotel.controller;
+import com.project.hotel.model.entity.Bed;
+import com.project.hotel.model.entity.Room;
 import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.model.entity.RoomImage;
+import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +36,9 @@ public class RoomGroupController {
     private RoomImageService roomImageService;
 
     @Autowired
+    private BedService bedService;
+
+    @Autowired
     public RoomGroupController(RoomGroupService roomGroupService, RoomService roomService, FilesStorageService storageService, RoomImageService roomImageService) {
         this.roomGroupService = roomGroupService;
         this.roomService = roomService;
@@ -46,25 +53,92 @@ public class RoomGroupController {
         return "list-roomgroup";
     }
 
-    @GetMapping("/roomgroup/add")
-    public String showRoomGroupForm(Model model) {
-        model.addAttribute("roomGroup", new RoomGroup());
-        return "add-roomgroup";
-    }
-
-    @GetMapping("roomgroup/update/{id}")
+    @GetMapping("/roomgroup/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         RoomGroup roomGroup = roomGroupService.findById(id);
+        System.out.println("1");
+        System.out.println(roomGroup);
         model.addAttribute("roomGroup", roomGroup);
         return "update-roomgroup";
     }
 
-    @PostMapping("roomgroup/update")
-    public String updateRoomGroup(@ModelAttribute RoomGroup roomGroup) {
-        roomGroupService.save(roomGroup);
+    // chu y
+    @PostMapping("/roomgroup/update/{id}")
+    public String updateRoomGroup(@PathVariable("id") Long id, @RequestParam("file") MultipartFile mainImage,
+                                  @RequestParam("files") MultipartFile[] fileImgList,
+                                  @ModelAttribute RoomGroup roomGroup) {
+
+        System.out.println(roomGroup);
+        System.out.println("Hi");
+
+        RoomGroup theRoomGroupFromDB = roomGroupService.findById(id);
+        List<RoomImage> images = theRoomGroupFromDB.getImages();
+        List<RoomImage> imagesToRemove = new ArrayList<>(images);
+        for (RoomImage image : imagesToRemove) {
+            theRoomGroupFromDB.getImages().remove(image);
+            roomImageService.save(image);
+        }
+
+        try {
+            try {
+                storageService.save(mainImage);
+                String mainImageName = mainImage.getOriginalFilename();
+                String mainImageUrl = MvcUriComponentsBuilder
+                        .fromMethodName(RoomGroupController.class, "getRoomGroup", mainImageName)
+                        .build().toString();
+                theRoomGroupFromDB.setImageUrl(mainImageUrl);
+            } catch (Exception e) {
+                String fileName = mainImage.getOriginalFilename();
+                String url = MvcUriComponentsBuilder
+                        .fromMethodName(RoomGroupController.class, "getRoomGroup", fileName)
+                        .build().toString();
+                theRoomGroupFromDB.setImageUrl(url);
+            }
+            List<RoomImage> roomImageList = new ArrayList<>();
+            for (MultipartFile file : fileImgList) {
+                try {
+                    storageService.save(file);
+                    String additionalImageName = file.getOriginalFilename();
+                    String additionalImageUrl = MvcUriComponentsBuilder
+                            .fromMethodName(RoomGroupController.class, "getRoomGroup", additionalImageName)
+                            .build().toString();
+                    RoomImage roomImage = new RoomImage();
+                    theRoomGroupFromDB.setImageUrl(additionalImageUrl);
+                    roomImage.setRoomGroup(theRoomGroupFromDB);
+                    roomImageService.save(roomImage);
+                    theRoomGroupFromDB.addImg(roomImage);
+
+                } catch (Exception e) {
+                    String fileName = file.getOriginalFilename();
+                    String additionalImageUrl = MvcUriComponentsBuilder
+                            .fromMethodName(RoomGroupController.class, "getRoomGroup", fileName)
+                            .build().toString();
+                    RoomImage roomImage = new RoomImage();
+                    roomImage.setImageUrl(additionalImageUrl);
+                    roomImage.setRoomGroup(theRoomGroupFromDB);
+                    roomImageService.save(roomImage);
+                    theRoomGroupFromDB.addImg(roomImage);
+                }
+            }
+            theRoomGroupFromDB.setGroupName(roomGroup.getGroupName());
+            theRoomGroupFromDB.setArea(roomGroup.getArea());
+            theRoomGroupFromDB.setDescription(roomGroup.getDescription());
+//            theRoomGroupFromDB.setBedType(roomGroup.getBedType());
+            theRoomGroupFromDB.setExtraHourPrice(roomGroup.getExtraHourPrice());
+            theRoomGroupFromDB.setComboPrice2H(roomGroup.getComboPrice2H());
+            theRoomGroupFromDB.setPricePerNight(roomGroup.getPricePerNight());
+            theRoomGroupFromDB.setStandardOccupancy(roomGroup.getStandardOccupancy());
+            roomGroupService.save(theRoomGroupFromDB);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/roomgroup/list";
     }
-    @GetMapping("roomgroup/delete/{id}")
+
+
+
+    @GetMapping("/roomgroup/delete/{id}")
     public String deleteRoomGroup(@PathVariable("id") Long id) {
         RoomGroup roomGroup = roomGroupService.findById(id);
         roomImageService.deleteByRoomGroup(roomGroup);
@@ -79,11 +153,32 @@ public class RoomGroupController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+    @GetMapping("/roomgroup/add")
+    public String showRoomGroupForm(Model model) {
+        RoomGroup roomGroup = new RoomGroup();
+        List<Bed> bedList = new ArrayList<>();
+        BedType[] bedTypes = BedType.values();
+        for (BedType bedType : bedTypes) {
+            bedList.add(new Bed(bedType, 0));
+        }
+        roomGroup.setBeds(bedList);
+        model.addAttribute("roomGroup", roomGroup);
+        model.addAttribute("beds", bedList);  // Thêm danh sách giường vào model để sử dụ
+        return "add-roomgroup";
+    }
+
     @PostMapping("/roomgroup/add")
     public String addRoomGroup(Model model,
                                @RequestParam("file") MultipartFile mainImage,
                                @RequestParam("files") MultipartFile[] fileImgList,
                                @ModelAttribute RoomGroup roomGroup) {
+        List<Bed> bedList = roomGroup.getBeds();
+        for (Bed bed : bedList) {
+            System.out.println(bed);
+            bed.addRoomGroup(roomGroup);
+            bedService.save(bed);
+        }
+        roomGroup.setBeds(bedList);
         String message = "";
         try {
             try{
@@ -102,7 +197,7 @@ public class RoomGroupController {
                 roomGroup.setImageUrl(url);
             }
             roomGroupService.save(roomGroup);
-            Set<RoomImage> roomImageSet = new HashSet<>();
+            List<RoomImage> roomImageList = new ArrayList<>();
             for (MultipartFile file : fileImgList) {
                 try{
                     storageService.save(file);
@@ -115,9 +210,8 @@ public class RoomGroupController {
                     roomImage.setRoomGroup(roomGroup);
                     System.out.println(roomImage);
                     roomImageService.save(roomImage);
-                    roomImageSet.add(roomImage);
+                    roomImageList.add(roomImage);
                 }catch (Exception e){
-                    System.out.println("9");
                     String fileName = file.getOriginalFilename();;
                     String additionalImageUrl = MvcUriComponentsBuilder
                             .fromMethodName(RoomGroupController.class, "getRoomGroup", fileName)
@@ -127,18 +221,17 @@ public class RoomGroupController {
                     roomImage.setRoomGroup(roomGroup);
                     System.out.println(roomImage);
                     roomImageService.save(roomImage);
-                    roomImageSet.add(roomImage);
+                    roomImageList.add(roomImage);
                 }
             }
             roomGroupService.save(roomGroup);
             message = "Đã tải lên nhóm phòng thành công: " + roomGroup.getGroupName();
             model.addAttribute("message", message);
         } catch (Exception e) {
-            System.out.println("11");
             e.printStackTrace();
             model.addAttribute("message", "Không thể tải lên nhóm phòng do: " + e.getMessage());
         }
-        return "redirect:/roomgroups";
+        return "redirect:/roomgroup/list";
     }
 
 

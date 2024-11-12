@@ -30,9 +30,14 @@ public class AppConfig {
                                 .requestMatchers("/**").permitAll()
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/room/**").permitAll()
+                                .requestMatchers("/bookRoom/**").permitAll()
+                                .requestMatchers("/room-booking").permitAll()
+                                .requestMatchers("/bookRoom").permitAll()
+                                .requestMatchers("/room/update/**").permitAll()
                                 .requestMatchers("/rooms/manager").permitAll()
                                 .requestMatchers("/roomgroup/list").permitAll()
                                 .requestMatchers("/roomgroup/**").permitAll()
+                                .requestMatchers("/roomgroup/update/**").permitAll()
                                 .requestMatchers("/service/list").permitAll()
                                 .requestMatchers("/service/**").permitAll()
                                 .requestMatchers("/delete/**").permitAll()
@@ -53,8 +58,10 @@ public class AppConfig {
                 )
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")
+                )
+                .csrf(csrf ->
+                        csrf.ignoringRequestMatchers("/api/**")  // Không bảo vệ CSRF đối với các yêu cầu API
                 );
         return http.build();
     }
 }
-

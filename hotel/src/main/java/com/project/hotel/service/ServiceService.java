@@ -11,4 +11,5 @@ public interface ServiceService {
     List<Service> findAll();
     void deleteById(Long id);
     void updateService(Long serviceId, Service updatedService);
+    List<Service> getTop5Services();
 }

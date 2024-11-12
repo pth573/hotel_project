@@ -29,6 +29,15 @@
         <span th:text="${service.serviceName}">Tên dịch vụ</span>
         <br/>
     </div>
+    <a th:href="@{/room/list}"
+       class="btn btn-dark btn-sm">
+        Hủy
+    </a>
+    <a th:href="@{/}"
+       class="btn btn-dark btn-sm mb-3">
+        Quay về trang chủ
+    </a>
+
 
     <button type="submit">Lưu</button>
 </form>

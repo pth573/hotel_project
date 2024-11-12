@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,6 +29,10 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
+
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private Invoice invoice;
 
@@ -35,5 +40,5 @@ public class Booking extends BaseEntity {
     private BookingStatus status;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Review> reviews;
+    private List<Review> reviews;
 }

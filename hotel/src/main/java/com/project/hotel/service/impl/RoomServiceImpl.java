@@ -1,5 +1,6 @@
 package com.project.hotel.service.impl;
 
+import com.project.hotel.model.entity.BookingRequest;
 import com.project.hotel.model.entity.Room;
 import com.project.hotel.repository.RoomRepository;
 import com.project.hotel.repository.ServiceRepository;
@@ -54,6 +55,14 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void deleteById(Long id) {
         roomRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Room> findRoomAvailable(BookingRequest bookingRequest) {
+        String checkInDateTime = bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime();
+        String checkOutDateTime = bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime();
+
+        return roomRepository.findRoomAvailable(checkInDateTime, checkOutDateTime);
     }
 }
 

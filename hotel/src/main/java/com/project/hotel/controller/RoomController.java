@@ -1,6 +1,8 @@
 package com.project.hotel.controller;
 
+import com.project.hotel.service.RoomGroupService;
 import com.project.hotel.service.RoomService;
+import com.project.hotel.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.project.hotel.model.entity.Room;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -24,10 +27,10 @@ public class RoomController {
     private RoomService roomService;
 
     @Autowired
-    private RoomGroupRepository roomGroupRepository;
+    private RoomGroupService roomGroupService;
 
     @Autowired
-    private ServiceRepository serviceRepository;
+    private ServiceService serviceService;
 
     @GetMapping("/rooms/manager")
     public String manageRoom() {
@@ -39,6 +42,11 @@ public class RoomController {
         List<Room> roomList = roomService.findAll();
         for (Room room : roomList) {
             System.out.println(room);
+            System.out.println("A: " + room.getRoomGroup().getGroupName());
+            System.out.println("B: " + room.getServices().size());
+            for (Service service : room.getServices()) {
+                System.out.println(service.getServiceName());
+            }
         }
         model.addAttribute("roomList", roomList);
         return "list-room";
@@ -48,8 +56,8 @@ public class RoomController {
     public String showUpdateForm(@PathVariable Long roomId, Model model) {
         Room room = roomService.findById(roomId);
         model.addAttribute("room", room);
-        List<RoomGroup> roomGroups = roomGroupRepository.findAll();
-        List<Service> services = serviceRepository.findAll();
+        List<RoomGroup> roomGroups = roomGroupService.findAll();
+        List<Service> services = serviceService.findAll();
         model.addAttribute("room", room);
         model.addAttribute("roomGroups", roomGroups);
         model.addAttribute("services", services);
@@ -71,8 +79,8 @@ public class RoomController {
     @GetMapping("/room/add")
     public String showRoomForm(Model model) {
         Room room = new Room();
-        List<RoomGroup> roomGroups = roomGroupRepository.findAll();
-        List<Service> services = serviceRepository.findAll();
+        List<RoomGroup> roomGroups = roomGroupService.findAll();
+        List<Service> services = serviceService.findAll();
         model.addAttribute("room", room);
         model.addAttribute("roomGroups", roomGroups);
         model.addAttribute("services", services);

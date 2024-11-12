@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -31,30 +32,68 @@ public class UserController {
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
+//    @GetMapping("/room")
+//    public String roomHTML() {
+//        return "room";
+//    }
+//
+//    @GetMapping("/single-room")
+//    public String roomSingleHTML() {
+//        return "single-room";
+//    }
+//
+//    @GetMapping("/contact")
+//    public String contactHTML() {
+//        return "contact";
+//    }
+//
+//    @GetMapping("/blog")
+//    public String blogHTML() {
+//        return "blog";
+//    }
+//
+//    @GetMapping("/single-blog")
+//    public String singleBlogHTML() {
+//        return "single-blog";
+//    }
+//
+//    @GetMapping("/about")
+//    public String aboutHTML() {
+//        return "about";
+//    }
+//
+//
+//    @GetMapping("/admin")
+//    public String showAdminPage() {
+//        return "index2";
+//    }
+//
+//
+//    @GetMapping("/login")
+//    public String showMyLoginPage() {
+//        return "login";
+//    }
+//
+//    @GetMapping("/")
+//    public String showHome(Model theModel, Principal principal) {
+//        List<RoomGroup> roomGroups =
+//
+//        return "index";
+////        String email = principal.getName();
+////        System.out.println(email);
+////        User user = userService.findByEmail(email);
+////        if(user.getRole().equals(Role.USER)) {
+////            return "index";
+////        }
+////        else {
+////            return "admin-page";
+////        }
+//    }
 
-
-    @GetMapping("/login")
-    public String showMyLoginPage() {
-        return "login";
-    }
-
-    @GetMapping("/")
-    public String showHome(Model theModel, Principal principal) {
-        String email = principal.getName();
-        System.out.println(email);
-        User user = userService.findByEmail(email);
-        if(user.getRole().equals(Role.USER)) {
-            return "index";
-        }
-        else {
-            return "admin-page";
-        }
-    }
-
-    @GetMapping("/access-denied")
-    public String showAccessDenied() {
-        return "access-denied";
-    }
+//    @GetMapping("/access-denied")
+//    public String showAccessDenied() {
+//        return "access-denied";
+//    }
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
