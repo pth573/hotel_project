@@ -1,6 +1,5 @@
 package com.project.hotel.controller;
 import com.project.hotel.model.entity.Bed;
-import com.project.hotel.model.entity.Room;
 import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.model.entity.RoomImage;
 import com.project.hotel.model.enumType.BedType;
@@ -16,9 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class RoomGroupController {
@@ -46,14 +43,14 @@ public class RoomGroupController {
         this.roomImageService = roomImageService;
     }
 
-    @GetMapping("/roomgroup/list")
+    @GetMapping("/room-group/list")
     public String getRoomGroupList(Model model) {
         List<RoomGroup> roomGroupList = roomGroupService.findAll();
         model.addAttribute("roomGroupList", roomGroupList);
         return "list-roomgroup";
     }
 
-    @GetMapping("/roomgroup/update/{id}")
+    @GetMapping("/room-group/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         RoomGroup roomGroup = roomGroupService.findById(id);
         System.out.println("1");
@@ -63,7 +60,7 @@ public class RoomGroupController {
     }
 
     // chu y
-    @PostMapping("/roomgroup/update/{id}")
+    @PostMapping("/room-group/update/{id}")
     public String updateRoomGroup(@PathVariable("id") Long id, @RequestParam("file") MultipartFile mainImage,
                                   @RequestParam("files") MultipartFile[] fileImgList,
                                   @ModelAttribute RoomGroup roomGroup) {
@@ -138,7 +135,7 @@ public class RoomGroupController {
 
 
 
-    @GetMapping("/roomgroup/delete/{id}")
+    @GetMapping("/room-group/delete/{id}")
     public String deleteRoomGroup(@PathVariable("id") Long id) {
         RoomGroup roomGroup = roomGroupService.findById(id);
         roomImageService.deleteByRoomGroup(roomGroup);
@@ -153,7 +150,7 @@ public class RoomGroupController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @GetMapping("/roomgroup/add")
+    @GetMapping("/room-group/add")
     public String showRoomGroupForm(Model model) {
         RoomGroup roomGroup = new RoomGroup();
         List<Bed> bedList = new ArrayList<>();
@@ -167,7 +164,7 @@ public class RoomGroupController {
         return "add-roomgroup";
     }
 
-    @PostMapping("/roomgroup/add")
+    @PostMapping("/room-group/add")
     public String addRoomGroup(Model model,
                                @RequestParam("file") MultipartFile mainImage,
                                @RequestParam("files") MultipartFile[] fileImgList,

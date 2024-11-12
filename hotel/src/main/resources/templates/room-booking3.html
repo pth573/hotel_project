@@ -16,22 +16,25 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-    <!--    <style>-->
-    <!--        table {-->
-    <!--            width: 100%;-->
-    <!--            border-collapse: collapse;-->
-    <!--        }-->
-    <!--        th, td {-->
-    <!--            padding: 10px;-->
-    <!--            text-align: center;-->
-    <!--            border: 1px solid #ddd;-->
-    <!--        }-->
-    <!--        select {-->
-    <!--            width: 100%;-->
-    <!--            padding: 5px;-->
-    <!--            margin: 0;-->
-    <!--        }-->
-    <!--    </style>-->
+        <style>
+            /*table {*/
+            /*    width: 100%;*/
+            /*    border-collapse: collapse;*/
+            /*}*/
+            /*th, td {*/
+            /*    padding: 10px;*/
+            /*    text-align: center;*/
+            /*    border: 1px solid #ddd;*/
+            /*}*/
+            /*select {*/
+            /*    width: 100%;*/
+            /*    padding: 5px;*/
+            /*    margin: 0;*/
+            /*}*/
+            .btn-hover :hover {
+                background-color: #1cc88a;
+            }
+        </style>
 </head>
 
 <body>
@@ -162,32 +165,7 @@
     </div>
 
     <!-- Top Header Area Start -->
-    <div class="top-header-area">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-6">
-                    <div class="top-header-content">
-                        <a href="#"><i class="icon_phone"></i> <span>0123 456 789</span></a>
-                        <a href="#"><i class="icon_mail"></i> <span>hotel@gmail.com</span></a>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <div class="top-header-content">
-                        <!-- Top Social Area -->
-                        <div class="top-social-area ml-auto">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    <div th:replace="~{fragments::nav-header}"></div>
     <!-- Top Header Area End -->
 
     <!-- Main Header Start -->
@@ -304,7 +282,7 @@
                                 <span th:if="${roomGroup.availableRoomCount > 0}" th:text="'Số phòng trống: ' + ${roomGroup.availableRoomCount}"></span>
                             </h6>                            
                         </div>
-                        <a th:href="@{'/roomgrouplist-available/' + ${roomGroup.id}}" class="btn view-detail-btn">
+                        <a th:href="@{'/roomgrouplist-available/' + ${roomGroup.roomGroupId}}" class="btn view-detail-btn">
                             Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -661,28 +639,25 @@
                     <form th:action="@{/bookRoom}" th:object="${bookingRequest}" method="post">
 
                         <label for="checkInDate">Ngày nhận phòng:</label>
-                        <input type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>
+                        <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>
 
                         <label for="checkOutDate">Ngày trả phòng:</label>
-                        <input type="date" id="checkOutDate" th:field="*{checkOutDate}" ><br><br>
+                        <input class="w-75" type="date" id="checkOutDate" th:field="*{checkOutDate}" ><br><br>
 
                         <label for="checkInTime">Giờ nhận phòng:</label>
-                        <input type="time" id="checkInTime" th:field="*{checkInTime}" ><br><br>
+                        <input class="w-75" type="time" id="checkInTime" th:field="*{checkInTime}" ><br><br>
 
                         <label for="checkOutTime">Giờ trả phòng:</label>
-                        <input type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>
+                        <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>
 
                         <label for="adults">Số người lớn:</label>
-                        <input type="number" id="adults" th:field="*{adults}" ><br><br>
+                        <input class="w-75" type="number" id="adults" th:field="*{adults}" ><br><br>
 
                         <label for="children">Số trẻ em:</label>
-                        <input type="number" id="children" th:field="*{children}" ><br><br>
+                        <input class="w-75" type="number" id="children" th:field="*{children}" ><br><br>
 
-                        <button type="submit">Đặt phòng</button>
+                        <button class="btn btn-success btn-lg w-75" type="submit">Đặt phòng</button>
                     </form>
-
-
-
                 </div>
             </div>
         </div>

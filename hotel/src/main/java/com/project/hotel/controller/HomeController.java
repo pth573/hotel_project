@@ -75,17 +75,25 @@ public class HomeController {
 
 
     @GetMapping("/login")
-    public String showMyLoginPage() {
+    public String showMyLoginPage(Model model, Principal principal) {
+        if(principal != null) {
+            model.addAttribute("user", userService.findByEmail(principal.getName()));
+        }
+        model.addAttribute("title", "Login");
         return "login";
     }
 
     @GetMapping("/")
-    public String showHome(Model theModel, Principal principal) {
+    public String showHome(Model model, Principal principal) {
+        if(principal != null) {
+            model.addAttribute("user", userService.findByEmail(principal.getName()));
+            System.out.println(model.getAttribute("user"));
+        }
         List<RoomGroup> roomGroups = roomGroupService.findAll();
-        theModel.addAttribute("roomGroups", roomGroups);
+        model.addAttribute("roomGroups", roomGroups);
 
         List<Service> serviceTop5List = serviceService.getTop5Services();
-        theModel.addAttribute("top5Service", serviceTop5List);
+        model.addAttribute("top5Service", serviceTop5List);
         return "index";
 //        String email = principal.getName();
 //        System.out.println(email);

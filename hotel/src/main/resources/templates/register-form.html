@@ -1,46 +1,83 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Đăng ký</title>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: header}">
 </head>
-<body>
 
-<div>
-    <h2>Đăng ký</h2>
+<body class="bg-gradient-success">
 
-    <form action="#" th:action="@{/register}" th:object="${webUser}" method="POST">
+<div class="container">
 
-        <label for="email">E-mail</label>
-        <input type="text" id="email" th:field="*{email}" placeholder="Email (*)" required>
-        <div th:if="${#fields.hasErrors('email')}" class="text-danger">
-            <ul>
-                <li th:each="err : ${#fields.errors('email')}" th:text="'Email ' + ${err}"></li>
-            </ul>
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5">
+                    <img class="img-fluid w-100 h-100" th:src="@{/img/bg-img/images.png}" alt="Example Image" />
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        </div>
+                        <div th:if = "${emailError}">
+                            <p class = "alert alert-danger" th:text = "${emailError}"></p>
+                        </div>
+                        <div th:if = "${passwordError}">
+                            <p class = "alert alert-danger" th:text = "${passwordError}"></p>
+                        </div>
+                        <div th:if = "${errors}">
+                            <p class = "alert alert-danger" th:text = "${errors}"></p>
+                        </div>
+                        <div th:if = "${success}">
+                            <p class = "alert alert-success" th:text = "${success}"></p>
+                        </div>
+                        <form th:action = "@{/register}" th:object = "${webUser}" method = "POST">
+
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user" th:field = "*{fullName}" id="fullName"
+                                       placeholder="Full Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-user" th:field = "*{email}" id="exampleInputEmail"
+                                       placeholder="Email Username">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password" class="form-control form-control-user" th:field = "*{password}"
+                                           id="exampleInputPassword" placeholder="Password">
+                                    <div class="alert alert-danger" th:if = "${#fields.hasErrors('password')}"
+                                         th:errors = "*{password}"
+                                    ></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control form-control-user"
+                                           id="exampleRepeatPassword"  placeholder="Repeat Password">
+                                </div>
+                            </div>
+                            <button type = "submit" href="login.html" class="btn btn-success btn-user btn-block">
+                                Register Account
+                            </button>
+                            <hr>
+
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" th:href = "@{/forgot-password}" href="forgot-password.html">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" th:href = "@{/login}" href="login.html">Already have an account? Login!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <label for="password">Mật khẩu</label>
-        <input type="password" id="password" th:field="*{password}" placeholder="Mật khẩu" required>
-        <div th:if="${#fields.hasErrors('password')}" class="text-danger">
-            <ul>
-                <li th:each="err : ${#fields.errors('password')}" th:text="'Mật khẩu ' + ${err}"></li>
-            </ul>
-        </div>
-
-        <label for="fullName">Tên đầy đủ</label>
-        <input type="text" id="fullName" th:field="*{fullName}" placeholder="Tên đầy đủ" required>
-        <div th:if="${#fields.hasErrors('fullName')}" class="text-danger">
-            <ul>
-                <li th:each="err : ${#fields.errors('fullName')}" th:text="'Tên đầy đủ ' + ${err}"></li>
-            </ul>
-        </div>
-
-        <input type="submit" value="Đăng ký">
-        <br>
-        <a th:href="@{/login}" class="forgot-password" title="Đã có tài khoản">Đã có tài khoản</a>
-
-    </form>
 </div>
 
+<div th:replace="~{fragments::script}"></div>
+
 </body>
+
 </html>

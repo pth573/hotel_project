@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class AppConfig {
@@ -30,21 +31,21 @@ public class AppConfig {
                                 .requestMatchers("/**").permitAll()
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/room/**").permitAll()
-                                .requestMatchers("/bookRoom/**").permitAll()
+                                .requestMatchers("/book-room/**").permitAll()
                                 .requestMatchers("/room-booking").permitAll()
-                                .requestMatchers("/bookRoom").permitAll()
+                                .requestMatchers("/book-room").permitAll()
                                 .requestMatchers("/room/update/**").permitAll()
                                 .requestMatchers("/rooms/manager").permitAll()
-                                .requestMatchers("/roomgroup/list").permitAll()
-                                .requestMatchers("/roomgroup/**").permitAll()
-                                .requestMatchers("/roomgroup/update/**").permitAll()
+                                .requestMatchers("/room-group/list").permitAll()
+                                .requestMatchers("/room-group/**").permitAll()
+                                .requestMatchers("/room-group/update/**").permitAll()
                                 .requestMatchers("/service/list").permitAll()
                                 .requestMatchers("/service/**").permitAll()
                                 .requestMatchers("/delete/**").permitAll()
                                 .requestMatchers("/update/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/login").permitAll()
-                                .anyRequest().authenticated()
+//                                .anyRequest().authenticated()
                 )
                 .formLogin(form ->
                         form
@@ -54,7 +55,11 @@ public class AppConfig {
                                 .passwordParameter("password")
                                 .permitAll()
                 )
-                .logout(logout -> logout.permitAll()
+                .logout(logout ->
+                        logout.invalidateHttpSession(true)
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/login?logout")
+                                .permitAll()
                 )
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")

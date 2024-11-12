@@ -2,10 +2,8 @@ package com.project.hotel.controller;
 import com.project.hotel.model.entity.BookingRequest;
 import com.project.hotel.model.entity.Room;
 import com.project.hotel.model.entity.RoomGroup;
-import com.project.hotel.service.BookingService;
 import com.project.hotel.service.RoomGroupService;
 import com.project.hotel.service.RoomService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +58,7 @@ public class BookingController {
 //
 //    }
 
-    @PostMapping("/bookRoom")
+    @PostMapping("/book-room")
     public String handleBookingForm(
             @ModelAttribute("bookingRequest") BookingRequest bookingRequest,
             @RequestParam("checkInDate") String checkInDate,
@@ -133,13 +131,13 @@ public class BookingController {
         return "room-booking3";
     }
 
-    @PostMapping(("/roomgrouplist-available/{roomGroupId}"))
-    public String listRoomAvailableFromRoomGroup(@RequestParam("roomGroupId") Long roomGroupId, Model model, @ModelAttribute("bookingRequest") BookingRequest bookingRequest) {
-        System.out.println(bookingRequest.getCheckInDate());
-        System.out.println(bookingRequest.getCheckOutDate());
-        System.out.println(bookingRequest.getCheckInTime());
-        System.out.println(bookingRequest.getCheckOutTime());
-        System.out.println(bookingRequest.getAdults());
-        System.out.println(bookingRequest.getChildren());
-    }
+//    @PostMapping(("/roomgrouplist-available/{roomGroupId}"))
+//    public String listRoomAvailableFromRoomGroup(@RequestParam("roomGroupId") Long roomGroupId, Model model, @ModelAttribute("bookingRequest") BookingRequest bookingRequest) {
+//        System.out.println(bookingRequest.getCheckInDate());
+//        System.out.println(bookingRequest.getCheckOutDate());
+//        System.out.println(bookingRequest.getCheckInTime());
+//        System.out.println(bookingRequest.getCheckOutTime());
+//        System.out.println(bookingRequest.getAdults());
+//        System.out.println(bookingRequest.getChildren());
+//    }
 }

@@ -102,8 +102,9 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showMyRegistrationPage(Model theModel) {
-        theModel.addAttribute("webUser", new WebUser());
+    public String showMyRegistrationPage(Model model) {
+        model.addAttribute("webUser", new WebUser());
+        model.addAttribute("title", "Register");
         return "register-form";
     }
 
@@ -130,6 +131,14 @@ public class UserController {
         session.setAttribute("user", theWebUser);
         return "login";
     }
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordPage(Model model) {
+        model.addAttribute("webUser", new WebUser());
+        model.addAttribute("title", "Forgot Password");
+        return "forgot-password";
+    }
+
     @GetMapping("/user/update-info")
     public String showUserForm(Model model, Principal principal) {
         String email = principal.getName();
@@ -155,6 +164,12 @@ public class UserController {
         return "user-info";
     }
 
+//    @GetMapping("/logout?")
+//    public String logout(HttpSession session) {
+//        session.invalidate();
+//        session.removeAttribute("user");
+//        return "login";
+//    }
 
 //    @GetMapping("/user/update-info")
 //    public String showUserForm(Model model) {
