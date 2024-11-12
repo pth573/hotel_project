@@ -110,6 +110,7 @@ public class RoomGroupServiceImpl implements RoomGroupService {
 //        checkOutEndOfDay.minusDays(1);
 
         long daysBetween = ChronoUnit.DAYS.between(startDateTime, endDateTime);
+        if(daysBetween < 1) daysBetween = 1;
         return daysBetween * roomGroup.getPricePerNight();
 //        int days = ce
     }

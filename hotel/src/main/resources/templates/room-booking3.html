@@ -271,8 +271,11 @@
                     <!-- Room Content -->
                     <div class="room-content">
                         <h2 th:text="${roomGroup.groupName}"></h2>
-                        <h4 th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>
-                        <h4 th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>
+                        <h4 th:if="${roomGroup.priceDateTime == null}" th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>
+                        <h4 th:if="${roomGroup.priceDateTime != null}" th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>
+
+                        <!--                        <h4 th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>-->
+<!--                        <h4 th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>-->
                         <div class="room-feature">
                             <h6>Diện tích: <span th:text="${roomGroup.area}">30 ft</span></h6>
                             <h6>Số ngđi tối đa: <span th:text="${roomGroup.maxOccupancy}"></span></h6>
@@ -280,13 +283,19 @@
                             <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>
                             <h6>
                                 <span th:if="${roomGroup.availableRoomCount > 0}" th:text="'Số phòng trống: ' + ${roomGroup.availableRoomCount}"></span>
-                            </h6>                            
+                            </h6>
                         </div>
-                        <a th:href="@{'/roomgrouplist-available/' + ${roomGroup.roomGroupId}}" class="btn view-detail-btn">
-                            Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+
+                        <a th:href="@{/roomgrouplist-available/{roomGroupId}(roomGroupId=${roomGroup.roomGroupId},checkInDate=${param.checkInDate},checkOutDate=${param.checkOutDate},checkInTime=${param.checkInTime},checkOutTime=${param.checkOutTime},adults=${param.adults},children=${param.children})}">
+                            Chi tiết
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                         </a>
+
                     </div>
                 </div>
+
+
+
 
 
 
@@ -651,13 +660,16 @@
                         <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>
 
                         <label for="adults">Số người lớn:</label>
-                        <input class="w-75" type="number" id="adults" th:field="*{adults}" ><br><br>
+                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingRequest.adults == 0 ? bookingRequest.adults : 2}"><br><br>
 
                         <label for="children">Số trẻ em:</label>
                         <input class="w-75" type="number" id="children" th:field="*{children}" ><br><br>
 
                         <button class="btn btn-success btn-lg w-75" type="submit">Đặt phòng</button>
                     </form>
+
+
+
                 </div>
             </div>
         </div>
@@ -912,6 +924,89 @@
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
 <script src="js/jquery.min.js"></script>
+
+<script>
+    // Thiết lập giá trị mặc định cho các trường khi trang được tải
+    // window.onload = function() {
+    //     var today = new Date();
+    //     var tomorrow = new Date(today);
+    //     tomorrow.setDate(today.getDate() + 1); // Ngày mai
+    //
+    //     // Đặt ngày nhận phòng là hôm nay
+    //     document.getElementById('checkInDate').value = today.toISOString().split('T')[0];
+    //
+    //     // Đặt ngày trả phòng là ngày mai
+    //     document.getElementById('checkOutDate').value = tomorrow.toISOString().split('T')[0];
+    //
+    //     // Đặt giờ nhận phòng là 14h hôm nay
+    //     document.getElementById('checkInTime').value = "14:00";
+    //
+    //     // Đặt giờ trả phòng là 11h ngày mai
+    //     document.getElementById('checkOutTime').value = "11:00";
+    //
+    //     document.getElementById('adults').value = "2";
+    // };
+
+    window.onload = function() {
+        // Kiểm tra và thiết lập giá trị cho ngày nhận phòng nếu trống
+        var checkInDate = document.getElementById('checkInDate');
+        if (!checkInDate.value) {  // Nếu checkInDate không có giá trị
+            var today = new Date();
+            checkInDate.value = today.toISOString().split('T')[0]; // Đặt ngày hôm nay
+        }
+
+        // Kiểm tra và thiết lập giá trị cho ngày trả phòng nếu trống
+        var checkOutDate = document.getElementById('checkOutDate');
+        if (!checkOutDate.value) {  // Nếu checkOutDate không có giá trị
+            var tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1); // Ngày mai
+            checkOutDate.value = tomorrow.toISOString().split('T')[0]; // Đặt ngày mai
+        }
+
+        // Kiểm tra và thiết lập giá trị cho giờ nhận phòng nếu trống
+        var checkInTime = document.getElementById('checkInTime');
+        if (!checkInTime.value) {  // Nếu checkInTime không có giá trị
+            checkInTime.value = "14:00";  // Đặt giờ nhận phòng là 14h
+        }
+
+        // Kiểm tra và thiết lập giá trị cho giờ trả phòng nếu trống
+        var checkOutTime = document.getElementById('checkOutTime');
+        if (!checkOutTime.value) {  // Nếu checkOutTime không có giá trị
+            checkOutTime.value = "11:00";  // Đặt giờ trả phòng là 11h
+        }
+
+        // Kiểm tra và thiết lập giá trị cho số người lớn nếu trống
+        var adults = document.getElementById('adults');
+        if (!adults.value) {  // Nếu adults không có giá trị
+            adults.value = "2";  // Đặt số người lớn mặc định là 2
+        }
+    };
+
+</script>
+
+<script>
+    // Lấy các tham số từ URL hiện tại
+    const urlParams = new URLSearchParams(window.location.search);
+    const checkInDate = urlParams.get('checkInDate') || '';
+    const checkOutDate = urlParams.get('checkOutDate') || '';
+    const checkInTime = urlParams.get('checkInTime') || '';
+    const checkOutTime = urlParams.get('checkOutTime') || '';
+    const adults = urlParams.get('adults') || '';
+    const children = urlParams.get('children') || '';
+
+    // Tạo URL với các tham số đã lấy
+    const link = `/roomgrouplist-available/${roomGroupId}` +
+        '?checkInDate=' + checkInDate +
+        '&checkOutDate=' + checkOutDate +
+        '&checkInTime=' + checkInTime +
+        '&checkOutTime=' + checkOutTime +
+        '&adults=' + adults +
+        '&children=' + children;
+
+    // Áp dụng URL vào nút hoặc link cần chuyển hướng
+    document.getElementById("viewDetailBtn").setAttribute("href", link);
+</script>
+
 <!-- Popper -->
 <script src="js/popper.min.js"></script>
 <!-- Bootstrap -->
