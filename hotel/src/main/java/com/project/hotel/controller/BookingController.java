@@ -2,15 +2,15 @@ package com.project.hotel.controller;
 import com.project.hotel.model.entity.BookingRequest;
 import com.project.hotel.model.entity.Room;
 import com.project.hotel.model.entity.RoomGroup;
+import com.project.hotel.service.BookingService;
 import com.project.hotel.service.RoomGroupService;
 import com.project.hotel.service.RoomService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class BookingController {
         List<RoomGroup> roomGroups = roomGroupService.findAll();
         theModel.addAttribute("roomGroups", roomGroups);
         BookingRequest bookingRequest = new BookingRequest();
+        bookingRequest.setAdults(2);
         theModel.addAttribute("bookingRequest", bookingRequest);
 
         return "room-booking3";
@@ -61,13 +62,14 @@ public class BookingController {
     @PostMapping("/book-room")
     public String handleBookingForm(
             @ModelAttribute("bookingRequest") BookingRequest bookingRequest,
-            @RequestParam("checkInDate") String checkInDate,
-            @RequestParam("checkOutDate") String checkOutDate,
-            @RequestParam("checkInTime") String checkInTime,
-            @RequestParam("checkOutTime") String checkOutTime,
-            @RequestParam("adults") String adults,
-            @RequestParam("children") String children,
-            Model model
+//            @RequestParam("checkInDate") String checkInDate,
+//            @RequestParam("checkOutDate") String checkOutDate,
+//            @RequestParam("checkInTime") String checkInTime,
+//            @RequestParam("checkOutTime") String checkOutTime,
+//            @RequestParam("adults") String adults,
+//            @RequestParam("children") String children,
+            Model model,
+            RedirectAttributes redirectAttributes
     ) {
 
 
@@ -79,12 +81,12 @@ public class BookingController {
         System.out.println(bookingRequest.getAdults());
         System.out.println(bookingRequest.getChildren());
         System.out.println("Hi");
-        System.out.println(checkInDate);
-        System.out.println(checkOutDate);
-        System.out.println(checkInTime);
-        System.out.println(checkOutTime);
-        System.out.println(adults);
-        System.out.println(children);
+//        System.out.println(checkInDate);
+//        System.out.println(checkOutDate);
+//        System.out.println(checkInTime);
+//        System.out.println(checkOutTime);
+//        System.out.println(adults);
+//        System.out.println(children);
         System.out.println(bookingRequest);
 
         List<Room> roomListAvailable = roomService.findRoomAvailable(bookingRequest);
@@ -126,18 +128,25 @@ public class BookingController {
         }
         // BookingRequest bookingRequest2 = new BookingRequest();
         model.addAttribute("bookingRequest", bookingRequest);
-
         model.addAttribute("roomGroups", roomGroupAvailable);
+        model.addAttribute("adults", bookingRequest.getAdults());
+        model.addAttribute("children", bookingRequest.getChildren());
+        model.addAttribute("checkInDate", bookingRequest.getCheckInDate());
+        model.addAttribute("checkOutDate", bookingRequest.getCheckOutDate());
+        model.addAttribute("checkInTime", bookingRequest.getCheckInTime());
+        model.addAttribute("checkOutTime", bookingRequest.getCheckOutTime());
+
+//        return "redirect:/room-booking";
         return "room-booking3";
     }
 
-//    @PostMapping(("/roomgrouplist-available/{roomGroupId}"))
-//    public String listRoomAvailableFromRoomGroup(@RequestParam("roomGroupId") Long roomGroupId, Model model, @ModelAttribute("bookingRequest") BookingRequest bookingRequest) {
-//        System.out.println(bookingRequest.getCheckInDate());
-//        System.out.println(bookingRequest.getCheckOutDate());
-//        System.out.println(bookingRequest.getCheckInTime());
-//        System.out.println(bookingRequest.getCheckOutTime());
-//        System.out.println(bookingRequest.getAdults());
-//        System.out.println(bookingRequest.getChildren());
-//    }
+    @PostMapping(("/roomgrouplist-available/{roomGroupId}"))
+    public String listRoomAvailableFromRoomGroup(@RequestParam("roomGroupId") Long roomGroupId, Model model, @ModelAttribute("bookingRequest") BookingRequest bookingRequest) {
+        System.out.println(bookingRequest.getCheckInDate());
+        System.out.println(bookingRequest.getCheckOutDate());
+        System.out.println(bookingRequest.getCheckInTime());
+        System.out.println(bookingRequest.getCheckOutTime());
+        System.out.println(bookingRequest.getAdults());
+        System.out.println(bookingRequest.getChildren());
+    }
 }

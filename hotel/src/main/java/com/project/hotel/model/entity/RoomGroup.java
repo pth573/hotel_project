@@ -125,21 +125,43 @@ public class RoomGroup extends BaseEntity {
         }
     }
 
+//    @Override
+//    public String toString() {
+//        return "RoomGroup{" +
+//                "roomGroupId=" + roomGroupId +
+//                ", groupName='" + groupName + '\'' +
+//                ", area=" + area +
+////                ", bedType=" + bedType +
+////                ", roomSz=" + rooms.size() +
+////                ", imagesSize=" + images.size() +
+//                ", pricePerNight=" + pricePerNight +
+//                ", comboPrice2H=" + comboPrice2H +
+//                ", extraHourPrice=" + extraHourPrice +
+//                ", description='" + description + '\'' +
+//                ", standardOccupancy=" + standardOccupancy +
+//                ", imageUrl='" + imageUrl + '\'' +
+//                '}';
+//
+//    }
+
+
     @Override
     public String toString() {
         return "RoomGroup{" +
                 "roomGroupId=" + roomGroupId +
                 ", groupName='" + groupName + '\'' +
                 ", area=" + area +
-//                ", bedType=" + bedType +
-//                ", roomSz=" + rooms.size() +
-//                ", imagesSize=" + images.size() +
                 ", pricePerNight=" + pricePerNight +
                 ", comboPrice2H=" + comboPrice2H +
                 ", extraHourPrice=" + extraHourPrice +
                 ", description='" + description + '\'' +
                 ", standardOccupancy=" + standardOccupancy +
+                ", maxOccupancy=" + maxOccupancy +
+                ", numChildrenFree=" + numChildrenFree +
+                ", extraAdult=" + extraAdult +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", availableRoomCount=" + availableRoomCount +
+                ", priceDateTime=" + priceDateTime +
                 '}';
     }
 }
