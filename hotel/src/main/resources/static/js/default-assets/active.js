@@ -157,7 +157,7 @@
             autoplay: true,
             smartSpeed: 1500,
             nav: true,
-            navText: [('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Previous'), ('Next <i class="fa fa-long-arrow-right" aria-hidden="true"></i>')]
+            navText: [('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Trước'), ('Sau <i class="fa fa-long-arrow-right" aria-hidden="true"></i>')]
         });
 
         roomSlides.on('translate.owl.carousel', function () {

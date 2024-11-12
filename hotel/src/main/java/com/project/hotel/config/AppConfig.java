@@ -45,6 +45,7 @@ public class AppConfig {
                                 .requestMatchers("/update/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/roomgrouplist-available/**").permitAll()
 //                                .anyRequest().authenticated()
                 )
                 .formLogin(form ->
