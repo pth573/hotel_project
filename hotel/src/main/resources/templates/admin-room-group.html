@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{admin-fragments::header}"></head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{admin-fragments::admin-nav}"></nav>
+<div id="layoutSidenav">
+    <div th:replace="~{admin-fragments::side-nav}"></div>
+    <div id="layoutSidenav_content" class="">
+
+        <!-- Main Content -->
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Room Group</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Room Group</li>
+            </ol>
+            <!-- Begin Page Content -->
+            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
+                    data-whatever="@mdo">Add Room Group
+            </button>
+            <p th:if="${roomGroups.isEmpty()}">No Room Group</p>
+            <div th:if="${success}" class="text-center alert alert-success">
+                <p th:text="${success}"></p>
+            </div>
+            <div th:if="${error}" class="text-center alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+
+            <table class="table table-striped" th:if="${not roomGroups.isEmpty()}">
+                <thead>
+                <tr>
+                    <th scope="col">Room Group Index</th>
+                    <th scope="col">Room Group Name</th>
+                    <th scope="col">Area (m²)</th>
+                    <th scope="col">Price per Night (VND)</th>
+                    <th scope="col">Standard Occupancy</th>
+                    <th scope="col">Max Occupancy</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="roomGroup : ${roomGroups}">
+                    <!-- Room Group ID -->
+                    <th scope="row" th:text="${roomGroup.roomGroupId}"></th>
+
+                    <!-- Room Group Name -->
+                    <td th:text="${roomGroup.groupName}"></td>
+
+                    <!-- Area -->
+                    <td th:text="${roomGroup.area}"></td>
+
+                    <!-- Price per Night -->
+                    <td th:text="${roomGroup.pricePerNight}"></td>
+
+                    <!-- Standard Occupancy -->
+                    <td th:text="${roomGroup.standardOccupancy}"></td>
+
+                    <!-- Max Occupancy -->
+                    <td th:text="${roomGroup.maxOccupancy}"></td>
+
+                    <!-- Actions -->
+                    <td>
+                        <!-- Update Button -->
+                        <a id="editButton"
+                           th:href="@{/findById(id=${roomGroup.roomGroupId})}"
+                           class="btn btn-primary">Update</a>
+
+                        <!-- Enable Button (if deleted) -->
+                        <a th:if="${roomGroup.isDeleted == true}" th:href="@{/enable-room-group(id=${roomGroup.roomGroupId})}"
+                           class="btn btn-primary">Enable</a>
+
+                        <!-- Delete Button (if not deleted) -->
+                        <a th:if="${roomGroup.isDeleted == false}" th:href="@{/delete-room-group(id=${roomGroup.roomGroupId})}"
+                           class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="~{admin-fragments::footer}"></footer>
+            <!-- End of Footer -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Add Room Group Modal -->
+<div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Room Group</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/admin/save-room-group}" method="post">
+                    <!-- Group Name -->
+                    <div class="form-group">
+                        <label for="groupName" class="col-form-label">Room Group Name:</label>
+                        <input type="text" class="form-control" id="groupName" name="groupName" required>
+                    </div>
+
+                    <!-- Area -->
+                    <div class="form-group">
+                        <label for="area" class="col-form-label">Area (m²):</label>
+                        <input type="number" class="form-control" id="area" name="area" step="0.01" required>
+                    </div>
+
+                    <!-- Price per Night -->
+                    <div class="form-group">
+                        <label for="pricePerNight" class="col-form-label">Price per Night (VND):</label>
+                        <input type="number" class="form-control" id="pricePerNight" name="pricePerNight" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+
+                    <!-- Standard Occupancy -->
+                    <div class="form-group">
+                        <label for="standardOccupancy" class="col-form-label">Standard Occupancy:</label>
+                        <input type="number" class="form-control" id="standardOccupancy" name="standardOccupancy" required>
+                    </div>
+
+                    <!-- Max Occupancy -->
+                    <div class="form-group">
+                        <label for="maxOccupancy" class="col-form-label">Max Occupancy:</label>
+                        <input type="number" class="form-control" id="maxOccupancy" name="maxOccupancy" required>
+                    </div>
+
+                    <!-- Extra Adult -->
+                    <div class="form-group">
+                        <label for="extraAdult" class="col-form-label">Extra Adult Price:</label>
+                        <input type="number" class="form-control" id="extraAdult" name="extraAdult">
+                    </div>
+
+                    <!-- Children Free -->
+                    <div class="form-group">
+                        <label for="numChildrenFree" class="col-form-label">Number of Children Free:</label>
+                        <input type="number" class="form-control" id="numChildrenFree" name="numChildrenFree">
+                    </div>
+
+                    <!-- Available Room Count -->
+                    <div class="form-group">
+                        <label for="availableRoomCount" class="col-form-label">Available Room Count:</label>
+                        <input type="number" class="form-control" id="availableRoomCount" name="availableRoomCount">
+                    </div>
+
+                    <!-- Submit and Close buttons -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Category Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/update-room-group}" method="post">
+                    <input type="hidden" id="idEdit" name="id">
+                    <div class="form-group">
+                        <label for="nameEdit" class="col-form-label">Category Name</label>
+                        <input type="text" class="form-control" id="nameEdit" name="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
+
+<script>
+    document.querySelector('#editButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        var href = this.getAttribute('href');
+        fetch(href)
+            .then(response => response.json())
+            .then(category => {
+                document.getElementById('idEdit').value = category.id;
+                document.getElementById('nameEdit').value = category.name;
+            });
+        var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+        editModal.show();
+    });
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

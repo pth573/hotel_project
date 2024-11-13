@@ -8,6 +8,7 @@ import com.project.hotel.service.RoomGroupService;
 import com.project.hotel.service.RoomService;
 import com.project.hotel.service.ServiceService;
 import com.project.hotel.service.CustomerService;
+import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +33,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String showHome(Model model, Principal principal) {
-        if (principal != null) {
-            Customer customer = customerService.findByEmail(principal.getName());
-            model.addAttribute("customer", customer);
-            List<String> roles = customer.getRoles().stream()
-                    .map(Role::getName)
-                    .collect(Collectors.toList());
-            model.addAttribute("roles", roles);
-        }
+        CustomerUtils.getCustomerInfo(principal, customerService, model);
         List<RoomGroup> roomGroups = roomGroupService.findAll();
         model.addAttribute("roomGroups", roomGroups);
 
@@ -63,10 +57,10 @@ public class HomeController {
         return "blog";
     }
 
-    @GetMapping("/single-blog")
-    public String singleBlogHTML() {
-        return "single-blog";
-    }
+//    @GetMapping("/single-blog")
+//    public String singleBlogHTML() {
+//        return "single-blog";
+//    }
 
     @GetMapping("/about")
     public String aboutHTML() {

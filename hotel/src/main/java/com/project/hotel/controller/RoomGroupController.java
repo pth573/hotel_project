@@ -158,7 +158,7 @@ public class RoomGroupController {
         List<Bed> bedList = roomGroup.getBeds();
         for (Bed bed : bedList) {
             System.out.println(bed);
-            bed.addRoomGroup(roomGroup);
+            bed.getRoomGroups().add(roomGroup);
             bedService.save(bed);
         }
         roomGroup.setBeds(bedList);

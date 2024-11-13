@@ -1,9 +1,6 @@
-package com.project.hotel.model.entity;
+package com.project.hotel.model.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.*;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Getter
 @Setter
 @ToString
-public class BookingRequest {
+public class BookingDto {
 
     private int id;
     private String checkInDate;

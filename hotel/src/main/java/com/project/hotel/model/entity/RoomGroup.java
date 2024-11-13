@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
-@Getter
-@Setter
 @Table(name = "room_group")
 public class RoomGroup extends BaseEntity {
     @Id
@@ -23,9 +20,6 @@ public class RoomGroup extends BaseEntity {
     private Long roomGroupId;
     private String groupName;
     private Float area;
-
-//    @Enumerated(EnumType.STRING)
-//    private BedType bedType;
 
     @OneToMany(mappedBy = "roomGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms;
@@ -51,13 +45,10 @@ public class RoomGroup extends BaseEntity {
     private int maxOccupancy;
     private int numChildrenFree;
     private Long extraAdult;
-
-
     private String imageUrl;
-
-
     private Long availableRoomCount = 0L;
-    private Long priceDateTime = 0L ; 
+    private Long priceDateTime = 0L;
+
 
     public String getBedDescription() {
         return beds.stream()

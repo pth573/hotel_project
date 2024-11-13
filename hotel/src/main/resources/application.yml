@@ -8,9 +8,9 @@ spring:
       max-request-size: 1000MB
 
   datasource:
-    url: jdbc:mysql://localhost:3306/hotel_manager?createDatabaseIfNotExist=true
-    username: root
-    password: Trancuongphu14@
+    url: jdbc:mysql://localhost:3309/hotel_manager?createDatabaseIfNotExist=true
+    username: dbuser
+    password: dbpass
 
   jpa:
     hibernate:

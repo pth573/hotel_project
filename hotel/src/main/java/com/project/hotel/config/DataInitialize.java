@@ -32,12 +32,14 @@ public class DataInitialize implements CommandLineRunner {
         if(customerRepository.count() == 0) {
             Customer admin = Customer.builder()
                     .email("admin@gmail.com")
+                    .fullName("Admin")
                     .password(passwordEncoder.encode("123"))
                     .roles(Arrays.asList(roleRepository.findByName("ADMIN")))
                     .build();
 
             Customer customer = Customer.builder()
                     .email("customer@gmail.com")
+                    .fullName("Customer")
                     .password(passwordEncoder.encode("123"))
                     .roles(Arrays.asList(roleRepository.findByName("CUSTOMER")))
                     .build();

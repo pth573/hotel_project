@@ -1,9 +1,7 @@
 package com.project.hotel.service;
 
-import com.project.hotel.model.entity.BookingRequest;
+import com.project.hotel.model.dto.BookingDto;
 import com.project.hotel.model.entity.Room;
-import com.project.hotel.repository.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,5 +13,5 @@ public interface RoomService {
     List<Room> findAll();
     void deleteById(Long id);
     void updateRoom(Long roomId, Room updatedRoom);
-    List<Room> findRoomAvailable(BookingRequest bookingRequest);
+    List<Room> findRoomAvailable(BookingDto bookingDto);
 }

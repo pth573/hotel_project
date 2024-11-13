@@ -645,7 +645,7 @@
                     <!--                        </div>-->
                     <!--                    </form>-->
 
-                    <form th:action="@{/book-room}" th:object="${bookingRequest}" method="post">
+                    <form th:action="@{/book-room}" th:object="${bookingDto}" method="post">
 
                         <label for="checkInDate">Ngày nhận phòng:</label>
                         <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>
@@ -660,7 +660,7 @@
                         <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>
 
                         <label for="adults">Số người lớn:</label>
-                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingRequest.adults == 0 ? bookingRequest.adults : 2}"><br><br>
+                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingDto.adults == 0 ? bookingDto.adults : 2}"><br><br>
 
                         <label for="children">Số trẻ em:</label>
                         <input class="w-75" type="number" id="children" th:field="*{children}" ><br><br>

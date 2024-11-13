@@ -1,18 +1,13 @@
 package com.project.hotel.service.impl;
-import com.project.hotel.model.entity.BookingRequest;
-import com.project.hotel.model.entity.Room;
+import com.project.hotel.model.dto.BookingDto;
 import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.repository.RoomGroupRepository;
 import com.project.hotel.repository.RoomImageRepository;
 import com.project.hotel.service.RoomGroupService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -27,6 +22,7 @@ public class RoomGroupServiceImpl implements RoomGroupService {
 
     @Override
     public void save(RoomGroup roomGroup) {
+        roomGroup.setIsDeleted(false);
         roomGroupRepository.save(roomGroup);
     }
 
@@ -79,7 +75,7 @@ public class RoomGroupServiceImpl implements RoomGroupService {
 
 
     @Override
-    public Long calculatePrice(BookingRequest bookingRequest, RoomGroup roomGroup) {
+    public Long calculatePrice(BookingDto bookingDto, RoomGroup roomGroup) {
         Long pricePerNight = roomGroup.getPricePerNight();
         Long comboPrice2H = roomGroup.getComboPrice2H();
         Long extraHourPrice = roomGroup.getExtraHourPrice();
@@ -88,10 +84,10 @@ public class RoomGroupServiceImpl implements RoomGroupService {
         int maxOccupanccy = roomGroup.getMaxOccupancy();
         int standard = roomGroup.getStandardOccupancy();
 
-        String checkInDateTime = bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime() + ":00";
-        String checkOutDateTime = bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime() + ":00";
-        int adultsForm = bookingRequest.getAdults();
-        int childrenFrom = bookingRequest.getChildren();
+        String checkInDateTime = bookingDto.getCheckInDate() + " " + bookingDto.getCheckInTime() + ":00";
+        String checkOutDateTime = bookingDto.getCheckOutDate() + " " + bookingDto.getCheckOutTime() + ":00";
+        int adultsForm = bookingDto.getAdults();
+        int childrenFrom = bookingDto.getChildren();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startDateTime = LocalDateTime.parse(checkInDateTime, formatter);

@@ -172,7 +172,7 @@
             <div class="col-12 col-lg-4">
                 <!-- Hotel Reservation Area -->
                 <div class="hotel-reservation--area mb-100">
-                    <form th:action="@{/bookRoom}" th:object="${bookingRequest}" method="post">
+                    <form th:action="@{/bookRoom}" th:object="${bookingDto}" method="post">
 
                         <label for="checkInDate">Ngày nhận phòng:</label>
                         <input type="date" id="checkInDate" th:field="*{checkInDate}" name="checkInDate"><br><br>

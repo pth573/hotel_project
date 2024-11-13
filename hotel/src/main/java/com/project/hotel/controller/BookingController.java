@@ -1,13 +1,14 @@
 package com.project.hotel.controller;
-import com.project.hotel.model.entity.BookingRequest;
+import com.project.hotel.model.dto.BookingDto;
+import com.project.hotel.model.entity.Customer;
+import com.project.hotel.model.entity.Role;
 import com.project.hotel.model.entity.Room;
 import com.project.hotel.model.entity.RoomGroup;
-import com.project.hotel.service.BookingService;
+import com.project.hotel.service.CustomerService;
 import com.project.hotel.service.RoomGroupService;
 import com.project.hotel.service.RoomService;
-import lombok.Getter;
+import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +17,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class BookingController {
 
     private final RoomService roomService;
-
-
+    private final CustomerService customerService;
     private final RoomGroupService roomGroupService;
 
     @GetMapping("/room-booking")
-    public String roomHTML(Model theModel, Principal principal) {
+    public String roomHTML(Model model, Principal principal) {
+        CustomerUtils.getCustomerInfo(principal, customerService, model);
 //        List<Room> rooms = roomService.findAll();
         List<RoomGroup> roomGroups = roomGroupService.findAll();
-        theModel.addAttribute("roomGroups", roomGroups);
-        BookingRequest bookingRequest = new BookingRequest();
-        bookingRequest.setAdults(2);
-        theModel.addAttribute("bookingRequest", bookingRequest);
+        model.addAttribute("roomGroups", roomGroups);
+        BookingDto bookingDto = new BookingDto();
+        bookingDto.setAdults(2);
+        model.addAttribute("bookingDto", bookingDto);
 
         return "room-booking3";
 
@@ -41,23 +43,11 @@ public class BookingController {
 
     @PostMapping("/book-room")
     public String handleBookingForm(
-            @ModelAttribute("bookingRequest") BookingRequest bookingRequest,
+            @ModelAttribute("bookingDto") BookingDto bookingDto,
             Model model,
             RedirectAttributes redirectAttributes
     ) {
-
-
-        // ok
-        System.out.println(bookingRequest.getCheckInDate());
-        System.out.println(bookingRequest.getCheckOutDate());
-        System.out.println(bookingRequest.getCheckInTime());
-        System.out.println(bookingRequest.getCheckOutTime());
-        System.out.println(bookingRequest.getAdults());
-        System.out.println(bookingRequest.getChildren());
-        System.out.println("Hi");
-        System.out.println(bookingRequest);
-
-        List<Room> roomListAvailable = roomService.findRoomAvailable(bookingRequest);
+        List<Room> roomListAvailable = roomService.findRoomAvailable(bookingDto);
         System.out.println("List sz:" + roomListAvailable.size());
         for(Room room : roomListAvailable){
             System.out.println("Cac phong trong: " + room.getRoomName() + " " + room.getRoomGroup().getGroupName());
@@ -70,16 +60,16 @@ public class BookingController {
         // Duyệt qua từng RoomGroup
         for (RoomGroup roomGroup : roomGroups) {
 
-            if(bookingRequest.getChildren() + bookingRequest.getAdults() <= roomGroup.getMaxOccupancy()){
+            if(bookingDto.getChildren() + bookingDto.getAdults() <= roomGroup.getMaxOccupancy()){
                             // Lấy danh sách các phòng trống trong RoomGroup cho khoảng thời gian đặt phòng
-                List<Room> availableRooms = roomService.findRoomAvailable(bookingRequest);
+                List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
 
                 // Đếm số lượng phòng trống trong RoomGroup
                 long availableRoomCount = roomGroup.getRooms().stream()
                         .filter(room -> availableRooms.contains(room))
                         .count();
 
-                long priceDateTime = roomGroupService.calculatePrice(bookingRequest, roomGroup);
+                long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
                 System.out.println(priceDateTime);
 
                 // In ra thông tin về nhóm phòng và số lượng phòng trống
@@ -95,14 +85,14 @@ public class BookingController {
             }
         }
         // BookingRequest bookingRequest2 = new BookingRequest();
-        model.addAttribute("bookingRequest", bookingRequest);
+        model.addAttribute("bookingDto", bookingDto);
         model.addAttribute("roomGroups", roomGroupAvailable);
-        model.addAttribute("adults", bookingRequest.getAdults());
-        model.addAttribute("children", bookingRequest.getChildren());
-        model.addAttribute("checkInDate", bookingRequest.getCheckInDate());
-        model.addAttribute("checkOutDate", bookingRequest.getCheckOutDate());
-        model.addAttribute("checkInTime", bookingRequest.getCheckInTime());
-        model.addAttribute("checkOutTime", bookingRequest.getCheckOutTime());
+        model.addAttribute("adults", bookingDto.getAdults());
+        model.addAttribute("children", bookingDto.getChildren());
+        model.addAttribute("checkInDate", bookingDto.getCheckInDate());
+        model.addAttribute("checkOutDate", bookingDto.getCheckOutDate());
+        model.addAttribute("checkInTime", bookingDto.getCheckInTime());
+        model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
 
 //        return "redirect:/room-booking";
         return "room-booking3";
