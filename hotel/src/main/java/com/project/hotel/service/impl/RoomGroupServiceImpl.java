@@ -5,7 +5,9 @@ import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.repository.RoomGroupRepository;
 import com.project.hotel.repository.RoomImageRepository;
 import com.project.hotel.service.RoomGroupService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,14 +18,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class RoomGroupServiceImpl implements RoomGroupService {
 
-    @Autowired
-    private RoomGroupRepository roomGroupRepository;
-
-    @Autowired
-    private RoomImageRepository roomImageRepository;
+    private final RoomGroupRepository roomGroupRepository;
+    private final RoomImageRepository roomImageRepository;
 
     @Override
     public void save(RoomGroup roomGroup) {

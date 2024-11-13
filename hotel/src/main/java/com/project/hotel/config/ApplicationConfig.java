@@ -1,33 +1,47 @@
 package com.project.hotel.config;
 
-import com.project.hotel.service.UserService;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-public class AppConfig {
+public class ApplicationConfig {
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public UserDetailsService userDetailsService() {
+        return new UserServiceConfig();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(configurer ->
-                        configurer
+        AuthenticationManagerBuilder authenticationManagerBuilder
+                = http.getSharedObject(AuthenticationManagerBuilder.class);
+
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
+
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authz ->
+                        authz.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/**").permitAll()
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/room/**").permitAll()
@@ -45,12 +59,10 @@ public class AppConfig {
                                 .requestMatchers("/update/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/roomgrouplist-available/**").permitAll()
-//                                .anyRequest().authenticated()
+                                .requestMatchers("/room-group-list-available/**").permitAll()
                 )
-                .formLogin(form ->
-                        form
-                                .loginPage("/login")
+                .formLogin(login ->
+                        login.loginPage("/login")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .usernameParameter("email")
                                 .passwordParameter("password")
@@ -58,16 +70,16 @@ public class AppConfig {
                 )
                 .logout(logout ->
                         logout.invalidateHttpSession(true)
+                                .clearAuthentication(true)
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .logoutSuccessUrl("/login?logout")
                                 .permitAll()
                 )
-                .exceptionHandling(configurer ->
-                        configurer.accessDeniedPage("/access-denied")
+                .authenticationManager(authenticationManager)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
-                .csrf(csrf ->
-                        csrf.ignoringRequestMatchers("/api/**")  // Không bảo vệ CSRF đối với các yêu cầu API
-                );
+        ;
         return http.build();
     }
 }

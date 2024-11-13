@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public interface RoomGroupService {
     void save(RoomGroup roomGroup);
     RoomGroup findById(Long id);

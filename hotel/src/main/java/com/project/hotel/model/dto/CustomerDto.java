@@ -1,4 +1,4 @@
-package com.project.hotel.model.user;
+package com.project.hotel.model.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class WebUser {
+public class CustomerDto {
     @NotNull(message = "bắt buộc")
     @Size(min = 1, message = "bắt buộc")
     @Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")

@@ -645,7 +645,7 @@
                     <!--                        </div>-->
                     <!--                    </form>-->
 
-                    <form th:action="@{/bookRoom}" th:object="${bookingRequest}" method="post">
+                    <form th:action="@{/book-room}" th:object="${bookingRequest}" method="post">
 
                         <label for="checkInDate">Ngày nhận phòng:</label>
                         <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>

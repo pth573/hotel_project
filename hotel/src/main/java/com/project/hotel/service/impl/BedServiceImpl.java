@@ -2,16 +2,19 @@ package com.project.hotel.service.impl;
 import com.project.hotel.model.entity.Bed;
 import com.project.hotel.repository.BedRepository;
 import com.project.hotel.service.BedService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class BedServiceImpl implements BedService {
-    @Autowired
-    private BedRepository bedRepository;
+
+    private final BedRepository bedRepository;
 
     @Override
     public void save(Bed bed) {

@@ -10,11 +10,12 @@ import java.util.stream.Stream;
 import com.project.hotel.service.FilesStorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
+@Component
 public class FilesStorageServiceImpl implements FilesStorageService {
     private final Path root = Paths.get("./uploads");
 

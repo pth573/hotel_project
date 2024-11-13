@@ -5,15 +5,17 @@ import com.project.hotel.model.entity.Service;
 import com.project.hotel.repository.ServiceRepository;
 import com.project.hotel.service.ServiceService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Service
+@RequiredArgsConstructor
 public class ServiceServiceImpl implements ServiceService {
-    @Autowired
-    private ServiceRepository serviceRepository;
+
+    private final ServiceRepository serviceRepository;
 
     @Override
     public void save(Service service) {
@@ -53,7 +55,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public void deleteById(Long id) {
-        ///
+
         serviceRepository.deleteById(id);
     }
 

@@ -45,20 +45,26 @@
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a th:href="@{/login}" class="login" th:if = "${user == null}">
+
+                        <a th:href="@{/admin}" class="login" th:if="${roles != null and roles.contains('ADMIN')}">
+                            <i class="fa fa-dashboard mr-1" aria-hidden="true"></i>
+                            <span>Quản lý</span>
+                        </a>
+
+                        <a th:href="@{/login}" class="login" th:if = "${customer == null}">
                             <i class="fa fa-sign-in mr-1" aria-hidden="true"></i>
                             <span>Đăng nhập</span>
                         </a>
-                        <a th:href="@{/register}" class="login" th:if = "${user == null}">
+                        <a th:href="@{/register}" class="login" th:if = "${customer == null}">
                             <i class="fa fa-user-plus mr-1" aria-hidden="true"></i>
                             <span>Đăng kí</span>
                         </a>
-                        <a th:href="@{/user/update-info}" class="login" th:if = "${user != null}">
+                        <a th:href="@{/user/update-info}" class="login" th:if = "${customer != null}">
                             <i class="fa fa-user mr-1" aria-hidden="true"></i>
                             <span>Trang cá nhân</span>
                         </a>
 
-                        <a th:href="@{/logout}" class="login" th:if = "${user != null}">
+                        <a th:href="@{/logout}" class="login" th:if = "${customer != null}">
                             <i class="fa fa-sign-out mr-1" aria-hidden="true"></i>
                             <span>Đăng xuất</span>
                         </a>

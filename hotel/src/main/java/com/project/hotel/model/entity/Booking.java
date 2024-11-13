@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -27,7 +26,7 @@ public class Booking extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Customer user;
 
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)

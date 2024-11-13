@@ -11,8 +11,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
 @Table(name = "service")
 public class Service extends BaseEntity {
     @Id

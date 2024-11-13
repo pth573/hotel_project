@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th = "https://www.thymeleaf.org/">
 
-<head th:replace="~{fragments :: header}">
+<head th:replace="~{fragments::header}">
 </head>
 
 <body class="bg-gradient-success">
@@ -32,7 +32,7 @@
                         <div th:if = "${success}">
                             <p class = "alert alert-success" th:text = "${success}"></p>
                         </div>
-                        <form th:action = "@{/register}" th:object = "${webUser}" method = "POST">
+                        <form th:action = "@{/register}" th:object = "${customerDto}" method = "POST">
 
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user" th:field = "*{fullName}" id="fullName"

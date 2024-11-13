@@ -4,6 +4,7 @@ import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.model.entity.RoomImage;
 import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -18,30 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class RoomGroupController {
 
-    @Autowired
-    private RoomGroupService roomGroupService;
+    private final RoomGroupService roomGroupService;
+    private final RoomService roomService;
+    private final FilesStorageService filesStorageService;
+    private final RoomImageService roomImageService;
+    private final BedService bedService;
 
-    @Autowired
-    private RoomService roomService;
-
-    @Autowired
-    private FilesStorageService storageService;
-
-    @Autowired
-    private RoomImageService roomImageService;
-
-    @Autowired
-    private BedService bedService;
-
-    @Autowired
-    public RoomGroupController(RoomGroupService roomGroupService, RoomService roomService, FilesStorageService storageService, RoomImageService roomImageService) {
-        this.roomGroupService = roomGroupService;
-        this.roomService = roomService;
-        this.storageService = storageService;
-        this.roomImageService = roomImageService;
-    }
 
     @GetMapping("/room-group/list")
     public String getRoomGroupList(Model model) {
@@ -78,7 +64,7 @@ public class RoomGroupController {
 
         try {
             try {
-                storageService.save(mainImage);
+                filesStorageService.save(mainImage);
                 String mainImageName = mainImage.getOriginalFilename();
                 String mainImageUrl = MvcUriComponentsBuilder
                         .fromMethodName(RoomGroupController.class, "getRoomGroup", mainImageName)
@@ -94,7 +80,7 @@ public class RoomGroupController {
             List<RoomImage> roomImageList = new ArrayList<>();
             for (MultipartFile file : fileImgList) {
                 try {
-                    storageService.save(file);
+                    filesStorageService.save(file);
                     String additionalImageName = file.getOriginalFilename();
                     String additionalImageUrl = MvcUriComponentsBuilder
                             .fromMethodName(RoomGroupController.class, "getRoomGroup", additionalImageName)
@@ -145,7 +131,7 @@ public class RoomGroupController {
 
     @GetMapping("/room_groups/{filename:.+}")
     public ResponseEntity<Resource> getRoomGroup(@PathVariable String filename) {
-        Resource file = storageService.load(filename);
+        Resource file = filesStorageService.load(filename);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
@@ -179,7 +165,7 @@ public class RoomGroupController {
         String message = "";
         try {
             try{
-                storageService.save(mainImage);
+                filesStorageService.save(mainImage);
                 String mainImageName = mainImage.getOriginalFilename();
                 String mainImageUrl = MvcUriComponentsBuilder
                         .fromMethodName(RoomGroupController.class, "getRoomGroup", mainImageName)
@@ -197,7 +183,7 @@ public class RoomGroupController {
             List<RoomImage> roomImageList = new ArrayList<>();
             for (MultipartFile file : fileImgList) {
                 try{
-                    storageService.save(file);
+                    filesStorageService.save(file);
                     String additionalImageName = file.getOriginalFilename();
                     String additionalImageUrl = MvcUriComponentsBuilder
                             .fromMethodName(RoomGroupController.class, "getRoomGroup", additionalImageName)
@@ -228,37 +214,7 @@ public class RoomGroupController {
             e.printStackTrace();
             model.addAttribute("message", "Không thể tải lên nhóm phòng do: " + e.getMessage());
         }
-        return "redirect:/roomgroup/list";
+        return "redirect:/room-group/list";
     }
-
-
-//    @PostMapping("/roomgroup/add")
-//    public String addRoomGroup(Model model, @RequestParam("file") MultipartFile file, @ModelAttribute RoomGroup roomGroup) {
-//        String message = "";
-//        try {
-//            try {
-//                storageService.save(file);
-//                String fileName = file.getOriginalFilename();
-//                String url = MvcUriComponentsBuilder
-//                        .fromMethodName(RoomGroupController.class, "getRoomGroup", fileName)
-//                        .build().toString();
-//                roomGroup.setImageUrl(url);
-//
-//            } catch (Exception e) {
-//                String fileName = file.getOriginalFilename();
-//                String url = MvcUriComponentsBuilder
-//                        .fromMethodName(RoomGroupController.class, "getRoomGroup", fileName)
-//                        .build().toString();
-//                roomGroup.setImageUrl(url);
-//            }
-//            System.out.println(roomGroup);
-//            roomGroupService.save(roomGroup);
-//            message = "Uploaded the course successfully: " + file.getOriginalFilename();
-//            model.addAttribute("message", message);
-//        } catch (Exception e) {
-//        }
-//        return "redirect:/roomgroups";
-//    }
-//
 }
 

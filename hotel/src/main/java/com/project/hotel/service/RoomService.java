@@ -2,12 +2,13 @@ package com.project.hotel.service;
 
 import com.project.hotel.model.entity.BookingRequest;
 import com.project.hotel.model.entity.Room;
-import com.project.hotel.model.entity.Service;
 import com.project.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface RoomService {
     void saveRoom(Room room);
     Room findById(Long id);

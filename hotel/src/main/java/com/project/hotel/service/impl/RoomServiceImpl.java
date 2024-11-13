@@ -6,16 +6,19 @@ import com.project.hotel.repository.RoomRepository;
 import com.project.hotel.repository.ServiceRepository;
 import com.project.hotel.service.RoomService;
 import com.project.hotel.service.ServiceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
-    @Autowired
-    private RoomRepository roomRepository;
+
+    private final RoomRepository roomRepository;
 
     public void updateRoom(Long roomId, Room updatedRoom) {
         Room room = findById(roomId);

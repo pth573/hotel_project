@@ -3,6 +3,7 @@ package com.project.hotel.controller;
 import com.project.hotel.service.RoomGroupService;
 import com.project.hotel.service.RoomService;
 import com.project.hotel.service.ServiceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.project.hotel.model.entity.Room;
@@ -21,16 +22,12 @@ import java.util.Set;
 
 
 @Controller
+@RequiredArgsConstructor
 public class RoomController {
 
-    @Autowired
-    private RoomService roomService;
-
-    @Autowired
-    private RoomGroupService roomGroupService;
-
-    @Autowired
-    private ServiceService serviceService;
+    private final RoomService roomService;
+    private final RoomGroupService roomGroupService;
+    private final ServiceService serviceService;
 
     @GetMapping("/rooms/manager")
     public String manageRoom() {

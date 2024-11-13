@@ -4,6 +4,7 @@ import com.project.hotel.model.entity.Service;
 
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public interface ServiceService {
     void save(Service service);
     Service findById(Long id);

@@ -4,16 +4,18 @@ import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.model.entity.RoomImage;
 import com.project.hotel.repository.RoomImageRepository;
 import com.project.hotel.service.RoomImageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class RoomImageServiceImpl implements RoomImageService {
 
-    @Autowired
-    private RoomImageRepository roomImageRepository;
+    private final RoomImageRepository roomImageRepository;
 
     @Override
     public void save(RoomImage roomImage) {
