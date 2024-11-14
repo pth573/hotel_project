@@ -60,7 +60,6 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> findRoomAvailable(BookingDto bookingDto) {
         String checkInDateTime = bookingDto.getCheckInDate() + " " + bookingDto.getCheckInTime();
         String checkOutDateTime = bookingDto.getCheckOutDate() + " " + bookingDto.getCheckOutTime();
-
         return roomRepository.findRoomAvailable(checkInDateTime, checkOutDateTime);
     }
 }

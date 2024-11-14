@@ -45,18 +45,6 @@ public class RoomGroupServiceImpl implements RoomGroupService {
         return roomGroupRepository.findAll();
     }
 
-//    @Override
-//    public void deleteById(Long id) {
-//        Optional<RoomGroup> roomGroupOptional = roomGroupRepository.findById(id);
-//        if (roomGroupOptional.isPresent()) {
-//            RoomGroup roomGroup = roomGroupOptional.get();
-//            roomImageRepository.deleteRoomImageBy(roomGroup);
-//
-//            roomGroupRepository.delete(roomGroup);
-//        } else {
-//            throw new ResourceNotFoundException("RoomGroup not found with id " + id);
-//        }
-//    }
 
     @Override
     public void deleteById(Long id) {

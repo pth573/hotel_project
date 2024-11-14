@@ -2,10 +2,7 @@ package com.project.hotel.model.entity;
 
 import com.project.hotel.model.enumType.BookingStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
+@ToString
 @Table(name = "booking")
 public class Booking extends BaseEntity {
 

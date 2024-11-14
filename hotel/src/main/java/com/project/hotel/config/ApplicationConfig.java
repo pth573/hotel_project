@@ -60,6 +60,8 @@ public class ApplicationConfig {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/room-group-list-available/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**","/dist/**", "/scss/**") // Thêm các đường dẫn tài nguyên tĩnh
+                                .permitAll() // Cho phép truy cập không cần xác thực
                 )
                 .formLogin(login ->
                         login.loginPage("/login")

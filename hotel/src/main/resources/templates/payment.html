@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chi tiết Đặt phòng</title>
+</head>
+<body>
+
+<h2>Chi tiết Đặt phòng</h2>
+
+<div>
+    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>
+    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>
+    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>
+    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>
+    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>
+    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>
+    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>
+    <p><strong>Tổng tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>
+    <span style="display: none;" id="content-paid" th:text="${booking.user.email} + ' ' + ${currentDate}">Debugging content</span>
+    <button class="purchase-btn">Thanh toán</button>
+</div>
+
+<div id="paymentQR" style="display: none;">
+    <h3>Thanh toán qua QR Code:</h3>
+    <img id="paymentQRImage" src="" alt="QR Code" />
+</div>
+
+<!--<div>-->
+<!--    <form th:action="@{/payment}" method="post">-->
+<!--        <button type="submit">Tiếp tục</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<form th:action="@{/payment}" method="post" th:object="${booking}">
+    <input type="hidden" th:field="*{room.roomId}" />
+    <input type="hidden" th:field="*{user.customerId}" />
+    <input type="hidden" th:field="*{checkInDate}" />
+    <input type="hidden" th:field="*{checkOutDate}" />
+    <input type="hidden" th:field="*{status}" />
+    <input type="hidden" th:field="*{totalPrice}" />
+    <button type="submit">Tiếp tục</button>
+</form>
+
+
+<script>
+    const MY_BANK = {
+        BANK_ID: "MB",
+        ACCOUNT_NO: "9996905072003",
+    };
+    document.querySelector('.purchase-btn').addEventListener('click', () => {
+        const totalPrice = document.getElementById('totalPrice').textContent;
+        const bookingInfo = document.getElementById('content-paid').textContent;
+        const QRCodeUrl = `https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-compact2.png?amount=${totalPrice}&addInfo=${bookingInfo}`;
+        document.getElementById('paymentQRImage').src = QRCodeUrl;
+        document.getElementById('paymentQR').style.display = 'block';
+    });
+</script>
+
+</body>
+</html>

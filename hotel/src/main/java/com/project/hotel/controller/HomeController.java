@@ -1,5 +1,6 @@
 package com.project.hotel.controller;
 
+import com.project.hotel.model.dto.BookingDto;
 import com.project.hotel.model.entity.Customer;
 import com.project.hotel.model.entity.Role;
 import com.project.hotel.model.entity.RoomGroup;
@@ -39,6 +40,11 @@ public class HomeController {
 
         List<Service> serviceTop5List = serviceService.getTop5Services();
         model.addAttribute("top5Service", serviceTop5List);
+
+
+        BookingDto bookingDto = new BookingDto();
+        model.addAttribute("bookingDto", bookingDto);
+
         return "index";
     }
 

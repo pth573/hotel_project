@@ -13,7 +13,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     @Query("SELECT r FROM Room r WHERE NOT EXISTS ( " +
            "SELECT 1 FROM Booking b WHERE b.room = r " +
-           "AND b.status = 'ACCEPTED' " +
+           "AND (b.status = 'ACCEPTED') OR (b.status = 'PENDING') " +
            "AND ( " +
            "(b.checkInDate >= :endDate AND b.checkOutDate >= :startDate) " +  // Phòng đã được đặt từ endDate đến sau
            "OR (b.checkInDate <= :startDate AND b.checkOutDate >= :startDate) " + // Phòng đã được đặt từ trước startDate và kéo dài qua startDate
