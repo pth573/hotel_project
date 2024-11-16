@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomGroupRepository extends JpaRepository<RoomGroup, Long> {
+    RoomGroup findByGroupName(String name);
 }

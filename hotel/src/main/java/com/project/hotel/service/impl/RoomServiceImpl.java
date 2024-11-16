@@ -2,6 +2,7 @@ package com.project.hotel.service.impl;
 
 import com.project.hotel.model.dto.BookingDto;
 import com.project.hotel.model.entity.Room;
+import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.repository.RoomRepository;
 import com.project.hotel.service.RoomService;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +62,15 @@ public class RoomServiceImpl implements RoomService {
         String checkInDateTime = bookingDto.getCheckInDate() + " " + bookingDto.getCheckInTime();
         String checkOutDateTime = bookingDto.getCheckOutDate() + " " + bookingDto.getCheckOutTime();
         return roomRepository.findRoomAvailable(checkInDateTime, checkOutDateTime);
+    }
+
+    @Override
+    public List<Room> findRoomAvailableByGroup(BookingDto bookingDto, RoomGroup roomGroup) {
+        return roomRepository.findAvailableRoomsByGroup(
+                bookingDto.getCheckInDate(),
+                bookingDto.getCheckOutDate(),
+                roomGroup.getGroupName()
+        );
     }
 }
 

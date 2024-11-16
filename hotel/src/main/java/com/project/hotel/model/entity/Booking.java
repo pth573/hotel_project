@@ -23,6 +23,7 @@ public class Booking extends BaseEntity {
     private String checkInDate;
     private String checkOutDate;
     private Long totalPrice;
+    private Long amountHasPaid;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

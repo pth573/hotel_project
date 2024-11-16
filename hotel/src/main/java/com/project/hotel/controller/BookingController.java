@@ -2,10 +2,7 @@ package com.project.hotel.controller;
 import com.project.hotel.model.dto.BookingDto;
 import com.project.hotel.model.entity.*;
 import com.project.hotel.model.enumType.BookingStatus;
-import com.project.hotel.service.BookingService;
-import com.project.hotel.service.CustomerService;
-import com.project.hotel.service.RoomGroupService;
-import com.project.hotel.service.RoomService;
+import com.project.hotel.service.*;
 import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +22,8 @@ public class BookingController {
     private final CustomerService customerService;
     private final RoomGroupService roomGroupService;
     private final BookingService bookingService;
+    private final ReviewService reviewService;
+
     @GetMapping("/room-booking")
     public String roomHTML(@ModelAttribute("bookingDto") BookingDto bookingDto,  Model model, Principal principal) {
 
@@ -118,10 +117,14 @@ public class BookingController {
         if(availableRoomCount > 0){
             roomGroupAvailable.add(roomGroup);
         }
+
+        List<Review> reviews = reviewService.getReviewsByRoomGroupId(roomGroupId);
         model.addAttribute("bookingDto", bookingDto);
         model.addAttribute("availableRooms", availableRooms);
         model.addAttribute("roomGroup", roomGroup);
         model.addAttribute("priceDateTime", priceDateTime);
+        model.addAttribute("reviews", reviews);
+
         System.out.println(roomGroupId);
         System.out.println(checkInDate);
         System.out.println(checkOutDate);
@@ -146,6 +149,7 @@ public class BookingController {
         booking.setCheckOutDate(bookingDto.getCheckOutDate() + " " + bookingDto.getCheckOutTime() + ":00");
         booking.setTotalPrice(priceDateTime);
         booking.setStatus(BookingStatus.PENDING);
+        booking.setAmountHasPaid(priceDateTime);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
         String currentDate = dateFormat.format(new Date());
         model.addAttribute("booking", booking);

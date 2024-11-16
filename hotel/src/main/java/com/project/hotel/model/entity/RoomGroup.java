@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
+
 @Table(name = "room_group")
 public class RoomGroup extends BaseEntity {
     @Id
@@ -56,6 +59,14 @@ public class RoomGroup extends BaseEntity {
                 .map(bed -> bed.getBedType() + " x" + bed.getBedNumber())  // Mã hóa thông tin giường
                 .collect(Collectors.joining(", "));  // Nối các thông tin giường lại với nhau
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "room_group_service",
+            joinColumns = @JoinColumn(name = "room_group_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<Service> services;
 
 
 

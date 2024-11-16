@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Selegend - Hotel &amp; Resort</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="./img/core-img/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
+
+<!-- Header Area Start -->
+<header class="header-area">
+
+<!-- Welcome Area Start -->
+<section class="welcome-area">
+    <div class="welcome-slides owl-carousel">
+        <!-- Single Welcome Slide -->
+        <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url(img/bg-img/16.jpg);" data-img-url="img/bg-img/16.jpg">
+            <!-- Welcome Content -->
+            <div class="welcome-content h-100">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <!-- Welcome Text -->
+                        <div class="col-12">
+                            <div class="welcome-text text-center">
+                                <h6 data-animation="fadeInLeft" data-delay="200ms">Hotel &amp; Resort</h6>
+                                <h2 data-animation="fadeInLeft" data-delay="500ms">Selegend Hotel</h2>
+                                <a href="#" class="btn roberto-btn btn-2" data-animation="fadeInLeft" data-delay="800ms">Khám phá ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Welcome Slide -->
+        <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url(img/bg-img/17.jpg);" data-img-url="img/bg-img/17.jpg">
+            <!-- Welcome Content -->
+            <div class="welcome-content h-100">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <!-- Welcome Text -->
+                        <div class="col-12">
+                            <div class="welcome-text text-center">
+                                <h6 data-animation="fadeInUp" data-delay="200ms">Hotel &amp; Resort</h6>
+                                <h2 data-animation="fadeInUp" data-delay="500ms">Selegend Hotel</h2>
+                                <a href="#" class="btn roberto-btn btn-2" data-animation="fadeInUp" data-delay="800ms">Khám phá ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Welcome Slide -->
+        <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url(img/bg-img/18.jpg);" data-img-url="img/bg-img/18.jpg">
+            <!-- Welcome Content -->
+            <div class="welcome-content h-100">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <!-- Welcome Text -->
+                        <div class="col-12">
+                            <div class="welcome-text text-center">
+                                <h6 data-animation="fadeInDown" data-delay="200ms">Hotel &amp; Resort</h6>
+                                <h2 data-animation="fadeInDown" data-delay="500ms">Selegend Hotel</h2>
+                                <a href="#" class="btn roberto-btn btn-2" data-animation="fadeInDown" data-delay="800ms">Khám phá ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<!-- Welcome Area End -->
+
+<!-- About Us Area Start -->
+<section class="roberto-about-area section-padding-100-0">
+    <!-- Hotel Search Form Area -->
+    <div class="hotel-search-form-area">
+        <div class="container-fluid">
+            <div class="hotel-search-form">
+                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">
+                    <div class="row justify-content-between align-items-end w-100">
+                        <div class="col-6 col-md-2 col-lg-3">
+                            <label for="checkIn">Nhận phòng</label>
+                            <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}"/>
+                        </div>
+                        <div class="col-6 col-md-2 col-lg-3">
+                            <label for="checkOut">Trả phòng</label>
+                            <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}"/>
+                        </div>
+                        <div class="col-6 col-md-1 col-lg-2">
+                            <label for="checkInTime">Giờ nhận phòng</label>
+                            <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}"/>
+                        </div>
+                        <div class="col-6 col-md-1 col-lg-2">
+                            <label for="checkOutTime">Giờ trả phòng</label>
+                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}"/>
+                        </div>
+                        <div class="col-4 col-md-1">
+                            <label for="adults">Người lớn</label>
+                            <select name="adults" id="adults" class="form-control" th:value="${bookingDto.adults}">
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                            </select>
+                        </div>
+                        <div class="col-4 col-md-2 col-lg-1">
+                            <label for="children">Trẻ em</label>
+                            <select name="children" id="children" class="form-control" th:value="${bookingDto.children}">
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center mt-3">
+                        <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-100">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-6">
+                <!-- Section Heading -->
+                <div class="section-heading wow fadeInUp" data-wow-delay="100ms">
+                    <h6>Về chúng tôi</h6>
+                    <h2>Chào mừng đến vơới <br>Selegend Hotel Luxury</h2>
+                </div>
+                <div class="about-us-content mb-100">
+                    <h5 class="wow fadeInUp" data-wow-delay="300ms">
+                        Selegend Hotel – khách sạn xây dựng theo tiêu chuẩn 4 sao,  tọa lạc ở vị trí Trung Tâm Thành Phố Thái Bình, chỉ với 2h30’ từ sân bay quốc tế Nội Bài, và với 1h45’ từ Sân bay quốc tế Cát Bi. Với phương châm mang đến chất lượng dịch vụ tốt nhất dành cho khách hàng, Selegend Hotel là sự lựa chọn hoàn hảo cho chuyến đi công tác hay thư giãn khi về với quê lúa Thái Bình.
+                    </h5>
+                    <p class="wow fadeInUp" data-wow-delay="400ms">Quản lý: <span>Hương Giang</span></p>
+                    <img src="img/core-img/signature.png" alt="" class="wow fadeInUp" data-wow-delay="500ms">
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="about-us-thumbnail mb-100 wow fadeInUp" data-wow-delay="700ms">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <div class="single-thumb">
+                                <img src="img/bg-img/13.jpg" alt="">
+                            </div>
+                            <div class="single-thumb">
+                                <img src="img/bg-img/14.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="single-thumb">
+                                <img src="img/bg-img/15.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery.min.js"></script>
+<!-- Popper -->
+<script src="js/popper.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- All Plugins -->
+<script src="js/roberto.bundle.js"></script>
+<!-- Active -->
+<script src="js/default-assets/active.js"></script>
+
+</body>
+
+</html>

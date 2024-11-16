@@ -1,6 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="~{admin-fragments::header}"></head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="~{admin-fragments::header}">
+    <meta charset="UTF-8">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
 
 <body class="sb-nav-fixed">
 
@@ -11,15 +22,15 @@
 
         <!-- Main Content -->
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Room Group</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Room Group</li>
-            </ol>
+            <h1 class="mt-4">Loại phòng</h1>
+<!--            <ol class="breadcrumb mb-4">-->
+<!--                <li class="breadcrumb-item active">Lọai phòng</li>-->
+<!--            </ol>-->
             <!-- Begin Page Content -->
             <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
-                    data-whatever="@mdo">Add Room Group
+                    data-whatever="@mdo">Thêm mới
             </button>
-            <p th:if="${roomGroups.isEmpty()}">No Room Group</p>
+            <p th:if="${#lists.size(roomGroups) == 0}">Chưa có loại phòng nào</p>
             <div th:if="${success}" class="text-center alert alert-success">
                 <p th:text="${success}"></p>
             </div>
@@ -27,16 +38,24 @@
                 <p th:text="${error}"></p>
             </div>
 
-            <table class="table table-striped" th:if="${not roomGroups.isEmpty()}">
-                <thead>
+            <table class="table table-striped table-bordered" th:if="${roomGroups != null and not #lists.isEmpty(roomGroups)}">
+                <thead class="table-dark">
                 <tr>
-                    <th scope="col">Room Group Index</th>
-                    <th scope="col">Room Group Name</th>
-                    <th scope="col">Area (m²)</th>
-                    <th scope="col">Price per Night (VND)</th>
-                    <th scope="col">Standard Occupancy</th>
-                    <th scope="col">Max Occupancy</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Hình Ảnh</th>
+                    <th scope="col">Tên Nhóm</th>
+                    <th scope="col">Diện Tích (m²)</th>
+                    <th scope="col">Loại Giường</th>
+                    <th scope="col">Giá Mỗi Đêm (VND)</th>
+                    <th scope="col">Giá Combo 2H (VND)</th>
+                    <th scope="col">Giá Giờ Thêm (VND)</th>
+                    <th scope="col">Phụ Thu Thêm Người</th>
+                    <th scope="col">Số Người Tiêu Chuẩn</th>
+                    <th scope="col">Số Trẻ Em Free</th>
+                    <th scope="col">Số Người Tối Đa</th>
+                    <th scope="col">Dịch vụ</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,41 +63,100 @@
                     <!-- Room Group ID -->
                     <th scope="row" th:text="${roomGroup.roomGroupId}"></th>
 
+                    <!-- Image -->
+                    <td>
+                        <img th:src="${roomGroup.imageUrl}" alt="Room Image" style="width: 100px; height: auto;">
+                    </td>
+
                     <!-- Room Group Name -->
                     <td th:text="${roomGroup.groupName}"></td>
 
                     <!-- Area -->
                     <td th:text="${roomGroup.area}"></td>
 
+                    <!-- Bed Type -->
+                    <td>
+                        <ul>
+                            <li th:each="bed : ${roomGroup.beds}"
+                                th:if="${bed.bedNumber > 0}"
+                                th:text="${bed.bedNumber} + ' ' + ${bed.bedType.displayName}"></li>
+                        </ul>
+                    </td>
+
+
                     <!-- Price per Night -->
-                    <td th:text="${roomGroup.pricePerNight}"></td>
+                    <td th:text="${#numbers.formatInteger(roomGroup.pricePerNight, 0)}"></td>
+
+                    <!-- Combo Price 2H -->
+                    <td th:text="${#numbers.formatInteger(roomGroup.comboPrice2H, 0)}"></td>
+
+                    <!-- Extra Hour Price -->
+                    <td th:text="${#numbers.formatInteger(roomGroup.extraHourPrice, 0)}"></td>
+
+                    <td th:text="${#numbers.formatInteger(roomGroup.extraAdult, 0)}"></td>
 
                     <!-- Standard Occupancy -->
                     <td th:text="${roomGroup.standardOccupancy}"></td>
 
+                    <td th:text="${roomGroup.numChildrenFree}"></td>
+
                     <!-- Max Occupancy -->
                     <td th:text="${roomGroup.maxOccupancy}"></td>
+
+                    <td>
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="service : ${roomGroup.services}">
+                                <td th:text="${service.serviceId}"></td>
+                                <td th:text="${service.serviceName}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+
+                    <!-- Description -->
+                    <td th:text="${roomGroup.description}"></td>
 
                     <!-- Actions -->
                     <td>
                         <!-- Update Button -->
-                        <a id="editButton"
-                           th:href="@{/findById(id=${roomGroup.roomGroupId})}"
-                           class="btn btn-primary">Update</a>
 
-                        <!-- Enable Button (if deleted) -->
-                        <a th:if="${roomGroup.isDeleted == true}" th:href="@{/enable-room-group(id=${roomGroup.roomGroupId})}"
-                           class="btn btn-primary">Enable</a>
+<!--                        <a href="@{'/admin/update-room-group/' + ${roomGroup.roomGroupId}}"-->
+<!--                           class="btn btn-info btn-sm editButton"-->
+<!--                           data-id="${roomGroup.roomGroupId}">-->
+<!--                            Update-->
+<!--                        </a>-->
 
-                        <!-- Delete Button (if not deleted) -->
-                        <a th:if="${roomGroup.isDeleted == false}" th:href="@{/delete-room-group(id=${roomGroup.roomGroupId})}"
-                           class="btn btn-danger">Delete</a>
+                        <a href="#" class="btn btn-info btn-sm editButton"
+                           th:data-id="${roomGroup.roomGroupId}"
+                           th:data-groupname="${roomGroup.groupName}"
+                           th:data-area="${roomGroup.area}"
+                           th:data-pricepernight="${roomGroup.pricePerNight}"
+                           th:data-comboprice2h="${roomGroup.comboPrice2H}"
+                           th:data-extrahourprice="${roomGroup.extraHourPrice}"
+                           th:data-standardoccupancy="${roomGroup.standardOccupancy}"
+                           th:data-maxoccupancy="${roomGroup.maxOccupancy}"
+                           th:data-numchildrenfree="${roomGroup.numChildrenFree}"
+                           th:data-extraadult="${roomGroup.extraAdult}"
+                           th:data-description="${roomGroup.description}"
+                           data-bs-toggle="modal"
+                           data-bs-target="#editModal">Update</a>
+
+                        <a th:href="@{'/admin/room-group/delete/' + ${roomGroup.roomGroupId}}"
+                           class="btn btn-danger btn-sm"
+                           onclick="if (!(confirm('Bạn có chắc chắn muốn xóa nhóm phòng này?'))) return false">Delete</a>
+
                     </td>
                 </tr>
                 </tbody>
             </table>
-
-
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -95,71 +173,114 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Room Group</h5>
+                <h5 class="modal-title" id="exampleAddCategoryModalLabel">Thêm loại phòng</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form th:action="@{/admin/save-room-group}" method="post">
-                    <!-- Group Name -->
+
+
+                <form th:action="@{/admin/save-room-group}" method="post" th:object="${roomGroup}" enctype="multipart/form-data">
+                    <!-- Tên nhóm phòng -->
                     <div class="form-group">
-                        <label for="groupName" class="col-form-label">Room Group Name:</label>
-                        <input type="text" class="form-control" id="groupName" name="groupName" required>
+                        <label for="groupName" class="col-form-label">Loại phòng:</label>
+                        <input type="text" class="form-control" id="groupName" th:field="*{groupName}" required>
                     </div>
 
-                    <!-- Area -->
+                    <!-- Diện tích -->
                     <div class="form-group">
-                        <label for="area" class="col-form-label">Area (m²):</label>
-                        <input type="number" class="form-control" id="area" name="area" step="0.01" required>
+                        <label for="area" class="col-form-label">Diện tích (m²):</label>
+                        <input type="number" class="form-control" id="area" th:field="*{area}" step="0.01" required>
                     </div>
 
-                    <!-- Price per Night -->
+
+                    <!-- Giá mỗi đêm -->
                     <div class="form-group">
-                        <label for="pricePerNight" class="col-form-label">Price per Night (VND):</label>
-                        <input type="number" class="form-control" id="pricePerNight" name="pricePerNight" required>
+                        <label for="pricePerNight" class="col-form-label">Giá mỗi đêm (VND):</label>
+                        <input type="number" class="form-control" id="pricePerNight" th:field="*{pricePerNight}" required>
                     </div>
 
-                    <!-- Description -->
                     <div class="form-group">
-                        <label for="description" class="col-form-label">Description:</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        <label for="comboPrice2H"  class="col-form-label">Giá combo 2h:</label>
+                        <input type="number" id="comboPrice2H"  class="form-control" th:field="*{comboPrice2H}" required/>
                     </div>
 
-                    <!-- Standard Occupancy -->
                     <div class="form-group">
-                        <label for="standardOccupancy" class="col-form-label">Standard Occupancy:</label>
-                        <input type="number" class="form-control" id="standardOccupancy" name="standardOccupancy" required>
+                        <label for="extraHourPrice" class="col-form-label">Giá giờ thêm:</label>
+                        <input type="number" id="extraHourPrice" class="form-control" th:field="*{extraHourPrice}" required/>
                     </div>
 
-                    <!-- Max Occupancy -->
+                    <!-- Số người tối thiểu -->
                     <div class="form-group">
-                        <label for="maxOccupancy" class="col-form-label">Max Occupancy:</label>
-                        <input type="number" class="form-control" id="maxOccupancy" name="maxOccupancy" required>
+                        <label for="standardOccupancy" class="col-form-label">Số người tiêu chuẩn:</label>
+                        <input type="number" class="form-control" id="standardOccupancy" th:field="*{standardOccupancy}" required>
                     </div>
 
-                    <!-- Extra Adult -->
+                    <!-- Số người tối đa -->
                     <div class="form-group">
-                        <label for="extraAdult" class="col-form-label">Extra Adult Price:</label>
-                        <input type="number" class="form-control" id="extraAdult" name="extraAdult">
+                        <label for="maxOccupancy" class="col-form-label">Số người tối đa:</label>
+                        <input type="number" class="form-control" id="maxOccupancy" th:field="*{maxOccupancy}" required>
                     </div>
 
-                    <!-- Children Free -->
+                    <!-- Số lượng trẻ em miễn phí -->
                     <div class="form-group">
-                        <label for="numChildrenFree" class="col-form-label">Number of Children Free:</label>
-                        <input type="number" class="form-control" id="numChildrenFree" name="numChildrenFree">
+                        <label for="numChildrenFree" class="col-form-label">Số lượng trẻ em miễn phí:</label>
+                        <input type="number" class="form-control" id="numChildrenFree" th:field="*{numChildrenFree}">
                     </div>
 
-                    <!-- Available Room Count -->
+                    <!-- Giá thêm cho người lớn -->
                     <div class="form-group">
-                        <label for="availableRoomCount" class="col-form-label">Available Room Count:</label>
-                        <input type="number" class="form-control" id="availableRoomCount" name="availableRoomCount">
+                        <label for="extraAdult" class="col-form-label">Phụ thu thêm người:</label>
+                        <input type="number" class="form-control" id="extraAdult" th:field="*{extraAdult}">
                     </div>
 
-                    <!-- Submit and Close buttons -->
+                    <div class="form-group">
+                        <label for="imageFile"  class="col-form-label" >Tải ảnh chính:</label>
+                        <input type="file" id="imageFile" class="form-control" name="file" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageFiles" class="col-form-label">Tải ảnh khác:</label>
+                        <input type="file" id="imageFiles" class="form-control" name="files" multiple />
+                    </div>
+
+
+                    <!-- Mô tả -->
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">Mô tả:</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Các dịch vụ:</label>
+                        <div th:each="service : ${services}">
+                            <input type="checkbox" th:field="*{services}" th:value="${service.serviceId}"/>
+                            <span th:text="${service.serviceName}">Tên dịch vụ</span>
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="beds" class="col-form-label">Chọn loại giường và số lượng:</label>
+                        <div th:each="bed, bedStat : ${roomGroup.beds}">
+                            <div>
+                                <label th:text="${bed.bedType.name}" class="col-form-label"></label>
+                                <input class="form-control" type="number" th:field="*{beds[__${bedStat.index}__].bedNumber}" placeholder="Nhập số lượng giường" min="0"/>
+                                <!-- Ẩn thông tin bedType để gửi về form -->
+                                <input class="form-control" type="hidden" th:field="*{beds[__${bedStat.index}__].bedType}" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Nút Submit và Close -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -172,16 +293,112 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Sửa</h5>
             </div>
             <div class="modal-body">
-                <form th:action="@{/update-room-group}" method="post">
-                    <input type="hidden" id="idEdit" name="id">
+
+                <form th:action="@{/admin/update-room-group/{roomGroupId}(roomGroupId=${roomGroup.roomGroupId})}" method="post" th:object="${roomGroup}" enctype="multipart/form-data">
+
+                    <input name="idEdit" id="idEdit" th:field="*{roomGroupId}">
+                    <!--                    <input type="hidden" id="idEdit" th:field="*{roomGroupId}"> <-->
+
+                    <!-- Tên nhóm phòng -->
                     <div class="form-group">
-                        <label for="nameEdit" class="col-form-label">Category Name</label>
-                        <input type="text" class="form-control" id="nameEdit" name="name">
+                        <label for="groupNameEdit" class="col-form-label">Loại phòng:</label>
+                        <input type="text" class="form-control" id="groupNameEdit" th:field="*{groupName}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+
+                    <!-- Diện tích -->
+                    <div class="form-group">
+                        <label for="areaEdit" class="col-form-label">Diện tích (m²):</label>
+                        <input type="number" class="form-control" id="areaEdit" th:field="*{area}" step="0.01" required>
+                    </div>
+
+                    <!-- Giá mỗi đêm -->
+                    <div class="form-group">
+                        <label for="pricePerNightEdit" class="col-form-label">Giá mỗi đêm (VND):</label>
+                        <input type="number" class="form-control" id="pricePerNightEdit" th:field="*{pricePerNight}" required>
+                    </div>
+
+                    <!-- Giá combo 2h -->
+                    <div class="form-group">
+                        <label for="comboPrice2HEdit"  class="col-form-label">Giá combo 2h:</label>
+                        <input type="number" id="comboPrice2HEdit"  class="form-control" th:field="*{comboPrice2H}" required/>
+                    </div>
+
+                    <!-- Giá giờ thêm -->
+                    <div class="form-group">
+                        <label for="extraHourPriceEdit" class="col-form-label">Giá giờ thêm:</label>
+                        <input type="number" id="extraHourPriceEdit" class="form-control" th:field="*{extraHourPrice}" required/>
+                    </div>
+
+                    <!-- Số người tối thiểu -->
+                    <div class="form-group">
+                        <label for="standardOccupancyEdit" class="col-form-label">Số người tiêu chuẩn:</label>
+                        <input type="number" class="form-control" id="standardOccupancyEdit" th:field="*{standardOccupancy}" required>
+                    </div>
+
+                    <!-- Số người tối đa -->
+                    <div class="form-group">
+                        <label for="maxOccupancyEdit" class="col-form-label">Số người tối đa:</label>
+                        <input type="number" class="form-control" id="maxOccupancyEdit" th:field="*{maxOccupancy}" required>
+                    </div>
+
+                    <!-- Số lượng trẻ em miễn phí -->
+                    <div class="form-group">
+                        <label for="numChildrenFreeEdit" class="col-form-label">Số lượng trẻ em miễn phí:</label>
+                        <input type="number" class="form-control" id="numChildrenFreeEdit" th:field="*{numChildrenFree}">
+                    </div>
+
+                    <!-- Giá thêm cho người lớn -->
+                    <div class="form-group">
+                        <label for="extraAdultEdit" class="col-form-label">Phụ thu thêm người:</label>
+                        <input type="number" class="form-control" id="extraAdultEdit" th:field="*{extraAdult}">
+                    </div>
+
+                    <!-- Tải ảnh chính -->
+                    <div class="form-group">
+                        <label for="imageFileEdit"  class="col-form-label">Tải ảnh chính:</label>
+                        <input type="file" id="imageFileEdit" class="form-control" name="file"/>
+                    </div>
+
+                    <!-- Tải ảnh khác -->
+                    <div class="form-group">
+                        <label for="imageFilesEdit" class="col-form-label">Tải ảnh khác:</label>
+                        <input type="file" id="imageFilesEdit" class="form-control" name="files" multiple/>
+                    </div>
+
+                    <!-- Mô tả -->
+                    <div class="form-group">
+                        <label for="descriptionEdit" class="col-form-label">Mô tả:</label>
+                        <textarea class="form-control" id="descriptionEdit" th:field="*{description}" rows="3" required></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Các dịch vụ:</label>
+                        <div th:each="service : ${services}">
+                            <input type="checkbox" th:field="*{services}" th:value="${service.serviceId}"
+                                   th:checked="${roomGroup.services != null and roomGroup.services.contains(service)}"/>
+                            <span th:text="${service.serviceName}">Dịch vụ</span>
+                            <br/>
+                        </div>
+                    </div>
+
+
+                    <label for="beds">Chọn loại giường và số lượng:</label>
+                    <div th:each="bed, bedStat : ${roomGroup.beds}">
+                        <div>
+                            <label th:text="${bed.bedType.name}"></label>
+                            <input type="number" th:field="*{beds[__${bedStat.index}__].bedNumber}" placeholder="Nhập số lượng giường" min="0"/>
+                            <!-- Ẩn thông tin bedType để gửi về form -->
+                            <input type="hidden" th:field="*{beds[__${bedStat.index}__].bedType}" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -198,20 +415,53 @@
 <script src="js/datatables-simple-demo.js"></script>
 
 <script>
-    document.querySelector('#editButton').addEventListener('click', function(event) {
-        event.preventDefault();
-        var href = this.getAttribute('href');
-        fetch(href)
-            .then(response => response.json())
-            .then(category => {
-                document.getElementById('idEdit').value = category.id;
-                document.getElementById('nameEdit').value = category.name;
-            });
-        var editModal = new bootstrap.Modal(document.getElementById('editModal'));
-        editModal.show();
+    // Khi người dùng click vào nút Update
+    document.querySelectorAll('.editButton').forEach(button => {
+        button.addEventListener('click', function (event) {
+            const roomGroupId = event.target.getAttribute('data-id');
+            fetch('/admin/get-room-group/' + roomGroupId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    document.getElementById('idEdit').value = data.roomGroupId
+                    document.getElementById('groupNameEdit').value = data.groupName;
+                    document.getElementById('areaEdit').value = data.area;
+                    document.getElementById('pricePerNightEdit').value = data.pricePerNight;
+                    document.getElementById('comboPrice2HEdit').value = data.comboPrice2H;
+                    document.getElementById('extraHourPriceEdit').value = data.extraHourPrice;
+                    document.getElementById('descriptionEdit').value = data.description;
+                    document.getElementById('standardOccupancyEdit').value = data.standardOccupancy;
+                    document.getElementById('maxOccupancyEdit').value = data.maxOccupancy;
+                    document.getElementById('numChildrenFreeEdit').value = data.numChildrenFree;
+                    document.getElementById('extraAdultEdit').value = data.extraAdult;
+                    document.getElementById('imageFileEdit').value = data.imageUrl;
+
+                    // Điền thông tin vào các trường dịch vụ (checkbox)
+                    // Xử lý điền các dịch vụ
+                    data.services.forEach(service => {
+                        const checkbox = document.querySelector(`input[type="checkbox"][value="${service.serviceId}"]`);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                        }
+                    });
+
+                    // Xử lý điền các giường
+                    data.beds.forEach((bed, index) => {
+                        const bedInput = document.querySelector(`input[name="beds[${index}].bedNumber"]`);
+                        if (bedInput) {
+                            bedInput.value = bed.bedNumber;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching roomGroup:', error);
+                });
+        });
     });
 
 </script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 </body>

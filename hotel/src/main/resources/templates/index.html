@@ -68,6 +68,16 @@
                                 <li class="active"><a th:href="@{/}">Trang chủ</a></li>
                                 <li><a th:href="@{/room-detail}">Phòng nghỉ</a></li>
                                 <li><a th:href="@{/about}">Chúng tôi</a></li>
+                                <li><a href="#">Cá nhân</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">- Thông tin cá nhân</a></li>
+                                        <li><a th:href="@{/user/booking/list}">- Thông tin đặt phòng</a></li>
+<!--                                        <li><a href="#">- Dropdown Item</a></li>-->
+<!--                                        <li><a href="#">- Dropdown Item</a></li>-->
+                                    </ul>
+                                </li>
+
+
 <!--                                <li><a href="#">Pages</a>-->
 <!--                                    <ul class="dropdown">-->
 <!--                                        <li><a href="./index.html">- Trang chủ</a></li>-->
@@ -508,8 +518,11 @@
                     <li><span><i class="fa fa-check"></i> Giường</span>
                         <span th:text="${roomGroup.bedDescription}"></span>
                     </li>
-                    <li><span><i class="fa fa-check"></i> Dịch vụ free </span>
-                        <span>: Wifi, Tivi, Bồn tắm</span>
+
+
+                    <li style="text-align: left;">
+                        <span><i class="fa fa-check"></i> Dịch vụ free </span>
+                        <span th:each="item, iterStat : ${roomGroup.services}" th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}" style="display: inline-block; text-align: left;"></span>
                     </li>
                 </ul>
                 <a href="#" class="btn roberto-btn mt-30" data-animation="fadeInUp" data-delay="2000ms">Chi tiết</a>

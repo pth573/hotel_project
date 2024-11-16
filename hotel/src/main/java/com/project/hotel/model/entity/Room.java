@@ -1,10 +1,7 @@
 package com.project.hotel.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "room")
+@Getter
+@Setter
 public class Room extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

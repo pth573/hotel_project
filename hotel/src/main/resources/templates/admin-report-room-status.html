@@ -1,0 +1,160 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <meta name="description" content="Selegend - Hotel & Resort Room Booking">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <title>Selegend - Hotel &amp; Resort</title>-->
+<!--    <link rel="icon" href="./img/core-img/favicon.png">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<div class="container-fluid">-->
+<!--    &lt;!&ndash; Hotel Search Form Area &ndash;&gt;-->
+<!--    <div class="row justify-content-center">-->
+<!--        <div class="col-12 col-md-10 col-lg-8">-->
+<!--            <div class="card p-4 shadow-lg">-->
+<!--                <h4 class="text-center mb-4">Tìm kiếm phòng</h4>-->
+<!--                <form th:action="@{/admin/report/room/status}" th:object="${bookingDto}" method="get">-->
+<!--                    <div class="row g-3">-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkIn" class="form-label">Nhận phòng</label>-->
+<!--                            <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}" />-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkOut" class="form-label">Trả phòng</label>-->
+<!--                            <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}" />-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkInTime" class="form-label">Giờ nhận phòng</label>-->
+<!--                            <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}" />-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkOutTime" class="form-label">Giờ trả phòng</label>-->
+<!--                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}" />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row g-3 mt-3">-->
+<!--                        <div class="col">-->
+<!--                            <label for="roomGroup" class="form-label">Chọn nhóm phòng</label>-->
+<!--                            <select class="form-select" id="roomGroup" name="roomGroup">-->
+<!--                                <option th:each="group : ${roomGroups}" th:value="${group.groupName}" th:text="${group.groupName}" th:selected="${group.groupName == roomGroup.groupName}"></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Submit Button &ndash;&gt;-->
+<!--                    <div class="text-center mt-4">-->
+<!--                        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Available Rooms &ndash;&gt;-->
+<!--    <div th:if="${availableRooms != null}">-->
+<!--        <h5 class="text-center mt-5">Các phòng trống</h5>-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <ul>-->
+<!--                    <li th:each="room : ${availableRooms}" class="mb-3">-->
+<!--                        <div class="d-flex justify-content-between align-items-center">-->
+<!--                            <p th:text="'Room ID: ' + ${room.roomId} + ' - ' + ${room.roomName}"></p>-->
+<!--                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal" th:data-roomid="${room.roomId}" th:data-roomname="${room.roomName}">Đặt phòng</button>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Selegend - Hotel & Resort Room Booking">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Selegend - Hotel &amp; Resort</title>
+    <link rel="icon" href="./img/core-img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container my-5">
+    <!-- Hotel Search Form Area -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="card shadow p-4">
+                <h4 class="text-center mb-4">Tìm kiếm phòng</h4>
+
+                    <form th:action="@{/admin/report/room/status}" th:object="${bookingDto}" method="get">
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="checkIn" class="form-label">Nhận phòng</label>
+                                <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}" />
+                            </div>
+                            <div class="col">
+                                <label for="checkOut" class="form-label">Trả phòng</label>
+                                <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}" />
+                            </div>
+                            <div class="col">
+                                <label for="checkInTime" class="form-label">Giờ nhận phòng</label>
+                                <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}" />
+                            </div>
+                            <div class="col">
+                                <label for="checkOutTime" class="form-label">Giờ trả phòng</label>
+                                <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}" />
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-3">
+                            <div class="col">
+                                <label for="roomGroup" class="form-label">Chọn nhóm phòng</label>
+                                <select class="form-select" id="roomGroup" name="roomGroup">
+                                    <option value="" th:selected="${selectedRoomGroupName == null || selectedRoomGroupName.isEmpty()}">Tất cả</option>
+                                    <option th:each="group : ${roomGroups}"
+                                            th:value="${group.groupName}"
+                                            th:text="${group.groupName}"
+                                            th:selected="${group.groupName == selectedRoomGroupName}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Available Rooms -->
+    <div th:if="${availableRooms != null}" class="mt-5">
+        <h5 class="text-center mb-4">Các phòng trống</h5>
+        <div class="row">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li th:each="room : ${availableRooms}" class="list-group-item d-flex justify-content-between align-items-center">
+                        <span th:text="'Room ID: ' + ${room.roomId} + ' - ' + ${room.roomName}"></span>
+<!--                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal" th:data-roomid="${room.roomId}" th:data-roomname="${room.roomName}">Đặt phòng</button>-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

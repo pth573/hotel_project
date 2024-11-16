@@ -1,6 +1,7 @@
 package com.project.hotel.service.impl;
 import com.project.hotel.model.dto.CustomerDto;
 import com.project.hotel.model.entity.Customer;
+import com.project.hotel.model.entity.Service;
 import com.project.hotel.repository.RoleRepository;
 import com.project.hotel.repository.CustomerRepository;
 import com.project.hotel.service.CustomerService;
@@ -26,6 +27,29 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findByEmail(String email) {
         return customerRepository.findStaffByEmail(email).orElseThrow(() -> new RuntimeException("not found customer " + email));
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public Customer findById(Long id) {
+        Optional<Customer> result = customerRepository.findById(id);
+        Customer customer = null;
+        if(result.isPresent()){
+            customer = result.get();
+        }
+        else{
+            throw new RuntimeException("Không thấy customer có id: " + id);
+        }
+        return customer;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        customerRepository.deleteById(id);
     }
 
 

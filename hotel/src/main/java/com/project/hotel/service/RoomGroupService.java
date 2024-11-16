@@ -15,4 +15,5 @@ public interface RoomGroupService {
     void deleteById(Long id);
     void updateRoomGroup(RoomGroup roomGroup);
     Long calculatePrice(BookingDto bookingDto, RoomGroup roomGroup);
+    RoomGroup findByGroupName(String name);
 }

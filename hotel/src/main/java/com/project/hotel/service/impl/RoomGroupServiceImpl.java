@@ -99,7 +99,19 @@ public class RoomGroupServiceImpl implements RoomGroupService {
 //        int days = ce
     }
 
-
+    @Override
+    public RoomGroup findByGroupName(String name) {
+        Optional<RoomGroup> result = Optional.ofNullable(roomGroupRepository.findByGroupName(name));
+        RoomGroup roomGroup = null;
+        if(result.isPresent()){
+            roomGroup = result.get();
+        }
+        else{
+//            throw new RuntimeException("Không thấy RoomGroup có name: " + name);
+            return null;
+        }
+        return roomGroup;
+    }
 
 
 //    @Override

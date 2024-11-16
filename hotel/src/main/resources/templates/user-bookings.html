@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Đặt Phòng Của Bạn</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Selegend - Hotel &amp; Resort</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="./img/core-img/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+
+
+<div class="container mt-5">
+    <h2>Đặt Phòng Của Bạn</h2>
+    <p>Xin chào, <strong th:text="${user.fullName}"></strong>!</p>
+
+    <!-- Bộ lọc trạng thái đặt phòng -->
+    <div class="form-group">
+        <label for="statusFilter">Lọc theo trạng thái:</label>
+        <select id="statusFilter" class="form-control" onchange="filterBookings()">
+            <option value="">Tất cả</option>
+            <option value="DELETED">Đã xóa</option>
+            <option value="PENDING">Đang chờ</option>
+            <option value="ACCEPTED">Đã chấp nhận</option>
+            <option value="REJECTED">Đã từ chối</option>
+        </select>
+    </div>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>Mã Đặt Phòng</th>
+            <th>Ngày Nhận Phòng</th>
+            <th>Ngày Trả Phòng</th>
+            <th>Tổng Giá</th>
+            <th>Trạng Thái</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookings}" th:classappend="${booking.status} == 'ACCEPTED' ? 'accepted' : ''">
+            <td th:text="${booking.bookingId}"></td>
+            <td th:text="${booking.checkInDate}"></td>
+            <td th:text="${booking.checkOutDate}"></td>
+            <td th:text="${booking.totalPrice} + ' VND'"></td>
+            <td th:text="${booking.status}"></td>
+            <td>
+                <button type="button" class="btn btn-info"
+                        data-toggle="modal"
+                        th:data-target="'#detailsModal' + ${booking.bookingId}">
+                    Xem Chi Tiết
+                </button>
+
+                <!-- Nếu booking chưa có review -->
+                <button type="button" class="btn btn-warning mt-2"
+                        th:if="${#lists.isEmpty(booking.reviews)}"
+                        data-toggle="modal"
+                        th:data-target="'#reviewModal' + ${booking.bookingId}">
+                    Đánh Giá
+                </button>
+
+                <!-- Nếu booking đã có review -->
+                <button type="button" class="btn btn-secondary mt-2"
+                        th:if="${!#lists.isEmpty(booking.reviews)}"
+                        data-toggle="modal"
+                        th:data-target="'#reviewModal' + ${booking.bookingId}">
+                    Đã Đánh Giá
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-primary mt-3">Quay Lại Trang Chủ</a>
+</div>
+
+<!-- Modal Chi Tiết Đơn Đặt Phòng -->
+<div th:each="booking : ${bookings}" th:id="'detailsModal' + ${booking.bookingId}" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi Tiết Đơn Đặt Phòng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Mã Đặt Phòng:</strong> <span th:text="${booking.bookingId}"></span></p>
+                <p><strong>Ngày Tạo:</strong> <span th:text="${booking.createdAt}"></span></p>
+                <p><strong>Ngày Nhận Phòng:</strong> <span th:text="${booking.checkInDate}"></span></p>
+                <p><strong>Ngày Trả Phòng:</strong> <span th:text="${booking.checkOutDate}"></span></p>
+                <p><strong>Tổng Giá:</strong> <span th:text="${booking.totalPrice} + ' VND'"></span></p>
+                <p><strong>Trạng Thái:</strong> <span th:text="${booking.status}"></span></p>
+                <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Đánh Giá / Hiển thị thông tin đã đánh giá -->
+<div th:each="booking : ${bookings}" th:id="'reviewModal' + ${booking.bookingId}" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đánh Giá Đơn Đặt Phòng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" th:if="${!#lists.isEmpty(booking.reviews)}">
+                <div th:each="review : ${booking.reviews}">
+                    <p><strong>Đánh Giá: </strong><span th:text="${review.rating}"></span></p>
+                    <p><strong>Nhận Xét: </strong><span th:text="${review.content}"></span></p>
+                    <p><strong>Ngày Đánh Giá: </strong><span th:text="${review.createdAt}"></span></p>
+                </div>
+            </div>
+
+            <div class="modal-body" th:if="${#lists.isEmpty(booking.reviews)}">
+                <form th:action="@{/user/booking/review/{bookingId}(bookingId=${booking.bookingId})}" method="post">
+                    <div class="form-group">
+                        <label for="rating">Đánh Giá (1-5):</label>
+                        <select class="form-control" name="rating" id="rating" required>
+                            <option value="" disabled selected>Chọn đánh giá</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Nhận Xét:</label>
+                        <textarea id="content" class="form-control" name="content" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterBookings() {
+        const filter = document.getElementById("statusFilter").value;
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            const status = row.querySelector("td:nth-child(5)").innerText;
+            if (filter === "" || status === filter) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>
+<script src="js/jquery.min.js"></script>
+<!-- Popper -->
+<script src="js/popper.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- All Plugins -->
+<script src="js/roberto.bundle.js"></script>
+<!-- Active -->
+<script src="js/default-assets/active.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

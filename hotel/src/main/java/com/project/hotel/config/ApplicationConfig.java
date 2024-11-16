@@ -59,7 +59,10 @@ public class ApplicationConfig {
                                 .requestMatchers("/update/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/1").permitAll()
                                 .requestMatchers("/room-group-list-available/**").permitAll()
+                                .requestMatchers("/admin/get-room-group/**").permitAll()
+                                .requestMatchers("/admin/update-room-group/**").permitAll()
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**","/dist/**", "/scss/**") // Thêm các đường dẫn tài nguyên tĩnh
                                 .permitAll() // Cho phép truy cập không cần xác thực
                 )

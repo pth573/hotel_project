@@ -23,6 +23,9 @@ public class Service extends BaseEntity {
     @ManyToMany(mappedBy = "services")
     private List<Room> rooms;
 
+    @ManyToMany(mappedBy = "services")
+    private List<RoomGroup> roomGroups;
+
     @Override
     public String toString() {
         return "Service{" +

@@ -280,7 +280,8 @@
                             <h6>Diện tích: <span th:text="${roomGroup.area}">30 ft</span></h6>
                             <h6>Số ngđi tối đa: <span th:text="${roomGroup.maxOccupancy}"></span></h6>
                             <h6>Giường: <span th:text="${roomGroup.getBedDescription()}"></span></h6>
-                            <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>
+                            <h6>Dịch vụ: <span th:each="item, iterStat : ${roomGroup.services}" th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}" style="display: inline-block; text-align: left;"></span></h6>
+<!--                            <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>-->
                             <h6>
                                 <span th:if="${roomGroup.availableRoomCount > 0}" th:text="'Số phòng trống: ' + ${roomGroup.availableRoomCount}"></span>
                             </h6>
@@ -961,27 +962,6 @@
 <script src="js/jquery.min.js"></script>
 
 <script>
-    // Thiết lập giá trị mặc định cho các trường khi trang được tải
-    // window.onload = function() {
-    //     var today = new Date();
-    //     var tomorrow = new Date(today);
-    //     tomorrow.setDate(today.getDate() + 1); // Ngày mai
-    //
-    //     // Đặt ngày nhận phòng là hôm nay
-    //     document.getElementById('checkInDate').value = today.toISOString().split('T')[0];
-    //
-    //     // Đặt ngày trả phòng là ngày mai
-    //     document.getElementById('checkOutDate').value = tomorrow.toISOString().split('T')[0];
-    //
-    //     // Đặt giờ nhận phòng là 14h hôm nay
-    //     document.getElementById('checkInTime').value = "14:00";
-    //
-    //     // Đặt giờ trả phòng là 11h ngày mai
-    //     document.getElementById('checkOutTime').value = "11:00";
-    //
-    //     document.getElementById('adults').value = "2";
-    // };
-
     window.onload = function() {
         // Kiểm tra và thiết lập giá trị cho ngày nhận phòng nếu trống
         var checkInDate = document.getElementById('checkInDate');

@@ -2,6 +2,7 @@ package com.project.hotel.controller;
 import com.project.hotel.model.entity.Bed;
 import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.model.entity.RoomImage;
+import com.project.hotel.model.entity.Service;
 import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class RoomGroupController {
     private final FilesStorageService filesStorageService;
     private final RoomImageService roomImageService;
     private final BedService bedService;
+    private final ServiceService serviceService;
 
 
     @GetMapping("/room-group/list")
@@ -126,7 +128,7 @@ public class RoomGroupController {
         RoomGroup roomGroup = roomGroupService.findById(id);
         roomImageService.deleteByRoomGroup(roomGroup);
         roomGroupService.deleteById(id);
-        return "redirect:/roomgroup/list";
+        return "redirect:/room group/list";
     }
 
     @GetMapping("/room_groups/{filename:.+}")
@@ -135,6 +137,7 @@ public class RoomGroupController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
+
 
     @GetMapping("/room-group/add")
     public String showRoomGroupForm(Model model) {
@@ -145,10 +148,30 @@ public class RoomGroupController {
             bedList.add(new Bed(bedType, 0));
         }
         roomGroup.setBeds(bedList);
+        List<Service> services = serviceService.findAll();
+
         model.addAttribute("roomGroup", roomGroup);
-        model.addAttribute("beds", bedList);  // Thêm danh sách giường vào model để sử dụ
-        return "add-roomgroup";
+        model.addAttribute("services", services);
+        model.addAttribute("beds", bedList);
+        return "admin-room-group";
     }
+
+//    @GetMapping("/room-group/add")
+//    public String showRoomGroupForm(Model model) {
+//        RoomGroup roomGroup = new RoomGroup();
+//        List<Bed> bedList = new ArrayList<>();
+//        BedType[] bedTypes = BedType.values();
+//        for (BedType bedType : bedTypes) {
+//            bedList.add(new Bed(bedType, 0));
+//        }
+//        roomGroup.setBeds(bedList);
+//        List<Service> services = serviceService.findAll();
+//
+//        model.addAttribute("roomGroup", roomGroup);
+//        model.addAttribute("services", services);
+//        model.addAttribute("beds", bedList);
+//        return "add-roomgroup";
+//    }
 
     @PostMapping("/room-group/add")
     public String addRoomGroup(Model model,

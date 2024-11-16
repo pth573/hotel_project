@@ -27,5 +27,31 @@ public class AdminController {
         return "index-admin";
     }
 
+    @GetMapping("/list")
+    public String list(Model model, Principal principal) {
+//        model.addAttribute("title", "Admin Page");
+//        CustomerUtils.getCustomerInfo(principal, customerService, model);
+//        Customer customer = (Customer) model.getAttribute("customer");
+
+        return "list-product";
+    }
+
+    @GetMapping("/list1")
+    public String list1(Model model, Principal principal) {
+
+        return "product-details-tmp";
+    }
+
+    @GetMapping("/list2")
+    public String list2(Model model, Principal principal) {
+
+        return "index2";
+    }
+
+    @GetMapping("/list3")
+    public String list3(Model model, Principal principal) {
+
+        return "add-product";
+    }
 
 }

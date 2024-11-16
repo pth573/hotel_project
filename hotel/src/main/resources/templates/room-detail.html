@@ -118,7 +118,7 @@
             <div class="col-12">
                 <div class="breadcrumb-content d-flex align-items-center justify-content-between pb-5">
                     <h2 class="room-title" th:text="${roomGroup.groupName}"></h2>
-                    <h2 class="room-price" th:text="${priceDateTime}"><span> VNĐ</span></h2>
+<!--                    <h2 class="room-price" th:text="${priceDateTime}"><span> VNĐ</span></h2>-->
                 </div>
             </div>
         </div>
@@ -172,7 +172,8 @@
 
 
                         <h6>Dịch vụ:
-                            <span>Wifi, television, ...</span> <!-- Update this based on actual services if needed -->
+                            <span th:each="item, iterStat : ${roomGroup.services}" th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}" style="display: inline-block; text-align: left;"></span>
+<!--                            <span>Wifi, television, ...</span> &lt;!&ndash; Update this based on actual services if needed &ndash;&gt;-->
                         </h6>
 
 <!--                        <h6>Size: <span>350-425sqf</span></h6>-->
@@ -201,90 +202,171 @@
 
                 <!-- Room Service -->
                 <div class="room-service mb-50">
-                    <h4>Room Services</h4>
-
+                    <h4>Các dịch vụ phòng</h4>
                     <ul>
-                        <li><img th:src="@{/img/core-img/icon1.png}" alt=""> Air Conditioning</li>
-                        <li><img th:src="@{/img/core-img/icon2.png}" alt=""> Free drinks</li>
-                        <li><img th:src="@{/img/core-img/icon3.png}" alt=""> Restaurant quality</li>
-                        <li><img th:src="@{/img/core-img/icon4.png}" alt=""> Cable TV</li>
-                        <li><img th:src="@{/img/core-img/icon5.png}" alt=""> Unlimited Wifi</li>
-                        <li><img th:src="@{/img/core-img/icon6.png}" alt=""> Service 24/24</li>
+                        <li th:each="service : ${roomGroup.services}">
+                            <span th:text="${service.serviceName}"></span>
+                        </li>
                     </ul>
+
+
+                    <!--                    <ul>-->
+<!--                        <li><img th:src="@{/img/core-img/icon1.png}" alt=""> Air Conditioning</li>-->
+<!--                        <li><img th:src="@{/img/core-img/icon2.png}" alt=""> Free drinks</li>-->
+<!--                        <li><img th:src="@{/img/core-img/icon3.png}" alt=""> Restaurant quality</li>-->
+<!--                        <li><img th:src="@{/img/core-img/icon4.png}" alt=""> Cable TV</li>-->
+<!--                        <li><img th:src="@{/img/core-img/icon5.png}" alt=""> Unlimited Wifi</li>-->
+<!--                        <li><img th:src="@{/img/core-img/icon6.png}" alt=""> Service 24/24</li>-->
+<!--                    </ul>-->
                 </div>
+
+
+                <div class="room-details mb-50">
+                    <h4>Thông tin chi tiết phòng</h4>
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>Giá mỗi đêm</th>
+                            <td th:text="${roomGroup.pricePerNight} + ' VNĐ'"></td>
+                        </tr>
+                        <tr>
+                            <th>Giá combo 2 giờ</th>
+                            <td th:text="${roomGroup.comboPrice2H} + ' VNĐ'"></td>
+                        </tr>
+                        <tr>
+                            <th>Phụ thu giờ tiếp</th>
+                            <td th:text="${roomGroup.extraHourPrice} + ' VNĐ'"></td>
+                        </tr>
+                        <tr>
+                            <th>Phụ thu thêm người</th>
+                            <td th:text="${roomGroup.extraAdult} + ' VNĐ'"></td>
+                        </tr>
+                        <tr>
+                            <th>Số khách tiêu chuẩn</th>
+                            <td th:text="${roomGroup.standardOccupancy}"></td>
+                        </tr>
+                        <tr>
+                            <th>Số khách tối đa</th>
+                            <td th:text="${roomGroup.maxOccupancy}"></td>
+                        </tr>
+                        <tr>
+                            <th>Số trẻ em miễn phí</th>
+                            <td th:text="${roomGroup.numChildrenFree}"></td>
+                        </tr>
+                        <tr>
+                            <th>Mô tả</th>
+                            <td th:text="${roomGroup.description}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
 
                 <!-- Room Review -->
                 <div class="room-review-area mb-100">
-                    <h4>Room Review</h4>
+                    <h4>Đánh giá</h4>
 
-                    <!-- Single Review Area -->
-                    <div class="single-room-review-area d-flex align-items-center">
-                        <div class="reviwer-thumbnail">
-                            <img th:src="@{/img/bg-img/53.jpg}" alt="">
-                        </div>
-                        <div class="reviwer-content">
-                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
-                                <div class="reviwer-title">
-                                    <span>27 Aug 2019</span>
-                                    <h6>Brandon Kelley</h6>
-                                </div>
-                                <div class="reviwer-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
+                    <!-- Lặp qua các review -->
+                    <div th:each="review : ${reviews}">
+                        <div class="single-room-review-area d-flex align-items-center">
+                            <!-- Ảnh đại diện của người đánh giá -->
+                            <div class="reviwer-thumbnail">
+<!--                                <img th:src="@{/img/bg-img/{id}.jpg}" alt="Reviewer Thumbnail" />-->
                             </div>
-                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
+                            <div class="reviwer-content">
+                                <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
+                                    <div class="reviwer-title">
+                                        <!-- Ngày đánh giá -->
+                                        <span th:text="${review.createdAt}"></span>
+                                        <!-- Tên người đánh giá -->
+                                        <h6 th:text="${review.user.fullName}"></h6>
+                                    </div>
+                                    <div class="reviwer-rating">
+                                        <!-- Hiển thị sao đánh giá -->
+                                        <i class="fa fa-star" th:classappend="${review.rating >= 1 ? ' checked' : ''}"></i>
+                                        <i class="fa fa-star" th:classappend="${review.rating >= 2 ? ' checked' : ''}"></i>
+                                        <i class="fa fa-star" th:classappend="${review.rating >= 3 ? ' checked' : ''}"></i>
+                                        <i class="fa fa-star" th:classappend="${review.rating >= 4 ? ' checked' : ''}"></i>
+                                        <i class="fa fa-star" th:classappend="${review.rating >= 5 ? ' checked' : ''}"></i>
+                                    </div>
+                                </div>
+                                <!-- Nội dung nhận xét -->
+                                <p th:text="${review.content}"></p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Single Review Area -->
-                    <div class="single-room-review-area d-flex align-items-center">
-                        <div class="reviwer-thumbnail">
-                            <img th:src="@{/img/bg-img/54.jpg}" alt="">
-                        </div>
-                        <div class="reviwer-content">
-                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
-                                <div class="reviwer-title">
-                                    <span>27 Aug 2019</span>
-                                    <h6>Sounron Masha</h6>
-                                </div>
-                                <div class="reviwer-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
-                        </div>
-                    </div>
 
-                    <!-- Single Review Area -->
-                    <div class="single-room-review-area d-flex align-items-center">
-                        <div class="reviwer-thumbnail">
-                            <img th:src="@{/img/bg-img/55.jpg}" alt="">
-                        </div>
-                        <div class="reviwer-content">
-                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
-                                <div class="reviwer-title">
-                                    <span>27 Aug 2019</span>
-                                    <h6>Amada Lyly</h6>
-                                </div>
-                                <div class="reviwer-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
-                        </div>
-                    </div>
+
+                    <!--                    &lt;!&ndash; Single Review Area &ndash;&gt;-->
+<!--                    <div class="single-room-review-area d-flex align-items-center">-->
+<!--                        <div class="reviwer-thumbnail">-->
+<!--                            <img th:src="@{/img/bg-img/53.jpg}" alt="">-->
+<!--                        </div>-->
+<!--                        <div class="reviwer-content">-->
+<!--                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">-->
+<!--                                <div class="reviwer-title">-->
+<!--                                    <span>27 Aug 2019</span>-->
+<!--                                    <h6>Brandon Kelley</h6>-->
+<!--                                </div>-->
+<!--                                <div class="reviwer-rating">-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Single Review Area &ndash;&gt;-->
+<!--                    <div class="single-room-review-area d-flex align-items-center">-->
+<!--                        <div class="reviwer-thumbnail">-->
+<!--                            <img th:src="@{/img/bg-img/54.jpg}" alt="">-->
+<!--                        </div>-->
+<!--                        <div class="reviwer-content">-->
+<!--                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">-->
+<!--                                <div class="reviwer-title">-->
+<!--                                    <span>27 Aug 2019</span>-->
+<!--                                    <h6>Sounron Masha</h6>-->
+<!--                                </div>-->
+<!--                                <div class="reviwer-rating">-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Single Review Area &ndash;&gt;-->
+<!--                    <div class="single-room-review-area d-flex align-items-center">-->
+<!--                        <div class="reviwer-thumbnail">-->
+<!--                            <img th:src="@{/img/bg-img/55.jpg}" alt="">-->
+<!--                        </div>-->
+<!--                        <div class="reviwer-content">-->
+<!--                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">-->
+<!--                                <div class="reviwer-title">-->
+<!--                                    <span>27 Aug 2019</span>-->
+<!--                                    <h6>Amada Lyly</h6>-->
+<!--                                </div>-->
+<!--                                <div class="reviwer-rating">-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </div>
             </div>
@@ -428,6 +510,12 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="form-group mb-30">
+<!--                            <label for="room">Chọn phòng</label>-->
+                            <label>Tổng tiền: </label>
+                            <h3 style="margin-left: 130px" class="room-price" th:text="${priceDateTime}"><span> VNĐ</span></h3>
                         </div>
 
                         <div class="form-group">
