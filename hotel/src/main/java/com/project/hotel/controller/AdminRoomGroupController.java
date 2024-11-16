@@ -51,8 +51,12 @@ public class AdminRoomGroupController {
         if (roomGroup.getServices() == null) {
             roomGroup.setServices(new ArrayList<>());
         }
+        Service service = new Service();
+        model.addAttribute("roomGroupNew", roomGroup);
         model.addAttribute("roomGroup", roomGroup);
+
         model.addAttribute("services", services);
+        model.addAttribute("service", service);
         model.addAttribute("roomGroups", roomGroups);
 //        model.addAttribute("beds", beds);
         return "admin-room-group";
@@ -74,7 +78,7 @@ public class AdminRoomGroupController {
     public String addRoomGroup(Model model,
                                @RequestParam("file") MultipartFile mainImage,
                                @RequestParam("files") MultipartFile[] fileImgList,
-                               @ModelAttribute("roomGroup") RoomGroup roomGroup,
+                               @ModelAttribute("roomGroupNew") RoomGroup roomGroup,
                                RedirectAttributes redirectAttributes
     ) {
         List<Bed> bedList = roomGroup.getBeds();
@@ -142,24 +146,6 @@ public class AdminRoomGroupController {
 
 
 
-
-    @GetMapping("/admin/update-room-group/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        RoomGroup roomGroup = roomGroupService.findById(id);
-//        System.out.println("1");
-//        System.out.println(roomGroup);
-        model.addAttribute("roomGroup", roomGroup);
-        return "update-roomgroup";
-    }
-
-//    @GetMapping("/admin/get-room-group/{id}")
-//    @ResponseBody
-//    public ResponseEntity<?> getRoomGroup(@PathVariable Long id) {
-//        System.out.println("Hi :" + id  );
-//        RoomGroup roomGroup = roomGroupService.findById(id);
-//        return ResponseEntity.ok().body(Collections.singletonMap("roomGroup", roomGroup));
-//    }
-
     @GetMapping("/admin/get-room-group/{id}")
     @ResponseBody
     public ResponseEntity<RoomGroupDTO> getRoomGroup(@PathVariable Long id, Model model) {
@@ -224,26 +210,43 @@ public class AdminRoomGroupController {
         return ResponseEntity.ok(roomGroupDTO);
     }
 
+    @GetMapping("/admin/update-room-group/{id}")
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+        RoomGroup roomGroup = roomGroupService.findById(id);
+        model.addAttribute("roomGroup", roomGroup);
+        model.addAttribute("services", serviceService.findAll());
+        return "admin-room-group-update";
+    }
 
 
     @PostMapping("/admin/update-room-group/{id}")
     public String updateRoomGroup(@PathVariable("id") Long id, @RequestParam("file") MultipartFile mainImage,
                                   @RequestParam("files") MultipartFile[] fileImgList,
-                                  @ModelAttribute RoomGroup roomGroup,
-                                  @RequestParam("idEdit") Long idEdit
-
+                                  @ModelAttribute("roomGroup") RoomGroup roomGroup
     ) {
 
-        System.out.println(roomGroup);
-        System.out.println("Hi");
-
-        RoomGroup theRoomGroupFromDB = roomGroupService.findById(idEdit);
+        RoomGroup theRoomGroupFromDB = roomGroupService.findById(id);
         List<RoomImage> images = theRoomGroupFromDB.getImages();
         List<RoomImage> imagesToRemove = new ArrayList<>(images);
         for (RoomImage image : imagesToRemove) {
             theRoomGroupFromDB.getImages().remove(image);
             roomImageService.save(image);
         }
+
+//        List<Service> services = theRoomGroupFromDB.getServices();
+//        List<Service> servicesToRemove = new ArrayList<>(services);
+//        for (Service service : servicesToRemove) {
+//            theRoomGroupFromDB.getServices().remove(service);
+//            serviceService.save(service);
+//        }
+
+//        List<Service> services = theRoomGroupFromDB.getServices();
+//        List<Service> servicesToRemove = new ArrayList<>(services);
+//        for (Service service : servicesToRemove) {
+//            theRoomGroupFromDB.getServices().remove(service);
+//            serviceService.save(service);
+//        }
+//
 
         try {
             try {
@@ -307,6 +310,12 @@ public class AdminRoomGroupController {
         RoomGroup roomGroup = roomGroupService.findById(id);
         roomImageService.deleteByRoomGroup(roomGroup);
         roomGroupService.deleteById(id);
+        return "redirect:/admin/room-group";
+    }
+
+    @PostMapping("/admin/room-group/service/add")
+    public String addRoom(@ModelAttribute Service service) {
+        serviceService.save(service);
         return "redirect:/admin/room-group";
     }
 }

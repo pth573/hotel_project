@@ -30,6 +30,11 @@
             <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
                     data-whatever="@mdo">Thêm mới
             </button>
+
+            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddService"
+                    data-whatever="@mdo">Thêm dịch vụ
+            </button>
+
             <p th:if="${#lists.size(roomGroups) == 0}">Chưa có loại phòng nào</p>
             <div th:if="${success}" class="text-center alert alert-success">
                 <p th:text="${success}"></p>
@@ -134,20 +139,25 @@
 <!--                            Update-->
 <!--                        </a>-->
 
-                        <a href="#" class="btn btn-info btn-sm editButton"
-                           th:data-id="${roomGroup.roomGroupId}"
-                           th:data-groupname="${roomGroup.groupName}"
-                           th:data-area="${roomGroup.area}"
-                           th:data-pricepernight="${roomGroup.pricePerNight}"
-                           th:data-comboprice2h="${roomGroup.comboPrice2H}"
-                           th:data-extrahourprice="${roomGroup.extraHourPrice}"
-                           th:data-standardoccupancy="${roomGroup.standardOccupancy}"
-                           th:data-maxoccupancy="${roomGroup.maxOccupancy}"
-                           th:data-numchildrenfree="${roomGroup.numChildrenFree}"
-                           th:data-extraadult="${roomGroup.extraAdult}"
-                           th:data-description="${roomGroup.description}"
-                           data-bs-toggle="modal"
-                           data-bs-target="#editModal">Update</a>
+                        <a th:href="@{'/admin/update-room-group/' + ${roomGroup.roomGroupId}}"
+                           class="btn btn-info btn-sm">
+                            Cập nhật
+                        </a>
+
+<!--                        <a href="#" class="btn btn-info btn-sm editButton"-->
+<!--                           th:data-id="${roomGroup.roomGroupId}"-->
+<!--                           th:data-groupname="${roomGroup.groupName}"-->
+<!--                           th:data-area="${roomGroup.area}"-->
+<!--                           th:data-pricepernight="${roomGroup.pricePerNight}"-->
+<!--                           th:data-comboprice2h="${roomGroup.comboPrice2H}"-->
+<!--                           th:data-extrahourprice="${roomGroup.extraHourPrice}"-->
+<!--                           th:data-standardoccupancy="${roomGroup.standardOccupancy}"-->
+<!--                           th:data-maxoccupancy="${roomGroup.maxOccupancy}"-->
+<!--                           th:data-numchildrenfree="${roomGroup.numChildrenFree}"-->
+<!--                           th:data-extraadult="${roomGroup.extraAdult}"-->
+<!--                           th:data-description="${roomGroup.description}"-->
+<!--                           data-bs-toggle="modal"-->
+<!--                           data-bs-target="#editModal">Update</a>-->
 
                         <a th:href="@{'/admin/room-group/delete/' + ${roomGroup.roomGroupId}}"
                            class="btn btn-danger btn-sm"
@@ -159,13 +169,11 @@
             </table>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer th:replace="~{admin-fragments::footer}"></footer>
-            <!-- End of Footer -->
 
         </div>
     </div>
 </div>
+
 
 <!-- Add Room Group Modal -->
 <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
@@ -179,7 +187,7 @@
             <div class="modal-body">
 
 
-                <form th:action="@{/admin/save-room-group}" method="post" th:object="${roomGroup}" enctype="multipart/form-data">
+                <form th:action="@{/admin/save-room-group}" method="post" th:object="${roomGroupNew}" enctype="multipart/form-data">
                     <!-- Tên nhóm phòng -->
                     <div class="form-group">
                         <label for="groupName" class="col-form-label">Loại phòng:</label>
@@ -287,6 +295,63 @@
 </div>
 
 
+<!-- Add Service Modal -->
+<div class="modal fade" id="exampleAddService" tabindex="-1" role="dialog"
+     aria-labelledby="exampleAddServiceLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleAddServiceLabel">Thêm loại phòng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <form th:action="@{/admin/room-group/service/add}" method="post" th:object="${service}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="serviceName" class="form-label">Tên dịch vụ</label>
+                        <input type="text" class="form-control" id="serviceName" name="serviceName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Mô tả</label>
+                        <textarea class="form-control" name="description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá (VND)</label>
+                        <input type="number" class="form-control" id="price" name="price" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
+
+
+<!--                <form th:action="@{/service/add}" th:object="service" method="post">-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="serviceName" class="form-label">Tên dịch vụ</label>-->
+<!--                        <input type="text" class="form-control" id="serviceName" name="serviceName" required>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="description" class="form-label">Mô tả</label>-->
+<!--                        <textarea class="form-control" id="description-service" name="description-service" required></textarea>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="price" class="form-label">Giá (VND)</label>-->
+<!--                        <input type="number" class="form-control" id="price" name="price" required>-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary">Thêm</button>-->
+<!--&lt;!&ndash;                    <a th:href="@{/service/list}" class="btn btn-secondary">Hủy</a>&ndash;&gt;-->
+<!--                </form>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Edit Category Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -297,7 +362,7 @@
             </div>
             <div class="modal-body">
 
-                <form th:action="@{/admin/update-room-group/{roomGroupId}(roomGroupId=${roomGroup.roomGroupId})}" method="post" th:object="${roomGroup}" enctype="multipart/form-data">
+                <form name="roomGroup" th:action="@{/admin/update-room-group/{roomGroupId}(roomGroupId=${roomGroup.roomGroupId})}" method="post" th:object="${roomGroup}" enctype="multipart/form-data">
 
                     <input name="idEdit" id="idEdit" th:field="*{roomGroupId}">
                     <!--                    <input type="hidden" id="idEdit" th:field="*{roomGroupId}"> <-->
@@ -436,8 +501,6 @@
                     document.getElementById('extraAdultEdit').value = data.extraAdult;
                     document.getElementById('imageFileEdit').value = data.imageUrl;
 
-                    // Điền thông tin vào các trường dịch vụ (checkbox)
-                    // Xử lý điền các dịch vụ
                     data.services.forEach(service => {
                         const checkbox = document.querySelector(`input[type="checkbox"][value="${service.serviceId}"]`);
                         if (checkbox) {

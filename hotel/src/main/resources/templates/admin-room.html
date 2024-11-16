@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="~{admin-fragments::header}">
+    <meta charset="UTF-8">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{admin-fragments::admin-nav}"></nav>
+<div id="layoutSidenav">
+    <div th:replace="~{admin-fragments::side-nav}"></div>
+    <div id="layoutSidenav_content" class="">
+
+        <!-- Main Content -->
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Loại phòng</h1>
+
+            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
+                    data-whatever="@mdo">Thêm mới
+            </button>
+
+<!--            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddService"-->
+<!--                    data-whatever="@mdo">Thêm dịch vụ-->
+<!--            </button>-->
+
+            <p th:if="${#lists.size(roomList) == 0}">Chưa có phòng nào</p>
+            <div th:if="${success}" class="text-center alert alert-success">
+                <p th:text="${success}"></p>
+            </div>
+            <div th:if="${error}" class="text-center alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+
+            <table class="table table-striped table-bordered" th:if="${roomList != null and not #lists.isEmpty(roomList)}">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Hình Ảnh</th>
+                    <th scope="col">Tên Phòng</th>
+                    <th scope="col">Nhóm phòng</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Khác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="room : ${roomList}">
+                    <!-- Room Group ID -->
+                    <th scope="row" th:text="${room.roomId}"></th>
+
+                    <td>
+                        <img th:src="${room.roomGroup.imageUrl}" alt="Room Image" style="width: 100px; height: auto;">
+                    </td>
+
+                    <td th:text="${room.roomName}"></td>
+                    <!-- Image -->
+
+                    <td th:text="${room.roomGroup.groupName}"></td>
+
+                    <td th:text="${room.description}"></td>
+
+                    <!-- Actions -->
+                    <td>
+                        <!-- Update Button -->
+
+                        <a th:href="@{'/admin/room/update/' + ${room.roomId}}"
+                           class="btn btn-info btn-sm">
+                            Cập nhật
+                        </a>
+                        <a th:href="@{'/admin/room/delete/' + ${room.roomId}}"
+                           class="btn btn-danger btn-sm"
+                           onclick="if (!(confirm('Bạn có chắc chắn muốn xóa phòng này?'))) return false">Xóa</a>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End of Main Content -->
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Room Group Modal -->
+<div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleAddCategoryModalLabel">Thêm loại phòng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <form th:action="@{/admin/room/add}" method="post" th:object="${room}" enctype="multipart/form-data">
+                    <!-- Tên nhóm phòng -->
+
+                    <label for="roomName"  class="col-form-label">Tên phòng:</label>
+                    <input type="text" class="form-control"  id="roomName" th:field="*{roomName}" required/>
+                    <br/>
+
+                    <!-- Mô tả -->
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">Mô tả:</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>
+                    </div>
+
+                    <label for="roomGroup" class="col-form-label">Loại phòng:</label>
+                    <select id="roomGroup" th:field="*{roomGroup}">
+                        <option th:each="group : ${roomGroups}"
+                                th:value="${group.roomGroupId}"
+                                th:text="${group.groupName}">Loại phòng</option>
+                    </select>
+                    <br/>
+
+                    <!-- Nút Submit và Close -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--&lt;!&ndash; Add Service Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="exampleAddService" tabindex="-1" role="dialog"-->
+<!--     aria-labelledby="exampleAddServiceLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleAddServiceLabel">Thêm loại phòng</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+
+
+<!--                <form th:action="@{/admin/room-group/service/add}" method="post" th:object="${service}" enctype="multipart/form-data">-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="serviceName" class="form-label">Tên dịch vụ</label>-->
+<!--                        <input type="text" class="form-control" id="serviceName" name="serviceName" required>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="description" class="form-label">Mô tả</label>-->
+<!--                        <textarea class="form-control" name="description" required></textarea>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="price" class="form-label">Giá (VND)</label>-->
+<!--                        <input type="number" class="form-control" id="price" name="price" required>-->
+<!--                    </div>-->
+
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="submit" class="btn btn-primary">Lưu</button>-->
+<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
