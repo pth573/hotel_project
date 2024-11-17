@@ -42,16 +42,16 @@ public class CustomerController {
     }
 
 
-    @PostMapping("/searchCustomer")
-    public ResponseEntity<?> searchCustomer(@RequestParam String email) {
-        Customer customer = customerService.findByEmail(email);
-
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        } else {
-            return ResponseEntity.ok(null);
-        }
-    }
+//    @PostMapping("/searchCustomer")
+//    public ResponseEntity<?> searchCustomer(@RequestParam String email) {
+//        Customer customer = customerService.findByEmail(email);
+//
+//        if (customer != null) {
+//            return ResponseEntity.ok(customer);
+//        } else {
+//            return ResponseEntity.ok(null);
+//        }
+//    }
 
     // Tạo khách hàng mới
     @PostMapping("/createCustomer")

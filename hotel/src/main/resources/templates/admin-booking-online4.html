@@ -1,0 +1,749 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <title>Selegend - Hotel &amp; Resort</title>-->
+<!--    <link rel="icon" href="./img/core-img/favicon.png">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--&lt;!&ndash; Hotel Search Form Area &ndash;&gt;-->
+<!--<div class="container-fluid">-->
+<!--    <div class="row justify-content-center">-->
+<!--        <div class="col-12 col-md-10 col-lg-8">-->
+<!--            <div class="card p-4 shadow-lg">-->
+<!--                <h4 class="text-center mb-4">Tìm kiếm phòng</h4>-->
+<!--                <form th:action="@{/admin/booking/online}" th:object="${bookingDto}" method="get">-->
+<!--                    <div class="row g-3">-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkIn" class="form-label">Nhận phòng</label>-->
+<!--                            <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}"/>-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkOut" class="form-label">Trả phòng</label>-->
+<!--                            <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}"/>-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkInTime" class="form-label">Giờ nhận phòng</label>-->
+<!--                            <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}"/>-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="checkOutTime" class="form-label">Giờ trả phòng</label>-->
+<!--                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}"/>-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="adults" class="form-label">Người lớn</label>-->
+<!--                            <select name="adults" id="adults" class="form-select" th:value="${bookingDto.adults}">-->
+<!--                                <option value="1" th:selected="${bookingDto.adults == 1}">01</option>-->
+<!--                                <option value="2" th:selected="${bookingDto.adults == 2}">02</option>-->
+<!--                                <option value="3" th:selected="${bookingDto.adults == 3}">03</option>-->
+<!--                                <option value="4" th:selected="${bookingDto.adults == 4}">04</option>-->
+<!--                                <option value="5" th:selected="${bookingDto.adults == 5}">05</option>-->
+<!--                                <option value="6" th:selected="${bookingDto.adults == 6}">06</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <label for="children" class="form-label">Trẻ em</label>-->
+<!--                            <select name="children" id="children" class="form-select" th:value="${bookingDto.children}">-->
+<!--                                <option value="0" th:selected="${bookingDto.children == 0}">00</option>-->
+<!--                                <option value="1" th:selected="${bookingDto.children == 1}">01</option>-->
+<!--                                <option value="2" th:selected="${bookingDto.children == 2}">02</option>-->
+<!--                                <option value="3" th:selected="${bookingDto.children == 3}">03</option>-->
+<!--                                <option value="4" th:selected="${bookingDto.children == 4}">04</option>-->
+<!--                                <option value="5" th:selected="${bookingDto.children == 5}">05</option>-->
+<!--                                <option value="6" th:selected="${bookingDto.children == 6}">06</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="row g-3 mt-3">-->
+<!--                        <div class="col">-->
+<!--                            <label for="roomGroup" class="form-label">Chọn nhóm phòng</label>-->
+<!--                            <select class="form-select" id="roomGroup" name="roomGroup">-->
+<!--                                <option th:each="group : ${roomGroups}" th:value="${group.groupName}" th:text="${group.groupName}"></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                    &lt;!&ndash; Submit Button Row &ndash;&gt;-->
+<!--                    <div class="text-center mt-4">-->
+<!--                        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+
+
+<!--                &lt;!&ndash; Show available rooms if present &ndash;&gt;-->
+<!--                <div th:if="${availableRooms != null}">-->
+<!--                    <h5 class="text-center mt-5">Các phòng trống</h5>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-12">-->
+<!--                            <table class="table table-striped">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>Mã phòng</th>-->
+<!--                                    <th>Tên phòng</th>-->
+<!--                                    <th>Đặt phòng</th>-->
+<!--                                    <th>Loại phòng</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr th:each="room : ${availableRooms}">-->
+<!--                                    <td th:text="${room.roomId}"></td>-->
+<!--                                    <td th:text="${room.roomName}"></td>-->
+<!--                                    <td th:text="${room.totalPrice}"></td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal"-->
+<!--                                                th:data-roomid="${room.roomId}" th:data-roomname="${room.roomName}">-->
+<!--                                            Đặt phòng-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Modal for booking &ndash;&gt;-->
+<!--<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="bookingModalLabel">Điền thông tin khách hàng</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                &lt;!&ndash; Thông tin phòng đã chọn &ndash;&gt;-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="roomId" class="form-label">ID Phòng</label>-->
+<!--                    <input type="text" class="form-control" id="roomId" readonly />-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="roomName" class="form-label">Tên Phòng</label>-->
+<!--                    <input type="text" class="form-control" id="roomName" readonly />-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="roomGroup1" class="form-label">Nhóm Phòng</label>-->
+<!--                    <input type="text" class="form-control" id="roomGroup1" readonly />-->
+<!--                </div>-->
+
+<!--                <form class="search-customer-form" method="post">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="email">Email khách hàng:</label>-->
+<!--                        <input type="email" class="form-control" id="email" name="email" required />-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary mt-2">Tìm khách hàng</button>-->
+<!--                </form>-->
+
+<!--                &lt;!&ndash; Khu vực hiển thị kết quả tìm kiếm &ndash;&gt;-->
+<!--                <div id="searchResult"></div>-->
+
+<!--                &lt;!&ndash; Hiển thị thông báo lỗi nếu không tìm thấy khách hàng &ndash;&gt;-->
+<!--                <div th:if="${error}" class="alert alert-danger mt-3" role="alert">-->
+<!--                    <span th:text="${error}"></span>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Hiển thị thông tin khách hàng nếu tìm thấy &ndash;&gt;-->
+<!--                <div id="customerInfo" th:if="${customer}" style="display: block;">-->
+<!--                    <div class="mb-3">-->
+<!--                        <p id="customerDetails" th:text="${customer.name} + ' - ' + ${customer.email}"></p> &lt;!&ndash; Hiển thị tên và email của khách hàng &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="totalAmount" class="form-label">Tổng tiền</label>-->
+<!--                        <input type="text" class="form-control" id="totalAmount" name="totalAmount" th:value="${customer.totalAmount}" readonly />-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="amountPaid" class="form-label">Số tiền đã thanh toán</label>-->
+<!--                        <input type="text" class="form-control" id="amountPaid" name="amountPaid" th:value="${customer.amountPaid}" readonly />-->
+<!--                    </div>-->
+<!--                    <div class="text-center">-->
+<!--                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Lưu</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+<!--                &lt;!&ndash; Form tạo khách hàng mới &ndash;&gt;-->
+<!--                <div id="createCustomer" style="display: none;">-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="customerName" class="form-label">Tên khách hàng</label>-->
+<!--                        <input type="text" class="form-control" id="customerName" name="customerName" required />-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="customerEmail" class="form-label">Email</label>-->
+<!--                        <input type="email" class="form-control" id="customerEmail" name="customerEmail" required />-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="customerPhone" class="form-label">Số điện thoại</label>-->
+<!--                        <input type="text" class="form-control" id="customerPhone" name="customerPhone" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>-->
+
+<!--&lt;!&ndash; JavaScript to toggle between search and create customer &ndash;&gt;-->
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        // Bắt sự kiện submit form bằng class-->
+<!--        $('.search-customer-form').submit(function(event) {-->
+<!--            event.preventDefault(); // Ngừng hành động mặc định (reload trang)-->
+
+<!--            // Lấy dữ liệu từ form-->
+<!--            var email = $('#email').val();-->
+
+<!--            // Đảm bảo không gửi yêu cầu khi không có email-->
+<!--            if (!email) {-->
+<!--                $('#error').show();-->
+<!--                $('#errorMessage').text('Vui lòng nhập email.');-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Gửi yêu cầu Ajax đến đúng API-->
+<!--            $.ajax({-->
+<!--                url: '/admin/searchCustomer', // Địa chỉ API chính xác-->
+<!--                type: 'POST',-->
+<!--                data: { email: email }, // Gửi email-->
+<!--                success: function(response) {-->
+<!--                    // Xử lý khi tìm kiếm thành công-->
+<!--                    if (response.error) {-->
+<!--                        $('#error').show();-->
+<!--                        $('#errorMessage').text(response.error); // Hiển thị lỗi nếu không tìm thấy-->
+<!--                        $('#searchResult').html(''); // Xóa kết quả tìm kiếm trước đó-->
+<!--                    } else {-->
+<!--                        $('#error').hide(); // Ẩn thông báo lỗi-->
+<!--                        $('#searchResult').html(response); // Hiển thị kết quả trả về-->
+<!--                    }-->
+<!--                },-->
+<!--                error: function() {-->
+<!--                    // Xử lý lỗi nếu có-->
+<!--                    $('#searchResult').html('<p class="text-danger">Đã xảy ra lỗi khi tìm kiếm.</p>');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Selegend - Hotel &amp; Resort</title>
+    <link rel="icon" href="./img/core-img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<!-- Hotel Search Form Area -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card p-4 shadow-lg">
+                <h4 class="text-center mb-4">Tìm kiếm phòng</h4>
+                <form th:action="@{/admin/booking/online}" th:object="${bookingDto}" method="get">
+                    <div class="row g-3">
+                        <div class="col">
+                            <label for="checkIn" class="form-label">Nhận phòng</label>
+                            <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}"/>
+                        </div>
+                        <div class="col">
+                            <label for="checkOut" class="form-label">Trả phòng</label>
+                            <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}"/>
+                        </div>
+                        <div class="col">
+                            <label for="checkInTime" class="form-label">Giờ nhận phòng</label>
+                            <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}"/>
+                        </div>
+                        <div class="col">
+                            <label for="checkOutTime" class="form-label">Giờ trả phòng</label>
+                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}"/>
+                        </div>
+                        <div class="col">
+                            <label for="adults" class="form-label">Người lớn</label>
+                            <select name="adults" id="adults" class="form-select" th:value="${bookingDto.adults}">
+                                <option value="1" th:selected="${bookingDto.adults == 1}">01</option>
+                                <option value="2" th:selected="${bookingDto.adults == 2}">02</option>
+                                <option value="3" th:selected="${bookingDto.adults == 3}">03</option>
+                                <option value="4" th:selected="${bookingDto.adults == 4}">04</option>
+                                <option value="5" th:selected="${bookingDto.adults == 5}">05</option>
+                                <option value="6" th:selected="${bookingDto.adults == 6}">06</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="children" class="form-label">Trẻ em</label>
+                            <select name="children" id="children" class="form-select" th:value="${bookingDto.children}">
+                                <option value="0" th:selected="${bookingDto.children == 0}">00</option>
+                                <option value="1" th:selected="${bookingDto.children == 1}">01</option>
+                                <option value="2" th:selected="${bookingDto.children == 2}">02</option>
+                                <option value="3" th:selected="${bookingDto.children == 3}">03</option>
+                                <option value="4" th:selected="${bookingDto.children == 4}">04</option>
+                                <option value="5" th:selected="${bookingDto.children == 5}">05</option>
+                                <option value="6" th:selected="${bookingDto.children == 6}">06</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-3">
+                        <div class="col">
+                            <label for="roomGroup" class="form-label">Chọn nhóm phòng</label>
+                            <select class="form-select" id="roomGroup" name="roomGroup">
+                                <option th:each="group : ${roomGroups}" th:value="${group.groupName}" th:text="${group.groupName}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button Row -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                    </div>
+                </form>
+
+                <!-- Show available rooms if present -->
+                <div th:if="${availableRooms != null}">
+                    <h5 class="text-center mt-5">Các phòng trống</h5>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Mã phòng</th>
+                                    <th>Tên phòng</th>
+                                    <th>Đặt phòng</th>
+                                    <th>Loại phòng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="room : ${availableRooms}">
+                                    <td th:text="${room.roomId}"></td>
+                                    <td th:text="${room.roomName}"></td>
+                                    <td th:text="${room.totalPrice}"></td>
+                                    <td>
+                                        <button class="btn btn-success book-room-btn" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                                th:data-roomid="${room.roomId}"
+                                                th:data-roomname="${room.roomName}"
+                                                th:data-roomgroup="${room.roomGroup.groupName}"
+                                                th:data-roomprice="${room.totalPrice}"
+                                        >
+                                            Đặt phòng
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for booking -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Điền thông tin khách hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Thông tin phòng đã chọn -->
+                <div class="mb-3">
+                    <label for="roomId" class="form-label">ID Phòng</label>
+                    <input type="text" class="form-control" id="roomId" readonly />
+                </div>
+                <div class="mb-3">
+                    <label for="roomName" class="form-label">Tên Phòng</label>
+                    <input type="text" class="form-control" id="roomName" readonly />
+                </div>
+                <div class="mb-3">
+                    <label for="roomGroup1" class="form-label">Nhóm Phòng</label>
+                    <input type="text" class="form-control" id="roomGroup1" readonly />
+                </div>
+
+
+
+                <div class="mb-3">
+                    <label for="checkinDate1" class="form-label">Ngày nhận phòng</label>
+                    <input type="text" class="form-control" id="checkinDate1" readonly />
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="checkoutDate1" class="form-label">Ngày trả phòng</label>
+                    <input type="text" class="form-control" id="checkoutDate1" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="checkinTime1" class="form-label">Giờ nhận phòng</label>
+                    <input type="text" class="form-control" id="checkinTime1" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="checkoutTime1" class="form-label">Giờ trả phòng</label>
+                    <input type="text" class="form-control" id="checkoutTime1" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="adults1" class="form-label">Số lượng người lớn</label>
+                    <input type="text" class="form-control" id="adults1" readonly />
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="children1" class="form-label">Số lượng trẻ em</label>
+                    <input type="text" class="form-control" id="children1" readonly />
+                </div>
+
+
+
+                <div class="mb-3">
+                    <label for="totalAmount" class="form-label">Tổng tiền</label>
+                    <input type="text" class="form-control" id="totalAmount" name="totalAmount" />
+                </div>
+
+
+
+                <form class="search-customer-form" method="post">
+                    <div class="form-group">
+                        <label for="email">Email khách hàng:</label>
+                        <input type="email" class="form-control" id="email" name="email" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Tìm khách hàng</button>
+                </form>
+
+                <!-- Khu vực hiển thị kết quả tìm kiếm -->
+                <div id="searchResult"></div>
+
+                <!-- Hiển thị thông báo lỗi nếu không tìm thấy khách hàng -->
+                <div id="error" class="alert alert-danger mt-3" style="display:none;" role="alert">
+                    <span id="errorMessage"></span>
+                </div>
+
+                <br>
+
+                <!-- Hiển thị thông tin khách hàng nếu tìm thấy -->
+                <div id="customerInfo" style="display: none;">
+                    <div class="mb-3">
+                        <p id="customerName"></p>
+                    </div>
+                    <div class="mb-3">
+                        <p id="customerNumber"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <p id="customerEmail"></p>
+                    </div>
+
+                </div>
+
+
+                <!-- Form tạo khách hàng mới -->
+                <div id="createCustomerForm" style="display:none;">
+                    <form id="createCustomerForm1">
+                        <div class="mb-3">
+                            <label for="newEmail" class="form-label">Email khách hàng mới:</label>
+                            <input type="email" class="form-control" id="newEmail" name="newEmail" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="newFullName" class="form-label">Tên khách hàng:</label>
+                            <input type="text" class="form-control" id="newFullName" name="newFullName" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPhoneNumber" class="form-label">Số điện thoại:</label>
+                            <input type="text" class="form-control" id="newPhoneNumber" name="newPhoneNumber" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tạo khách hàng mới</button>
+                    </form>
+                    <br>
+
+                    <div id="responseMessage"></div>
+
+
+                </div>
+
+                <div id="customerPaid" style="display: none;">
+                    <div class="mb-3">
+                        <label for="amountPaid" class="form-label">Số tiền đã thanh toán</label>
+                        <input type="text" class="form-control" id="amountPaid" name="amountPaid" />
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" name="save" id="save" data-bs-dismiss="modal">Lưu</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     // Lấy tất cả các nút đặt phòng
+    //     const buttons = document.querySelectorAll(".book-room-btn");
+    //
+    //     // Lặp qua các nút để thêm sự kiện click
+    //     buttons.forEach(button => {
+    //         button.addEventListener("click", function () {
+    //             // Lấy thông tin từ các thuộc tính data-*
+    //             const roomId = button.getAttribute("data-roomid");
+    //             const roomName = button.getAttribute("data-roomname");
+    //             const roomGroup = button.getAttribute("data-roomgroup");
+    //             const roomPrice = button.getAttribute("data-roomprice");
+    //
+    //             // Hiển thị thông tin trong console (tùy chọn)
+    //             console.log("Room ID:", roomId);
+    //             console.log("Room Name:", roomName);
+    //             console.log("Room Group:", roomGroup);
+    //             console.log("Room Price:", roomPrice);
+    //
+    //             // Hiển thị thông tin trong modal
+    //             document.getElementById("roomId").textContent = roomId;
+    //             document.getElementById("roomName").textContent = roomName;
+    //             document.getElementById("roomGroup1").textContent = roomGroup;
+    //             document.getElementById("totalAmount").textContent = roomPrice;
+    //             document.getElementById("amountPaid").textContent = roomPrice;
+    //
+    //             document.getElementById("roomId").value = roomId;
+    //             document.getElementById("roomName").value = roomName;
+    //             document.getElementById("roomGroup1").value = roomGroup;
+    //             document.getElementById("totalAmount").value = roomPrice;
+    //             document.getElementById("amountPaid").value = roomPrice;
+    //
+    //             // Mở modal (Bootstrap 5)
+    //             const modal = new bootstrap.Modal(document.getElementById('bookingModal'));
+    //             modal.show();
+    //         });
+    //     });
+    // });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy tất cả các nút đặt phòng
+        const buttons = document.querySelectorAll(".book-room-btn");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function () {
+                // Lấy thông tin từ các thuộc tính data-*
+                const roomId = button.getAttribute("data-roomid");
+                const roomName = button.getAttribute("data-roomname");
+                const roomGroup = button.getAttribute("data-roomgroup");
+                const roomPrice = button.getAttribute("data-roomprice");
+
+
+                const checkinDate = document.getElementById("checkIn").value;
+                const checkoutDate = document.getElementById("checkOut").value;
+                const checkinTime = document.getElementById("checkInTime").value;
+                const checkoutTime = document.getElementById("checkOutTime").value;
+                const adults = document.getElementById("adults").value;
+                const children = document.getElementById("children").value;
+
+
+                // Hiển thị thông tin trong modal
+                document.getElementById("roomId").value = roomId;
+                document.getElementById("roomName").value = roomName;
+                document.getElementById("roomGroup1").value = roomGroup;
+                document.getElementById("checkinDate1").value = checkinDate;
+                document.getElementById("checkoutDate1").value = checkoutDate;
+                document.getElementById("checkinTime1").value = checkinTime;
+                document.getElementById("checkoutTime1").value = checkoutTime;
+                document.getElementById("adults1").value = adults;
+                document.getElementById("children1").value = children;
+
+                document.getElementById("totalAmount").value = roomPrice;
+                document.getElementById("amountPaid").value = roomPrice;
+
+
+
+                // Mở modal
+                const modal = new bootstrap.Modal(document.getElementById('bookingModal'));
+                modal.show();
+            });
+        });
+
+        // Lưu thông tin khi nhấn nút Lưu
+        const saveButton = document.getElementById("save");
+        saveButton.addEventListener("click", function () {
+            // Lấy các giá trị từ form
+            const roomId = document.getElementById("roomId").value;
+            const email = document.getElementById("email").value;
+            const checkinDate = document.getElementById("checkinDate1").value;
+            const checkoutDate = document.getElementById("checkoutDate1").value;
+            const checkinTime = document.getElementById("checkinTime1").value;
+            const checkoutTime = document.getElementById("checkoutTime1").value;
+            const totalAmount = document.getElementById("totalAmount").value;
+            const amountPaid = document.getElementById("amountPaid").value;
+            const adults = document.getElementById("adults").value;
+            const children = document.getElementById("children").value;
+
+            // Tạo đối tượng dữ liệu
+            const bookingData = {
+                roomId: roomId,
+                email: email,
+                checkInDate: checkinDate,
+                checkOutDate: checkoutDate,
+                checkInTime: checkinTime,
+                checkOutTime: checkoutTime,
+                totalPrice: totalAmount,
+                amountHasPaid: amountPaid,
+                adults: adults,
+                children: children
+            };
+
+            // Gửi yêu cầu AJAX
+            fetch('/admin/booking/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Đặt phòng thành công!");
+                    // Đóng modal sau khi thành công
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+                    modal.hide();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Có lỗi xảy ra, vui lòng thử lại.");
+                });
+        });
+    });
+
+
+
+
+
+    $(document).ready(function () {
+        // Xử lý khi gửi form
+        $("#createCustomerForm").on("submit", function (e) {
+            e.preventDefault();  // Ngừng hành động submit mặc định
+
+            var email = $("#newEmail").val();
+            var fullName = $("#newFullName").val();
+            var phoneNumber = $("#newPhoneNumber").val();
+
+            // Gửi yêu cầu AJAX đến Spring Boot backend
+            $.ajax({
+                url: '/create-customer', // Đường dẫn API trong Spring Boot
+                type: 'POST',
+                data: {
+                    newEmail: email,
+                    newFullName: fullName,
+                    newPhoneNumber: phoneNumber
+                },
+                success: function (response) {
+                    // Xử lý khi trả về thành công
+                    $("#responseMessage").html('<div class="alert alert-success">Khách hàng đã được tạo thành công!</div>');
+                    // Hiển thị thông tin khách hàng đã tạo
+                    $("#responseMessage").append('<p id="emailFind">Email: ' + response.email + '</p>');
+                    $("#responseMessage").append('<p id="nameFind">Tên: ' + response.fullName + '</p>');
+                    $("#responseMessage").append('<p id="phoneFind">Số điện thoại: ' + response.phoneNumber + '</p>');
+
+                    $("#customerInfo").show();
+                    $("#createCustomerForm1").hide();
+                    $("#customerName").hide();
+                    $("#customerNumber").hide();
+                    $("#customerEmail").hide();
+                    $("#error").hide();
+                    // $("#amountPaid").show();
+                    // $("#save").show();
+
+                    $("#customerPaid").show();
+                    // $("#createCustomerForm").show();
+                //
+                },
+                error: function () {
+                    // Xử lý khi có lỗi
+                    $("#responseMessage").html('<div class="alert alert-danger">Đã xảy ra lỗi, vui lòng thử lại!</div>');
+                }
+            });
+        });
+    });
+
+
+
+    $(document).ready(function () {
+        // Xử lý khi tìm kiếm khách hàng
+        $(".search-customer-form").on("submit", function (e) {
+            e.preventDefault();
+            var email = $("#email").val();
+
+            // Gửi yêu cầu AJAX để tìm khách hàng
+            $.ajax({
+                url: '/find-customer', // Đường dẫn API tìm kiếm khách hàng
+                type: 'POST',
+                data: { email: email },
+                success: function (data) {
+                    if (data && data.email) { // Kiểm tra nếu dữ liệu hợp lệ
+                        // Hiển thị thông tin khách hàng
+                        // if (data.fullName === null || email.fullName.trim() === "") {
+                        //     $("#customerName").hide();
+                        // }
+                        // if (data.phoneNumber === null || email.phoneNumber.trim() === "") {
+                        //     $("#customerNumber").hide();
+                        // }
+
+
+                        $("#customerInfo").show();
+                        $("#createCustomerForm").hide();
+                        $("#error").hide();
+                        $("#customerPaid").show();
+
+                        $("#customerName").text("Tên khách hàng: " + data.fullName);
+                        $("#customerNumber").text("Số điện thoại: " + data.phoneNumber);
+                        $("#customerEmail").text("Email: " + data.phoneNumber);
+
+
+                    } else {
+                        // Hiển thị thông báo lỗi nếu không tìm thấy khách hàng
+                        $("#error").show();
+                        $("#errorMessage").text("Không tìm thấy khách hàng với email này.");
+                        $("#customerInfo").hide();
+                        $("#createCustomerForm").show();
+                    }
+                },
+                error: function () {
+                    // alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                    $("#error").show();
+                    $("#errorMessage").text("Không tìm thấy khách hàng với email này.");
+                    $("#customerInfo").hide();
+                    $("#createCustomerForm").show();
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>

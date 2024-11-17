@@ -1,11 +1,16 @@
 package com.project.hotel.controller;
 
 import com.project.hotel.model.dto.BookingDto;
+import com.project.hotel.model.dto.CustomerDto;
+import com.project.hotel.model.dto.RoomDTO;
+import com.project.hotel.model.dto.RoomGroupDTO;
 import com.project.hotel.model.entity.*;
+import com.project.hotel.model.enumType.BookingStatus;
 import com.project.hotel.model.enumType.PaymentStatus;
 import com.project.hotel.service.*;
 import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -149,9 +154,12 @@ public class AdminBookingController {
                                      @RequestParam(value = "checkin-time", required = false) String checkInTime,
                                      @RequestParam(value = "checkout-time", required = false) String checkOutTime,
                                      @RequestParam(value = "adults", required = false) Integer adults,
-                                     @RequestParam(value = "children", required = false) Integer children) {
+                                     @RequestParam(value = "children", required = false) Integer children,
+                                     @RequestParam(value = "roomGroup", required = false) String roomGroupRequest
+    ) {
 
         // Nếu không có giá trị tìm kiếm, sử dụng giá trị mặc định
+//        List<RoomGroup> roomGroups = roomGroupService.findByGroupName(roomGroup.getGroupName());
         List<RoomGroup> roomGroups = roomGroupService.findAll();
         if (checkInDate == null || checkOutDate == null || checkInTime == null || checkOutTime == null || adults == null || children == null) {
             LocalDate today = LocalDate.now();
@@ -171,9 +179,26 @@ public class AdminBookingController {
             bookingDto.setAdults(defaultAdults);
             bookingDto.setChildren(defaultChildren);
 
-            for (RoomGroup roomGroup : roomGroups) {
-                long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
+            model.addAttribute("bookingDto", bookingDto);
+            List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
+            List<RoomDTO> availableRoomDTOs = new ArrayList<>();
+            for(Room room : availableRooms) {
+                RoomGroup roomGroup = room.getRoomGroup();
+                if(roomGroup.getGroupName().equals(roomGroupRequest)){
+                    if(bookingDto.getChildren() + bookingDto.getAdults() <= roomGroup.getMaxOccupancy()){
+                        long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
+                        RoomDTO roomDTO = new RoomDTO();
+                        roomDTO.setRoomName(room.getRoomName());
+                        roomDTO.setRoomId(room.getRoomId());
+                        roomDTO.setDescription(room.getDescription());
+                        roomDTO.setTotalPrice(priceDateTime);
 
+                        RoomGroupDTO roomGroupDTO = new RoomGroupDTO();
+                        roomGroupDTO.setGroupName(roomGroup.getGroupName());
+                        roomDTO.setRoomGroup(roomGroupDTO);
+                        availableRoomDTOs.add(roomDTO);
+                    }
+                }
             }
 
             System.out.println("1");
@@ -193,27 +218,112 @@ public class AdminBookingController {
             System.out.println(bookingDto);
             model.addAttribute("bookingDto", bookingDto);
             List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
-            model.addAttribute("availableRooms", availableRooms);
+            List<RoomDTO> availableRoomDTOs = new ArrayList<>();
+            for(Room room : availableRooms) {
+                RoomGroup roomGroup = room.getRoomGroup();
+                if(roomGroup.getGroupName().equals(roomGroupRequest)){
+                    if(bookingDto.getChildren() + bookingDto.getAdults() <= roomGroup.getMaxOccupancy()){
+                        long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
+                        RoomDTO roomDTO = new RoomDTO();
+                        roomDTO.setRoomName(room.getRoomName());
+                        roomDTO.setRoomId(room.getRoomId());
+                        roomDTO.setDescription(room.getDescription());
+                        roomDTO.setTotalPrice(priceDateTime);
+
+                        RoomGroupDTO roomGroupDTO = new RoomGroupDTO();
+                        roomGroupDTO.setGroupName(roomGroup.getGroupName());
+                        roomDTO.setRoomGroup(roomGroupDTO);
+                        availableRoomDTOs.add(roomDTO);
+                    }
+                }
+            }
+            model.addAttribute("availableRooms", availableRoomDTOs);
         }
         model.addAttribute("roomGroups", roomGroups);
 
         return "admin-booking-online";
     }
 
+    @PostMapping("/find-customer")
+    @ResponseBody
+    public ResponseEntity<?> findCustomer(@RequestParam String email) {
+        try {
+            // Tìm kiếm khách hàng theo email
+            Customer customer = customerService.findByEmail(email);
 
-//    @PostMapping("/searchCustomer")
-//    public String searchCustomer(@RequestParam String email, Model model) {
-//        // Tìm khách hàng theo email
-//        Customer customer = customerService.findByEmail(email);
-//
-//        if (customer == null) {
-//            model.addAttribute("error", "Không tìm thấy khách hàng với email này");
+            // Kiểm tra nếu không tìm thấy
+            if (customer == null) {
+                return ResponseEntity.ok("Customer not found");
+            }
+
+            // Tạo CustomerDto từ thực thể Customer
+            CustomerDto customerDto = new CustomerDto();
+            customerDto.setEmail(customer.getEmail());
+            customerDto.setFullName(customer.getFullName());
+            customerDto.setPhoneNumber(customer.getPhoneNumber());
+
+            // Gửi CustomerDto làm phản hồi
+            return ResponseEntity.ok(customerDto);
+        } catch (IllegalArgumentException e) {
+            // Xử lý lỗi từ tham số không hợp lệ
+            return ResponseEntity.badRequest().body("Invalid email: " + email);
+        } catch (Exception e) {
+            // Xử lý lỗi chung
+            return ResponseEntity.status(500).body("An error occurred: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/create-customer")
+    @ResponseBody
+    public Customer createCustomer(@RequestParam String newEmail,
+                                   @RequestParam String newFullName,
+                                   @RequestParam String newPhoneNumber) {
+
+        // Tạo đối tượng Customer từ dữ liệu form
+        Customer customer = customerService.findByEmail(newEmail);
+        if(customer == null) {
+            customer = new Customer();
+        }
+        customer.setEmail(newEmail);
+        customer.setFullName(newFullName);
+        customer.setPhoneNumber(newPhoneNumber);
+        // Lưu khách hàng vào cơ sở dữ liệu
+        customerService.save(customer);
+
+        // Trả về thông tin khách hàng dưới dạng JSON
+        return customer;
+    }
+
+
+    @PostMapping("/admin/booking/save")
+    @ResponseBody
+    public ResponseEntity<?> bookRoom(@RequestBody BookingDto bookingRequest) {
+        // Kiểm tra dữ liệu trước khi xử lý (có thể thêm validation ở đây)
+        if (bookingRequest.getRoomId() == null || bookingRequest.getEmail() == null) {
+            return ResponseEntity.badRequest().body("Thông tin không đầy đủ!");
+        }
+
+        // Gọi service để lưu thông tin đặt phòng
+        Booking booking = new Booking();
+        Room room = roomService.findById(bookingRequest.getRoomId());
+        booking.setRoom(room);
+        Customer customer = customerService.findByEmail(bookingRequest.getEmail());
+        booking.setUser(customer);
+        booking.setStatus(BookingStatus.ACCEPTED);
+        booking.setTotalPrice(bookingRequest.getTotalPrice());
+        booking.setAmountHasPaid(bookingRequest.getAmountHasPaid());
+        booking.setCheckInDate(bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime() + ":00");
+        booking.setCheckOutDate(bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime() + ":00");
+
+
+        System.out.println("OK: " + booking);
+        bookingService.save(booking);
+        return ResponseEntity.ok().body("Đặt phòng thành công!");
 //        } else {
-//            model.addAttribute("customer", customer);  // Thêm thông tin khách hàng vào model
+//            // Trả về lỗi nếu có vấn đề
+//            return ResponseEntity.status(500).body("Đặt phòng thất bại, vui lòng thử lại.");
 //        }
-//
-//        return "redirect:/admin/booking/online";
-//    }
+    }
 
 
     @GetMapping(("/admin/booking/available/{roomGroupId}"))

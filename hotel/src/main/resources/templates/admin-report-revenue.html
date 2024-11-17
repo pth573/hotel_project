@@ -1,53 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Thống kê Doanh thu</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="~{admin-fragments::header}">
+    <meta charset="UTF-8">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
 </head>
-<body>
-<h1>Thống kê Doanh thu</h1>
+<body class="sb-nav-fixed">
 
-<!-- Form nhập ngày -->
-<form action="#" th:action="@{/admin/report/revenue}" method="post">
-    <label for="startDate">Ngày bắt đầu:</label>
-    <input type="date" id="startDate" name="startDate" th:value="${startDate}" required />
+<nav th:replace="~{admin-fragments::admin-nav}"></nav>
+<div id="layoutSidenav">
+    <div th:replace="~{admin-fragments::side-nav}"></div>
+    <div id="layoutSidenav_content" class="">
 
-    <label for="endDate">Ngày kết thúc:</label>
-    <input type="date" id="endDate" name="endDate" th:value="${endDate}" required />
 
-    <button type="submit">Thống kê</button>
-</form>
+        <div class="container-fluid px-4">
+            <div class="container mt-4">
+                <h1>Báo cáo doanh thu</h1>
+                <hr>
 
-<!-- Hiển thị tổng doanh thu nếu có -->
-<div th:if="${totalRevenue != null}">
-    <h2>Tổng doanh thu: <span th:text="${totalRevenue}"></span></h2>
 
-    <!-- Hiển thị danh sách các booking -->
-    <table>
-        <thead>
-        <tr>
-            <th>Mã đặt phòng</th>
-            <th>Người đặt phòng</th>
-            <th>Số điện thoại</th>
-            <th>Phòng</th>
-            <th>Loại phòng</th>
-            <th>Ngày nhận phòng</th>
-            <th>Ngày trả phòng</th>
-            <th>Tổng giá</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="booking : ${bookings}">
-            <td th:text="${booking.bookingId}"></td>
-            <td th:text="${booking.user.fullName}"></td>
-            <td th:text="${booking.user.phoneNumber}"></td>
-            <td th:text="${booking.room.roomName}"></td>
-            <td th:text="${booking.room.roomGroup.groupName}"></td>
-            <td th:text="${booking.checkInDate}"></td>
-            <td th:text="${booking.checkOutDate}"></td>
-            <td th:text="${booking.totalPrice}"></td>
-        </tr>
-        </tbody>
-    </table>
+                <!-- Form nhập ngày -->
+                <form action="#" th:action="@{/admin/report/revenue}" method="post">
+                    <label for="startDate">Ngày bắt đầu:</label>
+                    <input type="date" id="startDate" name="startDate" th:value="${startDate}" required/>
+
+                    <label for="endDate">Ngày kết thúc:</label>
+                    <input type="date" id="endDate" name="endDate" th:value="${endDate}" required/>
+
+                    <button type="submit">Thống kê</button>
+                </form>
+
+                <!-- Hiển thị tổng doanh thu nếu có -->
+                <div th:if="${totalRevenue != null}">
+                    <h2>Tổng doanh thu: <span th:text="${totalRevenue}"></span></h2>
+
+                    <!-- Hiển thị danh sách các booking -->
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Mã đặt phòng</th>
+                            <th>Người đặt phòng</th>
+                            <th>Số điện thoại</th>
+                            <th>Phòng</th>
+                            <th>Loại phòng</th>
+                            <th>Ngày nhận phòng</th>
+                            <th>Ngày trả phòng</th>
+                            <th>Tổng giá</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="booking : ${bookings}">
+                            <td th:text="${booking.bookingId}"></td>
+                            <td th:text="${booking.user.fullName}"></td>
+                            <td th:text="${booking.user.phoneNumber}"></td>
+                            <td th:text="${booking.room.roomName}"></td>
+                            <td th:text="${booking.room.roomGroup.groupName}"></td>
+                            <td th:text="${booking.checkInDate}"></td>
+                            <td th:text="${booking.checkOutDate}"></td>
+                            <td th:text="${booking.totalPrice}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+
+

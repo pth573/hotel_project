@@ -23,4 +23,7 @@ public class BookingDto {
     private Long amountHasPaid;
     private Date formattedCheckInDate;
     private Date formattedCheckOutDate;
+    private Long roomId;
+    private String email;
+
 }
