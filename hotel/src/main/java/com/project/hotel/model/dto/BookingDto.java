@@ -26,4 +26,22 @@ public class BookingDto {
     private Long roomId;
     private String email;
 
+    @Override
+    public String toString() {
+        return "BookingDto{" +
+                "id=" + id +
+                ", checkInDate='" + checkInDate + '\'' +
+                ", checkOutDate='" + checkOutDate + '\'' +
+                ", checkInTime='" + checkInTime + '\'' +
+                ", checkOutTime='" + checkOutTime + '\'' +
+                ", adults=" + adults +
+                ", children=" + children +
+                ", totalPrice=" + totalPrice +
+                ", amountHasPaid=" + amountHasPaid +
+                ", formattedCheckInDate=" + formattedCheckInDate +
+                ", formattedCheckOutDate=" + formattedCheckOutDate +
+                ", roomId=" + roomId +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

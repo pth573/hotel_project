@@ -10,7 +10,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/hotel_manager?createDatabaseIfNotExist=true
     username: root
-    password: hang572003
+    password: Trancuongphu14@
 
   jpa:
     hibernate:

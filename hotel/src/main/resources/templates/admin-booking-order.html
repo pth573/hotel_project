@@ -32,7 +32,7 @@
             <!--                    data-whatever="@mdo">Thêm dịch vụ-->
             <!--            </button>-->
 
-            <p th:if="${#lists.size(bookings) == 0}">Chưa có don dat nao</p>
+            <p th:if="${#lists.size(bookings) == 0}">Chưa có đơn đặt nào</p>
             <div th:if="${success}" class="text-center alert alert-success">
                 <p th:text="${success}"></p>
             </div>
@@ -40,8 +40,7 @@
                 <p th:text="${error}"></p>
             </div>
 
-            <table class="table table-striped table-bordered"
-                   th:if="${bookings != null and not #lists.isEmpty(bookings)}">
+            <table class="table table-striped table-bordered" th:if="${bookings != null and not #lists.isEmpty(bookings)}">
                 <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
@@ -53,8 +52,6 @@
                     <th scope="col">Phòng</th>
                     <th scope="col">Trạng Thái Đặt</th>
                     <th scope="col">Trạng Thái Thanh Toán</th>
-<!--                    <th scope="col">Hóa Đơn</th>-->
-<!--                    <th scope="col">Đánh Giá</th>-->
                     <th scope="col">Hành động</th>
                 </tr>
                 </thead>
@@ -67,28 +64,41 @@
                     <td th:text="${#numbers.formatInteger(booking.amountHasPaid, 0)}"></td>
                     <td th:text="${booking.user.fullName}"></td>
                     <td th:text="${booking.room.roomName}"></td>
-                    <td th:text="${booking.status}"></td>
-                    <td th:text="${booking.paymentStatus}"></td>
-<!--                    <td>-->
-<!--                        <a th:href="@{'/admin/invoice/details/' + ${booking.invoice.id}}">Xem Hóa Đơn</a>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <ul>-->
-<!--                            <li th:each="review : ${booking.reviews}" th:text="${review.content}"></li>-->
-<!--                        </ul>-->
-<!--                    </td>-->
+<!--                    <td th:text="${booking.status}"></td>-->
+
+                    <!-- Dropdown select for paymentStatus -->
                     <td>
-                        <a th:href="@{/admin/booking/update/(id = ${booking.bookingId})}" class="btn btn-info btn-sm">
-                            Chap nhan
-                        </a>
-                        <a th:href="@{'/admin/booking/delete/' + ${booking.bookingId}}" class="btn btn-danger btn-sm"
+                        <form th:action="@{/admin/booking/order/update(bookingId=${booking.bookingId})}" method="get">
+                            <!-- Thêm bookingId vào input ẩn -->
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+
+                            <label>
+                                <select name="status" class="form-control">
+                                    <option th:value="ACCEPTED"
+                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).ACCEPTED}">Chấp nhận</option>
+                                    <option th:value="PENDING"
+                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).PENDING}">Đang chờ</option>
+                                    <option th:value="DELETED"
+                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).DELETED}">Xóa</option>
+                                    <option th:value="REJECTED"
+                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).REJECTED}">Từ chối</option>
+                                </select>
+                            </label>
+                            <button type="submit" class="btn btn-info btn-sm mt-2">Cập nhật</button>
+                        </form>
+                    </td>
+                    <td th:text="${booking.paymentStatus}"></td>
+
+                    <td>
+                        <a th:href="@{/admin/booking/order/delete(bookingId=${booking.bookingId})}" class="btn btn-danger btn-sm mt-1"
                            onclick="if (!(confirm('Bạn có chắc chắn muốn xóa đặt phòng này?'))) return false">
-                            Tu choi
+                            Từ chối
                         </a>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
 
         </div>
     </div>

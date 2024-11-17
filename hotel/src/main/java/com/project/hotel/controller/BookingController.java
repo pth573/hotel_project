@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,11 +37,44 @@ public class BookingController {
         for (RoomGroup roomGroup : roomGroups) {
             System.out.println(roomGroup);
         }
-        if(bookingDto == null){
+        if(bookingDto.getId() == 0L){
+            System.out.println(1);
             bookingDto = new BookingDto();
+            bookingDto.setCheckInDate(LocalDate.now().toString());
+            bookingDto.setCheckOutDate(LocalDate.now().plusDays(1).toString());
+            bookingDto.setCheckInTime("14:00");
+            bookingDto.setCheckOutTime("11:00");
             bookingDto.setAdults(2);
+            bookingDto.setChildren(0);
+            List<RoomGroup> roomGroupAvailable = new ArrayList<>();
+            for (RoomGroup roomGroup : roomGroups) {
+                if(bookingDto.getChildren() + bookingDto.getAdults() <= roomGroup.getMaxOccupancy()){
+                    List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
+                    long availableRoomCount = roomGroup.getRooms().stream()
+                            .filter(room -> availableRooms.contains(room))
+                            .count();
+                    long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
+                    System.out.println(priceDateTime);
+                    System.out.println("Room Group: " + roomGroup.getGroupName() +
+                            " has " + availableRoomCount + " available rooms.");
+                    roomGroup.setAvailableRoomCount(availableRoomCount);
+                    roomGroup.setPriceDateTime(priceDateTime);
+
+                    if(availableRoomCount > 0){
+                        roomGroupAvailable.add(roomGroup);
+                    }
+                }
+            }
+            model.addAttribute("bookingDto", bookingDto);
+            model.addAttribute("roomGroups", roomGroupAvailable);
+            model.addAttribute("adults", bookingDto.getAdults());
+            model.addAttribute("children", bookingDto.getChildren());
+            model.addAttribute("checkInDate", bookingDto.getCheckInDate());
+            model.addAttribute("checkOutDate", bookingDto.getCheckOutDate());
+            model.addAttribute("checkInTime", bookingDto.getCheckInTime());
+            model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
         }
-//        BookingDto bookingDto = new BookingDto();
+
         model.addAttribute("bookingDto", bookingDto);
         return "room-booking";
 

@@ -125,28 +125,23 @@
 
 
                 <!--                OK-->
-                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get"
-                      class="d-flex flex-column align-items-center">
+                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">
                     <div class="row justify-content-between align-items-end w-100">
                         <div class="col-6 col-md-2 col-lg-3">
                             <label for="checkIn">Nhận phòng</label>
-                            <input type="date" class="form-control" id="checkIn" name="checkin-date"
-                                   th:value="${bookingDto.checkInDate}"/>
+                            <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}"/>
                         </div>
                         <div class="col-6 col-md-2 col-lg-3">
                             <label for="checkOut">Trả phòng</label>
-                            <input type="date" class="form-control" id="checkOut" name="checkout-date"
-                                   th:value="${bookingDto.checkOutDate}"/>
+                            <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}"/>
                         </div>
                         <div class="col-6 col-md-1 col-lg-2">
                             <label for="checkInTime">Giờ nhận phòng</label>
-                            <input type="time" class="form-control" id="checkInTime" name="checkin-time"
-                                   th:value="${bookingDto.checkInTime}"/>
+                            <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}"/>
                         </div>
                         <div class="col-6 col-md-1 col-lg-2">
                             <label for="checkOutTime">Giờ trả phòng</label>
-                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time"
-                                   th:value="${bookingDto.checkOutTime}"/>
+                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}"/>
                         </div>
                         <div class="col-4 col-md-1">
                             <label for="adults">Người lớn</label>
@@ -161,8 +156,7 @@
                         </div>
                         <div class="col-4 col-md-2 col-lg-1">
                             <label for="children">Trẻ em</label>
-                            <select name="children" id="children" class="form-control"
-                                    th:value="${bookingDto.children}">
+                            <select name="children" id="children" class="form-control" th:value="${bookingDto.children}">
                                 <option value="1">01</option>
                                 <option value="2">02</option>
                                 <option value="3">03</option>
@@ -176,6 +170,7 @@
                         <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>
                     </div>
                 </form>
+
 
 
                 <!--                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">-->

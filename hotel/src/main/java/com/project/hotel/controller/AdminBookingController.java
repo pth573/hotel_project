@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -35,7 +36,6 @@ public class AdminBookingController {
     private final RoomImageService roomImageService;
     private final ReviewService reviewService;
     private final BookingService bookingService;
-
 
     @GetMapping("/admin/calendar")
     public String showCalendar(Model model) {
@@ -398,11 +398,25 @@ public class AdminBookingController {
         return "admin-booking-order";
     }
 
-    @RequestMapping(value = "/admin/booking/update", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String adminUpdateBooking(Long bookingId, Model model) {
+    @RequestMapping(value = "/admin/booking/order/update", method = RequestMethod.GET)
+    public String adminUpdateBooking(@RequestParam("bookingId") Long bookingId,
+                                     @RequestParam("status") String bookingStatusRequest,
+                                     RedirectAttributes redirectAttributes) {
         Booking booking = bookingService.findById(bookingId);
-        booking.setPaymentStatus(PaymentStatus.PAID);
+        BookingStatus bookingStatus = BookingStatus.valueOf(bookingStatusRequest);
+        booking.setStatus(bookingStatus);
         bookingService.save(booking);
-        return "redirect:/admin-booking-order";
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+        return "redirect:/admin/booking/order";
     }
+
+    @RequestMapping(value = "/admin/booking/order/delete", method = RequestMethod.GET)
+    public String adminDeleteBooking(@RequestParam("bookingId") Long bookingId, RedirectAttributes redirectAttributes) {
+        Booking booking = bookingService.findById(bookingId);
+        booking.setStatus(BookingStatus.DELETED);
+        bookingService.save(booking);
+        redirectAttributes.addFlashAttribute("success", "Xóa thành công");
+        return "redirect:/admin/booking/order";
+    }
+
 }
