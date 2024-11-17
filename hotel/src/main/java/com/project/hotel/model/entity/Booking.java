@@ -1,6 +1,7 @@
 package com.project.hotel.model.entity;
 
 import com.project.hotel.model.enumType.BookingStatus;
+import com.project.hotel.model.enumType.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +39,9 @@ public class Booking extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;

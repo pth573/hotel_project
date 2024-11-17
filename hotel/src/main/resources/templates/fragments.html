@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title th:text = "${title}"></title>
+    <title th:text="${title}"></title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -25,6 +25,7 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
+
 <body>
 <div class="top-header-area" th:fragment="nav-header">
     <div class="container">
@@ -40,7 +41,7 @@
             <div class="col-6">
                 <div class="top-header-content">
                     <!-- Top Social Area -->
-                    <div class="top-social-area ml-auto" >
+                    <div class="top-social-area ml-auto">
                         <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
@@ -51,20 +52,20 @@
                             <span>Quản lý</span>
                         </a>
 
-                        <a th:href="@{/login}" class="login" th:if = "${customer == null}">
+                        <a th:href="@{/login}" class="login" th:if="${customer == null}">
                             <i class="fa fa-sign-in mr-1" aria-hidden="true"></i>
                             <span>Đăng nhập</span>
                         </a>
-                        <a th:href="@{/register}" class="login" th:if = "${customer == null}">
+                        <a th:href="@{/register}" class="login" th:if="${customer == null}">
                             <i class="fa fa-user-plus mr-1" aria-hidden="true"></i>
                             <span>Đăng kí</span>
                         </a>
-                        <a th:href="@{/user/update-info}" class="login" th:if = "${customer != null}">
+                        <a th:href="@{/user/update-info}" class="login" th:if="${customer != null}">
                             <i class="fa fa-user mr-1" aria-hidden="true"></i>
                             <span>Trang cá nhân</span>
                         </a>
 
-                        <a th:href="@{/logout}" class="login" th:if = "${customer != null}">
+                        <a th:href="@{/logout}" class="login" th:if="${customer != null}">
                             <i class="fa fa-sign-out mr-1" aria-hidden="true"></i>
                             <span>Đăng xuất</span>
                         </a>
@@ -76,14 +77,171 @@
     </div>
 </div>
 
-<!-- Footer -->
-<footer th:fragment="footer" class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Project SE</span>
+<div class="main-header-area" th:fragment="main-header-start">
+    <div class="classy-nav-container breakpoint-off">
+        <div class="container">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar justify-content-between" id="robertoNav">
+
+                <!-- Logo -->
+                <a class="nav-brand" href="index.html"><img src="./img/core-img/logo.png" alt=""></a>
+
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+                    <!-- Menu Close Button -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul id="nav">
+                            <li class="active"><a th:href="@{/}">Trang chủ</a></li>
+                            <li><a th:href="@{/room-detail}">Phòng nghỉ</a></li>
+                            <!--                                <li><a th:href="@{/about}">Chúng tôi</a></li>-->
+                            <li><a href="#">Cá nhân</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">- Thông tin cá nhân</a></li>
+                                    <li><a th:href="@{/user/booking/list}">- Thông tin đặt phòng</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Quản lý</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">Quản </a></li>
+                                    <li><a th:href="@{/user/booking/list}">- Thông tin đặt phòng</a></li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{/blog}">Mới</a></li>
+                            <li><a th:href="@{/contact}">Liên hệ</a></li>
+                        </ul>
+
+                        <!-- Search -->
+                        <div class="search-btn ml-4">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+
+                        <!-- Book Now -->
+                        <div class="book-now-btn ml-2 ml-lg-4">
+                            <a th:href="@{/room-booking}">Đặt phòng ngay <i class="fa fa-long-arrow-right"
+                                                                            aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<footer th:fragment="footer" class="footer-area section-padding-80-0">
+    <!-- Main Footer Area -->
+    <div class="main-footer-area">
+        <div class="container">
+            <div class="row align-items-baseline justify-content-between">
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-80">
+                        <!-- Footer Logo -->
+                        <a href="#" class="footer-logo"><img src="img/core-img/logo2.png" alt=""></a>
+
+                        <h4>0123 456 789</h4>
+                        <span>holel@gmail.com</span>
+                        <span>Trung Tâm Thành Phố Thái Bình</span>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <!--                <div class="col-12 col-sm-6 col-lg-3">-->
+                <!--                    <div class="single-footer-widget mb-80">-->
+                <!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
+                <!--                        <h5 class="widget-title">Bài viết của chúng tôi</h5>-->
+
+                <!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
+                <!--                        <div class="latest-blog-area">-->
+                <!--                            <a href="#" class="post-title">Freelance Design Tricks How</a>-->
+                <!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
+                <!--                        </div>-->
+
+                <!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
+                <!--                        <div class="latest-blog-area">-->
+                <!--                            <a href="#" class="post-title">Free Advertising For Your Online</a>-->
+                <!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-4 col-lg-2">
+                    <div class="single-footer-widget mb-80">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Liên kết</h5>
+
+                        <!-- Footer Nav -->
+                        <ul class="footer-nav">
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Về chúng tôi</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Phòng nghỉ</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Nghề nghiệp</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-8 col-lg-4">
+                    <div class="single-footer-widget mb-80">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Đăng kí email</h5>
+                        <span>Đăng kí để nhận thông tin mới nhất</span>
+
+                        <!-- Newsletter Form -->
+                        <form action="index.html" class="nl-form">
+                            <input type="email" class="form-control" placeholder="Enter your email...">
+                            <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copywrite Area -->
+    <div class="container">
+        <div class="copywrite-content">
+            <div class="row align-items-center">
+                <!--                <div class="col-12 col-md-8">-->
+                <!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
+                <!--                    <div class="copywrite-text">-->
+                <!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+                <!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+                <!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="col-12 col-md-4">
+                    <!-- Social Info -->
+                    <div class="social-info">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
+
+<!-- Footer -->
+<!--<footer th:fragment="footer" class="sticky-footer bg-white">-->
+<!--    <div class="container my-auto">-->
+<!--        <div class="copyright text-center my-auto">-->
+<!--            <span>Project SE</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
 <!-- End of Footer -->
 <!-- Scroll to Top Button-->
 <a th:fragment="scroll" class="scroll-to-top rounded" href="#page-top">
@@ -100,6 +258,17 @@
 
     <!-- Custom scripts for all pages-->
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+    <!-- jQuery 2.2.4 -->
+    <script th:src="@{js/jquery.min.js}"></script>
+    <!-- Popper -->
+    <script th:src="@{js/popper.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <!-- All Plugins -->
+    <script th:src="@{js/roberto.bundle.js}"></script>
+    <!-- Active -->
+    <script th:src="@{js/default-assets/active.js}"></script>
 </div>
 </body>
 </html>

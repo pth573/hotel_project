@@ -2,6 +2,7 @@ package com.project.hotel.controller;
 
 import com.project.hotel.model.dto.BookingDto;
 import com.project.hotel.model.entity.*;
+import com.project.hotel.model.enumType.PaymentStatus;
 import com.project.hotel.service.*;
 import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
@@ -276,4 +277,22 @@ public class AdminBookingController {
 //        model.addAttribute("user", customer);
 //        return "redirect:/admin/user/list";
 //    }
+
+    @GetMapping("/admin/booking/order")
+    public String adminGetBookingOrder(Model model, Principal principal) {
+        model.addAttribute("title", "Admin Booking Order");
+        CustomerUtils.getCustomerInfo(principal, customerService, model);
+
+        List<Booking> bookings = bookingService.findAll();
+        model.addAttribute("bookings", bookings);
+        return "admin-booking-order";
+    }
+
+    @RequestMapping(value = "/admin/booking/update", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String adminUpdateBooking(Long bookingId, Model model) {
+        Booking booking = bookingService.findById(bookingId);
+        booking.setPaymentStatus(PaymentStatus.PAID);
+        bookingService.save(booking);
+        return "redirect:/admin-booking-order";
+    }
 }

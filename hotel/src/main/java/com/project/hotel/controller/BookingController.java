@@ -138,6 +138,8 @@ public class BookingController {
     @GetMapping("/payment")
     public String handleBooking(@ModelAttribute BookingDto bookingDto,
                                 @RequestParam("room") Long roomId, Model model, Principal principal) {
+
+        model.addAttribute("title", "Chi tiết Đặt phòng");
         Room selectedRoom = roomService.findById(roomId);
         long priceDateTime = roomGroupService.calculatePrice(bookingDto, selectedRoom.getRoomGroup());
         String gmail = principal.getName();
@@ -170,5 +172,4 @@ public class BookingController {
 
         return "payment-confirm";
     }
-
 }
