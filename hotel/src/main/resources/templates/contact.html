@@ -1,61 +1,213 @@
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liên Hệ - Khách Sạn ABC</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJf+Y1h7yXI2H9ADt6epvR1d5ubmQ1hr+kd0feqmv1erTgh" crossorigin="anonymous">
-    <style>
-        .contact-section {
-            padding: 60px 0;
-            background-color: #f7f7f7;
-        }
-    </style>
-</head>
-<body>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Header Section -->
-<header class="bg-primary text-white text-center py-5">
-    <div class="container">
-        <h1>Liên Hệ Với Chúng Tôi</h1>
-        <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn với bất kỳ yêu cầu nào</p>
+    <!-- Title -->
+    <title>Selegend - Hotel</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="./img/core-img/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
+
+<!-- Header Area Start -->
+<header class="header-area">
+    <!-- Search Form -->
+    <div class="search-form d-flex align-items-center">
+        <div class="container">
+            <form action="index.html" method="get">
+                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">
+                <button type="submit"><i class="icon_search"></i></button>
+            </form>
+        </div>
     </div>
+
+    <!-- Top Header Area Start -->
+    <div th:replace="~{fragments::nav-header}"></div>
+    <!-- Top Header Area End -->
+
+    <!-- Main Header Start -->
+    <div th:replace="~{fragments::main-header-start}"></div>
 </header>
 
-<!-- Contact Form -->
-<section class="contact-section">
+
+<!-- Header Area End -->
+
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area contact-breadcrumb bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/18.png);">
     <div class="container">
-        <h2 class="text-center mb-4">Gửi Tin Nhắn</h2>
-        <form>
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center mt-100">
+                    <h2 class="page-title">Liên hệ</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Liên hệ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+
+<!-- Google Maps & Contact Info Area Start -->
+<section class="google-maps-contact-info">
+    <div class="container-fluid">
+        <div class="google-maps-contact-content">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Tên Của Bạn</label>
-                        <input type="text" class="form-control" id="name" required>
+                <!-- Single Contact Info -->
+                <div class="col-6 col-lg-3">
+                    <div class="single-contact-info">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <h4>Số điện thoại</h4>
+                        <p>0123 456 789</p>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" required>
+                <!-- Single Contact Info -->
+                <div class="col-6 col-lg-3">
+                    <div class="single-contact-info">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <h4>Địa chỉ</h4>
+                        <p>Trung Tâm Thành Phố Thái Bình</p>
+                    </div>
+                </div>
+                <!-- Single Contact Info -->
+                <div class="col-6 col-lg-3">
+                    <div class="single-contact-info">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <h4>Thời gian mở</h4>
+                        <p>24/24</p>
+                    </div>
+                </div>
+                <!-- Single Contact Info -->
+                <div class="col-6 col-lg-3">
+                    <div class="single-contact-info">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <h4>Email</h4>
+                        <p>hotel@gmail.com</p>
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="message" class="form-label">Tin Nhắn</label>
-                <textarea class="form-control" id="message" rows="5" required></textarea>
+
+            <!-- Google Maps -->
+            <div class="google-maps">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d934.6223568301067!2d106.32916690216851!3d20.445081747372416!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1731903800645!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <button type="submit" class="btn btn-primary">Gửi Tin Nhắn</button>
-        </form>
+        </div>
     </div>
 </section>
+<!-- Google Maps & Contact Info Area End -->
 
-<!-- Footer Section -->
-<footer class="bg-dark text-white text-center py-4">
-    <p>&copy; 2024 Khách Sạn ABC. Tất cả quyền lợi được bảo lưu.</p>
-</footer>
+<!-- Contact Form Area Start -->
+<div class="roberto-contact-form-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Section Heading -->
+                <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                    <h6>Liên hệ</h6>
+                    <h2>Để lại tin nhắn</h2>
+                </div>
+            </div>
+        </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb3Y5u7ARd6i6mlcD9WvNbhqD2Zh3xPS9lT8se2xiXZVvvN0fx" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0U4n6vzuT5ZRgZ5ngak+6vM0YzmS5KnFQ9D+XfU7CjqRil3D7" crossorigin="anonymous"></script>
+        <div class="row">
+            <div class="col-12">
+                <!-- Form -->
+                <div class="roberto-contact-form">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
+                                <input type="text" name="message-name" class="form-control mb-30" placeholder="Họ và tên">
+                            </div>
+                            <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
+                                <input type="email" name="message-email" class="form-control mb-30" placeholder="Email">
+                            </div>
+                            <div class="col-12 wow fadeInUp" data-wow-delay="100ms">
+                                <textarea name="message" class="form-control mb-30" placeholder="Tin nhăn"></textarea>
+                            </div>
+                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="100ms">
+                                <button type="submit" class="btn roberto-btn mt-15">Gửi tin nhắn</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Form Area End -->
+
+<!-- Call To Action Area Start -->
+<section class="roberto-cta-area">
+    <div class="container">
+        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.png} + ');'">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="cta-text mb-50">
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call To Action Area End -->
+
+<!-- Partner Area Start -->
+<!-- Partner Area Start -->
+<div class="partner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p1.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p2.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p3.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p4.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p5.png}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partner Area End -->
+
+<!-- Footer Area Start -->
+<footer th:replace="~{fragments::footer}"></footer>
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<script th:replace="~{fragments::script}"></script>
+
 </body>
+
 </html>

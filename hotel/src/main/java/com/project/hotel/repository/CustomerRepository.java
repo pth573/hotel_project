@@ -12,6 +12,9 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findStaffByEmail(String email);
 
+    Customer findCustomerByEmail(String email);
+
+
     @Query("select c from Customer c where c.email = :email")
     Customer findCustomerByUsername(@Param("email") String email);
 }

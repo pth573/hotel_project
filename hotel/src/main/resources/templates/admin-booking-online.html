@@ -6,7 +6,7 @@
 <!--    <meta name="description" content="">-->
 <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-<!--    <title>Selegend - Hotel &amp; Resort</title>-->
+<!--    <title>Selegend - Hotel</title>-->
 <!--    <link rel="icon" href="./img/core-img/favicon.png">-->
 <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">-->
 <!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
@@ -27,6 +27,12 @@
             padding-left: 0;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body class="sb-nav-fixed">
 
@@ -238,9 +244,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <p id="customerEmail"></p>
+                                Email: <span id="customerEmail"></span>
                             </div>
-
                         </div>
 
 
@@ -289,6 +294,11 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <script>
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -332,13 +342,77 @@
                 modal.show();
             });
         });
+    });
 
-        // Lưu thông tin khi nhấn nút Lưu
+    //     // Lưu thông tin khi nhấn nút Lưu
+    //     const saveButton = document.getElementById("save");
+    //     saveButton.addEventListener("click", function () {
+    //         // Lấy các giá trị từ form
+    //         const roomId = document.getElementById("roomId").value;
+    //         const email = document.getElementById("email").value;
+    //         const checkinDate = document.getElementById("checkinDate1").value;
+    //         const checkoutDate = document.getElementById("checkoutDate1").value;
+    //         const checkinTime = document.getElementById("checkinTime1").value;
+    //         const checkoutTime = document.getElementById("checkoutTime1").value;
+    //         const totalAmount = document.getElementById("totalAmount").value;
+    //         const amountPaid = document.getElementById("amountPaid").value;
+    //         const adults = document.getElementById("adults").value;
+    //         const children = document.getElementById("children").value;
+    //
+    //         // Tạo đối tượng dữ liệu
+    //         const bookingData = {
+    //             roomId: roomId,
+    //             email: email,
+    //             checkInDate: checkinDate,
+    //             checkOutDate: checkoutDate,
+    //             checkInTime: checkinTime,
+    //             checkOutTime: checkoutTime,
+    //             totalPrice: totalAmount,
+    //             amountHasPaid: amountPaid,
+    //             adults: adults,
+    //             children: children
+    //         };
+    //
+    //         // Gửi yêu cầu AJAX
+    //         fetch('/admin/booking/save', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(bookingData)
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 alert("Đặt phòng thành công!");
+    //                 // Đóng modal sau khi thành công
+    //                 const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+    //                 modal.hide();
+    //                 var backdrop = document.querySelector('.modal-backdrop.fade.show');
+    //                 if (backdrop) {
+    //                     backdrop.remove();
+    //                 }
+    //             })
+    //             .catch(error => {
+    //                 console.error('Error:', error);
+    //                 alert("Có lỗi xảy ra, vui lòng thử lại.");
+    //                 var backdrop = document.querySelector('.modal-backdrop.fade.show');
+    //                 if (backdrop) {
+    //                     backdrop.remove();
+    //                 }
+    //
+    //             });
+    //     });
+    // });
+
         const saveButton = document.getElementById("save");
         saveButton.addEventListener("click", function () {
             // Lấy các giá trị từ form
+
+
             const roomId = document.getElementById("roomId").value;
-            const email = document.getElementById("email").value;
+            // const email = document.getElementById("email").value;
+            const email = document.getElementById("customerEmail").innerText || document.getElementById("nameFind").innerText;
+
             const checkinDate = document.getElementById("checkinDate1").value;
             const checkoutDate = document.getElementById("checkoutDate1").value;
             const checkinTime = document.getElementById("checkinTime1").value;
@@ -348,7 +422,18 @@
             const adults = document.getElementById("adults").value;
             const children = document.getElementById("children").value;
 
-            // Tạo đối tượng dữ liệu
+            console.log("Room ID:", roomId);
+            console.log("Email:", email);
+            console.log("Check-in Date:", checkinDate);
+            console.log("Check-out Date:", checkoutDate);
+            console.log("Check-in Time:", checkinTime);
+            console.log("Check-out Time:", checkoutTime);
+            console.log("Total Amount:", totalAmount);
+            console.log("Amount Paid:", amountPaid);
+            console.log("Adults:", adults);
+            console.log("Children:", children);
+
+
             const bookingData = {
                 roomId: roomId,
                 email: email,
@@ -362,30 +447,37 @@
                 children: children
             };
 
-            // Gửi yêu cầu AJAX
-            fetch('/admin/booking/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(bookingData)
-            })
-                .then(response => response.json())
-                .then(data => {
+            // Gửi yêu cầu AJAX sử dụng jQuery
+            $.ajax({
+                url: '/admin/booking/save',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(bookingData),  // Sử dụng JSON.stringify để chuyển đối tượng thành chuỗi JSON
+                success: function (data) {
                     alert("Đặt phòng thành công!");
                     // Đóng modal sau khi thành công
                     const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
                     modal.hide();
-                })
-                .catch(error => {
+                    var backdrop = document.querySelector('.modal-backdrop.fade.show');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                },
+                error: function (xhr, status, error) {
                     console.error('Error:', error);
                     alert("Có lỗi xảy ra, vui lòng thử lại.");
-                });
+                    var backdrop = document.querySelector('.modal-backdrop.fade.show');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                }
+            });
+
         });
-    });
 
 
-    $(document).ready(function () {
+
+        $(document).ready(function () {
         // Xử lý khi gửi form
         $("#createCustomerForm").on("submit", function (e) {
             e.preventDefault();  // Ngừng hành động submit mặc định
@@ -407,9 +499,14 @@
                     // Xử lý khi trả về thành công
                     $("#responseMessage").html('<div class="alert alert-success">Khách hàng đã được tạo thành công!</div>');
                     // Hiển thị thông tin khách hàng đã tạo
-                    $("#responseMessage").append('<p id="emailFind">Email: ' + response.email + '</p>');
-                    $("#responseMessage").append('<p id="nameFind">Tên: ' + response.fullName + '</p>');
-                    $("#responseMessage").append('<p id="phoneFind">Số điện thoại: ' + response.phoneNumber + '</p>');
+                    // $("#responseMessage").append('<p id="emailFind">Email: ' + response.email + '</p>');
+                    // $("#responseMessage").append('<p id="nameFind">Tên: ' + response.fullName + '</p>');
+                    // $("#responseMessage").append('<p id="phoneFind">Số điện thoại: ' + response.phoneNumber + '</p>');
+                    $("#responseMessage").append('<div><p>Tên: <span id="nameFind">' + response.fullName + '</span></p></div>');
+                    $("#responseMessage").append('<div><p>Email: <span id="emailFind">' + response.email + '</span></p></div>');
+
+                    $("#responseMessage").append('<div><p>Số điện thoại: <span id="phoneFind">' + response.phoneNumber + '</span></p></div>');
+
 
                     $("#customerInfo").show();
                     $("#createCustomerForm1").hide();
@@ -439,6 +536,7 @@
             e.preventDefault();
             var email = $("#email").val();
 
+            console.log(email);
             // Gửi yêu cầu AJAX để tìm khách hàng
             $.ajax({
                 url: '/find-customer', // Đường dẫn API tìm kiếm khách hàng
@@ -462,7 +560,7 @@
 
                         $("#customerName").text("Tên khách hàng: " + data.fullName);
                         $("#customerNumber").text("Số điện thoại: " + data.phoneNumber);
-                        $("#customerEmail").text("Email: " + data.phoneNumber);
+                        $("#customerEmail").text(data.email);
 
 
                     } else {
@@ -484,6 +582,7 @@
         });
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 

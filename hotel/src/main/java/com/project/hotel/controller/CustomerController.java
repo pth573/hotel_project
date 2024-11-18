@@ -63,6 +63,9 @@ public class CustomerController {
 
     @GetMapping("/user/update-info")
     public String showUserForm(Model model, Principal principal) {
+        if(principal == null){
+            return "redirect:/login";
+        }
         String email = principal.getName();
         Customer user = customerService.findByEmail(email);
         model.addAttribute("user", user);
@@ -71,6 +74,10 @@ public class CustomerController {
 
     @PostMapping("/user/update-info")
     public String updateUserInfo(@ModelAttribute("user") Customer userForm, Principal principal, Model model) {
+        if(principal == null){
+            return "redirect:/login";
+        }
+
         String email = principal.getName();
         Customer customer = customerService.findByEmail(email);
         customer.setFullName(userForm.getFullName());
@@ -87,6 +94,10 @@ public class CustomerController {
 
         @GetMapping("/user/booking/list")
         public String showUserBooking(Model model, Principal principal) {
+            if(principal == null){
+                return "redirect:/login";
+            }
+
             String email = principal.getName();
             Customer user = customerService.findByEmail(email);
             List<Booking> bookings = bookingService.findByBookingUser(user);
@@ -103,6 +114,10 @@ public class CustomerController {
                                 @PathVariable("bookingId") Long bookingId,
                                 Model model,
                                 Principal principal) {
+        if(principal == null){
+            return "redirect:/login";
+        }
+
         String email = principal.getName();
         Customer user = customerService.findByEmail(email);
         if (user == null) {

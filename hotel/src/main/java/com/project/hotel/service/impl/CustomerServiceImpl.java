@@ -52,6 +52,11 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.deleteById(id);
     }
 
+    @Override
+    public Customer findByEmail2(String email) {
+        return customerRepository.findCustomerByEmail(email);
+    }
+
 
     @Override
     public void save(Customer customer) {

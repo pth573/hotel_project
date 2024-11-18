@@ -10,7 +10,16 @@
             list-style-type: none;
             padding-left: 0;
         }
+        th {
+            text-align: center; /* Căn giữa theo chiều ngang */
+            vertical-align: middle; /* Căn giữa theo chiều dọc */
+        }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Loại phòng</title>
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -22,16 +31,24 @@
 
         <!-- Main Content -->
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Loại phòng</h1>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="content p-4 rounded text-center">
+                    <h4 class="fw-bold display-6">Quản lý loại phòng</h4>
+                </div>
+            </div>
+
+
+
 <!--            <ol class="breadcrumb mb-4">-->
 <!--                <li class="breadcrumb-item active">Lọai phòng</li>-->
 <!--            </ol>-->
             <!-- Begin Page Content -->
-            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
+            <button type="button" class="btn btn-primary mb-1 bg-dark" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
                     data-whatever="@mdo">Thêm mới
             </button>
 
-            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddService"
+            <button type="button" class="btn btn-primary mb-1 btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleAddService"
                     data-whatever="@mdo">Thêm dịch vụ
             </button>
 
@@ -43,24 +60,24 @@
                 <p th:text="${error}"></p>
             </div>
 
-            <table class="table table-striped table-bordered" th:if="${roomGroups != null and not #lists.isEmpty(roomGroups)}">
+            <table class="table table-striped table-bordered  align-middle" th:if="${roomGroups != null and not #lists.isEmpty(roomGroups)}">
                 <thead class="table-dark">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Hình Ảnh</th>
-                    <th scope="col">Tên Nhóm</th>
-                    <th scope="col">Diện Tích (m²)</th>
-                    <th scope="col">Loại Giường</th>
-                    <th scope="col">Giá Mỗi Đêm (VND)</th>
-                    <th scope="col">Giá Combo 2H (VND)</th>
-                    <th scope="col">Giá Giờ Thêm (VND)</th>
-                    <th scope="col">Phụ Thu Thêm Người</th>
-                    <th scope="col">Số Người Tiêu Chuẩn</th>
-                    <th scope="col">Số Trẻ Em Free</th>
-                    <th scope="col">Số Người Tối Đa</th>
-                    <th scope="col">Dịch vụ</th>
-                    <th scope="col">Mô tả</th>
-                    <th scope="col">Hành động</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">ID</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Hình Ảnh</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Tên Nhóm</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Diện Tích (m²)</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Loại Giường</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Giá Mỗi Đêm</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Giá Combo 2H</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Giá Giờ Thêm</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Phụ Thu Thêm Người</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Số Người Tiêu Chuẩn</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Số Trẻ Em Free</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Số Người Tối Đa</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Dịch vụ</th>
+                    <th style="text-align: center; vertical-align: middle; width: 120px;" scope="col" >Mô tả</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Khác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,7 +87,7 @@
 
                     <!-- Image -->
                     <td>
-                        <img th:src="${roomGroup.imageUrl}" alt="Room Image" style="width: 100px; height: auto;">
+                        <img th:src="${roomGroup.imageUrl}" alt="Room Image"  class="img-thumbnail" style="width: 150px; height: auto;">
                     </td>
 
                     <!-- Room Group Name -->
@@ -81,7 +98,7 @@
 
                     <!-- Bed Type -->
                     <td>
-                        <ul>
+                        <ul style="list-style-type: none; padding-left: 0;">
                             <li th:each="bed : ${roomGroup.beds}"
                                 th:if="${bed.bedNumber > 0}"
                                 th:text="${bed.bedNumber} + ' ' + ${bed.bedType.displayName}"></li>
@@ -133,35 +150,14 @@
                     <td>
                         <!-- Update Button -->
 
-<!--                        <a href="@{'/admin/update-room-group/' + ${roomGroup.roomGroupId}}"-->
-<!--                           class="btn btn-info btn-sm editButton"-->
-<!--                           data-id="${roomGroup.roomGroupId}">-->
-<!--                            Update-->
-<!--                        </a>-->
-
                         <a th:href="@{'/admin/update-room-group/' + ${roomGroup.roomGroupId}}"
                            class="btn btn-info btn-sm">
-                            Cập nhật
+                            Sửa
                         </a>
-
-<!--                        <a href="#" class="btn btn-info btn-sm editButton"-->
-<!--                           th:data-id="${roomGroup.roomGroupId}"-->
-<!--                           th:data-groupname="${roomGroup.groupName}"-->
-<!--                           th:data-area="${roomGroup.area}"-->
-<!--                           th:data-pricepernight="${roomGroup.pricePerNight}"-->
-<!--                           th:data-comboprice2h="${roomGroup.comboPrice2H}"-->
-<!--                           th:data-extrahourprice="${roomGroup.extraHourPrice}"-->
-<!--                           th:data-standardoccupancy="${roomGroup.standardOccupancy}"-->
-<!--                           th:data-maxoccupancy="${roomGroup.maxOccupancy}"-->
-<!--                           th:data-numchildrenfree="${roomGroup.numChildrenFree}"-->
-<!--                           th:data-extraadult="${roomGroup.extraAdult}"-->
-<!--                           th:data-description="${roomGroup.description}"-->
-<!--                           data-bs-toggle="modal"-->
-<!--                           data-bs-target="#editModal">Update</a>-->
-
+                        <br>
                         <a th:href="@{'/admin/room-group/delete/' + ${roomGroup.roomGroupId}}"
                            class="btn btn-danger btn-sm"
-                           onclick="if (!(confirm('Bạn có chắc chắn muốn xóa nhóm phòng này?'))) return false">Delete</a>
+                           onclick="if (!(confirm('Bạn có chắc chắn muốn xóa nhóm phòng này?'))) return false">Xóa</a>
 
                     </td>
                 </tr>
@@ -196,14 +192,14 @@
 
                     <!-- Diện tích -->
                     <div class="form-group">
-                        <label for="area" class="col-form-label">Diện tích (m²):</label>
+                        <label for="area" class="col-form-label">Diện tích:</label>
                         <input type="number" class="form-control" id="area" th:field="*{area}" step="0.01" required>
                     </div>
 
 
                     <!-- Giá mỗi đêm -->
                     <div class="form-group">
-                        <label for="pricePerNight" class="col-form-label">Giá mỗi đêm (VND):</label>
+                        <label for="pricePerNight" class="col-form-label">Giá mỗi đêm:</label>
                         <input type="number" class="form-control" id="pricePerNight" th:field="*{pricePerNight}" required>
                     </div>
 
@@ -231,7 +227,7 @@
 
                     <!-- Số lượng trẻ em miễn phí -->
                     <div class="form-group">
-                        <label for="numChildrenFree" class="col-form-label">Số lượng trẻ em miễn phí:</label>
+                        <label for="numChildrenFree" class="col-form-label">Trẻ em miễn phí:</label>
                         <input type="number" class="form-control" id="numChildrenFree" th:field="*{numChildrenFree}">
                     </div>
 
@@ -255,7 +251,7 @@
                     <!-- Mô tả -->
                     <div class="form-group">
                         <label for="description" class="col-form-label">Mô tả:</label>
-                        <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>
+                        <textarea class="form-control" id="description" th:field="*{description}" rows="3"  required></textarea>
                     </div>
 
 
@@ -295,6 +291,7 @@
 </div>
 
 
+
 <!-- Add Service Modal -->
 <div class="modal fade" id="exampleAddService" tabindex="-1" role="dialog"
      aria-labelledby="exampleAddServiceLabel" aria-hidden="true">
@@ -317,7 +314,7 @@
                         <textarea class="form-control" name="description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Giá (VND)</label>
+                        <label for="price" class="form-label">Giá</label>
                         <input type="number" class="form-control" id="price" name="price" required>
                     </div>
 
@@ -375,13 +372,13 @@
 
                     <!-- Diện tích -->
                     <div class="form-group">
-                        <label for="areaEdit" class="col-form-label">Diện tích (m²):</label>
+                        <label for="areaEdit" class="col-form-label">Diện tích:</label>
                         <input type="number" class="form-control" id="areaEdit" th:field="*{area}" step="0.01" required>
                     </div>
 
                     <!-- Giá mỗi đêm -->
                     <div class="form-group">
-                        <label for="pricePerNightEdit" class="col-form-label">Giá mỗi đêm (VND):</label>
+                        <label for="pricePerNightEdit" class="col-form-label">Giá mỗi đêm</label>
                         <input type="number" class="form-control" id="pricePerNightEdit" th:field="*{pricePerNight}" required>
                     </div>
 
@@ -411,7 +408,7 @@
 
                     <!-- Số lượng trẻ em miễn phí -->
                     <div class="form-group">
-                        <label for="numChildrenFreeEdit" class="col-form-label">Số lượng trẻ em miễn phí:</label>
+                        <label for="numChildrenFreeEdit" class="col-form-label">Trẻ em miễn phí:</label>
                         <input type="number" class="form-control" id="numChildrenFreeEdit" th:field="*{numChildrenFree}">
                     </div>
 
@@ -469,6 +466,7 @@
         </div>
     </div>
 </div>
+<br><br><br><br>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>

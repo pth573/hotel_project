@@ -48,7 +48,7 @@
 <!-- Header Area End -->
 
 <!-- Breadcrumb Area Start -->
-<div class="breadcrumb-area bg-img bg-overlay jarallax" th:style="'background-image: url(' + @{/img/bg-img/16.jpg} + ');'">
+<div class="breadcrumb-area bg-img bg-overlay jarallax" th:style="'background-image: url(' + @{/img/bg-img/16.png} + ');'">
     <div class="container h-100">
         <div class="row h-100 align-items-end">
             <div class="col-12">
@@ -70,6 +70,25 @@
                 <!-- Single Room Details Area -->
                 <div class="single-room-details-area mb-50">
                     <!-- Room Thumbnail Slides -->
+<!--                    <div class="room-thumbnail-slides mb-50">-->
+<!--                        <div id="room-thumbnail&#45;&#45;slide" class="carousel slide" data-ride="carousel">-->
+<!--                            <div class="carousel-inner">-->
+<!--                                &lt;!&ndash; Lặp qua từng ảnh và gán class active cho ảnh đầu tiên &ndash;&gt;-->
+<!--                                <div th:each="image, iterStat : ${roomGroup.images}" class="carousel-item" th:classappend="${iterStat.index == 0 ? ' active' : ''}">-->
+<!--                                    <img th:src="@{${image.imageUrl}}" class="d-block w-100" alt="Ảnh nhóm phòng">-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            &lt;!&ndash; Chỉ báo carousel &ndash;&gt;-->
+<!--                            <ol class="carousel-indicators">-->
+<!--                                &lt;!&ndash; Lặp qua từng ảnh để tạo các chỉ báo, gán active cho chỉ báo đầu tiên &ndash;&gt;-->
+<!--                                <li data-target="#room-thumbnail&#45;&#45;slide" th:each="image, iterStat : ${roomGroup.images}" th:data-slide-to="${iterStat.index}" th:classappend="${iterStat.index == 0 ? ' active' : ''}">-->
+<!--                                    <img th:src="@{${image.imageUrl}}" class="d-block w-100" alt="Slide ảnh">-->
+<!--                                </li>-->
+<!--                            </ol>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
                     <div class="room-thumbnail-slides mb-50">
                         <div id="room-thumbnail--slide" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
@@ -88,6 +107,7 @@
                             </ol>
                         </div>
                     </div>
+
 
                     <!-- Room Features -->
                     <div class="room-features-area d-flex flex-wrap mb-50">
@@ -208,7 +228,7 @@
                         <div class="single-room-review-area d-flex align-items-center">
                             <!-- Ảnh đại diện của người đánh giá -->
                             <div class="reviwer-thumbnail">
-<!--                                <img th:src="@{/img/bg-img/{id}.jpg}" alt="Reviewer Thumbnail" />-->
+<!--                                <img th:src="@{/img/bg-img/{id}.png}" alt="Reviewer Thumbnail" />-->
                             </div>
                             <div class="reviwer-content">
                                 <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
@@ -549,16 +569,16 @@
 <!-- Call To Action Area Start -->
 <section class="roberto-cta-area">
     <div class="container">
-        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.jpg} + ');'">
-        <div class="row align-items-center">
+        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.png} + ');'">
+            <div class="row align-items-center">
                 <div class="col-12 col-md-7">
                     <div class="cta-text mb-50">
-                        <h2>Contact us now!</h2>
-                        <h6>Contact (+12) 345-678-9999 to book directly or for advice</h6>
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
                     </div>
                 </div>
                 <div class="col-12 col-md-5 text-right">
-                    <a th:href="@{#}" class="btn roberto-btn mb-50">Contact Now</a>
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
                 </div>
             </div>
         </div>

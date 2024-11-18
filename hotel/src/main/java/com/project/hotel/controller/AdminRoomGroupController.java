@@ -89,7 +89,17 @@ public class AdminRoomGroupController {
             bed.getRoomGroups().add(roomGroup);
             bedService.save(bed);
         }
+
+        List<Service> serviceList = roomGroup.getServices();
+        for (Service service : serviceList) {
+            if(service.getRoomGroups() == null){
+                service.setRoomGroups(new ArrayList<>());
+            }
+            service.getRoomGroups().add(roomGroup);
+            serviceService.save(service);
+        }
         roomGroup.setBeds(bedList);
+        roomGroup.setServices(serviceList);
         String message = "";
         try {
             try{
@@ -226,6 +236,7 @@ public class AdminRoomGroupController {
     ) {
 
         RoomGroup theRoomGroupFromDB = roomGroupService.findById(id);
+
         List<RoomImage> images = theRoomGroupFromDB.getImages();
         List<RoomImage> imagesToRemove = new ArrayList<>(images);
         for (RoomImage image : imagesToRemove) {
@@ -233,12 +244,34 @@ public class AdminRoomGroupController {
             roomImageService.save(image);
         }
 
-//        List<Service> services = theRoomGroupFromDB.getServices();
-//        List<Service> servicesToRemove = new ArrayList<>(services);
-//        for (Service service : servicesToRemove) {
-//            theRoomGroupFromDB.getServices().remove(service);
-//            serviceService.save(service);
-//        }
+        List<Service> services = theRoomGroupFromDB.getServices();
+        List<Service> servicesToRemove = new ArrayList<>(services);
+        for (Service service : servicesToRemove) {
+            theRoomGroupFromDB.getServices().remove(service);
+            serviceService.save(service);
+        }
+
+
+
+        List<Bed> bedList = roomGroup.getBeds();
+        for (Bed bed : bedList) {
+            if(bed.getRoomGroups() == null){
+                bed.setRoomGroups(new ArrayList<>());
+            }
+            bed.getRoomGroups().add(roomGroup);
+            bedService.save(bed);
+        }
+
+        List<Service> serviceList = roomGroup.getServices();
+        for (Service service : serviceList) {
+            if(service.getRoomGroups() == null){
+                service.setRoomGroups(new ArrayList<>());
+            }
+            service.getRoomGroups().add(roomGroup);
+            serviceService.save(service);
+        }
+        roomGroup.setBeds(bedList);
+        roomGroup.setServices(serviceList);
 
 //        List<Service> services = theRoomGroupFromDB.getServices();
 //        List<Service> servicesToRemove = new ArrayList<>(services);
@@ -272,7 +305,7 @@ public class AdminRoomGroupController {
                             .fromMethodName(RoomGroupController.class, "getRoomGroup", additionalImageName)
                             .build().toString();
                     RoomImage roomImage = new RoomImage();
-                    theRoomGroupFromDB.setImageUrl(additionalImageUrl);
+                    roomImage.setImageUrl(additionalImageUrl);
                     roomImage.setRoomGroup(theRoomGroupFromDB);
                     roomImageService.save(roomImage);
                     theRoomGroupFromDB.addImg(roomImage);

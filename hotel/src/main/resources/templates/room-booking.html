@@ -175,7 +175,7 @@
 <!-- Header Area End -->
 
 <!-- Breadcrumb Area Start -->
-<div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/16.jpg);">
+<div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/16.png);">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
@@ -214,7 +214,7 @@
 <!--                        <h4 th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>-->
                         <div class="room-feature">
                             <h6>Diện tích: <span th:text="${roomGroup.area}">30 ft</span></h6>
-                            <h6>Số ngđi tối đa: <span th:text="${roomGroup.maxOccupancy}"></span></h6>
+                            <h6>Số người đi tối đa: <span th:text="${roomGroup.maxOccupancy}"></span></h6>
                             <h6>Giường: <span th:text="${roomGroup.getBedDescription()}"></span></h6>
                             <h6>Dịch vụ: <span th:each="item, iterStat : ${roomGroup.services}" th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}" style="display: inline-block; text-align: left;"></span></h6>
 <!--                            <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>-->
@@ -587,28 +587,120 @@
 
 
 
-                    <form th:action="@{/book-room}" th:object="${bookingDto}" method="post">
+<!--                    <form th:action="@{/book-room}" th:object="${bookingDto}" method="post">-->
 
-                        <label for="checkInDate">Ngày nhận phòng:</label>
-                        <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>
+<!--                        <label for="checkInDate">Ngày nhận phòng:</label>-->
+<!--                        <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>-->
 
-                        <label for="checkOutDate">Ngày trả phòng:</label>
-                        <input class="w-75" type="date" id="checkOutDate" th:field="*{checkOutDate}" ><br><br>
+<!--                        <label for="checkOutDate">Ngày trả phòng:</label>-->
+<!--                        <input class="w-75" type="date" id="checkOutDate" th:field="*{checkOutDate}" ><br><br>-->
 
-                        <label for="checkInTime">Giờ nhận phòng:</label>
-                        <input class="w-75" type="time" id="checkInTime" th:field="*{checkInTime}" ><br><br>
+<!--                        <label for="checkInTime">Giờ nhận phòng:</label>-->
+<!--                        <input class="w-75" type="time" id="checkInTime" th:field="*{checkInTime}" ><br><br>-->
 
-                        <label for="checkOutTime">Giờ trả phòng:</label>
-                        <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>
+<!--                        <label for="checkOutTime">Giờ trả phòng:</label>-->
+<!--                        <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>-->
 
-                        <label for="adults">Số người lớn:</label>
-                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingDto.adults == 0 ? bookingDto.adults : 2}"><br><br>
+<!--                        <label for="adults">Số người lớn:</label>-->
+<!--                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingDto.adults == 0 ? bookingDto.adults : 2}"><br><br>-->
 
-                        <label for="children">Số trẻ em:</label>
-                        <input class="w-75" type="number" id="children" th:field="*{children}" ><br><br>
+<!--                        <label for="children">Số trẻ em:</label>-->
+<!--                        <input class="w-75" type="number" id="children" th:field="*{children}" ><br><br>-->
 
-                        <button class="btn btn-success btn-lg w-75" type="submit">Đặt phòng</button>
-                    </form>
+
+<!--&lt;!&ndash;                        <div class="col-12 col-md-3 d-flex justify-content-center mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                        <button class="btn btn-success btn-lg w-75 form-control btn  d-flex justify-content-center roberto-btn" type="submit">Tìm kiếm</button>-->
+<!--                    </form>-->
+
+                    <div class="container mt-4">
+                        <form th:action="@{/book-room}" th:object="${bookingDto}" method="post" class="needs-validation" novalidate>
+                            <!-- Ngày nhận phòng -->
+                            <div class="mb-3">
+                                <label for="checkInDate" class="form-label">Ngày nhận phòng:</label>
+                                <input
+                                        type="date"
+                                        class="form-control w-75"
+                                        id="checkInDate"
+                                        th:field="*{checkInDate}"
+                                        required>
+                                <div class="invalid-feedback">Vui lòng chọn ngày nhận phòng.</div>
+                            </div>
+
+                            <!-- Ngày trả phòng -->
+                            <div class="mb-3">
+                                <label for="checkOutDate" class="form-label">Ngày trả phòng:</label>
+                                <input
+                                        type="date"
+                                        class="form-control w-75"
+                                        id="checkOutDate"
+                                        th:field="*{checkOutDate}"
+                                        required>
+                                <div class="invalid-feedback">Vui lòng chọn ngày trả phòng.</div>
+                            </div>
+
+                            <!-- Giờ nhận phòng -->
+                            <div class="mb-3">
+                                <label for="checkInTime" class="form-label">Giờ nhận phòng:</label>
+                                <input
+                                        type="time"
+                                        class="form-control w-75"
+                                        id="checkInTime"
+                                        th:field="*{checkInTime}"
+                                        required>
+                                <div class="invalid-feedback">Vui lòng chọn giờ nhận phòng.</div>
+                            </div>
+
+                            <!-- Giờ trả phòng -->
+                            <div class="mb-3">
+                                <label for="checkOutTime" class="form-label">Giờ trả phòng:</label>
+                                <input
+                                        type="time"
+                                        class="form-control w-75"
+                                        id="checkOutTime"
+                                        th:field="*{checkOutTime}"
+                                        required>
+                                <div class="invalid-feedback">Vui lòng chọn giờ trả phòng.</div>
+                            </div>
+
+                            <!-- Số người lớn -->
+                            <div class="mb-3">
+                                <label for="adults" class="form-label">Số người lớn:</label>
+                                <input
+                                        type="number"
+                                        class="form-control w-75"
+                                        id="adults"
+                                        th:field="*{adults}"
+                                        th:value="${bookingDto.adults == 0 ? bookingDto.adults : 2}"
+                                        required>
+                                <div class="invalid-feedback">Vui lòng nhập số người lớn.</div>
+                            </div>
+
+                            <!-- Số trẻ em -->
+                            <div class="mb-3">
+                                <label for="children" class="form-label">Số trẻ em:</label>
+                                <input
+                                        type="number"
+                                        class="form-control w-75"
+                                        id="children"
+                                        th:field="*{children}"
+                                        required>
+                                <div class="invalid-feedback">Vui lòng nhập số trẻ em.</div>
+                            </div>
+
+<!--                            <div class="d-flex justify-content-center">-->
+<!--                                <button-->
+<!--                                        class=" roberto-btn btn btn-success btn-lg w-75"-->
+<!--                                        type="submit">Tìm kiếm</button>-->
+<!--                            </div>-->
+
+                            <!-- Nút tìm kiếm -->
+                            <div class="d-flex justify-content-center">
+                                <button style="margin-left: -" class="btn btn-success btn-lg w-75 form-control btn  d-flex justify-content-center roberto-btn" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>
 
 
 
@@ -652,7 +744,7 @@
 <!-- Call To Action Area Start -->
 <section class="roberto-cta-area">
     <div class="container">
-        <div class="cta-content bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/1.jpg);">
+        <div class="cta-content bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/1.png);">
             <div class="row align-items-center">
                 <div class="col-12 col-md-7">
                     <div class="cta-text mb-50">

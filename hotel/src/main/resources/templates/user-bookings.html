@@ -1,30 +1,66 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh Sách Đặt Phòng Của Bạn</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<html lang="en">
 
+<head>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>Selegend - Hotel &amp; Resort</title>
+    <title>Selegend - Hotel</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="./img/core-img/favicon.png">
+    <link rel="icon" th:href="@{/img/core-img/favicon.png}">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" th:href="@{/style.css}">
 
 </head>
+
 <body>
+<!-- Preloader -->
 <div id="preloader">
     <div class="loader"></div>
+</div>
+<!-- /Preloader -->
+
+<!-- Header Area Start -->
+<header class="header-area">
+    <!-- Search Form -->
+    <div class="search-form d-flex align-items-center">
+        <div class="container">
+            <form action="index.html" method="get">
+                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">
+                <button type="submit"><i class="icon_search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Top Header Area Start -->
+    <div th:replace="~{fragments::nav-header}"></div>
+    <!-- Top Header Area End -->
+
+    <!-- Main Header Start -->
+    <div th:replace="~{fragments::main-header-start}"></div>
+</header>
+
+<div class="breadcrumb-area bg-img bg-overlay jarallax" th:style="'background-image: url(' + @{/img/bg-img/18.png} + ');'">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center mt-100">
+                    <h2 class="page-title">Thông tin cá nhân</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cá nhân > Thông tin đặt phòng</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -35,6 +71,7 @@
     <!-- Bộ lọc trạng thái đặt phòng -->
     <div class="form-group">
         <label for="statusFilter">Lọc theo trạng thái:</label>
+        <br>
         <select id="statusFilter" class="form-control" onchange="filterBookings()">
             <option value="">Tất cả</option>
             <option value="DELETED">Đã xóa</option>
@@ -43,6 +80,8 @@
             <option value="REJECTED">Đã từ chối</option>
         </select>
     </div>
+
+    <br>
 
     <table class="table table-bordered mt-3">
         <thead>
@@ -68,6 +107,7 @@
                         th:data-target="'#detailsModal' + ${booking.bookingId}">
                     Xem Chi Tiết
                 </button>
+                <div></div>
 
                 <!-- Nếu booking chưa có review -->
                 <button type="button" class="btn btn-warning mt-2"
@@ -76,6 +116,7 @@
                         th:data-target="'#reviewModal' + ${booking.bookingId}">
                     Đánh Giá
                 </button>
+                <div></div>
 
                 <!-- Nếu booking đã có review -->
                 <button type="button" class="btn btn-secondary mt-2"
@@ -89,7 +130,7 @@
         </tbody>
     </table>
 
-    <a th:href="@{/}" class="btn btn-primary mt-3">Quay Lại Trang Chủ</a>
+<!--    <a th:href="@{/}" class="btn btn-primary mt-3">Quay Lại Trang Chủ</a>-->
 </div>
 
 <!-- Modal Chi Tiết Đơn Đặt Phòng -->
@@ -105,11 +146,11 @@
             <div class="modal-body">
                 <p><strong>Mã Đặt Phòng:</strong> <span th:text="${booking.bookingId}"></span></p>
                 <p><strong>Ngày Tạo:</strong> <span th:text="${booking.createdAt}"></span></p>
+                <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}"></span></p>
                 <p><strong>Ngày Nhận Phòng:</strong> <span th:text="${booking.checkInDate}"></span></p>
                 <p><strong>Ngày Trả Phòng:</strong> <span th:text="${booking.checkOutDate}"></span></p>
                 <p><strong>Tổng Giá:</strong> <span th:text="${booking.totalPrice} + ' VND'"></span></p>
                 <p><strong>Trạng Thái:</strong> <span th:text="${booking.status}"></span></p>
-                <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}"></span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -142,6 +183,7 @@
                 <form th:action="@{/user/booking/review/{bookingId}(bookingId=${booking.bookingId})}" method="post">
                     <div class="form-group">
                         <label for="rating">Đánh Giá (1-5):</label>
+                        <br>
                         <select class="form-control" name="rating" id="rating" required>
                             <option value="" disabled selected>Chọn đánh giá</option>
                             <option value="1">1</option>
@@ -153,6 +195,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Nhận Xét:</label>
+                        <br>
                         <textarea id="content" class="form-control" name="content" rows="4" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>
@@ -165,6 +208,52 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+
+<!-- Call To Action Area Start -->
+<section class="roberto-cta-area">
+    <div class="container">
+        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.png} + ');'">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="cta-text mb-50">
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call To Action Area End -->
+
+<!-- Partner Area Start -->
+<div class="partner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p1.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p2.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p3.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p4.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p5.png}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     function filterBookings() {
@@ -181,17 +270,13 @@
         });
     }
 </script>
-<script src="js/jquery.min.js"></script>
-<!-- Popper -->
-<script src="js/popper.min.js"></script>
-<!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
-<!-- All Plugins -->
-<script src="js/roberto.bundle.js"></script>
-<!-- Active -->
-<script src="js/default-assets/active.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Footer Area Start -->
+<footer th:replace="~{fragments::footer}"></footer>
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<script th:replace="~{fragments::script}"></script>
+
 </body>
+
 </html>

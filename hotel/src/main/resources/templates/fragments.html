@@ -18,12 +18,17 @@
     <!-- Custom styles for this template-->
     <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
+
+
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -84,7 +89,7 @@
             <nav class="classy-navbar justify-content-between" id="robertoNav">
 
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="./img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" th:href="@{/}"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
 
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
@@ -101,11 +106,11 @@
                     <div class="classynav">
                         <ul id="nav">
                             <li class="active"><a th:href="@{/}">Trang chủ</a></li>
-                            <li><a th:href="@{/room-detail}">Phòng nghỉ</a></li>
+<!--                            <li><a th:href="@{/room-detail}">Phòng nghỉ</a></li>-->
                             <!--                                <li><a th:href="@{/about}">Chúng tôi</a></li>-->
                             <li><a href="#">Cá nhân</a>
                                 <ul class="dropdown">
-                                    <li><a href="#">- Thông tin cá nhân</a></li>
+                                    <li><a th:href="@{/user/update-info}">- Thông tin cá nhân</a></li>
                                     <li><a th:href="@{/user/booking/list}">- Thông tin đặt phòng</a></li>
                                 </ul>
                             </li>
@@ -115,7 +120,7 @@
 <!--                                    <li><a th:href="@{/user/booking/list}">- Thông tin đặt phòng</a></li>-->
 <!--                                </ul>-->
 <!--                            </li>-->
-                            <li><a th:href="@{/blog}">Mới</a></li>
+<!--                            <li><a th:href="@{/blog}">Mới</a></li>-->
                             <li><a th:href="@{/contact}">Liên hệ</a></li>
                         </ul>
 
@@ -260,15 +265,15 @@
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
 
     <!-- jQuery 2.2.4 -->
-    <script th:src="@{js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <!-- Popper -->
-    <script th:src="@{js/popper.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
     <!-- Bootstrap -->
-    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <!-- All Plugins -->
-    <script th:src="@{js/roberto.bundle.js}"></script>
+    <script th:src="@{/js/roberto.bundle.js}"></script>
     <!-- Active -->
-    <script th:src="@{js/default-assets/active.js}"></script>
+    <script th:src="@{/js/default-assets/active.js}"></script>
 </div>
 </body>
 </html>

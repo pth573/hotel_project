@@ -64,6 +64,9 @@ public class ApplicationConfig {
                                 .requestMatchers("/admin/get-room-group/**").permitAll()
                                 .requestMatchers("/admin/update-room-group/**").permitAll()
                                 .requestMatchers("/admin/searchCustomer/**").permitAll()
+                                .requestMatchers("/admin/booking/online/**").permitAll()
+                                .requestMatchers("/find-customer/**").permitAll()
+                                .requestMatchers("/create-customer/**").permitAll()
                                 .requestMatchers("/book-room").permitAll()
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**","/dist/**", "/scss/**") // Thêm các đường dẫn tài nguyên tĩnh
                                 .permitAll() // Cho phép truy cập không cần xác thực

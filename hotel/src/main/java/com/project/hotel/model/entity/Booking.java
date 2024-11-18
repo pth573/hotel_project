@@ -27,7 +27,7 @@ public class Booking extends BaseEntity {
     private Long amountHasPaid;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer user;
 
     @ManyToOne
@@ -45,4 +45,6 @@ public class Booking extends BaseEntity {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+
+
 }

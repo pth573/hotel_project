@@ -148,6 +148,7 @@ public class AdminBookingController {
 
 
     @GetMapping("/admin/booking/online")
+//    @PostMapping("/admin/booking/online")
     public String adminBookingOnline(Model model, Principal principal,
                                      @RequestParam(value = "checkin-date", required = false) String checkInDate,
                                      @RequestParam(value = "checkout-date", required = false) String checkOutDate,
@@ -280,7 +281,7 @@ public class AdminBookingController {
                                    @RequestParam String newPhoneNumber) {
 
         // Tạo đối tượng Customer từ dữ liệu form
-        Customer customer = customerService.findByEmail(newEmail);
+        Customer customer = customerService.findByEmail2(newEmail);
         if(customer == null) {
             customer = new Customer();
         }
@@ -294,27 +295,51 @@ public class AdminBookingController {
         return customer;
     }
 
-
     @PostMapping("/admin/booking/save")
     @ResponseBody
-    public ResponseEntity<?> bookRoom(@RequestBody BookingDto bookingRequest) {
+    public ResponseEntity<?> bookRoom(@RequestBody BookingDto bookingRequest, Principal principal) {
+
         // Kiểm tra dữ liệu trước khi xử lý (có thể thêm validation ở đây)
         if (bookingRequest.getRoomId() == null || bookingRequest.getEmail() == null) {
+            System.out.println("NO");
             return ResponseEntity.badRequest().body("Thông tin không đầy đủ!");
         }
 
+        Double totalPrice = Double.parseDouble(String.valueOf(bookingRequest.getTotalPrice()));
+        Long totalPriceAsLong = totalPrice.longValue();  // Chuyển đổi từ Double sang Long
+
+        Double amountHasPaid = Double.parseDouble(String.valueOf(bookingRequest.getAmountHasPaid()));
+        Long amountHasPaidLong = Math.round(amountHasPaid);  // Làm tròn và chuyển sang Long
+
+
+        System.out.println("t: " + totalPriceAsLong + "a :" + amountHasPaidLong);
+
         // Gọi service để lưu thông tin đặt phòng
         Booking booking = new Booking();
+
         Room room = roomService.findById(bookingRequest.getRoomId());
         booking.setRoom(room);
-        Customer customer = customerService.findByEmail(bookingRequest.getEmail());
+        Customer customer = customerService.findByEmail2(bookingRequest.getEmail());
+        if(customer == null) {
+            System.out.println("Null");
+        }
+        else {
+            System.out.println("OK");
+            System.out.println(customer.getFullName());
+            System.out.println(customer.getPhoneNumber());
+            System.out.println(customer.getEmail());
+        }
+
+        System.out.println("A: "  + customer.getEmail());
+
         booking.setUser(customer);
         booking.setStatus(BookingStatus.ACCEPTED);
-        booking.setTotalPrice(bookingRequest.getTotalPrice());
-        booking.setAmountHasPaid(bookingRequest.getAmountHasPaid());
+        Long a = Long.parseLong(String.valueOf(bookingRequest.getTotalPrice()));
+        Long b = Long.parseLong(String.valueOf(bookingRequest.getAmountHasPaid()));
+        booking.setTotalPrice(totalPriceAsLong);
+        booking.setAmountHasPaid(amountHasPaidLong);
         booking.setCheckInDate(bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime() + ":00");
         booking.setCheckOutDate(bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime() + ":00");
-
 
         System.out.println("OK: " + booking);
         bookingService.save(booking);
@@ -324,6 +349,51 @@ public class AdminBookingController {
 //            return ResponseEntity.status(500).body("Đặt phòng thất bại, vui lòng thử lại.");
 //        }
     }
+
+
+
+
+//    @PostMapping("/admin/booking/save")
+//    @ResponseBody
+//    public ResponseEntity<?> bookRoom(@RequestBody BookingDto bookingRequest) {
+//        // Kiểm tra dữ liệu trước khi xử lý (có thể thêm validation ở đây)
+//        if (bookingRequest.getRoomId() == null || bookingRequest.getEmail() == null) {
+//            return ResponseEntity.badRequest().body("Thông tin không đầy đủ!");
+//        }
+//
+//        Double totalPrice = Double.parseDouble(String.valueOf(bookingRequest.getTotalPrice()));
+//        Long totalPriceAsLong = totalPrice.longValue();  // Chuyển đổi từ Double sang Long
+//
+//        Double amountHasPaid = Double.parseDouble(String.valueOf(bookingRequest.getAmountHasPaid()));
+//        Long amountHasPaidLong = Math.round(amountHasPaid);  // Làm tròn và chuyển sang Long
+//
+//
+//        System.out.println("t: " + totalPriceAsLong + "a :" + amountHasPaidLong);
+//
+//        // Gọi service để lưu thông tin đặt phòng
+//        Booking booking = new Booking();
+//
+//        Room room = roomService.findById(bookingRequest.getRoomId());
+//        booking.setRoom(room);
+//        Customer customer = customerService.findByEmail(bookingRequest.getEmail());
+//        booking.setUser(customer);
+//        booking.setStatus(BookingStatus.ACCEPTED);
+//        Long a = Long.parseLong(String.valueOf(bookingRequest.getTotalPrice()));
+//        Long b = Long.parseLong(String.valueOf(bookingRequest.getAmountHasPaid()));
+//        booking.setTotalPrice(totalPriceAsLong);
+//        booking.setAmountHasPaid(amountHasPaidLong);
+//        booking.setCheckInDate(bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime() + ":00");
+//        booking.setCheckOutDate(bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime() + ":00");
+//
+//
+//        System.out.println("OK: " + booking);
+//        bookingService.save(booking);
+//        return ResponseEntity.ok().body("Đặt phòng thành công!");
+////        } else {
+////            // Trả về lỗi nếu có vấn đề
+////            return ResponseEntity.status(500).body("Đặt phòng thất bại, vui lòng thử lại.");
+////        }
+//    }
 
 
     @GetMapping(("/admin/booking/available/{roomGroupId}"))

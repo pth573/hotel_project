@@ -1,90 +1,53 @@
 <!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Thông tin cá nhân</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Thông tin cá nhân</h1>-->
-<!--<form th:action="@{/user/update-info}" th:object="${user}" method="post">-->
-<!--    <div>-->
-<!--        <label for="fullName">Họ và tên:</label>-->
-<!--        <input type="text" id="fullName" th:field="*{fullName}" required />-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <label for="dateOfBirth">Ngày sinh:</label>-->
-<!--        <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}" />-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <label for="phoneNumber">Số điện thoại:</label>-->
-<!--        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required />-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <label for="address">Địa chỉ:</label>-->
-<!--        <input type="text" id="address" th:field="*{address}" required />-->
-<!--    </div>-->
-<!--    <button type="submit">Submit</button>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
+<!--<html lang="en">-->
 
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
 <!--<head>-->
-<!--    <title>Thông tin cá nhân</title>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            margin: 20px;-->
-<!--        }-->
-<!--        h1 {-->
-<!--            color: #333;-->
-<!--        }-->
-<!--        form {-->
-<!--            max-width: 400px;-->
-<!--            margin: auto;-->
-<!--            padding: 20px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
-<!--        div {-->
-<!--            margin-bottom: 15px;-->
-<!--        }-->
-<!--        label {-->
-<!--            display: block;-->
-<!--            margin-bottom: 5px;-->
-<!--            color: #555;-->
-<!--        }-->
-<!--        input[type="text"], input[type="date"] {-->
-<!--            width: 100%;-->
-<!--            padding: 8px;-->
-<!--            box-sizing: border-box;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 4px;-->
-<!--        }-->
-<!--        button {-->
-<!--            padding: 10px 20px;-->
-<!--            color: #fff;-->
-<!--            background-color: #007bff;-->
-<!--            border: none;-->
-<!--            border-radius: 4px;-->
-<!--            cursor: pointer;-->
-<!--        }-->
-<!--        button:hover {-->
-<!--            background-color: #0056b3;-->
-<!--        }-->
-<!--        .success-message {-->
-<!--            color: green;-->
-<!--            text-align: center;-->
-<!--            margin-bottom: 20px;-->
-<!--        }-->
-<!--    </style>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+
+<!--    &lt;!&ndash; Title &ndash;&gt;-->
+<!--    <title>Selegend - Hotel</title>-->
+
+<!--    &lt;!&ndash; Favicon &ndash;&gt;-->
+<!--    <link rel="icon" th:href="@{/img/core-img/favicon.png}">-->
+
+<!--    &lt;!&ndash; Stylesheet &ndash;&gt;-->
+<!--    <link rel="stylesheet" th:href="@{/style.css}">-->
+
 <!--</head>-->
+
 <!--<body>-->
+<!--&lt;!&ndash; Preloader &ndash;&gt;-->
+<!--<div id="preloader">-->
+<!--    <div class="loader"></div>-->
+<!--</div>-->
+<!--&lt;!&ndash; /Preloader &ndash;&gt;-->
+
+<!--&lt;!&ndash; Header Area Start &ndash;&gt;-->
+<!--<header class="header-area">-->
+<!--    &lt;!&ndash; Search Form &ndash;&gt;-->
+<!--    <div class="search-form d-flex align-items-center">-->
+<!--        <div class="container">-->
+<!--            <form action="index.html" method="get">-->
+<!--                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">-->
+<!--                <button type="submit"><i class="icon_search"></i></button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Top Header Area Start &ndash;&gt;-->
+<!--    <div th:replace="~{fragments::nav-header}"></div>-->
+<!--    &lt;!&ndash; Top Header Area End &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Main Header Start &ndash;&gt;-->
+<!--    <div th:replace="~{fragments::main-header-start}"></div>-->
+<!--</header>-->
+
 
 <!--<h1>Thông tin cá nhân</h1>-->
 
-<!--&lt;!&ndash; Hiển thị thông báo thành công &ndash;&gt;-->
 <!--<div th:if="${message}" class="success-message">-->
 <!--    <p th:text="${message}"></p>-->
 <!--</div>-->
@@ -107,106 +70,182 @@
 <!--        <input type="text" id="address" th:field="*{address}" required />-->
 <!--    </div>-->
 <!--    <button type="submit">Cập nhật</button>-->
+<!--    <a href="/" class="back-button">Quay lại</a>-->
 <!--</form>-->
 
+<!--&lt;!&ndash; Footer Area Start &ndash;&gt;-->
+<!--<footer th:replace="~{fragments::footer}"></footer>-->
+<!--&lt;!&ndash; Footer Area End &ndash;&gt;-->
+
+<!--&lt;!&ndash; **** All JS Files ***** &ndash;&gt;-->
+<!--<script th:replace="~{fragments::script}"></script>-->
+
 <!--</body>-->
+
 <!--</html>-->
 
 
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-    <title>Thông tin cá nhân</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        div {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        input[type="text"], input[type="date"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .back-button {
-            padding: 10px 20px;
-            color: #333;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background-color: #e0e0e0;
-        }
-        .success-message {
-            color: green;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Selegend - Hotel</title>
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.png}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
+
 <body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
 
-<h1>Thông tin cá nhân</h1>
+<!-- Header Area Start -->
+<header class="header-area">
+    <!-- Search Form -->
+    <div class="search-form d-flex align-items-center">
+        <div class="container">
+            <form action="index.html" method="get">
+                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">
+                <button type="submit"><i class="icon_search"></i></button>
+            </form>
+        </div>
+    </div>
 
-<div th:if="${message}" class="success-message">
-    <p th:text="${message}"></p>
+    <!-- Top Header Area Start -->
+    <div th:replace="~{fragments::nav-header}"></div>
+    <!-- Top Header Area End -->
+
+    <!-- Main Header Start -->
+    <div th:replace="~{fragments::main-header-start}"></div>
+</header>
+
+
+<div class="breadcrumb-area bg-img bg-overlay jarallax" th:style="'background-image: url(' + @{/img/bg-img/18.png} + ');'">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center mt-100">
+                    <h2 class="page-title">Thông tin cá nhân</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cá nhân > Thông tin cá nhân</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<form th:action="@{/user/update-info}" th:object="${user}" method="post">
-    <div>
-        <label for="fullName">Họ và tên:</label>
-        <input type="text" id="fullName" th:field="*{fullName}" required />
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Thông tin cá nhân</h1>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        <p th:text="${message}"></p>
     </div>
-    <div>
-        <label for="dateOfBirth">Ngày sinh:</label>
-        <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}" required />
+
+    <form th:action="@{/user/update-info}" th:object="${user}" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Họ và tên:</label>
+            <input type="text" id="fullName" class="form-control" th:field="*{fullName}" required>
+            <div class="invalid-feedback">
+                Vui lòng nhập họ và tên.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="dateOfBirth" class="form-label">Ngày sinh:</label>
+            <input type="date" id="dateOfBirth" class="form-control" th:field="*{dateOfBirth}" required>
+            <div class="invalid-feedback">
+                Vui lòng chọn ngày sinh.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Số điện thoại:</label>
+            <input type="text" id="phoneNumber" class="form-control" th:field="*{phoneNumber}" required>
+            <div class="invalid-feedback">
+                Vui lòng nhập số điện thoại.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Địa chỉ:</label>
+            <input type="text" id="address" class="form-control" th:field="*{address}" required>
+            <div class="invalid-feedback">
+                Vui lòng nhập địa chỉ.
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="roberto-btn btn btn-primary roberto-btn">Cập nhật</button>
+<!--            <a th:href="@{/}" class="btn btn-secondary">Quay lại</a>-->
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<br>
+
+<section class="roberto-cta-area">
+    <div class="container">
+        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.png} + ');'">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="cta-text mb-50">
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="phoneNumber">Số điện thoại:</label>
-        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required />
+</section>
+<!-- Call To Action Area End -->
+
+<!-- Partner Area Start -->
+<div class="partner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p1.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p2.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p3.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p4.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p5.png}" alt=""></a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="address">Địa chỉ:</label>
-        <input type="text" id="address" th:field="*{address}" required />
-    </div>
-    <button type="submit">Cập nhật</button>
-    <a href="/" class="back-button">Quay lại</a>
-</form>
+</div>
+<!-- Footer Area Start -->
+<footer th:replace="~{fragments::footer}"></footer>
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<script th:replace="~{fragments::script}"></script>
 
 </body>
+
 </html>
+

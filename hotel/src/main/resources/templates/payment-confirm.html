@@ -1,26 +1,220 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Hóa đơn đặt phòng khách sạn</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Hóa đơn đặt phòng khách sạn</h2>-->
+<!--<div>-->
+<!--    <p><strong>Booking ID:</strong> <span th:text="${booking.bookingId}"></span></p>-->
+<!--    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
+<!--    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
+<!--    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
+<!--    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
+<!--    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
+<!--    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>-->
+<!--    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>-->
+<!--    <p><strong>Tổng giá tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
+<!--</div>-->
+<!--<div>-->
+<!--    <p><strong>Tổng giá thanh toán:</strong> <span th:text="${booking.totalPrice}">Tổng giá thanh toán:</span></p>-->
+<!--</div>-->
+
+<!--<a th:href="@{/}">Quay về trang chủ </a>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-    <title>Hóa đơn đặt phòng khách sạn</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Selegend - Hotel</title>
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.png}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
+
 <body>
-<h2>Hóa đơn đặt phòng khách sạn</h2>
-<div>
-    <p><strong>Booking ID:</strong> <span th:text="${booking.bookingId}"></span></p>
-    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>
-    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>
-    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>
-    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>
-    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>
-    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>
-    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>
-    <p><strong>Tổng giá tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
 </div>
-<div>
-    <p><strong>Tổng giá thanh toán:</strong> <span th:text="${booking.totalPrice}">Tổng giá thanh toán:</span></p>
+<!-- /Preloader -->
+
+<!-- Header Area Start -->
+<header class="header-area">
+    <!-- Search Form -->
+    <div class="search-form d-flex align-items-center">
+        <div class="container">
+            <form action="index.html" method="get">
+                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">
+                <button type="submit"><i class="icon_search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Top Header Area Start -->
+    <div th:replace="~{fragments::nav-header}"></div>
+    <!-- Top Header Area End -->
+
+    <!-- Main Header Start -->
+    <div th:replace="~{fragments::main-header-start}"></div>
+</header>
+
+<div class="breadcrumb-area bg-img bg-overlay jarallax" th:style="'background-image: url(' + @{/img/bg-img/18.png} + ');'">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center mt-100">
+                    <h2 class="page-title">Thông tin cá nhân</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cá nhân > Thông tin đặt phòng</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<a th:href="@{/}">Quay về trang chủ </a>
+<!--<h2>Hóa đơn đặt phòng khách sạn</h2>-->
+<!--<div>-->
+<!--    <p><strong>Booking ID:</strong> <span th:text="${booking.bookingId}"></span></p>-->
+<!--    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
+<!--    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
+<!--    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
+<!--    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
+<!--    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
+<!--    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>-->
+<!--    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>-->
+<!--    <p><strong>Tổng giá tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
+<!--</div>-->
+<!--<div>-->
+<!--    <p><strong>Tổng giá thanh toán:</strong> <span th:text="${booking.totalPrice}">Tổng giá thanh toán:</span></p>-->
+<!--</div>-->
+
+<!--<a th:href="@{/}">Quay về trang chủ </a>-->
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Hóa đơn đặt phòng khách sạn</h2>
+
+    <!-- Hóa đơn thông tin đặt phòng -->
+    <div class="card p-4 mb-4">
+        <div class="mb-3">
+            <p><strong>Booking ID:</strong> <span th:text="${booking.bookingId}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Tổng giá tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>
+        </div>
+    </div>
+
+    <!-- Tổng giá thanh toán -->
+    <div class="card p-4 mb-4">
+        <div class="mb-3">
+            <p><strong>Tổng giá thanh toán:</strong> <span th:text="${booking.totalPrice}">Tổng giá thanh toán</span></p>
+        </div>
+    </div>
+
+    <!-- Link quay về trang chủ -->
+    <div class="text-center">
+        <a class="btn btn-primary roberto-btn" th:href="@{/}">Quay về trang chủ</a>
+    </div>
+</div>
+
+
+<br><br><br><br>
+
+
+<!-- Call To Action Area Start -->
+<section class="roberto-cta-area">
+    <div class="container">
+        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.png} + ');'">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="cta-text mb-50">
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call To Action Area End -->
+
+<!-- Partner Area Start -->
+<div class="partner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p1.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p2.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p3.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p4.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p5.png}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Link Bootstrap JS (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Footer Area Start -->
+<footer th:replace="~{fragments::footer}"></footer>
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<script th:replace="~{fragments::script}"></script>
 
 </body>
+
 </html>
+

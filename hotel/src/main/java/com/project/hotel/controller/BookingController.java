@@ -173,6 +173,10 @@ public class BookingController {
     public String handleBooking(@ModelAttribute BookingDto bookingDto,
                                 @RequestParam("room") Long roomId, Model model, Principal principal) {
 
+        if(principal == null){
+            return "redirect:/login";
+        }
+
         model.addAttribute("title", "Chi tiết Đặt phòng");
         Room selectedRoom = roomService.findById(roomId);
         long priceDateTime = roomGroupService.calculatePrice(bookingDto, selectedRoom.getRoomGroup());
@@ -196,10 +200,19 @@ public class BookingController {
     @PostMapping("/payment")
     public String confirmBooking(@ModelAttribute("booking") Booking booking, Model model, Principal principal) {
         System.out.println("Booking khi gửi lên: " + booking);
-        Booking bookingDB = bookingService.save(booking);
-        Room room = roomService.findById(booking.getRoom().getRoomId());
+
+        if(principal == null){
+            return "redirect:/login";
+        }
         String gmail = principal.getName();
         Customer customer = customerService.findByEmail(gmail);
+
+        System.out.println(booking);
+        booking.setUser(customer);
+        Booking bookingDB = bookingService.save(booking);
+        Room room = roomService.findById(booking.getRoom().getRoomId());
+//        String gmail = principal.getName();
+//        Customer customer = customerService.findByEmail(gmail);
         bookingDB.setRoom(room);
         bookingDB.setUser(customer);
         model.addAttribute("booking", bookingDB);

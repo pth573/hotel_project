@@ -1,45 +1,225 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments::header}">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Selegend - Hotel</title>
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.png}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/style.css}">
 
 </head>
+
 <body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
 
-<h2>Chi tiết Đặt phòng</h2>
+<!-- Header Area Start -->
+<header class="header-area">
+    <!-- Search Form -->
+    <div class="search-form d-flex align-items-center">
+        <div class="container">
+            <form action="index.html" method="get">
+                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Nhập từ khóa ...">
+                <button type="submit"><i class="icon_search"></i></button>
+            </form>
+        </div>
+    </div>
 
-<div>
-    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>
-    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>
-    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>
-    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>
-    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>
-    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>
-    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>
-    <p><strong>Tổng tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>
-    <span style="display: none;" id="content-paid" th:text="${booking.user.email} + ' ' + ${currentDate}">Debugging content</span>
-    <button class="purchase-btn">Thanh toán</button>
+    <!-- Top Header Area Start -->
+    <div th:replace="~{fragments::nav-header}"></div>
+    <!-- Top Header Area End -->
+
+    <!-- Main Header Start -->
+    <div th:replace="~{fragments::main-header-start}"></div>
+</header>
+
+
+<div class="breadcrumb-area bg-img bg-overlay jarallax" th:style="'background-image: url(' + @{/img/bg-img/18.png} + ');'">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center mt-100">
+                    <h2 class="page-title">Thông tin cá nhân</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cá nhân > Thông tin đặt phòng</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="paymentQR" style="display: none;">
-    <h3>Thanh toán qua QR Code:</h3>
-    <img id="paymentQRImage" src="" alt="QR Code" />
+<div class="container mt-5">
+    <div class="card shadow p-4 mb-4">
+        <h2 class="text-center mb-4">Chi tiết Đặt phòng</h2>
+
+        <div class="mb-3">
+            <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>
+            <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>
+            <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>
+            <p><strong>Email:</strong> <span id="content-paid" th:text="${booking.user.email}">Email</span></p>
+            <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>
+            <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>
+            <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>
+            <p><strong>Tổng tiền:</strong> <span id="totalPrice" class="fw-bold text-primary" th:text="${booking.totalPrice}">Tổng tiền</span></p>
+        </div>
+
+        <div class="text-center">
+            <button id="purchase-btn" class="btn btn-success btn-lg purchase-btn roberto-btn">Thanh toán</button>
+        </div>
+    </div>
+
+    <div id="paymentQR" class="card shadow p-4 mb-4" style="display: none;">
+        <h3 class="text-center mb-3">Thanh toán qua QR Code:</h3>
+        <div class="text-center">
+            <img id="paymentQRImage" src="" alt="QR Code" class="img-fluid shadow-sm" style="max-width: 300px;" />
+        </div>
+    </div>
+
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">Thông tin Thanh toán</h3>
+        <form th:action="@{/payment}" method="post" th:object="${booking}">
+            <input type="hidden" th:field="*{room.roomId}" />
+            <input type="hidden" th:field="*{user.customerId}" />
+            <input type="hidden" th:field="*{checkInDate}" />
+            <input type="hidden" th:field="*{checkOutDate}" />
+            <input type="hidden" th:field="*{status}" />
+            <input type="hidden" th:field="*{totalPrice}" />
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary roberto-btn btn-lg">Tiếp tục</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<!--<div>-->
-<!--    <form th:action="@{/payment}" method="post">-->
-<!--        <button type="submit">Tiếp tục</button>-->
-<!--    </form>-->
+<br><br><br><br><br>
+
+
+<!--<div class="container mt-5">-->
+<!--    <h2 class="text-center mb-4">Chi tiết Đặt phòng</h2>-->
+
+<!--    <div class="card shadow p-4">-->
+<!--        <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
+<!--        <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
+<!--        <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
+<!--        <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
+<!--        <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
+<!--        <p><strong>Ngày và giờ nhận phòng:</strong>-->
+<!--            <span th:text="${booking.checkInDate}">Ngày giờ nhận</span>,-->
+<!--&lt;!&ndash;            <span th:text="${booking.checkInTime}">Giờ nhận</span>&ndash;&gt;-->
+<!--        </p>-->
+<!--        <p><strong>Ngày và giờ trả phòng:</strong>-->
+<!--            <span th:text="${booking.checkOutDate}">Ngày giờ trả</span>,-->
+<!--&lt;!&ndash;            <span th:text="${booking.checkOutTime}">Giờ trả</span>&ndash;&gt;-->
+<!--        </p>-->
+<!--        <p><strong>Tổng tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
+<!--    </div>-->
+
+<!--    <div class="mt-4 text-center">-->
+<!--        <button class="btn btn-primary btn-lg purchase-btn">Thanh toán</button>-->
+<!--    </div>-->
+
+<!--    <div id="paymentQR" class="mt-4 text-center" style="display: none;">-->
+<!--        <h3>Thanh toán qua QR Code:</h3>-->
+<!--        <img id="paymentQRImage" src="" alt="QR Code" class="img-fluid shadow-sm" style="max-width: 300px;" />-->
+<!--    </div>-->
 <!--</div>-->
 
-<form th:action="@{/payment}" method="post" th:object="${booking}">
-    <input type="hidden" th:field="*{room.roomId}" />
-    <input type="hidden" th:field="*{user.customerId}" />
-    <input type="hidden" th:field="*{checkInDate}" />
-    <input type="hidden" th:field="*{checkOutDate}" />
-    <input type="hidden" th:field="*{status}" />
-    <input type="hidden" th:field="*{totalPrice}" />
-    <button type="submit">Tiếp tục</button>
-</form>
+
+
+
+
+
+
+<!--<h2>Chi tiết Đặt phòng</h2>-->
+
+<!--<div>-->
+<!--    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
+<!--    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
+<!--    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
+<!--    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
+<!--    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
+<!--    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>-->
+<!--    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>-->
+<!--    <p><strong>Tổng tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
+<!--    <span style="display: none;" id="content-paid" th:text="${booking.user.email} + ' ' + ${currentDate}">Debugging content</span>-->
+<!--    <button class="purchase-btn">Thanh toán</button>-->
+<!--</div>-->
+
+<!--<div id="paymentQR" style="display: none;">-->
+<!--    <h3>Thanh toán qua QR Code:</h3>-->
+<!--    <img id="paymentQRImage" src="" alt="QR Code" />-->
+<!--</div>-->
+
+
+<!--<form th:action="@{/payment}" method="post" th:object="${booking}">-->
+<!--    <input type="hidden" th:field="*{room.roomId}" />-->
+<!--    <input type="hidden" th:field="*{user.customerId}" />-->
+<!--    <input type="hidden" th:field="*{checkInDate}" />-->
+<!--    <input type="hidden" th:field="*{checkOutDate}" />-->
+<!--    <input type="hidden" th:field="*{status}" />-->
+<!--    <input type="hidden" th:field="*{totalPrice}" />-->
+<!--    <button type="submit">Tiếp tục</button>-->
+<!--</form>-->
+
+
+<!-- Call To Action Area Start -->
+<section class="roberto-cta-area">
+    <div class="container">
+        <div class="cta-content bg-img bg-overlay jarallax" th:style="'background-image:url(' + @{/img/bg-img/1.png} + ');'">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-7">
+                    <div class="cta-text mb-50">
+                        <h2>Liên hệ ngay!</h2>
+                        <h6>Liên hệ 0123 456 789 để đặt phòng trực tiếp</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <a href="#" class="btn roberto-btn mb-50">Liên hệ ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call To Action Area End -->
+
+<!-- Partner Area Start -->
+<div class="partner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p1.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p2.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p3.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p4.png}" alt=""></a>
+                    <!-- Single Partner Logo -->
+                    <a th:href="@{#}" class="partner-logo"><img th:src="@{/img/core-img/p5.png}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -56,5 +236,13 @@
     });
 </script>
 
+<!-- Footer Area Start -->
+<footer th:replace="~{fragments::footer}"></footer>
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<script th:replace="~{fragments::script}"></script>
+
 </body>
+
 </html>

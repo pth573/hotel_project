@@ -22,7 +22,11 @@
 
         <!-- Main Content -->
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Order</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="content p-4 rounded text-center">
+                    <h4 class="fw-bold display-6">Quản lý đơn đặt phòng</h4>
+                </div>
+            </div>
 
             <!--            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"-->
             <!--                    data-whatever="@mdo">Thêm mới-->
@@ -43,16 +47,16 @@
             <table class="table table-striped table-bordered" th:if="${bookings != null and not #lists.isEmpty(bookings)}">
                 <thead class="table-dark">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Ngày Check-in</th>
-                    <th scope="col">Ngày Check-out</th>
-                    <th scope="col">Tổng Giá (VND)</th>
-                    <th scope="col">Đã Thanh Toán (VND)</th>
-                    <th scope="col">Khách Hàng</th>
-                    <th scope="col">Phòng</th>
-                    <th scope="col">Trạng Thái Đặt</th>
-                    <th scope="col">Trạng Thái Thanh Toán</th>
-                    <th scope="col">Hành động</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">ID</th>
+                    <th style="text-align: center; vertical-align: middle;"  scope="col">Ngày nhận phòng</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Ngày trả phòng</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Tổng giá</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Đã thanh toán</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Khách hàng</th>
+                    <th style="text-align: center; vertical-align: middle;"scope="col">Phòng</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Trạng thái đặt</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Trạng thái thanh toán</th>
+                    <th style="text-align: center; vertical-align: middle;" scope="col">Khác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,13 +71,25 @@
 <!--                    <td th:text="${booking.status}"></td>-->
 
                     <!-- Dropdown select for paymentStatus -->
-                    <td>
-                        <form th:action="@{/admin/booking/order/update(bookingId=${booking.bookingId})}" method="get">
+                    <td style="text-align: center;">
+                        <form  th:action="@{/admin/booking/order/update(bookingId=${booking.bookingId})}" method="get">
                             <!-- Thêm bookingId vào input ẩn -->
                             <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
 
+<!--                            <label>-->
+<!--                                <select name="status" class="form-control">-->
+<!--                                    <option th:value="ACCEPTED"-->
+<!--                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).ACCEPTED}">Chấp nhận</option>-->
+<!--                                    <option th:value="PENDING"-->
+<!--                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).PENDING}">Đang chờ</option>-->
+<!--                                    <option th:value="DELETED"-->
+<!--                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).DELETED}">Xóa</option>-->
+<!--                                    <option th:value="REJECTED"-->
+<!--                                            th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).REJECTED}">Từ chối</option>-->
+<!--                                </select>-->
+<!--                            </label>-->
                             <label>
-                                <select name="status" class="form-control">
+                                <select name="status" class="form-select form-select-sm w-auto">
                                     <option th:value="ACCEPTED"
                                             th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).ACCEPTED}">Chấp nhận</option>
                                     <option th:value="PENDING"
@@ -84,6 +100,8 @@
                                             th:selected="${booking.status == T(com.project.hotel.model.enumType.BookingStatus).REJECTED}">Từ chối</option>
                                 </select>
                             </label>
+
+
                             <button type="submit" class="btn btn-info btn-sm mt-2">Cập nhật</button>
                         </form>
                     </td>

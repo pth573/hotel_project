@@ -13,7 +13,11 @@
         <div class="container-fluid px-4">
 
             <!-- Title -->
-            <h1 class="mt-4">Danh sách khách hàng</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="content p-4 rounded text-center">
+                    <h4 class="fw-bold display-6">Danh sách khách hàng</h4>
+                </div>
+            </div>
 
             <!-- Customer Table -->
             <table class="table table-striped">
@@ -26,8 +30,8 @@
                     <th>Địa chỉ</th>
                     <th>Ngày sinh</th>
                     <th>Tổng số booking</th>
-                    <th>Tổng tiền booking</th>
-                    <th>Hành động</th>
+<!--                    <th>Tổng tiền booking</th>-->
+                    <th>Khác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +45,7 @@
                     <td th:text="${customer.bookings.size()}"></td>
 <!--                    <td th:text="${#numbers.formatDecimal(customer.bookings.stream().mapToLong(b -> b.totalPrice).sum(), 1, 'POINT')}"></td>-->
                     <td>
-                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCustomerModal"
+                        <button class="btn btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editCustomerModal"
                                 th:attr="data-customer-id=${customer.customerId}">
                             Sửa
                         </button>
@@ -104,6 +108,7 @@
     </div>
 </div>
 
+<br><br><br><br>
 <script>
     function confirmDelete() {
         const customerId = document.getElementById("deleteForm").getAttribute('action').replace('/admin/user/delete/', '').replace('/{customerId}', '');

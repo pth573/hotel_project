@@ -23,24 +23,34 @@
         <!-- Main Content -->
         <div class="container-fluid px-4">
             <div class="container mt-4">
-                <h3>Cập Nhật Dịch Vụ</h3>
-                <hr>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="content p-4 rounded text-center">
+                        <h4 class="fw-bold display-6">Cập nhật dịch vụ</h4>
+                    </div>
+                </div>
+
                 <form th:action="@{/admin/service/update/{serviceId}(serviceId=${service.serviceId})}" method="post">
-                    <div class="mb-3">
-                        <label for="serviceName" class="form-label">Tên Dịch Vụ</label>
-                        <input type="text" class="form-control" id="serviceName" name="serviceName" th:value="${service.serviceName}" required>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="serviceName" class="form-label">Tên Dịch Vụ</label>
+                            <input type="text" class="form-control" id="serviceName" name="serviceName" th:value="${service.serviceName}" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="price" class="form-label">Giá</label>
+                            <input type="number" class="form-control" id="price" name="price" th:value="${service.price}" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="description" class="form-label">Mô Tả</label>
+                            <textarea class="form-control" id="description" name="description" required th:text="${service.description}"></textarea>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Mô Tả</label>
-                        <textarea class="form-control" id="description" name="description" required th:text="${service.description}"></textarea>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary bg-dark mx-4">Cập nhật</button>
+                        <a th:href="@{/admin/service}" class="btn btn-secondary">Hủy</a>
                     </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Giá</label>
-                        <input type="number" class="form-control" id="price" name="price" th:value="${service.price}" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
-                    <a th:href="@{/admin/service}" class="btn btn-secondary">Hủy</a>
                 </form>
+
             </div>
         </div>
     </div>

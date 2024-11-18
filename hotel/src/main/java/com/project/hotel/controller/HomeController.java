@@ -35,6 +35,19 @@ public class HomeController {
     @GetMapping("/")
     public String showHome(Model model, Principal principal) {
         CustomerUtils.getCustomerInfo(principal, customerService, model);
+
+        if(principal != null) {
+            String gmail = principal.getName();
+            Customer customer = customerService.findByEmail2(gmail);
+            List<Role> roles = (List<Role>) customer.getRoles();
+            for (Role role : roles) {
+                System.out.println(role.getName());
+                if(role.getName().equals("ADMIN")) {
+                    return "redirect:/admin/room-group";
+                }
+            }
+        }
+
         List<RoomGroup> roomGroups = roomGroupService.findAll();
         model.addAttribute("roomGroups", roomGroups);
 

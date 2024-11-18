@@ -22,9 +22,13 @@
 
         <!-- Main Content -->
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Loại phòng</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="content p-4 rounded text-center">
+                    <h4 class="fw-bold display-6">Quản lý các phòng</h4>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
+            <button type="button" class="btn btn-primary bg-dark mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"
                     data-whatever="@mdo">Thêm mới
             </button>
 
@@ -57,7 +61,7 @@
                     <th scope="row" th:text="${room.roomId}"></th>
 
                     <td>
-                        <img th:src="${room.roomGroup.imageUrl}" alt="Room Image" style="width: 100px; height: auto;">
+                        <img th:src="${room.roomGroup.imageUrl}" class="img-thumbnail" alt="Room Image" style="width: 150px; height: auto;">
                     </td>
 
                     <td th:text="${room.roomName}"></td>
@@ -115,18 +119,21 @@
                         <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>
                     </div>
 
-                    <label for="roomGroup" class="col-form-label">Loại phòng:</label>
-                    <select id="roomGroup" th:field="*{roomGroup}">
-                        <option th:each="group : ${roomGroups}"
-                                th:value="${group.roomGroupId}"
-                                th:text="${group.groupName}">Loại phòng</option>
-                    </select>
-                    <br/>
+                    <div class="mb-3">
+                        <label for="roomGroup" class="form-label">Loại phòng:</label>
+                        <select id="roomGroup" th:field="*{roomGroup}" class="form-select">
+                            <option value="" selected>Chọn loại phòng</option>
+                            <option th:each="group : ${roomGroups}"
+                                    th:value="${group.roomGroupId}"
+                                    th:text="${group.groupName}">Loại phòng</option>
+                        </select>
+                    </div>
+
 
                     <!-- Nút Submit và Close -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-dark">Lưu</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
                     </div>
                 </form>
 
@@ -135,6 +142,7 @@
     </div>
 </div>
 
+<br><br><br><br><br>
 
 <!--&lt;!&ndash; Add Service Modal &ndash;&gt;-->
 <!--<div class="modal fade" id="exampleAddService" tabindex="-1" role="dialog"-->

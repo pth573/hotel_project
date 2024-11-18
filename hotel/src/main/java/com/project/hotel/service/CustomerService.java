@@ -15,4 +15,5 @@ public interface CustomerService {
     List<Customer> findAll();
     Customer findById(Long id);
     void deleteById(Long customerId);
+    Customer findByEmail2(String email);
 }
