@@ -37,7 +37,15 @@ public class BookingController {
         for (RoomGroup roomGroup : roomGroups) {
             System.out.println(roomGroup);
         }
-        if(bookingDto.getId() == 0L){
+        if(validateBookingInput(bookingDto.getCheckInDate(),
+                                bookingDto.getCheckOutDate(),
+                                bookingDto.getCheckInTime(),
+                                bookingDto.getCheckOutTime(),
+                                bookingDto.getAdults(),
+                                bookingDto.getChildren())){
+            bookingDto.setId(1);
+        };
+        if(bookingDto.getId() == 0){
             System.out.println(1);
             bookingDto = new BookingDto();
             bookingDto.setCheckInDate(LocalDate.now().toString());
@@ -74,10 +82,19 @@ public class BookingController {
             model.addAttribute("checkInTime", bookingDto.getCheckInTime());
             model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
         }
-
+        model.addAttribute("adults", bookingDto.getAdults());
+        model.addAttribute("children", bookingDto.getChildren());
+        model.addAttribute("checkInDate", bookingDto.getCheckInDate());
+        model.addAttribute("checkOutDate", bookingDto.getCheckOutDate());
+        model.addAttribute("checkInTime", bookingDto.getCheckInTime());
+        model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
         model.addAttribute("bookingDto", bookingDto);
         return "room-booking";
 
+    }
+
+    private boolean validateBookingInput(String checkInDate, String checkOutDate, String checkInTime, String checkOutTime, Integer adults, Integer children) {
+        return checkInDate != null && checkOutDate != null && checkInTime != null && checkOutTime != null && adults != null && children != null;
     }
 
     @PostMapping("/book-room")

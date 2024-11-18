@@ -77,6 +77,14 @@ public class ApplicationConfig {
                                 .usernameParameter("email")
                                 .passwordParameter("password")
                                 .permitAll()
+                                .successHandler((request, response, authentication) -> {
+                                    String role = authentication.getAuthorities().toString();
+                                    if (role.contains("ADMIN")) {
+                                        response.sendRedirect("/admin/room-group");
+                                    } else if (role.contains("CUSTOMER")) {
+                                        response.sendRedirect("/");
+                                    }
+                                })
                 )
                 .logout(logout ->
                         logout.invalidateHttpSession(true)
@@ -90,6 +98,7 @@ public class ApplicationConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
         ;
+
         return http.build();
     }
 }
