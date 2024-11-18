@@ -111,7 +111,7 @@
 
                 <!-- Nếu booking chưa có review -->
                 <button type="button" class="btn btn-warning mt-2"
-                        th:if="${#lists.isEmpty(booking.reviews)}"
+                        th:if="${#lists.isEmpty(booking.reviews)} and ${booking.status} == 'ACCEPTED'"
                         data-toggle="modal"
                         th:data-target="'#reviewModal' + ${booking.bookingId}">
                     Đánh Giá
@@ -196,6 +196,7 @@
                     <div class="form-group">
                         <label for="content">Nhận Xét:</label>
                         <br>
+                        <div></div>
                         <textarea id="content" class="form-control" name="content" rows="4" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>

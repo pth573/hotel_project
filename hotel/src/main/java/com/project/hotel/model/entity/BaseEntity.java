@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class BaseEntity {
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+//    @Column(name = "is_deleted")
+//    private Boolean isDeleted;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

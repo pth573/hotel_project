@@ -225,6 +225,9 @@ public class AdminRoomGroupController {
         RoomGroup roomGroup = roomGroupService.findById(id);
         model.addAttribute("roomGroup", roomGroup);
         model.addAttribute("services", serviceService.findAll());
+        List<Bed> bedTypes = bedService.findAll();
+//        model.addAttribute("beds", bedTypes);
+
         return "admin-room-group-update";
     }
 
@@ -232,8 +235,15 @@ public class AdminRoomGroupController {
     @PostMapping("/admin/update-room-group/{id}")
     public String updateRoomGroup(@PathVariable("id") Long id, @RequestParam("file") MultipartFile mainImage,
                                   @RequestParam("files") MultipartFile[] fileImgList,
+                                  @RequestParam("services") List<Service> serviceList,
                                   @ModelAttribute("roomGroup") RoomGroup roomGroup
     ) {
+
+
+        System.out.println("Hi" + roomGroup);
+        System.out.println("3: " + serviceList);
+        System.out.println("4: " + roomGroup.getBeds());
+
 
         RoomGroup theRoomGroupFromDB = roomGroupService.findById(id);
 
@@ -262,7 +272,7 @@ public class AdminRoomGroupController {
             bedService.save(bed);
         }
 
-        List<Service> serviceList = roomGroup.getServices();
+//        List<Service> serviceList = roomGroup.getServices();
         for (Service service : serviceList) {
             if(service.getRoomGroups() == null){
                 service.setRoomGroups(new ArrayList<>());
@@ -270,8 +280,8 @@ public class AdminRoomGroupController {
             service.getRoomGroups().add(roomGroup);
             serviceService.save(service);
         }
-        roomGroup.setBeds(bedList);
-        roomGroup.setServices(serviceList);
+//        roomGroup.setBeds(bedList);
+//        roomGroup.setServices(serviceList);
 
 //        List<Service> services = theRoomGroupFromDB.getServices();
 //        List<Service> servicesToRemove = new ArrayList<>(services);
@@ -329,6 +339,8 @@ public class AdminRoomGroupController {
             theRoomGroupFromDB.setComboPrice2H(roomGroup.getComboPrice2H());
             theRoomGroupFromDB.setPricePerNight(roomGroup.getPricePerNight());
             theRoomGroupFromDB.setStandardOccupancy(roomGroup.getStandardOccupancy());
+            theRoomGroupFromDB.setBeds(roomGroup.getBeds());
+            theRoomGroupFromDB.setServices(serviceList);
             roomGroupService.save(theRoomGroupFromDB);
 
         } catch (Exception e) {

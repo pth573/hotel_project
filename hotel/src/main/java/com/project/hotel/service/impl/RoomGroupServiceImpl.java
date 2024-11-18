@@ -22,7 +22,7 @@ public class RoomGroupServiceImpl implements RoomGroupService {
 
     @Override
     public void save(RoomGroup roomGroup) {
-        roomGroup.setIsDeleted(false);
+//        roomGroup.setIsDeleted(false);
         roomGroupRepository.save(roomGroup);
     }
 

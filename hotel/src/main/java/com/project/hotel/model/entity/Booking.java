@@ -34,8 +34,8 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
-    private Invoice invoice;
+//    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+//    private Invoice invoice;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;

@@ -64,7 +64,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Chính</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="#">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Biểu đồ
                 </a>
@@ -118,7 +118,7 @@
                              data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" th:href="@{/admin/user/list}">Thông tin khách hàng</a>
-                                <a class="nav-link" th:href="@{/admin/user/booking}">Lịch sử giao dịch</a>
+<!--                                <a class="nav-link" th:href="@{/admin/user/booking}">Lịch sử giao dịch</a>-->
                                 <a class="nav-link" th:href="@{/admin/user/review}">Đánh giá phản hồi</a>
                             </nav>
                         </div>
@@ -134,9 +134,9 @@
                         <div class="collapse" id="pagesCollapseBooking" aria-labelledby="headingThree"
                              data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" th:href="@{/admin/booking/online}">Đặt phòng online</a>
-                                <a class="nav-link" th:href="@{/admin/booking/offline}">Đặt phòng offline</a>
-                                <a class="nav-link" th:href="@{/admin/booking/payment}">Quản lí thanh toán</a>
+                                <a class="nav-link" th:href="@{/admin/booking/online}">Đặt phòng offline</a>
+<!--                                <a class="nav-link" th:href="@{/admin/booking/offline}">Đặt phòng offline</a>-->
+<!--                                <a class="nav-link" th:href="@{/admin/booking/payment}">Quản lí thanh toán</a>-->
                                 <a class="nav-link" th:href="@{/admin/booking/order}">Quản lí đơn đặt phòng</a>
                             </nav>
                         </div>
@@ -152,7 +152,7 @@
                              data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" th:href="@{/admin/report/revenue}">Doanh thu</a>
-                                <a class="nav-link" th:href="@{/admin/report/room/available}">Tình trạng phòng</a>
+<!--                                <a class="nav-link" th:href="@{/admin/report/room/available}">Tình trạng phòng</a>-->
                             </nav>
                         </div>
 
@@ -170,7 +170,7 @@
                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                              data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" th:href="@{/login}">Đăng nhập</a>
+                                <a class="nav-link" th:href="@{/login}">Đăng xuất</a>
                                 <a class="nav-link" th:href="@{/register}">Đăng kí</a>
                                 <a class="nav-link" href="#">Quên mật khẩu</a>
                             </nav>
@@ -191,6 +191,11 @@
                         </div>
                     </nav>
                 </div>
+
+                <a class="nav-link" th:href="@{/login}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                Đăng xuất
+                </a>
 <!--                <div class="sb-sidenav-menu-heading">Addons</div>-->
 <!--                <a class="nav-link" href="charts.html">-->
 <!--                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>-->

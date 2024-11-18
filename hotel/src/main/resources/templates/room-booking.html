@@ -16,25 +16,25 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-        <style>
-            /*table {*/
-            /*    width: 100%;*/
-            /*    border-collapse: collapse;*/
-            /*}*/
-            /*th, td {*/
-            /*    padding: 10px;*/
-            /*    text-align: center;*/
-            /*    border: 1px solid #ddd;*/
-            /*}*/
-            /*select {*/
-            /*    width: 100%;*/
-            /*    padding: 5px;*/
-            /*    margin: 0;*/
-            /*}*/
-            .btn-hover :hover {
-                background-color: #1cc88a;
-            }
-        </style>
+    <style>
+        /*table {*/
+        /*    width: 100%;*/
+        /*    border-collapse: collapse;*/
+        /*}*/
+        /*th, td {*/
+        /*    padding: 10px;*/
+        /*    text-align: center;*/
+        /*    border: 1px solid #ddd;*/
+        /*}*/
+        /*select {*/
+        /*    width: 100%;*/
+        /*    padding: 5px;*/
+        /*    margin: 0;*/
+        /*}*/
+        .btn-hover :hover {
+            background-color: #1cc88a;
+        }
+    </style>
 </head>
 
 <body>
@@ -199,7 +199,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-8">
-                <div th:each="roomGroup : ${roomGroups}" class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
+                <div th:each="roomGroup : ${roomGroups}"
+                     class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
                     <!-- Room Thumbnail -->
                     <div class="room-thumbnail">
                         <img th:src="@{${roomGroup.imageUrl}}" alt="Room Image">
@@ -207,19 +208,24 @@
                     <!-- Room Content -->
                     <div class="room-content">
                         <h2 th:text="${roomGroup.groupName}"></h2>
-                        <h4 th:if="${roomGroup.priceDateTime == null}" th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>
-                        <h4 th:if="${roomGroup.priceDateTime != null}" th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>
+                        <h4 th:if="${roomGroup.priceDateTime == null}"
+                            th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>
+                        <h4 th:if="${roomGroup.priceDateTime != null}" th:text="${roomGroup.priceDateTime} + ' vnđ'">
+                            <span></span></h4>
 
                         <!--                        <h4 th:text="${roomGroup.pricePerNight} + ' vnđ / Ngày'"><span></span></h4>-->
-<!--                        <h4 th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>-->
+                        <!--                        <h4 th:text="${roomGroup.priceDateTime} + ' vnđ'"><span></span></h4>-->
                         <div class="room-feature">
                             <h6>Diện tích: <span th:text="${roomGroup.area}">30 ft</span></h6>
                             <h6>Số người đi tối đa: <span th:text="${roomGroup.maxOccupancy}"></span></h6>
                             <h6>Giường: <span th:text="${roomGroup.getBedDescription()}"></span></h6>
-                            <h6>Dịch vụ: <span th:each="item, iterStat : ${roomGroup.services}" th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}" style="display: inline-block; text-align: left;"></span></h6>
-<!--                            <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>-->
+                            <h6>Dịch vụ: <span th:each="item, iterStat : ${roomGroup.services}"
+                                               th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}"
+                                               style="display: inline-block; text-align: left;"></span></h6>
+                            <!--                            <h6>Dịch vụ: <span>Wifi, tivi...</span></h6>-->
                             <h6>
-                                <span th:if="${roomGroup.availableRoomCount > 0}" th:text="'Số phòng trống: ' + ${roomGroup.availableRoomCount}"></span>
+                                <span th:if="${roomGroup.availableRoomCount > 0}"
+                                      th:text="'Số phòng trống: ' + ${roomGroup.availableRoomCount}"></span>
                             </h6>
                         </div>
 
@@ -230,120 +236,13 @@
 
                     </div>
                 </div>
-
-
-
-
-
-
-
-                <!-- Single Room Area -->
-                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">-->
-                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
-                <!--                    <div class="room-thumbnail">-->
-                <!--                        <img src="img/bg-img/43.jpg" alt="">-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
-                <!--                    <div class="room-content">-->
-                <!--                        <h2>Room View Sea</h2>-->
-                <!--                        <h4>400$ <span>/ Day</span></h4>-->
-                <!--                        <div class="room-feature">-->
-                <!--                            <h6>Size: <span>30 ft</span></h6>-->
-                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
-                <!--                            <h6>Bed: <span>King beds</span></h6>-->
-                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
-                <!--                        </div>-->
-                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
-                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="300ms">-->
-                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
-                <!--                    <div class="room-thumbnail">-->
-                <!--                        <img src="img/bg-img/44.jpg" alt="">-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
-                <!--                    <div class="room-content">-->
-                <!--                        <h2>Small Room</h2>-->
-                <!--                        <h4>400$ <span>/ Day</span></h4>-->
-                <!--                        <div class="room-feature">-->
-                <!--                            <h6>Size: <span>30 ft</span></h6>-->
-                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
-                <!--                            <h6>Bed: <span>King beds</span></h6>-->
-                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
-                <!--                        </div>-->
-                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
-                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="500ms">-->
-                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
-                <!--                    <div class="room-thumbnail">-->
-                <!--                        <img src="img/bg-img/45.jpg" alt="">-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
-                <!--                    <div class="room-content">-->
-                <!--                        <h2>Premium King Room</h2>-->
-                <!--                        <h4>400$ <span>/ Day</span></h4>-->
-                <!--                        <div class="room-feature">-->
-                <!--                            <h6>Size: <span>30 ft</span></h6>-->
-                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
-                <!--                            <h6>Bed: <span>King beds</span></h6>-->
-                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
-                <!--                        </div>-->
-                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
-                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="700ms">-->
-                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
-                <!--                    <div class="room-thumbnail">-->
-                <!--                        <img src="img/bg-img/46.jpg" alt="">-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
-                <!--                    <div class="room-content">-->
-                <!--                        <h2>Room Vip King</h2>-->
-                <!--                        <h4>400$ <span>/ Day</span></h4>-->
-                <!--                        <div class="room-feature">-->
-                <!--                            <h6>Size: <span>30 ft</span></h6>-->
-                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
-                <!--                            <h6>Bed: <span>King beds</span></h6>-->
-                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
-                <!--                        </div>-->
-                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!--                &lt;!&ndash; Single Room Area &ndash;&gt;-->
-                <!--                <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="900ms">-->
-                <!--                    &lt;!&ndash; Room Thumbnail &ndash;&gt;-->
-                <!--                    <div class="room-thumbnail">-->
-                <!--                        <img src="img/bg-img/47.jpg" alt="">-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; Room Content &ndash;&gt;-->
-                <!--                    <div class="room-content">-->
-                <!--                        <h2>Royal Room</h2>-->
-                <!--                        <h4>400$ <span>/ Day</span></h4>-->
-                <!--                        <div class="room-feature">-->
-                <!--                            <h6>Size: <span>30 ft</span></h6>-->
-                <!--                            <h6>Capacity: <span>Max persion 5</span></h6>-->
-                <!--                            <h6>Bed: <span>King beds</span></h6>-->
-                <!--                            <h6>Services: <span>Wifi, television ...</span></h6>-->
-                <!--                        </div>-->
-                <!--                        <a href="#" class="btn view-detail-btn">View Details <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!-- Pagination -->
                 <nav class="roberto-pagination wow fadeInUp mb-100" data-wow-delay="1000ms">
                     <ul class="pagination">
                         <li class="page-item"><a class="page-link" href="#">1</a></li>
                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Tiếp <i class="fa fa-angle-right"></i></a></li>
+                        <li class="page-item"><a class="page-link" href="#">Tiếp <i class="fa fa-angle-right"></i></a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -351,271 +250,9 @@
             <div class="col-12 col-lg-4">
                 <!-- Hotel Reservation Area -->
                 <div class="hotel-reservation--area mb-100">
-                    <!--                    <form action="#" method="post">-->
-                    <!--                        <div class="form-group mb-30">-->
-                    <!--                            <label for="checkInDate">Ngày</label>-->
-                    <!--                            <div class="input-daterange" id="datepicker">-->
-                    <!--                                <div class="row no-gutters">-->
-                    <!--                                    <div class="col-6">-->
-                    <!--                                        <input type="text" class="input-small form-control" id="checkInDate" name="checkInDate" placeholder="Nhận phòng">-->
-                    <!--                                    </div>-->
-                    <!--                                    <div class="col-6">-->
-                    <!--                                        <input type="text" class="input-small form-control" name="checkOutDate" placeholder="Trả phòng">-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="form-group mb-30">-->
-                    <!--                            <label for="guests">Số người</label>-->
-                    <!--                            <div class="row">-->
-                    <!--                                <div class="col-6">-->
-                    <!--                                    <select name="adults" id="guests" class="form-control">-->
-                    <!--                                        <option value="adults">Người lớn</option>-->
-                    <!--                                        <option value="01">01</option>-->
-                    <!--                                        <option value="02">02</option>-->
-                    <!--                                        <option value="03">03</option>-->
-                    <!--                                        <option value="04">04</option>-->
-                    <!--                                        <option value="05">05</option>-->
-                    <!--                                        <option value="06">06</option>-->
-                    <!--                                    </select>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="col-6">-->
-                    <!--                                    <select name="children" id="children" class="form-control">-->
-                    <!--                                        <option value="children">Trẻ em</option>-->
-                    <!--                                        <option value="01">01</option>-->
-                    <!--                                        <option value="02">02</option>-->
-                    <!--                                        <option value="03">03</option>-->
-                    <!--                                        <option value="04">04</option>-->
-                    <!--                                        <option value="05">05</option>-->
-                    <!--                                        <option value="06">06</option>-->
-                    <!--                                    </select>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="form-group mb-50">-->
-                    <!--                            <div class="slider-range">-->
-                    <!--                                <div class="range-price">Khoảng giá: 0 - 1.500.000.000 vnđ</div>-->
-                    <!--                                <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Max Price: ">-->
-                    <!--                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>-->
-                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
-                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="form-group">-->
-                    <!--                            <button type="submit" class="btn roberto-btn w-100">Tìm phòng trống</button>-->
-                    <!--                        </div>-->
-                    <!--                    </form>-->
-
-
-                    <!--                    <form th:action="@{/bookRoom}" method="post">-->
-
-                    <!--                        <div class="form-group mb-30">-->
-                    <!--                            <label for="checkInDate">Ngày</label>-->
-                    <!--                            <div class="input-daterange" id="datepicker">-->
-                    <!--                                <div class="row no-gutters">-->
-                    <!--                                    <div class="col-6">-->
-                    <!--                                        <input type="text" class="input-small form-control" id="checkInDate" name="checkInDate" placeholder="Nhận phòng">-->
-                    <!--                                    </div>-->
-                    <!--                                    <div class="col-6">-->
-                    <!--                                        <input type="text" class="input-small form-control" name="checkOutDate" placeholder="Trả phòng">-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-
-                    <!--                        <div class="form-group">-->
-                    <!--                            <label for="checkInTime">Giờ nhận phòng</label>-->
-                    <!--                            <div class="row">-->
-                    <!--                                <div class="col-6">-->
-                    <!--                                    <select id="checkInTime" name="checkInTime">-->
-                    <!--                                        <option value="00:00">00:00</option>-->
-                    <!--                                        <option value="00:30">00:30</option>-->
-                    <!--                                        <option value="01:00">01:00</option>-->
-                    <!--                                        <option value="01:30">01:30</option>-->
-                    <!--                                        <option value="02:00">02:00</option>-->
-                    <!--                                        <option value="02:30">02:30</option>-->
-                    <!--                                        <option value="03:00">03:00</option>-->
-                    <!--                                        <option value="03:30">03:30</option>-->
-                    <!--                                        <option value="04:00">04:00</option>-->
-                    <!--                                        <option value="04:30">04:30</option>-->
-                    <!--                                        <option value="05:00">05:00</option>-->
-                    <!--                                        <option value="05:30">05:30</option>-->
-                    <!--                                        <option value="06:00">06:00</option>-->
-                    <!--                                        <option value="06:30">06:30</option>-->
-                    <!--                                        <option value="07:00">07:00</option>-->
-                    <!--                                        <option value="07:30">07:30</option>-->
-                    <!--                                        <option value="08:00">08:00</option>-->
-                    <!--                                        <option value="08:30">08:30</option>-->
-                    <!--                                        <option value="09:00">09:00</option>-->
-                    <!--                                        <option value="09:30">09:30</option>-->
-                    <!--                                        <option value="10:00">10:00</option>-->
-                    <!--                                        <option value="10:30">10:30</option>-->
-                    <!--                                        <option value="11:00">11:00</option>-->
-                    <!--                                        <option value="11:30">11:30</option>-->
-                    <!--                                        <option value="12:00">12:00</option>-->
-                    <!--                                        <option value="12:30">12:30</option>-->
-                    <!--                                        <option value="13:00">13:00</option>-->
-                    <!--                                        <option value="13:30">13:30</option>-->
-                    <!--                                        <option value="14:00">14:00</option>-->
-                    <!--                                        <option value="14:30">14:30</option>-->
-                    <!--                                        <option value="15:00">15:00</option>-->
-                    <!--                                        <option value="15:30">15:30</option>-->
-                    <!--                                        <option value="16:00">16:00</option>-->
-                    <!--                                        <option value="16:30">16:30</option>-->
-                    <!--                                        <option value="17:00">17:00</option>-->
-                    <!--                                        <option value="17:30">17:30</option>-->
-                    <!--                                        <option value="18:00">18:00</option>-->
-                    <!--                                        <option value="18:30">18:30</option>-->
-                    <!--                                        <option value="19:00">19:00</option>-->
-                    <!--                                        <option value="19:30">19:30</option>-->
-                    <!--                                        <option value="20:00">20:00</option>-->
-                    <!--                                        <option value="20:30">20:30</option>-->
-                    <!--                                        <option value="21:00">21:00</option>-->
-                    <!--                                        <option value="21:30">21:30</option>-->
-                    <!--                                        <option value="22:00">22:00</option>-->
-                    <!--                                        <option value="22:30">22:30</option>-->
-                    <!--                                        <option value="23:00">23:00</option>-->
-                    <!--                                        <option value="23:30">23:30</option>-->
-                    <!--                                    </select>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-
-                    <!--                        <div class="form-group">-->
-                    <!--                            <label for="checkOutTime">Giờ trả phòng</label>-->
-                    <!--                            <div class="row">-->
-                    <!--                                <div class="col-6">-->
-                    <!--                                    <select id="checkOutTime" name="checkOutTime">-->
-                    <!--                                        <option value="00:00">00:00</option>-->
-                    <!--                                        <option value="00:30">00:30</option>-->
-                    <!--                                        <option value="01:00">01:00</option>-->
-                    <!--                                        <option value="01:30">01:30</option>-->
-                    <!--                                        <option value="02:00">02:00</option>-->
-                    <!--                                        <option value="02:30">02:30</option>-->
-                    <!--                                        <option value="03:00">03:00</option>-->
-                    <!--                                        <option value="03:30">03:30</option>-->
-                    <!--                                        <option value="04:00">04:00</option>-->
-                    <!--                                        <option value="04:30">04:30</option>-->
-                    <!--                                        <option value="05:00">05:00</option>-->
-                    <!--                                        <option value="05:30">05:30</option>-->
-                    <!--                                        <option value="06:00">06:00</option>-->
-                    <!--                                        <option value="06:30">06:30</option>-->
-                    <!--                                        <option value="07:00">07:00</option>-->
-                    <!--                                        <option value="07:30">07:30</option>-->
-                    <!--                                        <option value="08:00">08:00</option>-->
-                    <!--                                        <option value="08:30">08:30</option>-->
-                    <!--                                        <option value="09:00">09:00</option>-->
-                    <!--                                        <option value="09:30">09:30</option>-->
-                    <!--                                        <option value="10:00">10:00</option>-->
-                    <!--                                        <option value="10:30">10:30</option>-->
-                    <!--                                        <option value="11:00">11:00</option>-->
-                    <!--                                        <option value="11:30">11:30</option>-->
-                    <!--                                        <option value="12:00">12:00</option>-->
-                    <!--                                        <option value="12:30">12:30</option>-->
-                    <!--                                        <option value="13:00">13:00</option>-->
-                    <!--                                        <option value="13:30">13:30</option>-->
-                    <!--                                        <option value="14:00">14:00</option>-->
-                    <!--                                        <option value="14:30">14:30</option>-->
-                    <!--                                        <option value="15:00">15:00</option>-->
-                    <!--                                        <option value="15:30">15:30</option>-->
-                    <!--                                        <option value="16:00">16:00</option>-->
-                    <!--                                        <option value="16:30">16:30</option>-->
-                    <!--                                        <option value="17:00">17:00</option>-->
-                    <!--                                        <option value="17:30">17:30</option>-->
-                    <!--                                        <option value="18:00">18:00</option>-->
-                    <!--                                        <option value="18:30">18:30</option>-->
-                    <!--                                        <option value="19:00">19:00</option>-->
-                    <!--                                        <option value="19:30">19:30</option>-->
-                    <!--                                        <option value="20:00">20:00</option>-->
-                    <!--                                        <option value="20:30">20:30</option>-->
-                    <!--                                        <option value="21:00">21:00</option>-->
-                    <!--                                        <option value="21:30">21:30</option>-->
-                    <!--                                        <option value="22:00">22:00</option>-->
-                    <!--                                        <option value="22:30">22:30</option>-->
-                    <!--                                        <option value="23:00">23:00</option>-->
-                    <!--                                        <option value="23:30">23:30</option>-->
-                    <!--                                    </select>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-
-                    <!--                        <div class="form-group mb-30">-->
-                    <!--                            <label for="guests">Số người</label>-->
-                    <!--                            <div class="row">-->
-                    <!--                                <div class="col-6">-->
-                    <!--                                    <select name="adults" id="guests" class="form-control">-->
-                    <!--                                        <option value="adults">Người lớn</option>-->
-                    <!--                                        <option value="01">01</option>-->
-                    <!--                                        <option value="02">02</option>-->
-                    <!--                                        <option value="03">03</option>-->
-                    <!--                                        <option value="04">04</option>-->
-                    <!--                                        <option value="05">05</option>-->
-                    <!--                                        <option value="06">06</option>-->
-                    <!--                                    </select>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="col-6">-->
-                    <!--                                    <select name="children" id="children" class="form-control">-->
-                    <!--                                        <option value="children">Trẻ em</option>-->
-                    <!--                                        <option value="01">01</option>-->
-                    <!--                                        <option value="02">02</option>-->
-                    <!--                                        <option value="03">03</option>-->
-                    <!--                                        <option value="04">04</option>-->
-                    <!--                                        <option value="05">05</option>-->
-                    <!--                                        <option value="06">06</option>-->
-                    <!--                                    </select>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="form-group mb-50">-->
-                    <!--                            <div class="slider-range">-->
-                    <!--                                <div class="range-price">Khoảng giá: 0 - 1.500.000.000 vnđ</div>-->
-                    <!--                                <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Max Price: ">-->
-                    <!--                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>-->
-                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
-                    <!--                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="form-group">-->
-                    <!--                            <button type="submit" class="btn roberto-btn w-100">Tìm phòng trống</button>-->
-                    <!--                        </div>-->
-                    <!--                    </form>-->
-
-<!--                    OK-->
-
-
-
-
-<!--                    <form th:action="@{/book-room}" th:object="${bookingDto}" method="post">-->
-
-<!--                        <label for="checkInDate">Ngày nhận phòng:</label>-->
-<!--                        <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" ><br><br>-->
-
-<!--                        <label for="checkOutDate">Ngày trả phòng:</label>-->
-<!--                        <input class="w-75" type="date" id="checkOutDate" th:field="*{checkOutDate}" ><br><br>-->
-
-<!--                        <label for="checkInTime">Giờ nhận phòng:</label>-->
-<!--                        <input class="w-75" type="time" id="checkInTime" th:field="*{checkInTime}" ><br><br>-->
-
-<!--                        <label for="checkOutTime">Giờ trả phòng:</label>-->
-<!--                        <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" ><br><br>-->
-
-<!--                        <label for="adults">Số người lớn:</label>-->
-<!--                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingDto.adults == 0 ? bookingDto.adults : 2}"><br><br>-->
-
-<!--                        <label for="children">Số trẻ em:</label>-->
-<!--                        <input class="w-75" type="number" id="children" th:field="*{children}" ><br><br>-->
-
-
-<!--&lt;!&ndash;                        <div class="col-12 col-md-3 d-flex justify-content-center mt-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                        <button class="btn btn-success btn-lg w-75 form-control btn  d-flex justify-content-center roberto-btn" type="submit">Tìm kiếm</button>-->
-<!--                    </form>-->
-
                     <div class="container mt-4">
-                        <form th:action="@{/book-room}" th:object="${bookingDto}" method="post" class="needs-validation" novalidate>
+                        <form th:action="@{/book-room}" th:object="${bookingDto}" method="post" class="needs-validation"
+                              novalidate>
                             <!-- Ngày nhận phòng -->
                             <div class="mb-3">
                                 <label for="checkInDate" class="form-label">Ngày nhận phòng:</label>
@@ -665,7 +302,7 @@
                             </div>
 
                             <!-- Số người lớn -->
-                            <div class="mb-3">
+                            <div class="mb-3 ">
                                 <label for="adults" class="form-label">Số người lớn:</label>
                                 <input
                                         type="number"
@@ -688,52 +325,13 @@
                                         required>
                                 <div class="invalid-feedback">Vui lòng nhập số trẻ em.</div>
                             </div>
-
-<!--                            <div class="d-flex justify-content-center">-->
-<!--                                <button-->
-<!--                                        class=" roberto-btn btn btn-success btn-lg w-75"-->
-<!--                                        type="submit">Tìm kiếm</button>-->
-<!--                            </div>-->
-
-                            <!-- Nút tìm kiếm -->
-                            <div class="d-flex justify-content-center">
-                                <button style="margin-left: -" class="btn btn-success btn-lg w-75 form-control btn  d-flex justify-content-center roberto-btn" type="submit">Tìm kiếm</button>
+                            <div class="d-flex">
+                                <button class="btn btn-success btn-lg w-75 form-control btn  d-flex justify-content-center roberto-btn"
+                                        type="submit">Tìm kiếm
+                                </button>
                             </div>
                         </form>
                     </div>
-
-
-
-
-
-
-
-                    <!--                    <form th:action="@{/book-room}" th:object="${bookingDto}" method="post">-->
-<!--                        <label for="checkInDate">Ngày nhận phòng:</label>-->
-<!--                        <input class="w-75" type="date" id="checkInDate" th:field="*{checkInDate}" th:value="${bookingDto.checkInDate}" /><br><br>-->
-
-<!--                        <label for="checkOutDate">Ngày trả phòng:</label>-->
-<!--                        <input class="w-75" type="date" id="checkOutDate" th:field="*{checkOutDate}" th:value="${bookingDto.checkOutDate}" /><br><br>-->
-
-<!--                        <label for="checkInTime">Giờ nhận phòng:</label>-->
-<!--                        <input class="w-75" type="time" id="checkInTime" th:field="*{checkInTime}" th:value="${bookingDto.checkInTime}" /><br><br>-->
-
-<!--                        <label for="checkOutTime">Giờ trả phòng:</label>-->
-<!--                        <input class="w-75" type="time" id="checkOutTime" th:field="*{checkOutTime}" th:value="${bookingDto.checkOutTime}" /><br><br>-->
-
-<!--                        <label for="adults">Số người lớn:</label>-->
-<!--                        <input class="w-75" type="number" id="adults" th:field="*{adults}" th:value="${bookingDto.adults}" /><br><br>-->
-
-<!--                        <label for="children">Số trẻ em:</label>-->
-<!--                        <input class="w-75" type="number" id="children" th:field="*{children}" th:value="${bookingDto.children}" /><br><br>-->
-
-<!--                        <button class="btn btn-success btn-lg w-75" type="submit">Đặt phòng</button>-->
-<!--                    </form>-->
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -766,7 +364,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="300ms">
                     <!-- Single Partner Logo -->
                     <a href="#" class="partner-logo"><img src="img/core-img/p1.png" alt=""></a>
                     <!-- Single Partner Logo -->
@@ -783,8 +382,6 @@
     </div>
 </div>
 <!-- Partner Area End -->
-
-
 
 
 <!-- Footer Area Start -->
@@ -864,14 +461,6 @@
     <div class="container">
         <div class="copywrite-content">
             <div class="row align-items-center">
-                <!--                <div class="col-12 col-md-8">-->
-                <!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
-                <!--                    <div class="copywrite-text">-->
-                <!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-                <!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
-                <!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="col-12 col-md-4">
                     <!-- Social Info -->
                     <div class="social-info">
@@ -886,111 +475,13 @@
     </div>
 </footer>
 
-<!--&lt;!&ndash; Footer Area Start &ndash;&gt;-->
-<!--<footer class="footer-area section-padding-80-0">-->
-<!--    &lt;!&ndash; Main Footer Area &ndash;&gt;-->
-<!--    <div class="main-footer-area">-->
-<!--        <div class="container">-->
-<!--            <div class="row align-items-baseline justify-content-between">-->
-<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
-<!--                <div class="col-12 col-sm-6 col-lg-3">-->
-<!--                    <div class="single-footer-widget mb-80">-->
-<!--                        &lt;!&ndash; Footer Logo &ndash;&gt;-->
-<!--                        <a href="#" class="footer-logo"><img src="img/core-img/logo2.png" alt=""></a>-->
-
-<!--                        <h4>+12 345-678-9999</h4>-->
-<!--                        <span>Info.colorlib@gmail.com</span>-->
-<!--                        <span>856 Cordia Extension Apt. 356, Lake Deangeloburgh, South Africa</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
-<!--                <div class="col-12 col-sm-6 col-lg-3">-->
-<!--                    <div class="single-footer-widget mb-80">-->
-<!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
-<!--                        <h5 class="widget-title">Our Blog</h5>-->
-
-<!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
-<!--                        <div class="latest-blog-area">-->
-<!--                            <a href="#" class="post-title">Freelance Design Tricks How</a>-->
-<!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
-<!--                        </div>-->
-
-<!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
-<!--                        <div class="latest-blog-area">-->
-<!--                            <a href="#" class="post-title">Free Advertising For Your Online</a>-->
-<!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
-<!--                <div class="col-12 col-sm-4 col-lg-2">-->
-<!--                    <div class="single-footer-widget mb-80">-->
-<!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
-<!--                        <h5 class="widget-title">Links</h5>-->
-
-<!--                        &lt;!&ndash; Footer Nav &ndash;&gt;-->
-<!--                        <ul class="footer-nav">-->
-<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> About Us</a></li>-->
-<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Our Room</a></li>-->
-<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Career</a></li>-->
-<!--                            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> FAQs</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Single Footer Widget Area &ndash;&gt;-->
-<!--                <div class="col-12 col-sm-8 col-lg-4">-->
-<!--                    <div class="single-footer-widget mb-80">-->
-<!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
-<!--                        <h5 class="widget-title">Subscribe Newsletter</h5>-->
-<!--                        <span>Subscribe our newsletter gor get notification about new updates.</span>-->
-
-<!--                        &lt;!&ndash; Newsletter Form &ndash;&gt;-->
-<!--                        <form action="index.html" class="nl-form">-->
-<!--                            <input type="email" class="form-control" placeholder="Enter your email...">-->
-<!--                            <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Copywrite Area &ndash;&gt;-->
-<!--    <div class="container">-->
-<!--        <div class="copywrite-content">-->
-<!--            <div class="row align-items-center">-->
-<!--                <div class="col-12 col-md-8">-->
-<!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
-<!--                    <div class="copywrite-text">-->
-<!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-<!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
-<!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-12 col-md-4">-->
-<!--                    &lt;!&ndash; Social Info &ndash;&gt;-->
-<!--                    <div class="social-info">-->
-<!--                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
-<!--                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
-<!--                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
-<!--                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</footer>-->
-<!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
 <script src="js/jquery.min.js"></script>
 
 <script>
-    window.onload = function() {
+    window.onload = function () {
         // Kiểm tra và thiết lập giá trị cho ngày nhận phòng nếu trống
         var checkInDate = document.getElementById('checkInDate');
         if (!checkInDate.value) {  // Nếu checkInDate không có giá trị

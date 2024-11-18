@@ -115,8 +115,8 @@ public class RoomGroup extends BaseEntity {
 
     public void clearImages() {
         if (images != null) {
-            images.forEach(image -> image.setRoomGroup(null)); // Xóa tham chiếu roomGroup trong từng RoomImage
-            images.clear(); // Xóa tất cả phần tử trong danh sách images
+            images.forEach(image -> image.setRoomGroup(null));
+            images.clear();
         }
     }
 
@@ -127,24 +127,6 @@ public class RoomGroup extends BaseEntity {
         }
     }
 
-//    @Override
-//    public String toString() {
-//        return "RoomGroup{" +
-//                "roomGroupId=" + roomGroupId +
-//                ", groupName='" + groupName + '\'' +
-//                ", area=" + area +
-////                ", bedType=" + bedType +
-////                ", roomSz=" + rooms.size() +
-////                ", imagesSize=" + images.size() +
-//                ", pricePerNight=" + pricePerNight +
-//                ", comboPrice2H=" + comboPrice2H +
-//                ", extraHourPrice=" + extraHourPrice +
-//                ", description='" + description + '\'' +
-//                ", standardOccupancy=" + standardOccupancy +
-//                ", imageUrl='" + imageUrl + '\'' +
-//                '}';
-//
-//    }
 
 
     @Override

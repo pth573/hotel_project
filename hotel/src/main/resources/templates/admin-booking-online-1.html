@@ -74,7 +74,7 @@
 
                     <!-- Submit Button Row -->
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                        <button type="submit" class="btn btn-primary bg-dark w-100">Tìm kiếm</button>
                     </div>
                 </form>
 
@@ -99,7 +99,7 @@
                                     <td th:text="${room.roomName}"></td>
                                     <td th:text="${room.totalPrice}"></td>
                                     <td>
-                                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                        <button class="btn btn-success bg-dark" data-bs-toggle="modal" data-bs-target="#bookingModal"
                                                 th:data-roomid="${room.roomId}" th:data-roomname="${room.roomName}">
                                             Đặt phòng
                                         </button>
