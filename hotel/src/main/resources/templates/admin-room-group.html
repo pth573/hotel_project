@@ -11,8 +11,8 @@
             padding-left: 0;
         }
         th {
-            text-align: center; /* Căn giữa theo chiều ngang */
-            vertical-align: middle; /* Căn giữa theo chiều dọc */
+            text-align: center;
+            vertical-align: middle;
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +76,7 @@
                     <th style="text-align: center; vertical-align: middle;" scope="col">Số Trẻ Em Free</th>
                     <th style="text-align: center; vertical-align: middle;" scope="col">Số Người Tối Đa</th>
                     <th style="text-align: center; vertical-align: middle;" scope="col">Dịch vụ</th>
-                    <th style="text-align: center; vertical-align: middle; width: 120px;" scope="col" >Mô tả</th>
+<!--                    <th style="text-align: center; vertical-align: middle; width: 120px;" scope="col" >Mô tả</th>-->
                     <th style="text-align: center; vertical-align: middle;" scope="col">Khác</th>
                 </tr>
                 </thead>
@@ -144,7 +144,7 @@
 
 
                     <!-- Description -->
-                    <td th:text="${roomGroup.description}"></td>
+<!--                    <td th:text="${roomGroup.description}"></td>-->
 
                     <!-- Actions -->
                     <td>
@@ -268,7 +268,7 @@
                         <label for="beds" class="col-form-label">Chọn loại giường và số lượng:</label>
                         <div th:each="bed, bedStat : ${roomGroup.beds}">
                             <div>
-                                <label th:text="${bed.bedType.name}" class="col-form-label"></label>
+                                <label th:text="${bed.bedType.displayName}" class="col-form-label"></label>
                                 <input class="form-control" type="number" th:field="*{beds[__${bedStat.index}__].bedNumber}" placeholder="Nhập số lượng giường" min="0"/>
                                 <!-- Ẩn thông tin bedType để gửi về form -->
                                 <input class="form-control" type="hidden" th:field="*{beds[__${bedStat.index}__].bedType}" />
@@ -298,7 +298,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleAddServiceLabel">Thêm loại phòng</h5>
+                <h5 class="modal-title" id="exampleAddServiceLabel">Thêm dịch vụ</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -323,25 +323,6 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     </div>
                 </form>
-
-
-<!--                <form th:action="@{/service/add}" th:object="service" method="post">-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="serviceName" class="form-label">Tên dịch vụ</label>-->
-<!--                        <input type="text" class="form-control" id="serviceName" name="serviceName" required>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="description" class="form-label">Mô tả</label>-->
-<!--                        <textarea class="form-control" id="description-service" name="description-service" required></textarea>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="price" class="form-label">Giá (VND)</label>-->
-<!--                        <input type="number" class="form-control" id="price" name="price" required>-->
-<!--                    </div>-->
-<!--                    <button type="submit" class="btn btn-primary">Thêm</button>-->
-<!--&lt;!&ndash;                    <a th:href="@{/service/list}" class="btn btn-secondary">Hủy</a>&ndash;&gt;-->
-<!--                </form>-->
-
             </div>
         </div>
     </div>
@@ -478,7 +459,6 @@
 <script src="js/datatables-simple-demo.js"></script>
 
 <script>
-    // Khi người dùng click vào nút Update
     document.querySelectorAll('.editButton').forEach(button => {
         button.addEventListener('click', function (event) {
             const roomGroupId = event.target.getAttribute('data-id');
@@ -506,7 +486,6 @@
                         }
                     });
 
-                    // Xử lý điền các giường
                     data.beds.forEach((bed, index) => {
                         const bedInput = document.querySelector(`input[name="beds[${index}].bedNumber"]`);
                         if (bedInput) {

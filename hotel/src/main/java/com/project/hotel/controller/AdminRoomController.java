@@ -24,11 +24,6 @@ public class AdminRoomController {
     private final RoomGroupService roomGroupService;
     private final ServiceService serviceService;
 
-//    @GetMapping("/rooms/manager")
-//    public String manageRoom() {
-//        return "room-manager";
-//    }
-
     @GetMapping("/admin/room")
     public String getRoomGroupList(Model model) {
         List<Room> roomList = roomService.findAll();

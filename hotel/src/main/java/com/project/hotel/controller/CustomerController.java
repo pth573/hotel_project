@@ -41,19 +41,6 @@ public class CustomerController {
         return "1";
     }
 
-
-//    @PostMapping("/searchCustomer")
-//    public ResponseEntity<?> searchCustomer(@RequestParam String email) {
-//        Customer customer = customerService.findByEmail(email);
-//
-//        if (customer != null) {
-//            return ResponseEntity.ok(customer);
-//        } else {
-//            return ResponseEntity.ok(null);
-//        }
-//    }
-
-    // Tạo khách hàng mới
     @PostMapping("/createCustomer")
     public String createCustomer(@ModelAttribute Customer customer) {
         customerService.save(customer);
@@ -104,7 +91,7 @@ public class CustomerController {
             model.addAttribute("user", user);
             model.addAttribute("bookings", bookings);
             Review review = new Review();
-//            review.setRating(5);
+
             model.addAttribute("review", review);
             return "user-bookings";
         }
@@ -127,9 +114,9 @@ public class CustomerController {
         if (booking == null) {
             return "redirect:/user/booking/list";
         }
-        review.setBooking(booking); // Set the booking for the review
-        review.setUser(user); // Set the user who is reviewing
-        review.setCreatedAt(LocalDateTime.now()); // Set the current time for the review
+        review.setBooking(booking);
+        review.setUser(user);
+        review.setCreatedAt(LocalDateTime.now());
         reviewService.save(review);
         return "redirect:/user/booking/list";
     }

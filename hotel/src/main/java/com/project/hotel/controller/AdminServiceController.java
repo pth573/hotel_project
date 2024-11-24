@@ -43,14 +43,6 @@ public class AdminServiceController {
         serviceService.deleteById(serviceId);
         return "redirect:/admin/service";
     }
-//
-//    @GetMapping("/admin/service/add")
-//    public String showServiceForm(Model model) {
-//        Service service = new Service();
-//        List<Service> serviceList = serviceService.findAll();
-//        model.addAttribute("service", service);
-//        return "admin-service";
-//    }
 
     @PostMapping("/admin/service/add")
     public String addRoom(@ModelAttribute Service service) {

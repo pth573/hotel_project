@@ -32,10 +32,6 @@
                     data-whatever="@mdo">Thêm mới
             </button>
 
-<!--            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddService"-->
-<!--                    data-whatever="@mdo">Thêm dịch vụ-->
-<!--            </button>-->
-
             <p th:if="${#lists.size(roomList) == 0}">Chưa có phòng nào</p>
             <div th:if="${success}" class="text-center alert alert-success">
                 <p th:text="${success}"></p>
@@ -100,7 +96,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleAddCategoryModalLabel">Thêm loại phòng</h5>
+                <h5 class="modal-title" id="exampleAddCategoryModalLabel">Thêm phòng</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -143,43 +139,6 @@
 </div>
 
 <br><br><br><br><br>
-
-<!--&lt;!&ndash; Add Service Modal &ndash;&gt;-->
-<!--<div class="modal fade" id="exampleAddService" tabindex="-1" role="dialog"-->
-<!--     aria-labelledby="exampleAddServiceLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="exampleAddServiceLabel">Thêm loại phòng</h5>-->
-<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-
-
-<!--                <form th:action="@{/admin/room-group/service/add}" method="post" th:object="${service}" enctype="multipart/form-data">-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="serviceName" class="form-label">Tên dịch vụ</label>-->
-<!--                        <input type="text" class="form-control" id="serviceName" name="serviceName" required>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="description" class="form-label">Mô tả</label>-->
-<!--                        <textarea class="form-control" name="description" required></textarea>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="price" class="form-label">Giá (VND)</label>-->
-<!--                        <input type="number" class="form-control" id="price" name="price" required>-->
-<!--                    </div>-->
-
-<!--                    <div class="modal-footer">-->
-<!--                        <button type="submit" class="btn btn-primary">Lưu</button>-->
-<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

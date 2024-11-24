@@ -244,7 +244,8 @@
                             </div>
 
                             <div class="mb-3">
-                                Email: <span id="customerEmail"></span>
+                                <span id="txt" >Email:</span>
+                                <span id="customerEmail"></span>
                             </div>
                         </div>
 
@@ -411,7 +412,7 @@
 
             const roomId = document.getElementById("roomId").value;
             // const email = document.getElementById("email").value;
-            const email = document.getElementById("customerEmail").innerText || document.getElementById("nameFind").innerText;
+            const email = document.getElementById("customerEmail").innerText || document.getElementById("emailFind").innerText;
 
             const checkinDate = document.getElementById("checkinDate1").value;
             const checkoutDate = document.getElementById("checkoutDate1").value;
@@ -513,6 +514,7 @@
                     $("#customerName").hide();
                     $("#customerNumber").hide();
                     $("#customerEmail").hide();
+                    $("#txt").hide();
                     $("#error").hide();
                     // $("#amountPaid").show();
                     // $("#save").show();

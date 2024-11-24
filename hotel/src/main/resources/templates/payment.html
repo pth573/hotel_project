@@ -51,11 +51,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumb-content text-center mt-100">
-                    <h2 class="page-title">Thông tin cá nhân</h2>
+                    <h2 class="page-title">Thông tin đặt phòng</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Cá nhân > Thông tin đặt phòng</li>
+                            <li class="breadcrumb-item active" aria-current="page">Thông tin đặt phòng</li>
                         </ol>
                     </nav>
                 </div>
@@ -109,74 +109,6 @@
 </div>
 
 <br><br><br><br><br>
-
-
-<!--<div class="container mt-5">-->
-<!--    <h2 class="text-center mb-4">Chi tiết Đặt phòng</h2>-->
-
-<!--    <div class="card shadow p-4">-->
-<!--        <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
-<!--        <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
-<!--        <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
-<!--        <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
-<!--        <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
-<!--        <p><strong>Ngày và giờ nhận phòng:</strong>-->
-<!--            <span th:text="${booking.checkInDate}">Ngày giờ nhận</span>,-->
-<!--&lt;!&ndash;            <span th:text="${booking.checkInTime}">Giờ nhận</span>&ndash;&gt;-->
-<!--        </p>-->
-<!--        <p><strong>Ngày và giờ trả phòng:</strong>-->
-<!--            <span th:text="${booking.checkOutDate}">Ngày giờ trả</span>,-->
-<!--&lt;!&ndash;            <span th:text="${booking.checkOutTime}">Giờ trả</span>&ndash;&gt;-->
-<!--        </p>-->
-<!--        <p><strong>Tổng tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
-<!--    </div>-->
-
-<!--    <div class="mt-4 text-center">-->
-<!--        <button class="btn btn-primary btn-lg purchase-btn">Thanh toán</button>-->
-<!--    </div>-->
-
-<!--    <div id="paymentQR" class="mt-4 text-center" style="display: none;">-->
-<!--        <h3>Thanh toán qua QR Code:</h3>-->
-<!--        <img id="paymentQRImage" src="" alt="QR Code" class="img-fluid shadow-sm" style="max-width: 300px;" />-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
-
-
-
-
-<!--<h2>Chi tiết Đặt phòng</h2>-->
-
-<!--<div>-->
-<!--    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
-<!--    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
-<!--    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
-<!--    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
-<!--    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
-<!--    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>-->
-<!--    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>-->
-<!--    <p><strong>Tổng tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
-<!--    <span style="display: none;" id="content-paid" th:text="${booking.user.email} + ' ' + ${currentDate}">Debugging content</span>-->
-<!--    <button class="purchase-btn">Thanh toán</button>-->
-<!--</div>-->
-
-<!--<div id="paymentQR" style="display: none;">-->
-<!--    <h3>Thanh toán qua QR Code:</h3>-->
-<!--    <img id="paymentQRImage" src="" alt="QR Code" />-->
-<!--</div>-->
-
-
-<!--<form th:action="@{/payment}" method="post" th:object="${booking}">-->
-<!--    <input type="hidden" th:field="*{room.roomId}" />-->
-<!--    <input type="hidden" th:field="*{user.customerId}" />-->
-<!--    <input type="hidden" th:field="*{checkInDate}" />-->
-<!--    <input type="hidden" th:field="*{checkOutDate}" />-->
-<!--    <input type="hidden" th:field="*{status}" />-->
-<!--    <input type="hidden" th:field="*{totalPrice}" />-->
-<!--    <button type="submit">Tiếp tục</button>-->
-<!--</form>-->
 
 
 <!-- Call To Action Area Start -->

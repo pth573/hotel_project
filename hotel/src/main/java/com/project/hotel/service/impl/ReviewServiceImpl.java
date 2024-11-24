@@ -49,12 +49,6 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.findReviewsByRoomGroupId(roomGroupId);
     }
 
-//    public List<Object[]> findReviewsWithSorting(String groupName, String sortBy) {
-//        groupName = (groupName == null || groupName.isEmpty()) ? null : groupName;
-//        sortBy = (sortBy == null || sortBy.isEmpty()) ? "newest" : sortBy;
-//
-//        return reviewRepository.findReviewsWithDetails(groupName, sortBy);
-//    }
     public List<Object[]> findReviewsWithSorting(String groupName, String sortBy, String hasReplies) {
         groupName = (groupName == null || groupName.isEmpty()) ? null : groupName;
         sortBy = (sortBy == null || sortBy.isEmpty()) ? "newest" : sortBy;

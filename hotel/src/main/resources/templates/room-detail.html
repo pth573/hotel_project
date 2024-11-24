@@ -98,24 +98,6 @@
                 <!-- Single Room Details Area -->
                 <div class="single-room-details-area mb-50">
                     <!-- Room Thumbnail Slides -->
-<!--                    <div class="room-thumbnail-slides mb-50">-->
-<!--                        <div id="room-thumbnail&#45;&#45;slide" class="carousel slide" data-ride="carousel">-->
-<!--                            <div class="carousel-inner">-->
-<!--                                &lt;!&ndash; Lặp qua từng ảnh và gán class active cho ảnh đầu tiên &ndash;&gt;-->
-<!--                                <div th:each="image, iterStat : ${roomGroup.images}" class="carousel-item" th:classappend="${iterStat.index == 0 ? ' active' : ''}">-->
-<!--                                    <img th:src="@{${image.imageUrl}}" class="d-block w-100" alt="Ảnh nhóm phòng">-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Chỉ báo carousel &ndash;&gt;-->
-<!--                            <ol class="carousel-indicators">-->
-<!--                                &lt;!&ndash; Lặp qua từng ảnh để tạo các chỉ báo, gán active cho chỉ báo đầu tiên &ndash;&gt;-->
-<!--                                <li data-target="#room-thumbnail&#45;&#45;slide" th:each="image, iterStat : ${roomGroup.images}" th:data-slide-to="${iterStat.index}" th:classappend="${iterStat.index == 0 ? ' active' : ''}">-->
-<!--                                    <img th:src="@{${image.imageUrl}}" class="d-block w-100" alt="Slide ảnh">-->
-<!--                                </li>-->
-<!--                            </ol>-->
-<!--                        </div>-->
-<!--                    </div>-->
 
                     <div class="room-thumbnail-slides mb-50">
                         <div id="room-thumbnail--slide" class="carousel slide" data-ride="carousel">
@@ -148,7 +130,7 @@
                             <span th:each="bed, iterStat : ${roomGroup.beds}">
                                 <span th:if="${bed.bedNumber > 0}">
                                     <span th:text="${bed.bedNumber}"> </span>
-                                    <span th:text="${bed.bedType.name()}"> </span>
+                                    <span th:text="${bed.bedType.displayName}"> </span>
                                     <span th:if="${iterStat.index < roomGroup.beds.size() - 1 and roomGroup.beds[iterStat.index + 1].bedNumber > 0}">, </span>
                                 </span>
                             </span>
@@ -194,15 +176,6 @@
                         </li>
                     </ul>
 
-
-                    <!--                    <ul>-->
-<!--                        <li><img th:src="@{/img/core-img/icon1.png}" alt=""> Air Conditioning</li>-->
-<!--                        <li><img th:src="@{/img/core-img/icon2.png}" alt=""> Free drinks</li>-->
-<!--                        <li><img th:src="@{/img/core-img/icon3.png}" alt=""> Restaurant quality</li>-->
-<!--                        <li><img th:src="@{/img/core-img/icon4.png}" alt=""> Cable TV</li>-->
-<!--                        <li><img th:src="@{/img/core-img/icon5.png}" alt=""> Unlimited Wifi</li>-->
-<!--                        <li><img th:src="@{/img/core-img/icon6.png}" alt=""> Service 24/24</li>-->
-<!--                    </ul>-->
                 </div>
 
 
@@ -327,141 +300,8 @@
                         </div>
                     </div>
 
-
-
-                    <!--                    &lt;!&ndash; Single Review Area &ndash;&gt;-->
-<!--                    <div class="single-room-review-area d-flex align-items-center">-->
-<!--                        <div class="reviwer-thumbnail">-->
-<!--                            <img th:src="@{/img/bg-img/53.jpg}" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="reviwer-content">-->
-<!--                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">-->
-<!--                                <div class="reviwer-title">-->
-<!--                                    <span>27 Aug 2019</span>-->
-<!--                                    <h6>Brandon Kelley</h6>-->
-<!--                                </div>-->
-<!--                                <div class="reviwer-rating">-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Single Review Area &ndash;&gt;-->
-<!--                    <div class="single-room-review-area d-flex align-items-center">-->
-<!--                        <div class="reviwer-thumbnail">-->
-<!--                            <img th:src="@{/img/bg-img/54.jpg}" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="reviwer-content">-->
-<!--                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">-->
-<!--                                <div class="reviwer-title">-->
-<!--                                    <span>27 Aug 2019</span>-->
-<!--                                    <h6>Sounron Masha</h6>-->
-<!--                                </div>-->
-<!--                                <div class="reviwer-rating">-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Single Review Area &ndash;&gt;-->
-<!--                    <div class="single-room-review-area d-flex align-items-center">-->
-<!--                        <div class="reviwer-thumbnail">-->
-<!--                            <img th:src="@{/img/bg-img/55.jpg}" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="reviwer-content">-->
-<!--                            <div class="reviwer-title-rating d-flex align-items-center justify-content-between">-->
-<!--                                <div class="reviwer-title">-->
-<!--                                    <span>27 Aug 2019</span>-->
-<!--                                    <h6>Amada Lyly</h6>-->
-<!--                                </div>-->
-<!--                                <div class="reviwer-rating">-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
                 </div>
             </div>
-
-
-
-<!--            <div class="col-12 col-lg-4">-->
-<!--                &lt;!&ndash; Hotel Reservation Area &ndash;&gt;-->
-<!--                <div class="hotel-reservation&#45;&#45;area mb-100">-->
-<!--                    <form th:action="@{#}" method="post">-->
-<!--                        <div class="form-group mb-30">-->
-<!--                            <label for="checkInDate">Ngày</label>-->
-<!--                            <div id="datepicker">-->
-<!--                                <div class="row no-gutters">-->
-<!--                                    <div class="col-6">-->
-<!--                                        &lt;!&ndash; Check-in Date &ndash;&gt;-->
-<!--                                        <input type="text" class=" form-control" name="checkInDate" id="checkInDate"-->
-<!--                                               placeholder="Nhận phòng" th:value="${bookingDto.checkInDate}" readonly>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        &lt;!&ndash; Check-out Date &ndash;&gt;-->
-<!--                                        <input type="text" class=" form-control" name="checkOutDate" id="checkOutDate"-->
-<!--                                               placeholder="Trả phòng" th:value="${bookingDto.checkOutDate}" readonly>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group mb-30">-->
-<!--                            <label for="guests">Số lượng</label>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-6">-->
-<!--                                    &lt;!&ndash; Hiển thị giá trị người lớn từ bookingDto, không cho chỉnh sửa &ndash;&gt;-->
-<!--                                    <select id="guests" class="form-control" disabled>-->
-<!--                                        <option th:value="${bookingDto.adults}" th:text="${bookingDto.adults} + ' Người lớn'"></option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                                <div class="col-6">-->
-<!--                                    &lt;!&ndash; Hiển thị giá trị trẻ em từ bookingDto, không cho chỉnh sửa &ndash;&gt;-->
-<!--                                    <select id="children" class="form-control" disabled>-->
-<!--                                        <option th:value="${bookingDto.children}" th:text="${bookingDto.children} + ' Trẻ em'"></option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group mb-30">-->
-<!--                            <label for="room">Chọn phòng</label>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-6">-->
-<!--                                    <select name="room" id="room" class="form-control">-->
-<!--                                        <option value="">Chọn phòng</option>-->
-<!--                                        <th:block th:each="room : ${availableRooms}">-->
-<!--                                            <option th:value="${room.roomId}" th:text="${room.roomName}"></option>-->
-<!--                                        </th:block>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <button type="submit" class="btn roberto-btn w-100">Đặt phòng</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-
-
             <div class="col-12 col-lg-4">
                 <!-- Hotel Reservation Area -->
                 <div class="hotel-reservation--area mb-100">
@@ -556,85 +396,6 @@
             </div>
 
 
-
-            <!--            <div class="col-12 col-lg-4">-->
-<!--                &lt;!&ndash; Hotel Reservation Area &ndash;&gt;-->
-<!--                <div class="hotel-reservation&#45;&#45;area mb-100">-->
-<!--                    <form th:action="@{#}" method="post">-->
-<!--                        <div class="form-group mb-30">-->
-<!--                            <label for="checkInDate">Ngày</label>-->
-<!--                            <div class="input-daterange" id="datepicker">-->
-<!--                                <div class="row no-gutters">-->
-<!--                                    <div class="col-6">-->
-<!--                                        <input type="text" class="input-small form-control" name="checkInDate" id="checkInDate" placeholder="Nhận phòng">-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        <input type="text" class="input-small form-control" name="checkOutDate" placeholder="Trả phòng">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group mb-30">-->
-<!--                            <label for="room">Chọn phòng</label>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-6">-->
-<!--                                    <select name="adults" id="room" class="form-control">-->
-<!--                                        <option value="adults">Tên phòng</option>-->
-<!--                                        <option value="01">01</option>-->
-<!--                                        <option value="02">02</option>-->
-<!--                                        <option value="03">03</option>-->
-<!--                                        <option value="04">04</option>-->
-<!--                                        <option value="05">05</option>-->
-<!--                                        <option value="06">06</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="form-group mb-30">-->
-<!--                            <label for="guests">Số lượng</label>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-6">-->
-<!--                                    <select name="adults" id="guests" class="form-control">-->
-<!--                                        <option value="adults">Người lớn</option>-->
-<!--                                        <option value="01">01</option>-->
-<!--                                        <option value="02">02</option>-->
-<!--                                        <option value="03">03</option>-->
-<!--                                        <option value="04">04</option>-->
-<!--                                        <option value="05">05</option>-->
-<!--                                        <option value="06">06</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                                <div class="col-6">-->
-<!--                                    <select name="children" id="children" class="form-control">-->
-<!--                                        <option value="children">Trẻ em</option>-->
-<!--                                        <option value="01">01</option>-->
-<!--                                        <option value="02">02</option>-->
-<!--                                        <option value="03">03</option>-->
-<!--                                        <option value="04">04</option>-->
-<!--                                        <option value="05">05</option>-->
-<!--                                        <option value="06">06</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--&lt;!&ndash;                        <div class="form-group mb-50">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="slider-range">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="range-price">Max Price: $0 - $3000</div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Max Price: ">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                        <div class="form-group">-->
-<!--                            <button type="submit" class="btn roberto-btn w-100">Đặt phòng</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </div>
@@ -718,27 +479,6 @@
                         <span>Trung Tâm Thành Phố Thái Bình</span>
                     </div>
                 </div>
-
-                <!-- Single Footer Widget Area -->
-                <!--                <div class="col-12 col-sm-6 col-lg-3">-->
-                <!--                    <div class="single-footer-widget mb-80">-->
-                <!--                        &lt;!&ndash; Widget Title &ndash;&gt;-->
-                <!--                        <h5 class="widget-title">Bài viết của chúng tôi</h5>-->
-
-                <!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
-                <!--                        <div class="latest-blog-area">-->
-                <!--                            <a th:href="@{#}" class="post-title">Freelance Design Tricks How</a>-->
-                <!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
-                <!--                        </div>-->
-
-                <!--                        &lt;!&ndash; Single Blog Area &ndash;&gt;-->
-                <!--                        <div class="latest-blog-area">-->
-                <!--                            <a th:href="@{#}" class="post-title">Free Advertising For Your Online</a>-->
-                <!--                            <span class="post-date"><i class="fa fa-clock-o" aria-hidden="true"></i> Jan 02, 2019</span>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
                 <!-- Single Footer Widget Area -->
                 <div class="col-12 col-sm-4 col-lg-2">
                     <div class="single-footer-widget mb-80">
@@ -777,14 +517,6 @@
     <div class="container">
         <div class="copywrite-content">
             <div class="row align-items-center">
-                <!--                <div class="col-12 col-md-8">-->
-                <!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
-                <!--                    <div class="copywrite-text">-->
-                <!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-                <!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a th:href="https://colorlib.com" target="_blank">Colorlib</a>-->
-                <!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="col-12 col-md-4">
                     <!-- Social Info -->
                     <div class="social-info">
@@ -822,9 +554,8 @@
             const loggedStatus = /*[[${loggedStatus}]]*/ "NO"; // Giá trị từ Thymeleaf, mặc định "NO"
 
             if (loggedStatus === "NO") {
-                event.preventDefault(); // Ngừng submit form
+                event.preventDefault();
 
-                // Hiển thị modal thông báo chưa đăng nhập
                 $('#loginRequiredModal').modal('show');
             }
         });

@@ -58,21 +58,9 @@ public class AdminRoomGroupController {
         model.addAttribute("services", services);
         model.addAttribute("service", service);
         model.addAttribute("roomGroups", roomGroups);
-//        model.addAttribute("beds", beds);
         return "admin-room-group";
     }
 
-//    @PostMapping("/admin/save-room-group")
-//    public String saveRoomGroup(@ModelAttribute("new-roomGroup") RoomGroup roomGroup, Model model, RedirectAttributes redirectAttributes) {
-//        try{
-//            model.addAttribute("new-roomGroup", roomGroup);
-//            redirectAttributes.addFlashAttribute("success", "Room Group saved successfully");
-//        } catch (Exception e) {
-//            redirectAttributes.addFlashAttribute("error", "Room Group save failed");
-//        }
-//        roomGroupService.save(roomGroup);
-//        return "redirect:/admin/room-group";
-//    }
 
     @PostMapping("/admin/save-room-group")
     public String addRoomGroup(Model model,
@@ -272,7 +260,6 @@ public class AdminRoomGroupController {
             bedService.save(bed);
         }
 
-//        List<Service> serviceList = roomGroup.getServices();
         for (Service service : serviceList) {
             if(service.getRoomGroups() == null){
                 service.setRoomGroups(new ArrayList<>());
@@ -280,16 +267,6 @@ public class AdminRoomGroupController {
             service.getRoomGroups().add(roomGroup);
             serviceService.save(service);
         }
-//        roomGroup.setBeds(bedList);
-//        roomGroup.setServices(serviceList);
-
-//        List<Service> services = theRoomGroupFromDB.getServices();
-//        List<Service> servicesToRemove = new ArrayList<>(services);
-//        for (Service service : servicesToRemove) {
-//            theRoomGroupFromDB.getServices().remove(service);
-//            serviceService.save(service);
-//        }
-//
 
         try {
             try {

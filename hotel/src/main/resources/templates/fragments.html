@@ -17,8 +17,9 @@
 
     <!-- Custom styles for this template-->
     <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/chat.css}" rel="stylesheet">
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
 
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -27,8 +28,8 @@
 
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -121,6 +122,7 @@
 <!--                                </ul>-->
 <!--                            </li>-->
 <!--                            <li><a th:href="@{/blog}">Mới</a></li>-->
+                            <li><a th:href="@{/chat/support}">Hỗ trợ</a></li>
                             <li><a th:href="@{/contact}">Liên hệ</a></li>
                         </ul>
 
@@ -217,14 +219,6 @@
     <div class="container">
         <div class="copywrite-content">
             <div class="row align-items-center">
-                <!--                <div class="col-12 col-md-8">-->
-                <!--                    &lt;!&ndash; Copywrite Text &ndash;&gt;-->
-                <!--                    <div class="copywrite-text">-->
-                <!--                        <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-                <!--                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
-                <!--                            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="col-12 col-md-4">
                     <!-- Social Info -->
                     <div class="social-info">
@@ -239,15 +233,7 @@
     </div>
 </footer>
 
-<!-- Footer -->
-<!--<footer th:fragment="footer" class="sticky-footer bg-white">-->
-<!--    <div class="container my-auto">-->
-<!--        <div class="copyright text-center my-auto">-->
-<!--            <span>Project SE</span>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</footer>-->
-<!-- End of Footer -->
+
 <!-- Scroll to Top Button-->
 <a th:fragment="scroll" class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

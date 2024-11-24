@@ -100,13 +100,15 @@
 <!--                    <td th:text="${booking.paymentStatus}"></td>-->
 
                     <td>
-<!--                        <span th:text="${#numbers.formatInteger(booking.totalPrice, 0)}"></span>-->
-                        <span th:if="${booking.totalPrice < booking.amountHasPaid}"
-                              th:text="'Thiếu ' + ${#numbers.formatInteger(booking.amountHasPaid - booking.totalPrice, 0)} + ' VNĐ'"></span>
-                        <span th:if="${booking.totalPrice == booking.amountHasPaid}"
+                        <!-- Kiểm tra và thay thế null thành 0 trước khi tính toán -->
+                        <span th:if="${(booking.totalPrice != null ? booking.totalPrice : 0) < (booking.amountHasPaid != null ? booking.amountHasPaid : 0)}"
+                              th:text="'Thừa ' + ${#numbers.formatInteger((booking.amountHasPaid != null ? booking.amountHasPaid : 0) - (booking.totalPrice != null ? booking.totalPrice : 0), 0)} + ' VNĐ'"></span>
+
+                        <span th:if="${(booking.totalPrice != null ? booking.totalPrice : 0) == (booking.amountHasPaid != null ? booking.amountHasPaid : 0)}"
                               th:text="'Thanh toán đủ'"></span>
-                        <span th:if="${booking.totalPrice > booking.amountHasPaid}"
-                              th:text="'Thừa ' + ${#numbers.formatInteger(booking.totalPrice - booking.amountHasPaid, 0)} + ' VNĐ'"></span>
+
+                        <span th:if="${(booking.totalPrice != null ? booking.totalPrice : 0) > (booking.amountHasPaid != null ? booking.amountHasPaid : 0)}"
+                              th:text="'Thiếu ' + ${#numbers.formatInteger((booking.totalPrice != null ? booking.totalPrice : 0) - (booking.amountHasPaid != null ? booking.amountHasPaid : 0), 0)} + ' VNĐ'"></span>
                     </td>
 
                     <td>

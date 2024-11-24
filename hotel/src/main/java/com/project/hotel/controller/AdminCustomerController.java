@@ -49,13 +49,14 @@ public class AdminCustomerController {
                                     booking.getAmountHasPaid()))
                             .collect(Collectors.toList());
 
-                    // Tính tổng số tiền đã trả từ tất cả bookings
+                    // Tính tổng số tiền đã trả từ tất cả bookings, xử lý null cho AmountHasPaid
                     Long totalAmountPaid = customer.getBookings().stream()
-                            .mapToLong(Booking::getAmountHasPaid)
+                            .mapToLong(booking -> booking.getAmountHasPaid() != null ? booking.getAmountHasPaid() : 0L)
                             .sum();
 
+                    // Tính tổng số tiền đặt chỗ, xử lý null cho TotalPrice
                     Long totalAmountBooking = customer.getBookings().stream()
-                            .mapToLong(Booking::getTotalPrice)
+                            .mapToLong(booking -> booking.getTotalPrice() != null ? booking.getTotalPrice() : 0L)
                             .sum();
 
                     // Chuyển đổi Customer thành CustomerDto
@@ -77,34 +78,9 @@ public class AdminCustomerController {
         // Thêm danh sách CustomerDto vào model
         model.addAttribute("users", customerDtos);
 
-//        model.addAttribute("users", users);
         return "admin-user-list";
     }
 
-//    @GetMapping("/room-booking")
-//    public String showBookingForm(Model model) {
-//        LocalDate today = LocalDate.now();
-//        LocalDate tomorrow = today.plusDays(1);
-//        LocalTime checkInTime = LocalTime.of(14, 0);
-//        LocalTime checkOutTime = LocalTime.of(11, 0);
-//        int adults = 2;
-//        int children = 0;
-//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//        // Tạo đối tượng BookingDto và thiết lập các giá trị
-//        BookingDto bookingDto = new BookingDto();
-//        bookingDto.setCheckInDate(today.format(dateFormatter));
-//        bookingDto.setCheckOutDate(tomorrow.format(dateFormatter));
-//        bookingDto.setCheckInTime(checkInTime.toString());
-//        bookingDto.setCheckOutTime(checkOutTime.toString());
-//        bookingDto.setAdults(adults);
-//        bookingDto.setChildren(children);
-//
-//        // Thêm đối tượng bookingDto vào model để truyền cho view
-//        model.addAttribute("bookingDto", bookingDto);
-//
-//        return "booking-form"; // trả về tên view (có thể là JSP hoặc Thymeleaf)
-//    }
 
     @PostMapping("/admin/user/edit")
     public String adminUpdateUserList(@ModelAttribute("user") Customer userForm, Principal principal, Model model) {
@@ -155,8 +131,6 @@ public class AdminCustomerController {
             @RequestParam(value = "hasReplies", required = false) String hasReplies,
             Model model) {
 
-//        List<Object[]> reviewsWithGroup = reviewService.findReviewsWithSorting(groupName, sortBy);
-
         List<Object[]> reviewsWithGroup = reviewService.findReviewsWithSorting(groupName, sortBy, hasReplies);
 
         List<RoomGroup> roomGroups = roomGroupService.findAll();
@@ -174,9 +148,6 @@ public class AdminCustomerController {
     public String replyToReview(@RequestParam("reviewId") Long reviewId,
                                 @RequestParam("replyContent") String replyContent,
                                 Model model, Principal principal) {
-        // Ghi nhận trả lời vào database
-
-
         String email = principal.getName();
         Customer user = customerService.findByEmail2(email);
         Review review = reviewService.findById(reviewId);

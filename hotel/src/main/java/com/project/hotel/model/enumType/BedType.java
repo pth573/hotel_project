@@ -6,8 +6,9 @@ import lombok.Getter;
 public enum BedType {
     SINGLE("Giường đơn"),
     DOUBLE("Giường đôi"),
-    KING_SIZE("Giường king size"),
-    QUEEN_SIZE("Giường queen size");
+    KING_SIZE("Giường đôi lớn"),
+//    QUEEN_SIZE("Giường queen size"),
+    EXTRA_BED("Giường phụ");
 
     private final String displayName;
 

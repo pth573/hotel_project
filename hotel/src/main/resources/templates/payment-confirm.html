@@ -1,31 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Hóa đơn đặt phòng khách sạn</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>Hóa đơn đặt phòng khách sạn</h2>-->
-<!--<div>-->
-<!--    <p><strong>Booking ID:</strong> <span th:text="${booking.bookingId}"></span></p>-->
-<!--    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
-<!--    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
-<!--    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
-<!--    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
-<!--    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
-<!--    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>-->
-<!--    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>-->
-<!--    <p><strong>Tổng giá tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
-<!--</div>-->
-<!--<div>-->
-<!--    <p><strong>Tổng giá thanh toán:</strong> <span th:text="${booking.totalPrice}">Tổng giá thanh toán:</span></p>-->
-<!--</div>-->
-
-<!--<a th:href="@{/}">Quay về trang chủ </a>-->
-
-<!--</body>-->
-<!--</html>-->
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,11 +51,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumb-content text-center mt-100">
-                    <h2 class="page-title">Thông tin cá nhân</h2>
+                    <h2 class="page-title">Thông tin đặt phòng</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Cá nhân > Thông tin đặt phòng</li>
+                            <li class="breadcrumb-item active" aria-current="page">Thông tin đặt phòng</li>
                         </ol>
                     </nav>
                 </div>
@@ -91,24 +63,6 @@
         </div>
     </div>
 </div>
-
-<!--<h2>Hóa đơn đặt phòng khách sạn</h2>-->
-<!--<div>-->
-<!--    <p><strong>Booking ID:</strong> <span th:text="${booking.bookingId}"></span></p>-->
-<!--    <p><strong>Loại phòng:</strong> <span th:text="${booking.room.roomGroup.groupName}">Loại phòng</span></p>-->
-<!--    <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}">Tên phòng</span></p>-->
-<!--    <p><strong>Tên:</strong> <span th:text="${booking.user.fullName}">Tên</span></p>-->
-<!--    <p><strong>Email:</strong> <span th:text="${booking.user.email}">Email</span></p>-->
-<!--    <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>-->
-<!--    <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>-->
-<!--    <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>-->
-<!--    <p><strong>Tổng giá tiền:</strong> <span id="totalPrice" th:text="${booking.totalPrice}">Tổng tiền</span></p>-->
-<!--</div>-->
-<!--<div>-->
-<!--    <p><strong>Tổng giá thanh toán:</strong> <span th:text="${booking.totalPrice}">Tổng giá thanh toán:</span></p>-->
-<!--</div>-->
-
-<!--<a th:href="@{/}">Quay về trang chủ </a>-->
 
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Hóa đơn đặt phòng khách sạn</h2>

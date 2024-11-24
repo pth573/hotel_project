@@ -42,6 +42,7 @@ public class RoomGroup extends BaseEntity {
     private Long pricePerNight;
     private Long comboPrice2H;
     private Long extraHourPrice;
+    @Column(length = 500)
     private String description;
 
     private int standardOccupancy;

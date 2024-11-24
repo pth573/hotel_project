@@ -1,6 +1,7 @@
 package com.project.hotel.service;
 import com.project.hotel.model.entity.Customer;
 import com.project.hotel.model.dto.CustomerDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface CustomerService {
     Customer findById(Long id);
     void deleteById(Long customerId);
     Customer findByEmail2(String email);
+    List<Customer> findAllExceptCurrentUser(Long currentUserId);
 }

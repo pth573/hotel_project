@@ -57,6 +57,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findCustomerByEmail(email);
     }
 
+    @Override
+    public List<Customer> findAllExceptCurrentUser(Long currentUserId) {
+        return customerRepository.findAllExceptCurrentUser(currentUserId);
+    }
+
 
     @Override
     public void save(Customer customer) {

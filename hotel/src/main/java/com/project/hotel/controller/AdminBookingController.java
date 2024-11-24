@@ -6,7 +6,6 @@ import com.project.hotel.model.dto.RoomDTO;
 import com.project.hotel.model.dto.RoomGroupDTO;
 import com.project.hotel.model.entity.*;
 import com.project.hotel.model.enumType.BookingStatus;
-import com.project.hotel.model.enumType.PaymentStatus;
 import com.project.hotel.service.*;
 import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +43,6 @@ public class AdminBookingController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        // Lấy tất cả các booking
         List<Booking> bookings = bookingService.findAll();
         List<BookingDto> bookingDtos = new ArrayList<>();
         for (Booking booking : bookings) {
@@ -54,13 +52,9 @@ public class AdminBookingController {
 
             String checkInDateStr = bookingDto.getCheckInDate();
             LocalDate checkInDate = LocalDate.parse(checkInDateStr, formatter);
-//            bookingDto.setFormattedCheckInDate(checkInDate);
-
             String checkOutDateStr = bookingDto.getCheckOutDate();
             LocalDate checkOutDate = LocalDate.parse(checkOutDateStr, formatter);
 
-
-            // Chuyển LocalDate thành java.util.Date
             Date date = java.util.Date.from(checkInDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date date1 = java.util.Date.from(checkOutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             bookingDto.setFormattedCheckInDate(date);
@@ -70,7 +64,7 @@ public class AdminBookingController {
         model.addAttribute("bookings", bookingDtos);
         model.addAttribute("currentMonth", LocalDate.now().getMonthValue());
         model.addAttribute("daysInMonth", getDaysInMonth(LocalDate.now()));
-        return "admin-calendar"; // Tên của view
+        return "admin-calendar";
     }
     private List<Integer> getDaysInMonth(LocalDate date) {
         int lengthOfMonth = date.lengthOfMonth();
@@ -85,24 +79,20 @@ public class AdminBookingController {
     private List<Map<String, Object>> getDaysInMonth(int month, int year, List<Booking> bookings) {
         List<Map<String, Object>> daysInMonth = new ArrayList<>();
 
-        // Lấy ngày đầu tháng và số ngày trong tháng
         Calendar cal = Calendar.getInstance();
         cal.set(year, month, 1);
         int daysInMonthCount = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        // Lặp qua các ngày trong tháng
         for (int i = 1; i <= daysInMonthCount; i++) {
             Map<String, Object> dayInfo = new HashMap<>();
             dayInfo.put("day", i);
             List<Booking> dayBookings = new ArrayList<>();
 
-            // Kiểm tra các booking cho ngày hiện tại
             for (Booking booking : bookings) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String checkInDate = booking.getCheckInDate();
                 String checkOutDate = booking.getCheckOutDate();
 
-                // Kiểm tra booking có trong ngày này không
                 if (checkInDate != null && checkOutDate != null) {
                     if (isDateInRange(i, month, year, checkInDate) || isDateInRange(i, month, year, checkOutDate)) {
                         dayBookings.add(booking);
@@ -128,25 +118,6 @@ public class AdminBookingController {
             return false;
         }
     }
-//    @GetMapping("/admin/booking/online")
-//    public String adminBookingOnline(Model model, Principal principal) {
-//        LocalDate today = LocalDate.now();
-//        LocalDate tomorrow = today.plusDays(1);
-//        LocalTime checkInTime = LocalTime.of(14, 0);
-//        LocalTime checkOutTime = LocalTime.of(11, 0);
-//        int adults = 2;
-//        int children = 0;
-//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        BookingDto bookingDto = new BookingDto();
-//        bookingDto.setCheckInDate(today.format(dateFormatter));
-//        bookingDto.setCheckOutDate(tomorrow.format(dateFormatter));
-//        bookingDto.setCheckInTime(checkInTime.toString());
-//        bookingDto.setCheckOutTime(checkOutTime.toString());
-//        bookingDto.setAdults(adults);
-//        bookingDto.setChildren(children);
-//        model.addAttribute("bookingDto", bookingDto);
-//        return "admin-booking-online";
-//    }
 
 
     @GetMapping("/admin/booking/online")
@@ -161,8 +132,6 @@ public class AdminBookingController {
                                      @RequestParam(value = "roomGroup", required = false) String roomGroupRequest
     ) {
 
-        // Nếu không có giá trị tìm kiếm, sử dụng giá trị mặc định
-//        List<RoomGroup> roomGroups = roomGroupService.findByGroupName(roomGroup.getGroupName());
         List<RoomGroup> roomGroups = roomGroupService.findAll();
         if (checkInDate == null || checkOutDate == null || checkInTime == null || checkOutTime == null || adults == null || children == null) {
             LocalDate today = LocalDate.now();
@@ -251,27 +220,18 @@ public class AdminBookingController {
     @ResponseBody
     public ResponseEntity<?> findCustomer(@RequestParam String email) {
         try {
-            // Tìm kiếm khách hàng theo email
             Customer customer = customerService.findByEmail(email);
-
-            // Kiểm tra nếu không tìm thấy
             if (customer == null) {
                 return ResponseEntity.ok("Customer not found");
             }
-
-            // Tạo CustomerDto từ thực thể Customer
             CustomerDto customerDto = new CustomerDto();
             customerDto.setEmail(customer.getEmail());
             customerDto.setFullName(customer.getFullName());
             customerDto.setPhoneNumber(customer.getPhoneNumber());
-
-            // Gửi CustomerDto làm phản hồi
             return ResponseEntity.ok(customerDto);
         } catch (IllegalArgumentException e) {
-            // Xử lý lỗi từ tham số không hợp lệ
             return ResponseEntity.badRequest().body("Invalid email: " + email);
         } catch (Exception e) {
-            // Xử lý lỗi chung
             return ResponseEntity.status(500).body("An error occurred: " + e.getMessage());
         }
     }
@@ -281,8 +241,6 @@ public class AdminBookingController {
     public Customer createCustomer(@RequestParam String newEmail,
                                    @RequestParam String newFullName,
                                    @RequestParam String newPhoneNumber) {
-
-        // Tạo đối tượng Customer từ dữ liệu form
         Customer customer = customerService.findByEmail2(newEmail);
         if(customer == null) {
             customer = new Customer();
@@ -290,10 +248,7 @@ public class AdminBookingController {
         customer.setEmail(newEmail);
         customer.setFullName(newFullName);
         customer.setPhoneNumber(newPhoneNumber);
-        // Lưu khách hàng vào cơ sở dữ liệu
         customerService.save(customer);
-
-        // Trả về thông tin khách hàng dưới dạng JSON
         return customer;
     }
 
@@ -301,22 +256,19 @@ public class AdminBookingController {
     @ResponseBody
     public ResponseEntity<?> bookRoom(@RequestBody BookingDto bookingRequest, Principal principal) {
 
-        // Kiểm tra dữ liệu trước khi xử lý (có thể thêm validation ở đây)
         if (bookingRequest.getRoomId() == null || bookingRequest.getEmail() == null) {
             System.out.println("NO");
             return ResponseEntity.badRequest().body("Thông tin không đầy đủ!");
         }
 
         Double totalPrice = Double.parseDouble(String.valueOf(bookingRequest.getTotalPrice()));
-        Long totalPriceAsLong = totalPrice.longValue();  // Chuyển đổi từ Double sang Long
+        Long totalPriceAsLong = totalPrice.longValue();
 
         Double amountHasPaid = Double.parseDouble(String.valueOf(bookingRequest.getAmountHasPaid()));
-        Long amountHasPaidLong = Math.round(amountHasPaid);  // Làm tròn và chuyển sang Long
+        Long amountHasPaidLong = Math.round(amountHasPaid);
 
 
         System.out.println("t: " + totalPriceAsLong + "a :" + amountHasPaidLong);
-
-        // Gọi service để lưu thông tin đặt phòng
         Booking booking = new Booking();
 
         Room room = roomService.findById(bookingRequest.getRoomId());
@@ -342,60 +294,10 @@ public class AdminBookingController {
         booking.setAmountHasPaid(amountHasPaidLong);
         booking.setCheckInDate(bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime() + ":00");
         booking.setCheckOutDate(bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime() + ":00");
-
-        System.out.println("OK: " + booking);
         bookingService.save(booking);
         return ResponseEntity.ok().body("Đặt phòng thành công!");
-//        } else {
-//            // Trả về lỗi nếu có vấn đề
-//            return ResponseEntity.status(500).body("Đặt phòng thất bại, vui lòng thử lại.");
-//        }
+
     }
-
-
-
-
-//    @PostMapping("/admin/booking/save")
-//    @ResponseBody
-//    public ResponseEntity<?> bookRoom(@RequestBody BookingDto bookingRequest) {
-//        // Kiểm tra dữ liệu trước khi xử lý (có thể thêm validation ở đây)
-//        if (bookingRequest.getRoomId() == null || bookingRequest.getEmail() == null) {
-//            return ResponseEntity.badRequest().body("Thông tin không đầy đủ!");
-//        }
-//
-//        Double totalPrice = Double.parseDouble(String.valueOf(bookingRequest.getTotalPrice()));
-//        Long totalPriceAsLong = totalPrice.longValue();  // Chuyển đổi từ Double sang Long
-//
-//        Double amountHasPaid = Double.parseDouble(String.valueOf(bookingRequest.getAmountHasPaid()));
-//        Long amountHasPaidLong = Math.round(amountHasPaid);  // Làm tròn và chuyển sang Long
-//
-//
-//        System.out.println("t: " + totalPriceAsLong + "a :" + amountHasPaidLong);
-//
-//        // Gọi service để lưu thông tin đặt phòng
-//        Booking booking = new Booking();
-//
-//        Room room = roomService.findById(bookingRequest.getRoomId());
-//        booking.setRoom(room);
-//        Customer customer = customerService.findByEmail(bookingRequest.getEmail());
-//        booking.setUser(customer);
-//        booking.setStatus(BookingStatus.ACCEPTED);
-//        Long a = Long.parseLong(String.valueOf(bookingRequest.getTotalPrice()));
-//        Long b = Long.parseLong(String.valueOf(bookingRequest.getAmountHasPaid()));
-//        booking.setTotalPrice(totalPriceAsLong);
-//        booking.setAmountHasPaid(amountHasPaidLong);
-//        booking.setCheckInDate(bookingRequest.getCheckInDate() + " " + bookingRequest.getCheckInTime() + ":00");
-//        booking.setCheckOutDate(bookingRequest.getCheckOutDate() + " " + bookingRequest.getCheckOutTime() + ":00");
-//
-//
-//        System.out.println("OK: " + booking);
-//        bookingService.save(booking);
-//        return ResponseEntity.ok().body("Đặt phòng thành công!");
-////        } else {
-////            // Trả về lỗi nếu có vấn đề
-////            return ResponseEntity.status(500).body("Đặt phòng thất bại, vui lòng thử lại.");
-////        }
-//    }
 
 
     @GetMapping(("/admin/booking/available/{roomGroupId}"))
@@ -420,8 +322,6 @@ public class AdminBookingController {
 
         long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
         System.out.println(priceDateTime);
-//        System.out.println("Room Group: " + roomGroup.getGroupName() +
-//                " has " + availableRoomCount + " available rooms.");
         roomGroup.setAvailableRoomCount(availableRoomCount);
         roomGroup.setPriceDateTime(priceDateTime);
         if(availableRoomCount > 0){
@@ -444,21 +344,6 @@ public class AdminBookingController {
         System.out.println(children);
         return "room-detail";
     }
-//
-//
-//    @PostMapping("/admin/user/edit")
-//    public String adminUpdateUserList(@ModelAttribute("user") Customer userForm, Principal principal, Model model) {
-//        Customer customer = customerService.findById(userForm.getCustomerId());
-//        customer.setFullName(userForm.getFullName());
-//        customer.setEmail(userForm.getEmail());
-//        customer.setDateOfBirth(userForm.getDateOfBirth());
-//        customer.setPhoneNumber(userForm.getPhoneNumber());
-//        customer.setAddress(userForm.getAddress());
-//        customerService.save(customer);
-//        model.addAttribute("message", "Cập nhật thông tin thành công!");
-//        model.addAttribute("user", customer);
-//        return "redirect:/admin/user/list";
-//    }
 
     @GetMapping("/admin/booking/order")
     public String adminGetBookingOrder(Model model, Principal principal) {
@@ -492,21 +377,11 @@ public class AdminBookingController {
     }
 
 
-
-
-//    @GetMapping("/admin/booking/order/update/{id}")
-//    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-//        Booking booking = bookingService.findById(id);
-//        model.addAttribute("booking", booking);
-//        return "admin-booking-order-update";
-//    }
-
     @GetMapping("/admin/booking/order/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         Booking booking = bookingService.findById(id);
         model.addAttribute("booking", booking);
         model.addAttribute("statusOptions", BookingStatus.values());
-        model.addAttribute("paymentStatusOptions", PaymentStatus.values());
         return "admin-booking-order-update";
     }
 
@@ -514,38 +389,9 @@ public class AdminBookingController {
     @PostMapping("/admin/booking/order/update/{id}")
     public String updateBooking(@PathVariable("id") Long id, @ModelAttribute Booking booking, @RequestParam("status") String status) {
         BookingStatus bookingStatus = BookingStatus.valueOf(status);
-//        BookingStatus bookingStatus = BookingStatus.fromDisplayName(status);
         booking.setStatus(bookingStatus);
-        bookingService.updateBooking(id, booking);  // Giả sử bạn có phương thức update trong service
-        return "redirect:/admin/booking/order";  // Chuyển hướng về danh sách các booking
+        bookingService.updateBooking(id, booking);
+        return "redirect:/admin/booking/order";
     }
-
-//    @PostMapping("/admin/booking/order/update/{id}")
-//    public String updateRoomGroup(@PathVariable("id") Long id,
-//                                  @ModelAttribute("booking") Booking booking
-//    ) {
-//
-//
-//        System.out.println("Hi" + roomGroup);
-//        System.out.println("3: " + serviceList);
-//        System.out.println("4: " + roomGroup.getBeds());
-//
-//            theRoomGroupFromDB.setGroupName(roomGroup.getGroupName());
-//            theRoomGroupFromDB.setArea(roomGroup.getArea());
-//            theRoomGroupFromDB.setDescription(roomGroup.getDescription());
-//            theRoomGroupFromDB.setExtraHourPrice(roomGroup.getExtraHourPrice());
-//            theRoomGroupFromDB.setComboPrice2H(roomGroup.getComboPrice2H());
-//            theRoomGroupFromDB.setPricePerNight(roomGroup.getPricePerNight());
-//            theRoomGroupFromDB.setStandardOccupancy(roomGroup.getStandardOccupancy());
-//            theRoomGroupFromDB.setBeds(roomGroup.getBeds());
-//            theRoomGroupFromDB.setServices(serviceList);
-//            roomGroupService.save(theRoomGroupFromDB);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "redirect:/admin/room-group";
-//    }
-
 
 }

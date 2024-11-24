@@ -108,7 +108,6 @@ public class RoomGroupController {
             theRoomGroupFromDB.setGroupName(roomGroup.getGroupName());
             theRoomGroupFromDB.setArea(roomGroup.getArea());
             theRoomGroupFromDB.setDescription(roomGroup.getDescription());
-//            theRoomGroupFromDB.setBedType(roomGroup.getBedType());
             theRoomGroupFromDB.setExtraHourPrice(roomGroup.getExtraHourPrice());
             theRoomGroupFromDB.setComboPrice2H(roomGroup.getComboPrice2H());
             theRoomGroupFromDB.setPricePerNight(roomGroup.getPricePerNight());
@@ -155,23 +154,6 @@ public class RoomGroupController {
         model.addAttribute("beds", bedList);
         return "admin-room-group";
     }
-
-//    @GetMapping("/room-group/add")
-//    public String showRoomGroupForm(Model model) {
-//        RoomGroup roomGroup = new RoomGroup();
-//        List<Bed> bedList = new ArrayList<>();
-//        BedType[] bedTypes = BedType.values();
-//        for (BedType bedType : bedTypes) {
-//            bedList.add(new Bed(bedType, 0));
-//        }
-//        roomGroup.setBeds(bedList);
-//        List<Service> services = serviceService.findAll();
-//
-//        model.addAttribute("roomGroup", roomGroup);
-//        model.addAttribute("services", services);
-//        model.addAttribute("beds", bedList);
-//        return "add-roomgroup";
-//    }
 
     @PostMapping("/room-group/add")
     public String addRoomGroup(Model model,

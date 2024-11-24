@@ -65,10 +65,10 @@ public class HomeController {
         return "blog";
     }
 
-//    @GetMapping("/single-blog")
-//    public String singleBlogHTML() {
-//        return "single-blog";
-//    }
+    @GetMapping("/chat")
+    public String chatHTML() {
+        return "/chat/chat";
+    }
 
     @GetMapping("/about")
     public String aboutHTML() {

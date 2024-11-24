@@ -46,19 +46,12 @@ public class AdminRevenueController {
             @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate,
             Model model) {
-
-        // Get the list of bookings between the start and end date
         List<Booking> bookings = bookingService.findBookingsByDateRange(startDate, endDate);
 
-
-        // Calculate the total revenue
         Long totalRevenue = bookings.stream()
                 .mapToLong(Booking::getTotalPrice)
                 .sum();
 
-
-
-        // Add the results to the model to show in the view
         model.addAttribute("totalRevenue", totalRevenue);
         model.addAttribute("bookings", bookings);
         model.addAttribute("startDate", startDate);
@@ -74,11 +67,8 @@ public class AdminRevenueController {
                                        @RequestParam(value = "checkin-time", required = false) String checkInTime,
                                        @RequestParam(value = "checkout-time", required = false) String checkOutTime,
                                        @RequestParam(value = "roomGroup", required = false) String roomGroupName) {
-
-        // Lấy danh sách nhóm phòng
         List<RoomGroup> roomGroups = roomGroupService.findAll();
 
-        // Xử lý giá trị mặc định
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
         LocalTime defaultCheckInTime = LocalTime.of(14, 0);
@@ -101,13 +91,10 @@ public class AdminRevenueController {
 
         model.addAttribute("bookingDto", bookingDto);
 
-        // Xử lý danh sách phòng trống
         List<Room> availableRooms;
         if (roomGroupName == null || roomGroupName.isEmpty()) {
-            // Không chọn gì, mặc định là tất cả phòng
             availableRooms = roomService.findRoomAvailable(bookingDto);
         } else {
-            // Lọc theo nhóm phòng
             RoomGroup roomGroup = roomGroupService.findByGroupName(roomGroupName);
             if (roomGroup != null) {
                 availableRooms = roomService.findRoomAvailableByGroup(bookingDto, roomGroup);
@@ -122,122 +109,5 @@ public class AdminRevenueController {
 
         return "admin-report-room-status";
     }
-
-//    @GetMapping("/admin/report/room/status")
-//    public String showReportRoomStatus(Model model, Principal principal,
-//                                       @RequestParam(value = "checkin-date", required = false) String checkInDate,
-//                                       @RequestParam(value = "checkout-date", required = false) String checkOutDate,
-//                                       @RequestParam(value = "checkin-time", required = false) String checkInTime,
-//                                       @RequestParam(value = "checkout-time", required = false) String checkOutTime,
-//                                       @RequestParam(value = "roomGroup", required = false) String roomGroupName) {
-//
-//        // Lấy danh sách nhóm phòng
-//        List<RoomGroup> roomGroups = roomGroupService.findAll();
-//
-//        // Xử lý giá trị mặc định
-//        LocalDate today = LocalDate.now();
-//        LocalDate tomorrow = today.plusDays(1);
-//        LocalTime defaultCheckInTime = LocalTime.of(14, 0);
-//        LocalTime defaultCheckOutTime = LocalTime.of(11, 0);
-//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//        BookingDto bookingDto = new BookingDto();
-//
-//        if (checkInDate == null || checkOutDate == null || checkInTime == null || checkOutTime == null) {
-//            bookingDto.setCheckInDate(today.format(dateFormatter));
-//            bookingDto.setCheckOutDate(tomorrow.format(dateFormatter));
-//            bookingDto.setCheckInTime(defaultCheckInTime.toString());
-//            bookingDto.setCheckOutTime(defaultCheckOutTime.toString());
-//        } else {
-//            bookingDto.setCheckInDate(checkInDate);
-//            bookingDto.setCheckOutDate(checkOutDate);
-//            bookingDto.setCheckInTime(checkInTime);
-//            bookingDto.setCheckOutTime(checkOutTime);
-//        }
-//
-//        model.addAttribute("bookingDto", bookingDto);
-//
-//        // Lấy nhóm phòng và phòng trống
-//        RoomGroup roomGroup = roomGroupService.findByGroupName(roomGroupName);
-//        if (roomGroup == null) {
-//            roomGroup = new RoomGroup();
-//        }
-//        model.addAttribute("roomGroup", roomGroup);
-//
-//        List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
-//        model.addAttribute("availableRooms", availableRooms);
-//        model.addAttribute("roomGroups", roomGroups);
-//
-//        return "admin-report-room-status";
-//    }
-//
-
-
-//    @GetMapping("/admin/report/room/status")
-//    public String showReportRoomStatus(Model model, Principal principal,
-//                                       @RequestParam(value = "checkin-date", required = false) String checkInDate,
-//                                       @RequestParam(value = "checkout-date", required = false) String checkOutDate,
-//                                       @RequestParam(value = "checkin-time", required = false) String checkInTime,
-//                                       @RequestParam(value = "checkout-time", required = false) String checkOutTime,
-//                                       @RequestParam(value = "roomGroup", required = false) String roomGroupName) {
-//
-//        System.out.println("roomGroupName: " + roomGroupName);
-//
-//        // Nếu không có giá trị tìm kiếm, sử dụng giá trị mặc định
-//        List<RoomGroup> roomGroups = roomGroupService.findAll();
-//        if (checkInDate == null || checkOutDate == null || checkInTime == null || checkOutTime == null) {
-//            LocalDate today = LocalDate.now();
-//            LocalDate tomorrow = today.plusDays(1);
-//            LocalTime defaultCheckInTime = LocalTime.of(14, 0);
-//            LocalTime defaultCheckOutTime = LocalTime.of(11, 0);
-//            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//            // Set giá trị mặc định vào BookingDto
-//            BookingDto bookingDto = new BookingDto();
-//            bookingDto.setCheckInDate(today.format(dateFormatter));
-//            bookingDto.setCheckOutDate(tomorrow.format(dateFormatter));
-//            bookingDto.setCheckInTime(defaultCheckInTime.toString());
-//            bookingDto.setCheckOutTime(defaultCheckOutTime.toString());
-//            List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
-//            RoomGroup roomGroup = roomGroupService.findByGroupName(roomGroupName);
-//
-//            System.out.println("1: " + roomGroup);
-//            if(roomGroup == null) {
-//                roomGroup = new RoomGroup();
-//            }
-//            model.addAttribute("roomGroup", roomGroup);
-//            model.addAttribute("availableRooms", availableRooms);
-//            model.addAttribute("bookingDto", bookingDto);
-//        } else {
-//            // Nếu có tìm kiếm, sử dụng các giá trị từ form
-//            BookingDto bookingDto = new BookingDto();
-//            bookingDto.setCheckInDate(checkInDate);
-//            bookingDto.setCheckOutDate(checkOutDate);
-//            bookingDto.setCheckInTime(checkInTime);
-//            bookingDto.setCheckOutTime(checkOutTime);
-//            model.addAttribute("bookingDto", bookingDto);
-//            RoomGroup roomGroup = roomGroupService.findByGroupName(roomGroupName);
-//            System.out.println("2: " + roomGroup);
-//            if(roomGroup == null) {
-//                roomGroup = new RoomGroup();
-//            }
-//            model.addAttribute("roomGroup", roomGroup);
-//            List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
-//            model.addAttribute("availableRooms", availableRooms);
-//        }
-//        model.addAttribute("roomGroups", roomGroups);
-//
-//        return "admin-report-room-status";
-//    }
-
-
-//    @GetMapping("/admin/report/room/status")
-//    public String showReportRoomStatus(Model model) {
-//        model.addAttribute("startDate", "");
-//        model.addAttribute("endDate", "");
-//        return "admin-report-room-status"; // Show the form for input
-//    }
-
-
 
 }

@@ -52,9 +52,6 @@ public class ReplyServiceImpl implements ReplyService {
         Optional<Reply> optionalReply = replyRepository.findById(replyId);
         if (optionalReply.isPresent()) {
             Reply reply = optionalReply.get();
-//            reply.setReplyName(updatedReply.getReplyName());
-//            reply.setDescription(updatedReply.getDescription());
-//            reply.setPrice(updatedReply.getPrice());
             replyRepository.save(reply);
         } else {
             throw new EntityNotFoundException("Reply with id " + replyId + " not found");

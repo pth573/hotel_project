@@ -28,37 +28,33 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String getDailyPayments(Model model) {
-        List<Booking> bookingList = bookingService.findAll(); // Lấy tất cả các booking
+        List<Booking> bookingList = bookingService.findAll();
         Map<String, Long> dailyPayments = new HashMap<>();
 
-        // Định dạng chuỗi checkinDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // Duyệt qua danh sách booking và tính tổng thanh toán theo ngày checkinDate
         for (Booking booking : bookingList) {
-            if (booking.getCheckInDate() != null) {  // Kiểm tra checkinDate không null
-                // Phân tích chuỗi checkinDate thành đối tượng LocalDate
+            if (booking.getCheckInDate() != null) {
                 LocalDate checkinLocalDate = LocalDate.parse(booking.getCheckInDate(), formatter);
+                String day = checkinLocalDate.toString();
 
-                // Lấy ngày theo định dạng yyyy-MM-dd
-                String day = checkinLocalDate.toString();  // toString() sẽ trả về định dạng "yyyy-MM-dd"
+                Long amountPaid = booking.getAmountHasPaid();
+                if (amountPaid != null) {
+                    dailyPayments.put(day, dailyPayments.getOrDefault(day, 0L) + amountPaid);
+                } else {
+                    dailyPayments.put(day, dailyPayments.getOrDefault(day, 0L));
+                }
 
-                // Cộng dồn số tiền thanh toán vào ngày tương ứng
-                dailyPayments.put(day, dailyPayments.getOrDefault(day, 0L) + booking.getAmountHasPaid());
             }
         }
 
         model.addAttribute("dailyPayments", dailyPayments);
 
-        return "index-admin"; // Trả về Map ngày và số tiền thanh toán
+        return "index-admin";
     }
 
 
     @GetMapping("/list")
     public String list(Model model, Principal principal) {
-//        model.addAttribute("title", "Admin Page");
-//        CustomerUtils.getCustomerInfo(principal, customerService, model);
-//        Customer customer = (Customer) model.getAttribute("customer");
 
         return "list-product";
     }

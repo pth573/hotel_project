@@ -68,12 +68,5 @@ public class BookingServiceImpl implements BookingService {
         existingBooking.setStatus(bookingStatus);
         return bookingRepository.save(existingBooking);
     }
-//
-//    @Override
-//    public List<Long> calculateRevenue(Date startDate, Date endDate) {
-//        if (startDate != null && endDate != null) {
-//            return bookingRepository.calculateRevenueByDateRange(startDate, endDate);
-//        }
-//        return bookingRepository.calculateTotalRevenue();
-//    }
+
 }
