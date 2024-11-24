@@ -3,9 +3,9 @@ package com.project.hotel.model.entity;
 import com.project.hotel.model.enumType.BookingStatus;
 import com.project.hotel.model.enumType.PaymentStatus;
 import jakarta.persistence.*;
-import lombok.*;
+        import lombok.*;
 
-import java.util.List;
+        import java.util.List;
 
 @Entity
 @Data
@@ -45,6 +45,4 @@ public class Booking extends BaseEntity {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
-
-
 }

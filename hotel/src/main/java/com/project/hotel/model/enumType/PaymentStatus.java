@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 public enum PaymentStatus {
     PAID("Đã thanh toán "),
-    PENDING("Chưa thanh toán"),
+//    PENDING("Chưa thanh toán"),
     DEPOSIT_PAID("Đã thanh toán tiền cọc"),
     NOT_PAID("Chưa thanh toán");
 

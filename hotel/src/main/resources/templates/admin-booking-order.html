@@ -28,14 +28,6 @@
                 </div>
             </div>
 
-            <!--            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddCategoryModal"-->
-            <!--                    data-whatever="@mdo">Thêm mới-->
-            <!--            </button>-->
-
-            <!--            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleAddService"-->
-            <!--                    data-whatever="@mdo">Thêm dịch vụ-->
-            <!--            </button>-->
-
             <p th:if="${#lists.size(bookings) == 0}">Chưa có đơn đặt nào</p>
             <div th:if="${success}" class="text-center alert alert-success">
                 <p th:text="${success}"></p>
@@ -105,9 +97,24 @@
                             <button type="submit" class="btn btn-info btn-sm mt-2">Cập nhật</button>
                         </form>
                     </td>
-                    <td th:text="${booking.paymentStatus}"></td>
+<!--                    <td th:text="${booking.paymentStatus}"></td>-->
 
                     <td>
+<!--                        <span th:text="${#numbers.formatInteger(booking.totalPrice, 0)}"></span>-->
+                        <span th:if="${booking.totalPrice < booking.amountHasPaid}"
+                              th:text="'Thiếu ' + ${#numbers.formatInteger(booking.amountHasPaid - booking.totalPrice, 0)} + ' VNĐ'"></span>
+                        <span th:if="${booking.totalPrice == booking.amountHasPaid}"
+                              th:text="'Thanh toán đủ'"></span>
+                        <span th:if="${booking.totalPrice > booking.amountHasPaid}"
+                              th:text="'Thừa ' + ${#numbers.formatInteger(booking.totalPrice - booking.amountHasPaid, 0)} + ' VNĐ'"></span>
+                    </td>
+
+                    <td>
+                        <a th:href="@{'/admin/booking/order/update/' + ${booking.bookingId}}"
+                           class="btn btn-info btn-sm">
+                            Sửa
+                        </a>
+
                         <a th:href="@{/admin/booking/order/delete(bookingId=${booking.bookingId})}" class="btn btn-danger btn-sm mt-1"
                            onclick="if (!(confirm('Bạn có chắc chắn muốn xóa đặt phòng này?'))) return false">
                             Từ chối

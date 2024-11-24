@@ -80,7 +80,7 @@ public class ApplicationConfig {
                                 .successHandler((request, response, authentication) -> {
                                     String role = authentication.getAuthorities().toString();
                                     if (role.contains("ADMIN")) {
-                                        response.sendRedirect("/admin/room-group");
+                                        response.sendRedirect("/admin");
                                     } else if (role.contains("CUSTOMER")) {
                                         response.sendRedirect("/");
                                     }

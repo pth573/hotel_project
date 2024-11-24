@@ -12,5 +12,6 @@ public interface ReviewService {
     List<Review> findAll();
     void deleteById(Long id);
     List<Review> getReviewsByRoomGroupId(Long roomGroupId);
-    List<Object[]> findReviewsWithSorting(String groupName, String sortBy);
+//    List<Object[]> findReviewsWithSorting(String groupName, String sortBy);
+    List<Object[]> findReviewsWithSorting(String groupName, String sortBy, String hasReplies);
 }

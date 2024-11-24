@@ -1,6 +1,7 @@
 package com.project.hotel.service.impl;
 
 import com.project.hotel.model.entity.*;
+import com.project.hotel.model.enumType.BookingStatus;
 import com.project.hotel.repository.BookingRepository;
 import com.project.hotel.repository.RoomImageRepository;
 import com.project.hotel.service.BookingService;
@@ -54,6 +55,18 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> findBookingsByDateRange(String startDate, String endDate) {
         return bookingRepository.findBookingsByDateRange(startDate, endDate);
+    }
+
+    @Override
+    public Booking updateBooking(Long id, Booking updatedBooking) {
+        Booking existingBooking = bookingRepository.findById(id).orElse(null);
+        existingBooking.setCheckInDate(updatedBooking.getCheckInDate());
+        existingBooking.setCheckOutDate(updatedBooking.getCheckOutDate());
+        existingBooking.setTotalPrice(updatedBooking.getTotalPrice());
+        existingBooking.setAmountHasPaid(updatedBooking.getAmountHasPaid());
+        BookingStatus bookingStatus = updatedBooking.getStatus();
+        existingBooking.setStatus(bookingStatus);
+        return bookingRepository.save(existingBooking);
     }
 //
 //    @Override

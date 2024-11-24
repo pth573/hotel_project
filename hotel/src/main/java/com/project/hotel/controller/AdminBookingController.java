@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -488,5 +490,62 @@ public class AdminBookingController {
         redirectAttributes.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/admin/booking/order";
     }
+
+
+
+
+//    @GetMapping("/admin/booking/order/update/{id}")
+//    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+//        Booking booking = bookingService.findById(id);
+//        model.addAttribute("booking", booking);
+//        return "admin-booking-order-update";
+//    }
+
+    @GetMapping("/admin/booking/order/update/{id}")
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+        Booking booking = bookingService.findById(id);
+        model.addAttribute("booking", booking);
+        model.addAttribute("statusOptions", BookingStatus.values());
+        model.addAttribute("paymentStatusOptions", PaymentStatus.values());
+        return "admin-booking-order-update";
+    }
+
+
+    @PostMapping("/admin/booking/order/update/{id}")
+    public String updateBooking(@PathVariable("id") Long id, @ModelAttribute Booking booking, @RequestParam("status") String status) {
+        BookingStatus bookingStatus = BookingStatus.valueOf(status);
+//        BookingStatus bookingStatus = BookingStatus.fromDisplayName(status);
+        booking.setStatus(bookingStatus);
+        bookingService.updateBooking(id, booking);  // Giả sử bạn có phương thức update trong service
+        return "redirect:/admin/booking/order";  // Chuyển hướng về danh sách các booking
+    }
+
+//    @PostMapping("/admin/booking/order/update/{id}")
+//    public String updateRoomGroup(@PathVariable("id") Long id,
+//                                  @ModelAttribute("booking") Booking booking
+//    ) {
+//
+//
+//        System.out.println("Hi" + roomGroup);
+//        System.out.println("3: " + serviceList);
+//        System.out.println("4: " + roomGroup.getBeds());
+//
+//            theRoomGroupFromDB.setGroupName(roomGroup.getGroupName());
+//            theRoomGroupFromDB.setArea(roomGroup.getArea());
+//            theRoomGroupFromDB.setDescription(roomGroup.getDescription());
+//            theRoomGroupFromDB.setExtraHourPrice(roomGroup.getExtraHourPrice());
+//            theRoomGroupFromDB.setComboPrice2H(roomGroup.getComboPrice2H());
+//            theRoomGroupFromDB.setPricePerNight(roomGroup.getPricePerNight());
+//            theRoomGroupFromDB.setStandardOccupancy(roomGroup.getStandardOccupancy());
+//            theRoomGroupFromDB.setBeds(roomGroup.getBeds());
+//            theRoomGroupFromDB.setServices(serviceList);
+//            roomGroupService.save(theRoomGroupFromDB);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "redirect:/admin/room-group";
+//    }
+
 
 }

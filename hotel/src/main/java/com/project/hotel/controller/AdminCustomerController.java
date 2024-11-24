@@ -1,6 +1,8 @@
 package com.project.hotel.controller;
 
 import com.project.hotel.model.dto.BookingDto;
+import com.project.hotel.model.dto.BookingDto3;
+import com.project.hotel.model.dto.CustomerDto;
 import com.project.hotel.model.entity.*;
 import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
@@ -13,9 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,7 +39,45 @@ public class AdminCustomerController {
     public String adminUserList(Model model, Principal principal, Locale locale) {
         CustomerUtils.getCustomerInfo(principal, customerService, model);
         List<Customer> users = customerService.findAll();
-        model.addAttribute("users", users);
+        List<CustomerDto> customerDtos = users.stream()
+                .map(customer -> {
+                    // Chuyển đổi Booking sang BookingDto3
+                    List<BookingDto3> bookingDtos = customer.getBookings().stream()
+                            .map(booking -> new BookingDto3(
+                                    booking.getBookingId(),
+                                    booking.getTotalPrice(),
+                                    booking.getAmountHasPaid()))
+                            .collect(Collectors.toList());
+
+                    // Tính tổng số tiền đã trả từ tất cả bookings
+                    Long totalAmountPaid = customer.getBookings().stream()
+                            .mapToLong(Booking::getAmountHasPaid)
+                            .sum();
+
+                    Long totalAmountBooking = customer.getBookings().stream()
+                            .mapToLong(Booking::getTotalPrice)
+                            .sum();
+
+                    // Chuyển đổi Customer thành CustomerDto
+                    return CustomerDto.builder()
+                            .customerId(customer.getCustomerId())
+                            .fullName(customer.getFullName())
+                            .email(customer.getEmail())
+                            .phoneNumber(customer.getPhoneNumber())
+                            .address(customer.getAddress())
+                            .dateOfBirth(customer.getDateOfBirth())
+                            .password(customer.getPassword())  // Nếu cần thiết
+                            .bookings(bookingDtos)
+                            .totalAmountPaid(totalAmountPaid)
+                            .totalAmountBooking(totalAmountBooking)
+                            .build();
+                })
+                .collect(Collectors.toList());
+
+        // Thêm danh sách CustomerDto vào model
+        model.addAttribute("users", customerDtos);
+
+//        model.addAttribute("users", users);
         return "admin-user-list";
     }
 
@@ -110,9 +152,12 @@ public class AdminCustomerController {
     public String getReviews(
             @RequestParam(value = "groupName", required = false) String groupName,
             @RequestParam(value = "sortBy", required = false) String sortBy,
+            @RequestParam(value = "hasReplies", required = false) String hasReplies,
             Model model) {
 
-        List<Object[]> reviewsWithGroup = reviewService.findReviewsWithSorting(groupName, sortBy);
+//        List<Object[]> reviewsWithGroup = reviewService.findReviewsWithSorting(groupName, sortBy);
+
+        List<Object[]> reviewsWithGroup = reviewService.findReviewsWithSorting(groupName, sortBy, hasReplies);
 
         List<RoomGroup> roomGroups = roomGroupService.findAll();
 
@@ -120,8 +165,36 @@ public class AdminCustomerController {
         model.addAttribute("roomGroups", roomGroups);
         model.addAttribute("selectedGroup", groupName == null ? "" : groupName);
         model.addAttribute("sortBy", sortBy == null ? "newest" : sortBy);
+        model.addAttribute("hasReplies", hasReplies);
 
         return "admin-user-review";
     }
+
+    @PostMapping("/admin/user/review/reply")
+    public String replyToReview(@RequestParam("reviewId") Long reviewId,
+                                @RequestParam("replyContent") String replyContent,
+                                Model model, Principal principal) {
+        // Ghi nhận trả lời vào database
+
+
+        String email = principal.getName();
+        Customer user = customerService.findByEmail2(email);
+        Review review = reviewService.findById(reviewId);
+        Reply reply = new Reply();
+        reply.setCreatedAt(LocalDateTime.now());
+        reply.setUser(user);
+        reply.setContent(replyContent);
+        List<Reply> replies = review.getReplies();
+        if(replies == null){
+            replies = new ArrayList<>();
+        }
+        replies.add(reply);
+        reply.setReview(review);
+        reply.setUser(user);
+        reviewService.save(review);
+        model.addAttribute("message", "Trả lời đánh giá thành công!");
+        return "redirect:/admin/user/review";
+    }
+
 
 }

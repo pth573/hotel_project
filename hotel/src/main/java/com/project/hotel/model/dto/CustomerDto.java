@@ -5,11 +5,14 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 public class CustomerDto {
     @NotNull(message = "bắt buộc")
     @Size(min = 1, message = "bắt buộc")
@@ -25,4 +28,12 @@ public class CustomerDto {
     private String fullName;
 
     private String phoneNumber;
+
+    private Long totalAmountPaid;
+    private Long totalAmountBooking;
+
+    private Long customerId;
+    private String address;
+    private String dateOfBirth;
+    private List<BookingDto3> bookings;
 }

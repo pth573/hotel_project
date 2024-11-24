@@ -20,4 +20,5 @@ public interface BookingService{
 
     List<Booking> findByBookingUser(Customer user);
     public List<Booking> findBookingsByDateRange(String startDate, String endDate);
+    Booking updateBooking(Long id, Booking updatedBooking);
 }

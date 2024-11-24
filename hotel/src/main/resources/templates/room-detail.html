@@ -15,6 +15,34 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        /* Style for the replies list */
+        .replies-list {
+            list-style-type: none; /* Xóa dấu chấm đầu dòng */
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid #ddd; /* Tạo đường kẻ phân cách */
+        }
+
+        /* Style for each reply item */
+        .reply-item {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd; /* Tạo đường kẻ phân cách */
+        }
+
+        /* Align reply content and date */
+        .reply-content {
+            font-size: 14px; /* Kích thước phù hợp với phần nội dung */
+            margin-bottom: 5px; /* Tạo khoảng cách giữa nội dung và ngày */
+        }
+
+        .reply-date {
+            font-size: 12px; /* Kích thước nhỏ hơn cho ngày tạo */
+            color: #888; /* Màu xám nhạt cho ngày */
+        }
+
+    </style>
 
 </head>
 
@@ -161,6 +189,7 @@
                     <h4>Các dịch vụ phòng</h4>
                     <ul>
                         <li th:each="service : ${roomGroup.services}">
+                            <img th:src="@{/img/core-img/icon4.png}" alt="">
                             <span th:text="${service.serviceName}"></span>
                         </li>
                     </ul>
@@ -234,7 +263,7 @@
                                 <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
                                     <div class="reviwer-title">
                                         <!-- Ngày đánh giá -->
-                                        <span th:text="${review.createdAt}"></span>
+                                        <span th:text="${#temporals.format(review.createdAt, 'HH:mm dd/MM/yyyy')}"></span>
                                         <!-- Tên người đánh giá -->
                                         <h6 th:text="${review.user.fullName}"></h6>
                                     </div>
@@ -249,6 +278,51 @@
                                 </div>
                                 <!-- Nội dung nhận xét -->
                                 <p th:text="${review.content}"></p>
+
+<!--                                <div class="reviwer-title">-->
+<!--                                    &lt;!&ndash; Ngày đánh giá &ndash;&gt;-->
+<!--                                    <span th:text="${review.createdAt}"></span>-->
+<!--                                    &lt;!&ndash; Tên người đánh giá &ndash;&gt;-->
+<!--                                    <h6 th:text="${review.user.fullName}"></h6>-->
+<!--                                </div>-->
+
+
+                                <ul class="replies-list">
+                                    <li th:each="reply : ${review.replies}" class="reply-item">
+                                        <div class="media mt-3 reply">
+                                            <div class="media-body">
+
+                                                <div class="reviwer-title reply-content" style="color: #1cc3b2">
+                                                    <!-- Ngày đánh giá -->
+                                                    <span th:text="${reply.user.fullName}"></span>
+                                                    <!-- Tên người đánh giá -->
+<!--                                                    <h6 th:text="${review.user.fullName}"></h6>-->
+                                                </div>
+
+                                                <!-- Nội dung trả lời -->
+                                                <p class="reply-content" th:text="${reply.content}"></p>
+                                                <!-- Ngày tạo trả lời -->
+
+<!--                                                <td th:text="${#temporals.format(row[0].createdAt, 'HH:mm dd/MM/yyyy')}">Ngày tạo</td>-->
+                                                <small class="reply-date text-muted" th:text="${#temporals.format(reply.createdAt, 'HH:mm dd/MM/yyyy')}" ></small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+
+                                <form th:action="@{/roomgroup/{roomGroupId}/{reviewId}/reply(reviewId=${review.reviewId}, roomGroupId=${roomGroup.roomGroupId})}" method="post" th:object="${newReply}" class="comment-form">
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" th:field="*{content}" placeholder="Trả lời đánh giá...">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-primary roberto-btn ">Gửi</button>
+                                        </div>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>

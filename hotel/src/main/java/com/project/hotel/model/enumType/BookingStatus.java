@@ -19,4 +19,12 @@ public enum BookingStatus {
         return displayName;
     }
 
+//    public static BookingStatus fromDisplayName(String displayName) {
+//        for (BookingStatus status : BookingStatus.values()) {
+//            if (status.getDisplayName().equals(displayName.trim())) {
+//                return status;
+//            }
+//        }
+//        throw new IllegalArgumentException("Invalid display name: " + displayName);
+//    }
 }

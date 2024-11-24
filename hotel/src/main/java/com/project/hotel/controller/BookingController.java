@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public class BookingController {
     private final RoomGroupService roomGroupService;
     private final BookingService bookingService;
     private final ReviewService reviewService;
+    private final ReplyService replyService;
 
     @GetMapping("/room-booking")
     public String roomHTML(@ModelAttribute("bookingDto") BookingDto bookingDto,  Model model, Principal principal) {
@@ -139,12 +141,17 @@ public class BookingController {
         return "room-booking";
     }
 
-    @GetMapping(("/room-group-list-available/{roomGroupId}"))
-    public String listRoomAvailableFromRoomGroup(@PathVariable("roomGroupId") Long roomGroupId, Model model, @RequestParam("checkInDate") String checkInDate,
-                                                 @RequestParam("checkOutDate") String checkOutDate, @RequestParam("checkInTime") String checkInTime,
-                                                 @RequestParam("checkOutTime") String checkOutTime, @RequestParam("adults") int adults,
-                                                 @RequestParam("children") int children
-                                                 ) {
+    @GetMapping("/room-group-list-available/{roomGroupId}")
+    public String listRoomAvailableFromRoomGroup(
+            @PathVariable("roomGroupId") Long roomGroupId,
+            Model model,
+            @RequestParam(value = "checkInDate", required = false, defaultValue = "#{T(java.time.LocalDate).now().toString()}") String checkInDate,
+            @RequestParam(value = "checkOutDate", required = false, defaultValue = "#{T(java.time.LocalDate).now().plusDays(1).toString()}") String checkOutDate,
+            @RequestParam(value = "checkInTime", required = false, defaultValue = "14:00") String checkInTime,
+            @RequestParam(value = "checkOutTime", required = false, defaultValue = "11:00") String checkOutTime,
+            @RequestParam(value = "adults", required = false, defaultValue = "2") int adults,
+            @RequestParam(value = "children", required = false, defaultValue = "0") int children
+    ) {
         BookingDto bookingDto = new BookingDto();
         bookingDto.setAdults(adults);
         bookingDto.setChildren(children);
@@ -152,20 +159,27 @@ public class BookingController {
         bookingDto.setCheckOutDate(checkOutDate);
         bookingDto.setCheckInTime(checkInTime);
         bookingDto.setCheckOutTime(checkOutTime);
+
+        RoomGroup roomGroup = roomGroupService.findById(roomGroupId);
+
+        if (roomGroup == null) {
+            // Xử lý khi roomGroup không tồn tại
+            return "redirect:/error?message=Room group not found";
+        }
+
         List<RoomGroup> roomGroupAvailable = new ArrayList<>();
         List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
-        RoomGroup roomGroup = roomGroupService.findById(roomGroupId);
+
         long availableRoomCount = roomGroup.getRooms().stream()
-                .filter(room -> availableRooms.contains(room))
+                .filter(availableRooms::contains)
                 .count();
 
         long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
-        System.out.println(priceDateTime);
-//        System.out.println("Room Group: " + roomGroup.getGroupName() +
-//                " has " + availableRoomCount + " available rooms.");
+
         roomGroup.setAvailableRoomCount(availableRoomCount);
         roomGroup.setPriceDateTime(priceDateTime);
-        if(availableRoomCount > 0){
+
+        if (availableRoomCount > 0) {
             roomGroupAvailable.add(roomGroup);
         }
 
@@ -175,15 +189,79 @@ public class BookingController {
         model.addAttribute("roomGroup", roomGroup);
         model.addAttribute("priceDateTime", priceDateTime);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("newReply", new Reply());
 
-        System.out.println(roomGroupId);
-        System.out.println(checkInDate);
-        System.out.println(checkOutDate);
-        System.out.println(checkInTime);
-        System.out.println(checkOutTime);
-        System.out.println(adults);
-        System.out.println(children);
         return "room-detail";
+    }
+
+
+//    @GetMapping(("/room-group-list-available/{roomGroupId}"))
+//    public String listRoomAvailableFromRoomGroup(@PathVariable("roomGroupId") Long roomGroupId, Model model, @RequestParam("checkInDate") String checkInDate,
+//                                                 @RequestParam("checkOutDate") String checkOutDate, @RequestParam("checkInTime") String checkInTime,
+//                                                 @RequestParam("checkOutTime") String checkOutTime, @RequestParam("adults") int adults,
+//                                                 @RequestParam("children") int children
+//                                                 ) {
+//        BookingDto bookingDto = new BookingDto();
+//        bookingDto.setAdults(adults);
+//        bookingDto.setChildren(children);
+//        bookingDto.setCheckInDate(checkInDate);
+//        bookingDto.setCheckOutDate(checkOutDate);
+//        bookingDto.setCheckInTime(checkInTime);
+//        bookingDto.setCheckOutTime(checkOutTime);
+//        List<RoomGroup> roomGroupAvailable = new ArrayList<>();
+//        List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
+//        RoomGroup roomGroup = roomGroupService.findById(roomGroupId);
+//        long availableRoomCount = roomGroup.getRooms().stream()
+//                .filter(room -> availableRooms.contains(room))
+//                .count();
+//
+//        long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
+//        System.out.println(priceDateTime);
+////        System.out.println("Room Group: " + roomGroup.getGroupName() +
+////                " has " + availableRoomCount + " available rooms.");
+//        roomGroup.setAvailableRoomCount(availableRoomCount);
+//        roomGroup.setPriceDateTime(priceDateTime);
+//        if(availableRoomCount > 0){
+//            roomGroupAvailable.add(roomGroup);
+//        }
+//
+//        List<Review> reviews = reviewService.getReviewsByRoomGroupId(roomGroupId);
+//        model.addAttribute("bookingDto", bookingDto);
+//        model.addAttribute("availableRooms", availableRooms);
+//        model.addAttribute("roomGroup", roomGroup);
+//        model.addAttribute("priceDateTime", priceDateTime);
+//        model.addAttribute("reviews", reviews);
+//        model.addAttribute("newReply", new Reply());
+//
+//        System.out.println(roomGroupId);
+//        System.out.println(checkInDate);
+//        System.out.println(checkOutDate);
+//        System.out.println(checkInTime);
+//        System.out.println(checkOutTime);
+//        System.out.println(adults);
+//        System.out.println(children);
+//        return "room-detail";
+//    }
+
+
+    @PostMapping("/roomgroup/{roomGroupId}/{reviewId}/reply")
+    public String addReply(@PathVariable("reviewId") Long reviewId,@PathVariable("roomGroupId") Long roomGroupId, @ModelAttribute Reply reply, Principal principal) {
+        String email = principal.getName();
+        Customer user = customerService.findByEmail2(email);
+        Review review = reviewService.findById(reviewId);
+        reply.setCreatedAt(LocalDateTime.now());
+        reply.setUser(user);
+
+        List<Reply> replies = review.getReplies();
+        if(replies == null){
+            replies = new ArrayList<>();
+        }
+        replies.add(reply);
+        reply.setReview(review);
+        reply.setUser(user);
+
+        reviewService.save(review);
+        return "redirect:/room-group-list-available/" + roomGroupId;
     }
 
     @GetMapping("/payment")

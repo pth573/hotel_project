@@ -145,7 +145,8 @@
             </div>
             <div class="modal-body">
                 <p><strong>Mã Đặt Phòng:</strong> <span th:text="${booking.bookingId}"></span></p>
-                <p><strong>Ngày Tạo:</strong> <span th:text="${booking.createdAt}"></span></p>
+                <p><strong>Ngày Tạo:</strong> <span th:text="${#temporals.format(booking.createdAt, 'HH:mm dd/MM/yyyy')}"></span></p>
+
                 <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}"></span></p>
                 <p><strong>Ngày Nhận Phòng:</strong> <span th:text="${booking.checkInDate}"></span></p>
                 <p><strong>Ngày Trả Phòng:</strong> <span th:text="${booking.checkOutDate}"></span></p>
@@ -175,7 +176,7 @@
                 <div th:each="review : ${booking.reviews}">
                     <p><strong>Đánh Giá: </strong><span th:text="${review.rating}"></span></p>
                     <p><strong>Nhận Xét: </strong><span th:text="${review.content}"></span></p>
-                    <p><strong>Ngày Đánh Giá: </strong><span th:text="${review.createdAt}"></span></p>
+                    <p><strong>Ngày Đánh Giá: </strong><span th:text="${#temporals.format(review.createdAt, 'HH:mm dd/MM/yyyy')}"></span></p>
                 </div>
             </div>
 
