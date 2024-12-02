@@ -40,7 +40,48 @@
                 <p th:text="${error}"></p>
             </div>
 
-            <table class="table table-striped table-bordered" th:if="${roomList != null and not #lists.isEmpty(roomList)}">
+<!--            <table class="table table-striped table-bordered" th:if="${roomList != null and not #lists.isEmpty(roomList)}">-->
+<!--                <thead class="table-dark">-->
+<!--                <tr>-->
+<!--                    <th scope="col">ID</th>-->
+<!--                    <th scope="col">Hình Ảnh</th>-->
+<!--                    <th scope="col">Tên Phòng</th>-->
+<!--                    <th scope="col">Nhóm phòng</th>-->
+<!--                    <th scope="col">Mô tả</th>-->
+<!--                    <th scope="col">Khác</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="room : ${roomList}">-->
+<!--                    &lt;!&ndash; Room Group ID &ndash;&gt;-->
+<!--                    <th scope="row" th:text="${room.roomId}"></th>-->
+<!--                    <td>-->
+<!--                        <img th:src="${room.roomGroup.imageUrl}" class="img-thumbnail" alt="Room Image" style="width: 150px; height: auto;">-->
+<!--                    </td>-->
+<!--                    <td th:text="${room.roomName}"></td>-->
+<!--                    &lt;!&ndash; Image &ndash;&gt;-->
+<!--                    <td th:text="${room.roomGroup.groupName}"></td>-->
+<!--                    <td th:text="${room.description}"></td>-->
+<!--                    &lt;!&ndash; Actions &ndash;&gt;-->
+<!--                    <td>-->
+<!--                        &lt;!&ndash; Update Button &ndash;&gt;-->
+
+<!--                        <a th:href="@{'/admin/room/update/' + ${room.roomId}}"-->
+<!--                           class="btn btn-info btn-sm">-->
+<!--                            Cập nhật-->
+<!--                        </a>-->
+<!--                        <a th:href="@{'/admin/room/delete/' + ${room.roomId}}"-->
+<!--                           class="btn btn-danger btn-sm"-->
+<!--                           onclick="if (!(confirm('Bạn có chắc chắn muốn xóa phòng này?'))) return false">Xóa</a>-->
+
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+
+
+<!--            Phan trang ok-->
+            <table class="table table-striped table-bordered" th:if="${roomList != null and roomList.content.size() > 0}">
                 <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
@@ -52,25 +93,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="room : ${roomList}">
+                <tr th:each="room : ${roomList.content}">
                     <!-- Room Group ID -->
                     <th scope="row" th:text="${room.roomId}"></th>
-
                     <td>
                         <img th:src="${room.roomGroup.imageUrl}" class="img-thumbnail" alt="Room Image" style="width: 150px; height: auto;">
                     </td>
-
                     <td th:text="${room.roomName}"></td>
                     <!-- Image -->
-
                     <td th:text="${room.roomGroup.groupName}"></td>
-
                     <td th:text="${room.description}"></td>
-
                     <!-- Actions -->
                     <td>
                         <!-- Update Button -->
-
                         <a th:href="@{'/admin/room/update/' + ${room.roomId}}"
                            class="btn btn-info btn-sm">
                             Cập nhật
@@ -78,11 +113,57 @@
                         <a th:href="@{'/admin/room/delete/' + ${room.roomId}}"
                            class="btn btn-danger btn-sm"
                            onclick="if (!(confirm('Bạn có chắc chắn muốn xóa phòng này?'))) return false">Xóa</a>
-
                     </td>
                 </tr>
                 </tbody>
             </table>
+
+<!--            &lt;!&ndash; Phân trang &ndash;&gt;-->
+<!--            <div class="pagination">-->
+<!--    <span th:if="${roomList.hasPrevious()}">-->
+<!--        <a th:href="@{/admin/room(page=${roomList.number - 1}, size=${roomList.size})}">Previous</a>-->
+<!--    </span>-->
+
+<!--                <span>Page <span th:text="${roomList.number + 1}"></span> of <span th:text="${roomList.totalPages}"></span></span>-->
+
+<!--                <span th:if="${roomList.hasNext()}">-->
+<!--        <a th:href="@{/admin/room(page=${roomList.number + 1}, size=${roomList.size})}">Next</a>-->
+<!--    </span>-->
+<!--            </div>-->
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <!-- Nút Previous -->
+                    <li style="color:black !important;" class="page-item" th:classappend="${!roomList.hasPrevious()} ? 'disabled'">
+                        <a class="page-link" th:href="@{/admin/room(page=${roomList.number - 1}, size=${roomList.size})}" aria-label="Trước">
+                            <span style="color:black !important;" aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Số trang -->
+                    <li class="page-item"
+                        th:each="i : ${#numbers.sequence(0, roomList.totalPages - 1)}"
+                        th:classappend="${i == roomList.number} ? 'active bg-dark'">
+                        <a class="page-link"
+                           th:href="@{/admin/room(page=${i}, size=${roomList.size})}"
+                           th:style="${i == roomList.number} ? 'color:white !important; background-color:#343a40 !important; border-color: black;' : 'color:black !important; border-color: #dee2e6;'"
+                           th:text="${i + 1}"></a>
+                    </li>
+
+
+                    <!-- Nút Next -->
+                    <li style="color:black !important;" class="page-item" th:classappend="${!roomList.hasNext()} ? 'disabled'">
+                        <a class="page-link" th:href="@{/admin/room(page=${roomList.number + 1}, size=${roomList.size})}" aria-label="Tiếp">
+                            <span style="color:black !important;" aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+
+
             <!-- End of Main Content -->
 
         </div>

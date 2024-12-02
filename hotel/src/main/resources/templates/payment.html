@@ -76,7 +76,7 @@
             <p><strong>Số điện thoại:</strong> <span th:text="${booking.user.phoneNumber}">Số điện thoại</span></p>
             <p><strong>Ngày và giờ nhận phòng:</strong> <span th:text="${booking.checkInDate}">Ngày và giờ nhận phòng</span></p>
             <p><strong>Ngày và giờ trả phòng:</strong> <span th:text="${booking.checkOutDate}">Ngày và giờ trả phòng</span></p>
-            <p><strong>Tổng tiền:</strong> <span id="totalPrice" class="fw-bold text-primary" th:text="${booking.totalPrice}">Tổng tiền</span></p>
+            <p><strong>Tổng tiền:</strong> <span id="totalPrice" class="fw-bold text-primary price"  th:text="${#strings.replace(#numbers.formatCurrency(booking.totalPrice), '.00', '')}" >Tổng tiền</span></p>
         </div>
 
         <div class="text-center">
@@ -153,6 +153,22 @@
     </div>
 </div>
 
+<script>
+    // Lấy tất cả các phần tử có class "price"
+    var priceElements = document.querySelectorAll(".price");
+
+    // Lặp qua tất cả các phần tử có class "price"
+    priceElements.forEach(function(priceElement) {
+        // Lấy nội dung giá trị trong phần tử <p>
+        var priceText = priceElement.innerText;
+
+        // Xóa ký hiệu "$" và thêm "VND" vào cuối
+        var formattedPrice = priceText.replace('$', '').trim() + ' VND';
+
+        // Cập nhật lại giá trị cho phần tử <p>
+        priceElement.innerText = formattedPrice;
+    });
+</script>
 
 <script>
     const MY_BANK = {
@@ -160,7 +176,9 @@
         ACCOUNT_NO: "0397361738",
     };
     document.querySelector('.purchase-btn').addEventListener('click', () => {
-        const totalPrice = document.getElementById('totalPrice').textContent;
+        // const totalPrice = document.getElementById('totalPrice').textContent;
+        const totalPriceText = document.getElementById('totalPrice').textContent;
+        const totalPrice = parseInt(totalPriceText.replace(/,/g, '').replace(' VND', ''));
         const bookingInfo = document.getElementById('content-paid').textContent;
         const QRCodeUrl = `https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-compact2.png?amount=${totalPrice}&addInfo=${bookingInfo}`;
         document.getElementById('paymentQRImage').src = QRCodeUrl;

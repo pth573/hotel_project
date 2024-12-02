@@ -74,12 +74,28 @@
         <br>
         <select id="statusFilter" class="form-control" onchange="filterBookings()">
             <option value="">Tất cả</option>
-            <option value="DELETED">Đã xóa</option>
-            <option value="PENDING">Đang chờ</option>
-            <option value="ACCEPTED">Đã chấp nhận</option>
-            <option value="REJECTED">Đã từ chối</option>
+            <option value="Xóa">Đã xóa</option>
+            <option value="Đang chờ">Đang chờ</option>
+            <option value="Chấp nhận">Đã chấp nhận</option>
+            <option value="Từ chối">Đã từ chối</option>
         </select>
     </div>
+
+
+
+    <br>
+    <br>
+
+    <div class="form-group">
+        <label for="priceFilter">Lọc theo giá:</label>
+        <br>
+        <select id="priceFilter" class="form-control" onchange="filterPrice()">
+            <option value="">Mặc định</option>
+            <option value="asc">Giá tăng dần</option>
+            <option value="desc">Giá giảm dần</option>
+        </select>
+    </div>
+
 
     <br>
 
@@ -99,7 +115,8 @@
             <td th:text="${booking.bookingId}"></td>
             <td th:text="${booking.checkInDate}"></td>
             <td th:text="${booking.checkOutDate}"></td>
-            <td th:text="${booking.totalPrice} + ' VND'"></td>
+            <td class="price"
+                th:text="${#strings.replace(#numbers.formatCurrency(booking.totalPrice), '.00', '')}"></td>
             <td th:text="${booking.status}"></td>
             <td>
                 <button type="button" class="btn btn-info"
@@ -150,7 +167,7 @@
                 <p><strong>Phòng:</strong> <span th:text="${booking.room.roomName}"></span></p>
                 <p><strong>Ngày Nhận Phòng:</strong> <span th:text="${booking.checkInDate}"></span></p>
                 <p><strong>Ngày Trả Phòng:</strong> <span th:text="${booking.checkOutDate}"></span></p>
-                <p><strong>Tổng Giá:</strong> <span th:text="${booking.totalPrice} + ' VND'"></span></p>
+                <p><strong>Tổng Giá:</strong> <span class="price" th:text="${#strings.replace(#numbers.formatCurrency(booking.totalPrice), '.00', '')}"></span></p>
                 <p><strong>Trạng Thái:</strong> <span th:text="${booking.status}"></span></p>
             </div>
             <div class="modal-footer">
@@ -260,14 +277,23 @@
     </div>
 </div>
 
+<!-- Footer Area Start -->
+<footer th:replace="~{fragments::footer}"></footer>
+<!-- Footer Area End -->
+
 
 <script>
     function filterBookings() {
         const filter = document.getElementById("statusFilter").value;
         const rows = document.querySelectorAll("tbody tr");
 
+
         rows.forEach(row => {
             const status = row.querySelector("td:nth-child(5)").innerText;
+            console.log("filter");
+            console.log(filter);
+            console.log("status");
+            console.log(status);
             if (filter === "" || status === filter) {
                 row.style.display = "";
             } else {
@@ -275,10 +301,48 @@
             }
         });
     }
+
+
+    function filterPrice() {
+        const filterValue = document.getElementById("priceFilter").value;
+        const rows = Array.from(document.querySelectorAll("tbody tr"));
+
+        // Sắp xếp theo giá
+        rows.sort((a, b) => {
+            const priceA = parseFloat(a.querySelector("td:nth-child(4)").textContent.replace(' VND', '').replace(',', '')) || 0;
+            const priceB = parseFloat(b.querySelector("td:nth-child(4)").textContent.replace(' VND', '').replace(',', '')) || 0;
+
+            if (filterValue === "asc") {
+                return priceA - priceB;
+            } else if (filterValue === "desc") {
+                return priceB - priceA;
+            } else {
+                return 0; // Không sắp xếp
+            }
+        });
+
+        // Cập nhật lại thứ tự trong bảng
+        const tbody = document.querySelector("tbody");
+        rows.forEach(row => tbody.appendChild(row));
+    }
+
+
+    // Lấy tất cả các phần tử có class "price"
+    var priceElements = document.querySelectorAll(".price");
+
+    // Lặp qua tất cả các phần tử có class "price"
+    priceElements.forEach(function(priceElement) {
+        // Lấy nội dung giá trị trong phần tử <p>
+        var priceText = priceElement.innerText;
+
+        // Xóa ký hiệu "$" và thêm "VND" vào cuối
+        var formattedPrice = priceText.replace('$', '').trim() + ' VND';
+
+        // Cập nhật lại giá trị cho phần tử <p>
+        priceElement.innerText = formattedPrice;
+    });
+
 </script>
-<!-- Footer Area Start -->
-<footer th:replace="~{fragments::footer}"></footer>
-<!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
 <script th:replace="~{fragments::script}"></script>

@@ -1,6 +1,7 @@
 package com.project.hotel.model.dto;
 
 import com.project.hotel.model.entity.RoomGroup;
+import com.project.hotel.model.enumType.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ public class RoomDTO {
     private String description;
     private Long totalPrice;
     private RoomGroupDTO roomGroup;
+    private RoomStatus roomStatus;
 }

@@ -158,12 +158,14 @@
 <!--        .day {-->
 <!--            flex: 0 0 100px;-->
 <!--            text-align: center;-->
-<!--            border-right: 2px solid #ccc;-->
+<!--            /*border-right: 2px solid #ccc;*/-->
 <!--            position: relative;-->
-<!--            margin-right: 20px;-->
+<!--            /*margin-right: 20px;*/-->
 <!--            background-color: #fff;-->
 <!--            border-radius: 5px;-->
 <!--            padding: 10px;-->
+<!--            border: 2px solid #ccc;-->
+
 <!--        }-->
 
 <!--        .day:last-child {-->
@@ -191,6 +193,7 @@
 <!--            width: 100%;-->
 <!--            box-sizing: border-box;-->
 <!--            opacity: 0.8;-->
+<!--            z-index: 10;-->
 <!--        }-->
 
 <!--        /* Style cho từng khoảng booking */-->
@@ -255,7 +258,7 @@
 <!--</html>-->
 
 
-
+<!--Sai ko chya-->
 <!--<!DOCTYPE html>-->
 <!--<html lang="vi">-->
 <!--<head>-->
@@ -379,6 +382,7 @@
 
 
 <!--DEP-->
+
 <!--<!DOCTYPE html>-->
 <!--<html lang="vi">-->
 <!--<head>-->
@@ -452,7 +456,7 @@
 
 <!--        .booked {-->
 <!--            position: absolute;-->
-<!--            top: 10px;-->
+<!--            top: 50px;-->
 <!--            height: 25px;-->
 <!--            background-color: #ff6666;-->
 <!--            color: white;-->
@@ -461,7 +465,7 @@
 <!--            white-space: nowrap;-->
 <!--            border-radius: 12px;-->
 <!--            padding: 0 10px;-->
-<!--            font-size: 0.9em;-->
+<!--            font-size: 0.2em;-->
 <!--            max-width: 90%;-->
 <!--            left: 50%;-->
 <!--            transform: translateX(-50%);-->
@@ -691,3 +695,1360 @@
 
 
 
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="vi">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Lịch Khóa Phòng</title>-->
+<!--    <style>-->
+<!--        /* Cấu hình chung cho trang */-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f4f4f4;-->
+<!--            margin: 0;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1000px;-->
+<!--            margin: auto;-->
+<!--            background: white;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            text-align: center;-->
+<!--            font-size: 24px;-->
+<!--            margin-bottom: 30px;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .timeline-container {-->
+<!--            overflow-x: auto;-->
+<!--            white-space: nowrap;-->
+<!--            padding-bottom: 20px;-->
+<!--        }-->
+
+<!--        .timeline {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            align-items: flex-end;-->
+<!--            position: relative;-->
+<!--            height: 120px;-->
+<!--        }-->
+
+<!--        .day {-->
+<!--            flex: 0 0 100px;-->
+<!--            text-align: center;-->
+<!--            /*border-right: 2px solid #ccc;*/-->
+<!--            position: relative;-->
+<!--            /*margin-right: 20px;*/-->
+<!--            background-color: #fff;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--            border: 2px solid #ccc;-->
+
+<!--        }-->
+
+<!--        .day:last-child {-->
+<!--            border-right: none;-->
+<!--        }-->
+
+<!--        .day-label {-->
+<!--            font-size: 16px;-->
+<!--            font-weight: bold;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .booked {-->
+<!--            position: absolute;-->
+<!--            top: 30px;-->
+<!--            height: 20px;-->
+<!--            background-color: #ff6666;-->
+<!--            color: white;-->
+<!--            line-height: 20px;-->
+<!--            text-align: center;-->
+<!--            white-space: nowrap;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 12px;-->
+<!--            padding: 0 5px;-->
+<!--            width: 100%;-->
+<!--            box-sizing: border-box;-->
+<!--            opacity: 0.8;-->
+<!--            z-index: 10;-->
+<!--        }-->
+
+<!--        /* Style cho từng khoảng booking */-->
+<!--        .booked1 {-->
+<!--            width: calc(100% * 2 / 31);-->
+<!--            left: 10%;-->
+<!--        }-->
+
+<!--        .booked2 {-->
+<!--            width: calc(100% * 2 / 31);-->
+<!--            left: 10%;-->
+<!--            top: 40px;-->
+<!--        }-->
+
+<!--        .time-label {-->
+<!--            font-size: 0.8em;-->
+<!--            margin-left: 5px;-->
+<!--        }-->
+
+<!--        /* Responsive: Khi màn hình nhỏ hơn 768px */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .day {-->
+<!--                flex: 0 0 70px;-->
+<!--                padding: 8px;-->
+<!--            }-->
+
+<!--            .day-label {-->
+<!--                font-size: 14px;-->
+<!--            }-->
+
+<!--            .booked {-->
+<!--                font-size: 10px;-->
+<!--                height: 18px;-->
+<!--                line-height: 18px;-->
+<!--            }-->
+
+<!--            h1 {-->
+<!--                font-size: 20px;-->
+<!--            }-->
+
+
+
+
+
+
+
+
+
+
+<!--            .timeline {-->
+<!--                position: relative;-->
+<!--                display: flex;-->
+<!--                flex-direction: column;-->
+<!--            }-->
+<!--            .day {-->
+<!--                position: relative;-->
+<!--                height: 30px;-->
+<!--                border-bottom: 1px solid #ccc;-->
+<!--            }-->
+<!--            .day-label {-->
+<!--                position: absolute;-->
+<!--                left: 0;-->
+<!--                top: 0;-->
+<!--                width: 50px;-->
+<!--                height: 100%;-->
+<!--                line-height: 30px;-->
+<!--                text-align: center;-->
+<!--                background-color: #f5f5f5;-->
+<!--                border-right: 1px solid #ccc;-->
+<!--            }-->
+<!--            .booked {-->
+<!--                position: absolute;-->
+<!--                top: 0;-->
+<!--                height: 100%;-->
+<!--                background-color: #ff6666;-->
+<!--                color: white;-->
+<!--                text-align: center;-->
+<!--                border-radius: 5px;-->
+<!--                overflow: hidden;-->
+<!--                white-space: nowrap;-->
+<!--                line-height: 30px;-->
+<!--                font-size: 0.8em;-->
+<!--            }-->
+
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="timeline-container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="timeline">&ndash;&gt;-->
+<!--&lt;!&ndash;            &lt;!&ndash; Lặp qua các ngày trong tháng (1 đến 31) &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="day" th:each="day : ${#numbers.sequence(1, 31)}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="day-label" th:text="${day}"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                &lt;!&ndash; Kiểm tra xem có booking nào check-in vào ngày này không &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="booked" th:each="booking : ${bookings}"&ndash;&gt;-->
+<!--&lt;!&ndash;                     th:if="${#dates.format(booking.formattedCheckInDate, 'd')} == ${day}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span th:text="${booking.checkInDate} + ' - ' + ${booking.checkOutDate}"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="timeline-container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="timeline">&ndash;&gt;-->
+<!--&lt;!&ndash;            &lt;!&ndash; Lặp qua các ngày trong tháng (1 đến 31) &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="day" th:each="day : ${#numbers.sequence(1, 31)}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="day-label" th:text="${day}"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                &lt;!&ndash; Đặt dữ liệu booking vào thuộc tính data-* &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="booked" th:each="booking : ${bookings}"&ndash;&gt;-->
+<!--&lt;!&ndash;                     th:if="${#dates.format(booking.formattedCheckInDate, 'd')} == ${day}"&ndash;&gt;-->
+<!--&lt;!&ndash;                     th:data-checkin-date="${booking.checkInDate}"&ndash;&gt;-->
+<!--&lt;!&ndash;                     th:data-checkout-date="${booking.checkOutDate}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span></span> &lt;!&ndash; Nội dung sẽ được thêm bởi JavaScript &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div class="container">-->
+<!--    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>-->
+<!--    <div class="timeline-container">-->
+<!--        <div class="timeline">-->
+<!--            &lt;!&ndash; Lặp qua các ngày trong tháng &ndash;&gt;-->
+<!--            <div class="day" th:each="day : ${#numbers.sequence(1, 31)}">-->
+<!--                <div class="day-label" th:text="${day}"></div>-->
+
+<!--                &lt;!&ndash; Đặt dữ liệu booking &ndash;&gt;-->
+<!--                <div class="booked"-->
+<!--                     th:each="booking : ${bookings}"-->
+<!--                     th:if="${#dates.format(booking.formattedCheckInDate, 'd')} <= ${day} and ${#dates.format(booking.formattedCheckOutDate, 'd')} >= ${day}"-->
+<!--                     th:data-checkin="${booking.formattedCheckInDate}"-->
+<!--                     th:data-checkout="${booking.formattedCheckOutDate}"-->
+<!--                     style="position: absolute; height: 100%; background-color: red; top: 0;">-->
+<!--                    &lt;!&ndash; Nội dung sẽ được xử lý bởi JavaScript &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", () => {-->
+<!--        const bookedElements = document.querySelectorAll(".booked");-->
+
+<!--        bookedElements.forEach(bookedElement => {-->
+<!--            // Lấy dữ liệu ngày giờ check-in và check-out-->
+<!--            const checkInDate = new Date(bookedElement.dataset.checkinDate);-->
+<!--            const checkOutDate = new Date(bookedElement.dataset.checkoutDate);-->
+
+<!--            // Tìm phần tử ngày hiện tại-->
+<!--            const parentDayElement = bookedElement.closest(".day");-->
+<!--            if (!parentDayElement) return;-->
+
+<!--            // Tính toán vị trí (left) và độ rộng (width)-->
+<!--            const dayStart = new Date(checkInDate);-->
+<!--            dayStart.setHours(0, 0, 0, 0); // Đặt thời gian bắt đầu ngày-->
+<!--            const dayEnd = new Date(checkInDate);-->
+<!--            dayEnd.setHours(23, 59, 59, 999); // Đặt thời gian kết thúc ngày-->
+
+<!--            // Nếu cùng ngày-->
+<!--            if (checkInDate.toDateString() === checkOutDate.toDateString()) {-->
+<!--                const startHours = checkInDate.getHours() + checkInDate.getMinutes() / 60;-->
+<!--                const endHours = checkOutDate.getHours() + checkOutDate.getMinutes() / 60;-->
+<!--                const leftPercent = (startHours / 24) * 100;-->
+<!--                const widthPercent = ((endHours - startHours) / 24) * 100;-->
+
+<!--                bookedElement.style.left = `${leftPercent}%`;-->
+<!--                bookedElement.style.width = `${widthPercent}%`;-->
+<!--            } else {-->
+<!--                // Nếu check-in và check-out khác ngày-->
+<!--                if (checkInDate.toDateString() === parentDayElement.querySelector(".day-label").textContent.trim()) {-->
+<!--                    const startHours = checkInDate.getHours() + checkInDate.getMinutes() / 60;-->
+<!--                    const leftPercent = (startHours / 24) * 100;-->
+<!--                    bookedElement.style.left = `${leftPercent}%`;-->
+<!--                    bookedElement.style.width = `${(24 - startHours) / 24 * 100}%`;-->
+<!--                } else if (checkOutDate.toDateString() === parentDayElement.querySelector(".day-label").textContent.trim()) {-->
+<!--                    const endHours = checkOutDate.getHours() + checkOutDate.getMinutes() / 60;-->
+<!--                    bookedElement.style.left = "0";-->
+<!--                    bookedElement.style.width = `${(endHours / 24) * 100}%`;-->
+<!--                } else {-->
+<!--                    // Ngày nằm giữa check-in và check-out-->
+<!--                    bookedElement.style.left = "0";-->
+<!--                    bookedElement.style.width = "100%";-->
+<!--                }-->
+<!--            }-->
+
+<!--            // Hiển thị nội dung-->
+<!--            bookedElement.querySelector("span").textContent =-->
+<!--                `${checkInDate.getHours()}h ${checkInDate.getDate()}/${checkInDate.getMonth() + 1} - -->
+<!--             ${checkOutDate.getHours()}h ${checkOutDate.getDate()}/${checkOutDate.getMonth() + 1}`;-->
+<!--        });-->
+<!--    });-->
+
+<!--</script>-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;    document.addEventListener("DOMContentLoaded", () => {&ndash;&gt;-->
+<!--&lt;!&ndash;        // Lấy tất cả các phần tử có class "booked"&ndash;&gt;-->
+<!--&lt;!&ndash;        const bookedElements = document.querySelectorAll(".booked");&ndash;&gt;-->
+
+<!--&lt;!&ndash;        bookedElements.forEach(bookedElement => {&ndash;&gt;-->
+<!--&lt;!&ndash;            // Lấy dữ liệu từ thuộc tính data-*&ndash;&gt;-->
+<!--&lt;!&ndash;            const checkInDate = new Date(bookedElement.dataset.checkinDate);&ndash;&gt;-->
+<!--&lt;!&ndash;            const checkOutDate = new Date(bookedElement.dataset.checkoutDate);&ndash;&gt;-->
+
+<!--&lt;!&ndash;            // Định dạng ngày và giờ&ndash;&gt;-->
+<!--&lt;!&ndash;            const checkInFormatted = `${checkInDate.getHours()}h ${checkInDate.getDate()}/${checkInDate.getMonth() + 1}`;&ndash;&gt;-->
+<!--&lt;!&ndash;            const checkOutFormatted = `${checkOutDate.getHours()}h ${checkOutDate.getDate()}/${checkOutDate.getMonth() + 1}`;&ndash;&gt;-->
+
+<!--&lt;!&ndash;            // Gán nội dung vào span bên trong&ndash;&gt;-->
+<!--&lt;!&ndash;            const spanElement = bookedElement.querySelector("span");&ndash;&gt;-->
+<!--&lt;!&ndash;            spanElement.textContent = `${checkInFormatted} - ${checkOutFormatted}`;&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="vi">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Lịch Khóa Phòng</title>-->
+<!--    <style>-->
+<!--        /* Cấu hình chung cho trang */-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f4f4f4;-->
+<!--            margin: 0;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1000px;-->
+<!--            margin: auto;-->
+<!--            background: white;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            text-align: center;-->
+<!--            font-size: 24px;-->
+<!--            margin-bottom: 30px;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .timeline-container {-->
+<!--            overflow-x: auto;-->
+<!--            white-space: nowrap;-->
+<!--            padding-bottom: 20px;-->
+<!--        }-->
+
+<!--        .timeline {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            align-items: flex-end;-->
+<!--            position: relative;-->
+<!--            height: 120px;-->
+<!--        }-->
+
+<!--        .day {-->
+<!--            flex: 0 0 100px;-->
+<!--            text-align: center;-->
+<!--            /*border-right: 2px solid #ccc;*/-->
+<!--            position: relative;-->
+<!--            /*margin-right: 20px;*/-->
+<!--            background-color: #fff;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--            border: 2px solid #ccc;-->
+
+<!--        }-->
+
+<!--        .day:last-child {-->
+<!--            border-right: none;-->
+<!--        }-->
+
+<!--        .day-label {-->
+<!--            font-size: 16px;-->
+<!--            font-weight: bold;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .booked {-->
+<!--            position: absolute;-->
+<!--            top: 30px;-->
+<!--            height: 20px;-->
+<!--            background-color: #ff6666;-->
+<!--            color: white;-->
+<!--            line-height: 20px;-->
+<!--            text-align: center;-->
+<!--            white-space: nowrap;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 12px;-->
+<!--            padding: 0 5px;-->
+<!--            width: 100%;-->
+<!--            box-sizing: border-box;-->
+<!--            opacity: 0.8;-->
+<!--            z-index: 10;-->
+<!--        }-->
+
+<!--        /* Style cho từng khoảng booking */-->
+<!--        .booked1 {-->
+<!--            width: calc(100% * 2 / 31);-->
+<!--            left: 10%;-->
+<!--        }-->
+
+<!--        .booked2 {-->
+<!--            width: calc(100% * 2 / 31);-->
+<!--            left: 10%;-->
+<!--            top: 40px;-->
+<!--        }-->
+
+<!--        .time-label {-->
+<!--            font-size: 0.8em;-->
+<!--            margin-left: 5px;-->
+<!--        }-->
+
+<!--        /* Responsive: Khi màn hình nhỏ hơn 768px */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .day {-->
+<!--                flex: 0 0 70px;-->
+<!--                padding: 8px;-->
+<!--            }-->
+
+<!--            .day-label {-->
+<!--                font-size: 14px;-->
+<!--            }-->
+
+<!--            .booked {-->
+<!--                font-size: 10px;-->
+<!--                height: 18px;-->
+<!--                line-height: 18px;-->
+<!--            }-->
+
+<!--            h1 {-->
+<!--                font-size: 20px;-->
+<!--            }-->
+
+
+
+
+
+
+
+
+
+
+<!--            .timeline {-->
+<!--                position: relative;-->
+<!--                display: flex;-->
+<!--                flex-direction: column;-->
+<!--            }-->
+<!--            .day {-->
+<!--                position: relative;-->
+<!--                height: 30px;-->
+<!--                border-bottom: 1px solid #ccc;-->
+<!--            }-->
+<!--            .day-label {-->
+<!--                position: absolute;-->
+<!--                left: 0;-->
+<!--                top: 0;-->
+<!--                width: 50px;-->
+<!--                height: 100%;-->
+<!--                line-height: 30px;-->
+<!--                text-align: center;-->
+<!--                background-color: #f5f5f5;-->
+<!--                border-right: 1px solid #ccc;-->
+<!--            }-->
+<!--            .booked {-->
+<!--                position: absolute;-->
+<!--                top: 0;-->
+<!--                height: 100%;-->
+<!--                background-color: #ff6666;-->
+<!--                color: white;-->
+<!--                text-align: center;-->
+<!--                border-radius: 5px;-->
+<!--                overflow: hidden;-->
+<!--                white-space: nowrap;-->
+<!--                line-height: 30px;-->
+<!--                font-size: 0.8em;-->
+<!--            }-->
+
+
+<!--            .timeline-container {-->
+<!--                position: relative;-->
+<!--                width: 100%;-->
+<!--                overflow-x: auto;-->
+<!--                white-space: nowrap;-->
+<!--            }-->
+
+<!--            .timeline {-->
+<!--                display: flex;-->
+<!--            }-->
+
+<!--            .day {-->
+<!--                position: relative;-->
+<!--                width: 96px; /* Chiều rộng của một ngày */-->
+<!--                height: 30px;-->
+<!--                border-bottom: 1px solid #ccc;-->
+<!--            }-->
+
+<!--            .day-label {-->
+<!--                position: absolute;-->
+<!--                top: 0;-->
+<!--                left: 0;-->
+<!--                width: 50px;-->
+<!--                height: 100%;-->
+<!--                line-height: 30px;-->
+<!--                text-align: center;-->
+<!--                background-color: #f5f5f5;-->
+<!--                border-right: 1px solid #ccc;-->
+<!--            }-->
+
+<!--            .booked {-->
+<!--                position: absolute;-->
+<!--                top: 0;-->
+<!--                height: 100%;-->
+<!--                background-color: #ff6666;-->
+<!--                color: white;-->
+<!--                text-align: center;-->
+<!--                border-radius: 5px;-->
+<!--                overflow: hidden;-->
+<!--                white-space: nowrap;-->
+<!--                line-height: 30px;-->
+<!--                font-size: 0.8em;-->
+<!--            }-->
+
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>-->
+<!--    <div class="timeline-container">-->
+<!--        <div class="timeline">-->
+<!--            &lt;!&ndash; Lặp qua các ngày trong tháng &ndash;&gt;-->
+<!--            <div class="day" th:each="day : ${#numbers.sequence(1, 31)}">-->
+<!--                <div class="day-label" th:text="${day}"></div>-->
+
+<!--                &lt;!&ndash; Đặt dữ liệu booking &ndash;&gt;-->
+<!--                <div class="booked"-->
+<!--                     th:each="booking : ${bookings}"-->
+<!--                     th:if="${#dates.format(booking.formattedCheckInDate, 'd')} <= ${day} and ${#dates.format(booking.formattedCheckOutDate, 'd')} >= ${day}"-->
+<!--                     th:data-checkin="${booking.formattedCheckInDate}"-->
+<!--                     th:data-checkout="${booking.formattedCheckOutDate}"-->
+<!--                     style="position: absolute; height: 100%; background-color: #ff6666; color: white; border-radius: 5px; overflow: hidden; white-space: nowrap; line-height: 30px;"-->
+<!--                     th:text="${booking.checkInDate} + ' ' + ${booking.checkOutDate}"-->
+<!--                >-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", () => {-->
+<!--        const bookedElements = document.querySelectorAll(".booked");-->
+
+<!--        bookedElements.forEach(bookedElement => {-->
+<!--            // Lấy dữ liệu ngày giờ check-in và check-out-->
+<!--            const checkInDate = new Date(bookedElement.dataset.checkin);-->
+<!--            const checkOutDate = new Date(bookedElement.dataset.checkout);-->
+
+<!--            // Tìm phần tử ngày hiện tại-->
+<!--            const parentDayElement = bookedElement.closest(".day");-->
+<!--            if (!parentDayElement) return;-->
+
+<!--            const dayNumber = parseInt(parentDayElement.querySelector(".day-label").textContent.trim(), 10);-->
+
+<!--            // Tính toán vị trí (left) và độ rộng (width)-->
+<!--            const hourWidth = 96 / 24; // Mỗi giờ chiếm 4px-->
+
+
+<!--            const checkInDay = checkInDate.getDate();-->
+<!--            const checkOutDay = checkOutDate.getDate();-->
+
+<!--            const differenceInMillis = checkInDay - checkOutDay;-->
+<!--            const differenceInHours = differenceInMillis / (1000 * 60 * 60);-->
+<!--            const roundedDifferenceInHours = Math.floor(differenceInHours);-->
+
+
+<!--            const startHours = checkInDate.getHours() + checkInDate.getMinutes() / 60;-->
+<!--            const left = startHours * hourWidth;-->
+<!--            const width = roundedDifferenceInHours * hourWidth;-->
+<!--            bookedElement.style.left = `${left}px`;-->
+<!--            bookedElement.style.width = `${width}px`;-->
+
+<!--            bookedElement.querySelector("span").textContent = `${checkInDate.getHours()}h ${checkInDate.getDate()}/${checkInDate.getMonth() + 1} - ${checkOutDate.getHours()}h ${checkOutDate.getDate()}/${checkOutDate.getMonth() + 1}`;-->
+
+<!--            // Nếu check-in và check-out trong cùng một ngày-->
+<!--            // if (checkInDate.toDateString() === checkOutDate.toDateString()) {-->
+<!--            //     const startHours = checkInDate.getHours() + checkInDate.getMinutes() / 60;-->
+<!--            //     const endHours = checkOutDate.getHours() + checkOutDate.getMinutes() / 60;-->
+<!--            //     const left = startHours * hourWidth;-->
+<!--            //     const width = (endHours - startHours) * hourWidth;-->
+<!--            //-->
+<!--            //     bookedElement.style.left = `${left}px`;-->
+<!--            //     bookedElement.style.width = `${width}px`;-->
+<!--            //-->
+<!--            //     bookedElement.querySelector("span").textContent =-->
+<!--            //         `${checkInDate.getHours()}h ${checkInDate.getDate()}/${checkInDate.getMonth() + 1} - ${checkOutDate.getHours()}h ${checkOutDate.getDate()}/${checkOutDate.getMonth() + 1}`;-->
+<!--            // } else {-->
+<!--            //     // Nếu check-in và check-out khác ngày-->
+<!--            //     const checkInDay = checkInDate.getDate();-->
+<!--            //     const checkOutDay = checkOutDate.getDate();-->
+<!--            //-->
+<!--            //     const differenceInMillis = checkInDay - checkOutDay;-->
+<!--            //     const differenceInHours = differenceInMillis / (1000 * 60 * 60);-->
+<!--            //     const roundedDifferenceInHours = Math.floor(differenceInHours);-->
+<!--            //-->
+<!--            //-->
+<!--            //     const startHours = checkInDate.getHours() + checkInDate.getMinutes() / 60;-->
+<!--            //     const left = startHours * hourWidth;-->
+<!--            //     const width = roundedDifferenceInHours * hourWidth;-->
+<!--            //     bookedElement.style.left = `${left}px`;-->
+<!--            //     bookedElement.style.width = `${width}px`;-->
+<!--            //-->
+<!--            //     bookedElement.querySelector("span").textContent = `${checkInDate.getHours()}h ${checkInDate.getDate()}/${checkInDate.getMonth() + 1} - ${checkOutDate.getHours()}h ${checkOutDate.getDate()}/${checkOutDate.getMonth() + 1}`;-->
+<!--            // }-->
+<!--        });-->
+<!--    });-->
+
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Lịch Khóa Phòng</title>-->
+<!--    <style>-->
+<!--        .container {-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .timeline-container {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            flex-wrap: nowrap;-->
+<!--            overflow-x: auto;-->
+<!--        }-->
+
+<!--        .timeline {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            margin-right: 10px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .day {-->
+<!--            width: 100px;-->
+<!--            height: 200px;-->
+<!--            position: relative;-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 10px;-->
+<!--        }-->
+
+<!--        .day-label {-->
+<!--            text-align: center;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .booked {-->
+<!--            position: absolute;-->
+<!--            top: 60px;-->
+<!--            height: 30px;-->
+<!--            background-color: #ff6666;-->
+<!--            color: white;-->
+<!--            border-radius: 5px;-->
+<!--            overflow: hidden;-->
+<!--            white-space: nowrap;-->
+<!--            text-align: center;-->
+<!--            line-height: 30px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>-->
+<!--    <div class="timeline-container">-->
+<!--        <div class="timeline">-->
+<!--            &lt;!&ndash; Lặp qua các ngày trong tháng &ndash;&gt;-->
+<!--            <div class="day" th:each="day : ${#numbers.sequence(1, 31)}">-->
+<!--                <div class="day-label" th:text="${day}"></div>-->
+
+<!--                &lt;!&ndash; Đặt dữ liệu booking &ndash;&gt;-->
+<!--                <div class="booked"-->
+<!--                     th:each="booking : ${bookings}"-->
+<!--                     th:if="${#dates.format(booking.formattedCheckInDate, 'd')} <= ${day} and ${#dates.format(booking.formattedCheckOutDate, 'd')} >= ${day}"-->
+<!--                     th:data-checkin="${booking.formattedCheckInDate}"-->
+<!--                     th:data-checkout="${booking.formattedCheckOutDate}"-->
+<!--                     th:data-booking-id="${booking.id}">-->
+<!--                    <span th:text="${booking.checkInDate} + ' ' + ${booking.checkOutDate}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", () => {-->
+<!--        const bookedElements = document.querySelectorAll(".booked");-->
+
+<!--        bookedElements.forEach(bookedElement => {-->
+<!--            const checkInDate = new Date(bookedElement.dataset.checkin);-->
+<!--            const checkOutDate = new Date(bookedElement.dataset.checkout);-->
+
+<!--            // Tính toán vị trí và độ rộng-->
+<!--            const checkInDay = checkInDate.getDate(); // Ngày check-in-->
+<!--            const checkOutDay = checkOutDate.getDate(); // Ngày check-out-->
+
+<!--            // Tính toán độ dài booking (width) và vị trí (left)-->
+<!--            const width = (checkOutDay - checkInDay + 1) * 100; // Mỗi ngày rộng 100px-->
+<!--            const left = (checkInDay - 1) * 100; // Vị trí bắt đầu (dựa vào ngày check-in)-->
+
+<!--            // Áp dụng các giá trị tính toán vào style-->
+<!--            bookedElement.style.left = `${left}px`;-->
+<!--            bookedElement.style.width = `${width}px`;-->
+
+<!--            // Gán thêm sự kiện click nếu cần-->
+<!--            bookedElement.addEventListener("click", () => {-->
+<!--                alert(`Booking Information: \nCheck-in: ${checkInDate} \nCheck-out: ${checkOutDate}`);-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--OKKKK-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Lịch Khóa Phòng</title>-->
+<!--    <style>-->
+<!--        .container {-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .timeline-container {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            flex-wrap: wrap;-->
+<!--            overflow-x: auto;-->
+<!--        }-->
+
+<!--        .timeline {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            margin-right: 10px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .day {-->
+<!--            width: 100px;-->
+<!--            height: 200px;-->
+<!--            position: relative;-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 10px;-->
+<!--            margin: 1px;-->
+<!--        }-->
+
+<!--        .day-label {-->
+<!--            text-align: center;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .booked {-->
+<!--            position: absolute;-->
+<!--            top: 60px;-->
+<!--            height: 30px;-->
+<!--            background-color: #ff6666;-->
+<!--            color: white;-->
+<!--            border-radius: 5px;-->
+<!--            overflow: hidden;-->
+<!--            white-space: nowrap;-->
+<!--            text-align: center;-->
+<!--            line-height: 30px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>-->
+<!--    <div class="timeline-container">-->
+<!--        <div class="timeline">-->
+<!--            &lt;!&ndash; Tạo lịch từ ngày 1 của tháng này đến hết tháng sau &ndash;&gt;-->
+<!--            &lt;!&ndash; Ngày sẽ được tạo từ JavaScript, không dùng th:each nữa &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", () => {-->
+<!--        // Dữ liệu mẫu-->
+<!--        const bookings = [-->
+<!--            { checkInDate: "2024-12-05", checkOutDate: "2024-12-10" },-->
+<!--            { checkInDate: "2024-12-15", checkOutDate: "2024-12-20" }-->
+<!--        ];-->
+
+<!--        // Tạo lịch từ ngày 1 đến hết tháng-->
+<!--        const totalDays = 31; // Giả định tháng hiện tại có 31 ngày-->
+<!--        const timelineContainer = document.querySelector(".timeline");-->
+
+<!--        for (let day = 1; day <= totalDays; day++) {-->
+<!--            // Tạo từng ngày trong lịch-->
+<!--            const dayElement = document.createElement("div");-->
+<!--            dayElement.classList.add("day");-->
+
+<!--            // Tạo label cho ngày-->
+<!--            const dayLabel = document.createElement("div");-->
+<!--            dayLabel.classList.add("day-label");-->
+<!--            dayLabel.innerText = day;-->
+<!--            dayElement.appendChild(dayLabel);-->
+
+<!--            timelineContainer.appendChild(dayElement);-->
+<!--        }-->
+
+<!--        // Thêm các booking vào lịch-->
+<!--        bookings.forEach(booking => {-->
+<!--            const checkInDate = new Date(booking.checkInDate);-->
+<!--            const checkOutDate = new Date(booking.checkOutDate);-->
+
+<!--            for (let day = 1; day <= totalDays; day++) {-->
+<!--                if (checkInDate.getDate() === day) {-->
+<!--                    // Tính toán vị trí và chiều rộng-->
+<!--                    const left = (checkInDate.getDate() - 1) * 100; // Vị trí bắt đầu-->
+<!--                    const width = (checkOutDate.getDate() - checkInDate.getDate() + 1) * 100; // Độ rộng-->
+
+<!--                    // Tạo block booking-->
+<!--                    const bookedElement = document.createElement("div");-->
+<!--                    bookedElement.classList.add("booked");-->
+<!--                    bookedElement.style.left = `${left}px`;-->
+<!--                    bookedElement.style.width = `${width}px`;-->
+<!--                    bookedElement.innerText = `Booking: ${checkInDate.toDateString()} - ${checkOutDate.toDateString()}`;-->
+
+<!--                    // Chỉ thêm block vào ngày đầu tiên của booking-->
+<!--                    const dayElement = timelineContainer.querySelector(`.day:nth-child(${day})`);-->
+<!--                    if (dayElement) {-->
+<!--                        dayElement.appendChild(bookedElement);-->
+<!--                    }-->
+
+<!--                    // Không cần kiểm tra các ngày khác trong khoảng thời gian booking này-->
+<!--                    break;-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!--OKKKKKKKKKKKKKKK-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Lịch Khóa Phòng</title>-->
+<!--    <style>-->
+<!--        .container {-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .timeline-container {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            flex-wrap: wrap;-->
+<!--            overflow-x: auto;-->
+<!--        }-->
+
+<!--        .timeline {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            margin-right: 10px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .day {-->
+<!--            width: 100px;-->
+<!--            height: 100px;-->
+<!--            position: relative;-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 10px;-->
+<!--            margin: 1px;-->
+<!--        }-->
+
+<!--        .day-label {-->
+<!--            text-align: center;-->
+<!--            font-weight: bold;-->
+<!--            top: 20px;-->
+<!--        }-->
+
+<!--        .booked {-->
+<!--            position: absolute;-->
+<!--            top: 50px;-->
+<!--            height: 30px;-->
+<!--            background-color: #ff6666;-->
+<!--            color: white;-->
+<!--            border-radius: 5px;-->
+<!--            overflow: hidden;-->
+<!--            white-space: nowrap;-->
+<!--            text-align: center;-->
+<!--            line-height: 30px;-->
+<!--            z-index: 10;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>-->
+<!--    <div class="timeline-container">-->
+<!--        <div class="timeline">-->
+<!--            &lt;!&ndash; Tạo lịch từ ngày 1 của tháng này đến hết tháng sau &ndash;&gt;-->
+<!--            &lt;!&ndash; Ngày sẽ được tạo từ JavaScript, không dùng th:each nữa &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", () => {-->
+<!--        // Dữ liệu mẫu-->
+<!--        const bookings = [-->
+<!--            { checkInDate: "2024-12-05 14:00:00", checkOutDate: "2024-12-06 11:00:00" },-->
+<!--            { checkInDate: "2024-12-15 02:00:00", checkOutDate: "2024-12-16 15:00:00" }-->
+<!--        ];-->
+
+<!--        // Tạo lịch từ ngày 1 đến hết tháng-->
+<!--        const totalDays = 31; // Giả định tháng hiện tại có 31 ngày-->
+<!--        const timelineContainer = document.querySelector(".timeline");-->
+
+<!--        for (let day = 1; day <= totalDays; day++) {-->
+<!--            // Tạo từng ngày trong lịch-->
+<!--            const dayElement = document.createElement("div");-->
+<!--            dayElement.classList.add("day");-->
+
+<!--            // Tạo label cho ngày-->
+<!--            const dayLabel = document.createElement("div");-->
+<!--            dayLabel.classList.add("day-label");-->
+<!--            dayLabel.innerText = day;-->
+<!--            dayElement.appendChild(dayLabel);-->
+
+<!--            timelineContainer.appendChild(dayElement);-->
+<!--        }-->
+
+<!--        // Thêm các booking vào lịch-->
+<!--        bookings.forEach(booking => {-->
+<!--            const checkInDate = new Date(booking.checkInDate);-->
+<!--            const checkOutDate = new Date(booking.checkOutDate);-->
+
+<!--            // Tính tổng số giờ booking-->
+<!--            const totalHours = (checkOutDate - checkInDate) / (1000 * 60 * 60);-->
+<!--            console.log(checkInDate);-->
+<!--            console.log(checkOutDate);-->
+<!--            console.log(totalHours);-->
+
+<!--            // Tính toán vị trí bắt đầu (`left`) và chiều rộng (`width`)-->
+<!--            const startDay = checkInDate.getDate();-->
+<!--            const startHour = checkInDate.getHours();-->
+<!--            const endDay = checkOutDate.getDate();-->
+<!--            const left = startHour * 112 / 24 + 10;-->
+
+<!--            // Xác định `width` (độ dài tương ứng số giờ)-->
+<!--            const width = (totalHours / 24) * 112; // Tổng số giờ chia 24 giờ nhân 100px/ngày-->
+
+<!--            console.log(width);-->
+
+<!--            // Tạo block booking-->
+<!--            const bookedElement = document.createElement("div");-->
+<!--            bookedElement.classList.add("booked");-->
+<!--            bookedElement.style.left = `${left}px`;-->
+<!--            bookedElement.style.width = `${width}px`;-->
+<!--            bookedElement.innerText = `${checkInDate.getHours()}-${checkOutDate.getHours()}`;-->
+<!--            // Chèn block vào timeline (gắn vào ngày bắt đầu)-->
+<!--            const dayElement = timelineContainer.querySelector(`.day:nth-child(${startDay})`);-->
+<!--            if (dayElement) {-->
+<!--                dayElement.appendChild(bookedElement);-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!--OKKKKX2-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Lịch Khóa Phòng</title>-->
+<!--    <style>-->
+<!--        .container {-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .timeline-container {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            flex-wrap: wrap;-->
+<!--            overflow-x: auto;-->
+<!--        }-->
+
+<!--        .timeline {-->
+<!--            display: flex;-->
+<!--            flex-direction: row;-->
+<!--            margin-right: 10px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .day {-->
+<!--            width: 100px;-->
+<!--            height: 100px;-->
+<!--            position: relative;-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 10px;-->
+<!--            margin: 1px;-->
+<!--        }-->
+
+<!--        .day-label {-->
+<!--            text-align: center;-->
+<!--            font-weight: bold;-->
+<!--            top: 20px;-->
+<!--        }-->
+
+<!--        .booked {-->
+<!--            position: absolute;-->
+<!--            top: 50px;-->
+<!--            height: 30px;-->
+<!--            background-color: #ff6666;-->
+<!--            color: white;-->
+<!--            border-radius: 5px;-->
+<!--            overflow: hidden;-->
+<!--            white-space: nowrap;-->
+<!--            text-align: center;-->
+<!--            line-height: 30px;-->
+<!--            z-index: 10;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>-->
+<!--    <div class="timeline-container">-->
+<!--        <div class="timeline">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div id="bookingModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 1000;">-->
+<!--    <h2>Thông tin chi tiết</h2>-->
+<!--    <p id="modalContent"></p>-->
+<!--    <button onclick="closeModal()" style="margin-top: 10px; padding: 10px 20px; background-color: #ff6666; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>-->
+<!--</div>-->
+<!--<div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;"></div>-->
+
+
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", () => {-->
+<!--        const bookings = [-->
+<!--            { checkInDate: "2024-12-05 14:00:00", checkOutDate: "2024-12-06 11:00:00", room: "Phòng 101" },-->
+<!--            { checkInDate: "2024-12-15 02:00:00", checkOutDate: "2024-12-16 15:00:00", room: "Phòng 102" }-->
+<!--        ];-->
+
+<!--        const totalDays = 31;-->
+<!--        const timelineContainer = document.querySelector(".timeline");-->
+
+<!--        for (let day = 1; day <= totalDays; day++) {-->
+<!--            const dayElement = document.createElement("div");-->
+<!--            dayElement.classList.add("day");-->
+
+<!--            const dayLabel = document.createElement("div");-->
+<!--            dayLabel.classList.add("day-label");-->
+<!--            dayLabel.innerText = day;-->
+<!--            dayElement.appendChild(dayLabel);-->
+
+<!--            timelineContainer.appendChild(dayElement);-->
+<!--        }-->
+
+<!--        bookings.forEach((booking, index) => {-->
+<!--            const checkInDate = new Date(booking.checkInDate);-->
+<!--            const checkOutDate = new Date(booking.checkOutDate);-->
+<!--            const totalHours = (checkOutDate - checkInDate) / (1000 * 60 * 60);-->
+
+<!--            const startDay = checkInDate.getDate();-->
+<!--            const startHour = checkInDate.getHours();-->
+<!--            const left = startHour * 112 / 24 + 10;-->
+<!--            const width = (totalHours / 24) * 112;-->
+
+<!--            const bookedElement = document.createElement("div");-->
+<!--            bookedElement.classList.add("booked");-->
+<!--            bookedElement.style.left = `${left}px`;-->
+<!--            bookedElement.style.width = `${width}px`;-->
+<!--            bookedElement.innerText = `${checkInDate.getHours()}-${checkOutDate.getHours()}h`;-->
+
+<!--            bookedElement.addEventListener("click", () => {-->
+<!--                showModal(`Phòng: ${booking.room}<br>Check-in: ${checkInDate.toLocaleString()}<br>Check-out: ${checkOutDate.toLocaleString()}`);-->
+<!--            });-->
+
+<!--            const dayElement = timelineContainer.querySelector(`.day:nth-child(${startDay})`);-->
+<!--            if (dayElement) {-->
+<!--                dayElement.appendChild(bookedElement);-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+<!--    function showModal(content) {-->
+<!--        const modal = document.getElementById("bookingModal");-->
+<!--        const overlay = document.getElementById("modalOverlay");-->
+<!--        const modalContent = document.getElementById("modalContent");-->
+
+<!--        modalContent.innerHTML = content;-->
+<!--        modal.style.display = "block";-->
+<!--        overlay.style.display = "block";-->
+<!--    }-->
+
+<!--    function closeModal() {-->
+<!--        const modal = document.getElementById("bookingModal");-->
+<!--        const overlay = document.getElementById("modalOverlay");-->
+
+<!--        modal.style.display = "none";-->
+<!--        overlay.style.display = "none";-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Khóa Phòng</title>
+    <style>
+        .container {
+            padding: 20px;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: row;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .day {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 1px;
+        }
+
+        .day-label {
+            text-align: center;
+            font-weight: bold;
+            top: 20px;
+        }
+
+        .booked {
+            position: absolute;
+            top: 50px;
+            height: 30px;
+            background-color: #ff6666;
+            color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: center;
+            line-height: 30px;
+            z-index: 10;
+        }
+
+        .room {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .room h2 {
+            margin-bottom: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Lịch Khóa Phòng - Tháng <span th:text="${currentMonth}"></span></h1>
+    <div class="timeline-container">
+        <div class="timeline">
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="bookingModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <h2>Thông tin chi tiết</h2>
+    <p id="modalContent"></p>
+    <button onclick="closeModal()" style="margin-top: 10px; padding: 10px 20px; background-color: #ff6666; color: white; border: none; border-radius: 5px; cursor: pointer;">Đóng</button>
+</div>
+<div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;"></div>
+
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var rooms = /*[[${rooms}]]*/ [];
+    /*]]>*/
+    console.log(rooms);
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log(rooms);
+
+        const totalDays = 31;
+        const timelineContainer = document.querySelector(".timeline-container");
+
+        rooms.forEach(function (room, index) {
+            const roomTimeline = document.createElement("div");
+            roomTimeline.classList.add("timeline");
+
+            const roomTitle = document.createElement("h3");
+            roomTitle.innerText = room.roomName;
+            roomTimeline.appendChild(roomTitle);
+
+            const dayElements = [];
+            for (let day = 1; day <= totalDays; day++) {
+                const dayElement = document.createElement("div");
+                dayElement.classList.add("day");
+
+                const dayLabel = document.createElement("div");
+                dayLabel.classList.add("day-label");
+                dayLabel.innerText = day;
+                dayElement.appendChild(dayLabel);
+
+                roomTimeline.appendChild(dayElement);
+                dayElements.push(dayElement);
+            }
+
+            if (room.bookingDtos && Array.isArray(room.bookingDtos)) {
+                room.bookingDtos.forEach((booking) => {
+                    if(booking.status === "ACCEPTED"){
+                        console.log(booking)
+                        const checkInDate = new Date(booking.checkInDate);
+                        const checkOutDate = new Date(booking.checkOutDate);
+                        const totalHours = (checkOutDate - checkInDate) / (1000 * 60 * 60);
+
+                        const startDay = checkInDate.getDate();
+                        const startHour = checkInDate.getHours();
+                        const left = (startHour * 112) / 24 + 10;
+                        const width = (totalHours / 24) * 112;
+
+                        const bookedElement = document.createElement("div");
+                        bookedElement.classList.add("booked");
+                        bookedElement.style.left = `${left}px`;
+                        bookedElement.style.width = `${width}px`;
+                        bookedElement.innerText = `${checkInDate.getHours()}-${checkOutDate.getHours()}h`;
+
+                        bookedElement.addEventListener("click", () => {
+                            const content = `
+                    Tên khách hàng: ${booking.customerDto.fullName}<br>
+                    Số điện thoại : ${booking.customerDto.phoneNumber}<br>
+                    Tổng: ${booking.totalPrice}<br>
+                    Đã trả: ${booking.amountHasPaid}<br>
+                    Phòng: ${room.roomName}<br>
+                    Check-in: ${checkInDate.toLocaleString()}<br>
+                    Check-out: ${checkOutDate.toLocaleString()}
+
+                `;
+                            showModal(content); // Hiển thị thông tin chi tiết trong modal
+                        });
+
+                        if (startDay >= 1 && startDay <= totalDays) {
+                            const dayElement = dayElements[startDay - 1];
+                            if (dayElement) {
+                                dayElement.appendChild(bookedElement);
+                            }
+                        }
+                    }
+                });
+            }
+
+            timelineContainer.appendChild(roomTimeline);
+        });
+    });
+
+
+    function showModal(content) {
+        const modal = document.getElementById("bookingModal");
+        const overlay = document.getElementById("modalOverlay");
+        const modalContent = document.getElementById("modalContent");
+
+        // Đặt nội dung cho modal
+        modalContent.innerHTML = content;
+        modal.style.display = "block"; // Hiển thị modal
+        overlay.style.display = "block"; // Hiển thị overlay
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("bookingModal");
+        const overlay = document.getElementById("modalOverlay");
+
+        // Ẩn modal và overlay
+        modal.style.display = "none";
+        overlay.style.display = "none";
+    }
+
+
+
+</script>
+
+</body>
+</html>

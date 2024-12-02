@@ -24,7 +24,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 //    List<Long> calculateTotalRevenue();
 
     @Query("SELECT b FROM Booking b WHERE b.checkInDate BETWEEN :startDate AND :endDate " +
-            "OR b.checkOutDate BETWEEN :startDate AND :endDate")
+            "AND b.checkOutDate BETWEEN :startDate AND :endDate")
     List<Booking> findBookingsByDateRange(@Param("startDate") String startDate,
                                           @Param("endDate") String endDate);
 

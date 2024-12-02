@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class HomeController {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @GetMapping("/")
-    public String showHome(Model model, Principal principal) {
+    public String showHome(Model model, Principal principal,  Locale locale) {
         CustomerUtils.getCustomerInfo(principal, customerService, model);
 
 

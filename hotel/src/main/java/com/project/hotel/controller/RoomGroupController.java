@@ -1,10 +1,9 @@
 package com.project.hotel.controller;
-import com.project.hotel.model.entity.Bed;
-import com.project.hotel.model.entity.RoomGroup;
-import com.project.hotel.model.entity.RoomImage;
-import com.project.hotel.model.entity.Service;
+import com.project.hotel.model.dto.BookingDto;
+import com.project.hotel.model.entity.*;
 import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
+import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,112 @@ public class RoomGroupController {
     private final RoomImageService roomImageService;
     private final BedService bedService;
     private final ServiceService serviceService;
+    private final CustomerService customerService;
+    private final ReviewService reviewService;
+
+    @GetMapping("/room-group")
+    public String roomGroupList(Model model, Principal principal) {
+        CustomerUtils.getCustomerInfo(principal, customerService, model);
+        List<RoomGroup> roomGroups = roomGroupService.findAll();
+        model.addAttribute("roomGroups", roomGroups);
+        for (RoomGroup roomGroup : roomGroups) {
+            System.out.println(roomGroup);
+        }
+        return "room-group-user";
+    }
+
+    @GetMapping("/room-group/{roomGroupId}")
+    public String roomGroupDetail(
+            @PathVariable("roomGroupId") Long roomGroupId,
+            Model model
+    ) {
+        RoomGroup roomGroup = roomGroupService.findById(roomGroupId);
+        if (roomGroup == null) {
+            return "redirect:/error?message=Room group not found";
+        }
+        List<Review> reviews = reviewService.getReviewsByRoomGroupId(roomGroupId);
+        model.addAttribute("roomGroup", roomGroup);
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("newReply", new Reply());
+        return "room-group-detail";
+    }
+
+    @PostMapping("/roomgroup/detail/{roomGroupId}/{reviewId}/reply")
+    public String addReply(@PathVariable("reviewId") Long reviewId,@PathVariable("roomGroupId") Long roomGroupId, @ModelAttribute Reply reply, Principal principal) {
+        String email = principal.getName();
+        Customer user = customerService.findByEmail2(email);
+        Review review = reviewService.findById(reviewId);
+        reply.setCreatedAt(LocalDateTime.now());
+        reply.setUser(user);
+
+        List<Reply> replies = review.getReplies();
+        if(replies == null){
+            replies = new ArrayList<>();
+        }
+        replies.add(reply);
+        reply.setReview(review);
+        reply.setUser(user);
+        reviewService.save(review);
+        return "redirect:/room-group/" + roomGroupId;
+    }
+
+
+
+//    @GetMapping("/room-group/{id}")
+//    public String roomGroupDetail(Model model, Principal principal) {
+//        CustomerUtils.getCustomerInfo(principal, customerService, model);
+//        List<RoomGroup> roomGroups = roomGroupService.findAll();
+//        model.addAttribute("roomGroups", roomGroups);
+//        for (RoomGroup roomGroup : roomGroups) {
+//            System.out.println(roomGroup);
+//        }
+////
+////        if(bookingDto.getId() == 0){
+////            System.out.println(1);
+////            bookingDto = new BookingDto();
+////            bookingDto.setCheckInDate(LocalDate.now().toString());
+////            bookingDto.setCheckOutDate(LocalDate.now().plusDays(1).toString());
+////            bookingDto.setCheckInTime("14:00");
+////            bookingDto.setCheckOutTime("11:00");
+////            bookingDto.setAdults(2);
+////            bookingDto.setChildren(0);
+////            List<RoomGroup> roomGroupAvailable = new ArrayList<>();
+////            for (RoomGroup roomGroup : roomGroups) {
+////                if(bookingDto.getChildren() + bookingDto.getAdults() <= roomGroup.getMaxOccupancy()){
+////                    List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
+////                    long availableRoomCount = roomGroup.getRooms().stream()
+////                            .filter(room -> availableRooms.contains(room))
+////                            .count();
+////                    long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
+////                    System.out.println(priceDateTime);
+////                    System.out.println("Room Group: " + roomGroup.getGroupName() +
+////                            " has " + availableRoomCount + " available rooms.");
+////                    roomGroup.setAvailableRoomCount(availableRoomCount);
+////                    roomGroup.setPriceDateTime(priceDateTime);
+////
+////                    if(availableRoomCount > 0){
+////                        roomGroupAvailable.add(roomGroup);
+////                    }
+////                }
+////            }
+////            model.addAttribute("bookingDto", bookingDto);
+////            model.addAttribute("roomGroups", roomGroupAvailable);
+////            model.addAttribute("adults", bookingDto.getAdults());
+////            model.addAttribute("children", bookingDto.getChildren());
+////            model.addAttribute("checkInDate", bookingDto.getCheckInDate());
+////            model.addAttribute("checkOutDate", bookingDto.getCheckOutDate());
+////            model.addAttribute("checkInTime", bookingDto.getCheckInTime());
+////            model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
+////        }
+////        model.addAttribute("adults", bookingDto.getAdults());
+////        model.addAttribute("children", bookingDto.getChildren());
+////        model.addAttribute("checkInDate", bookingDto.getCheckInDate());
+////        model.addAttribute("checkOutDate", bookingDto.getCheckOutDate());
+////        model.addAttribute("checkInTime", bookingDto.getCheckInTime());
+////        model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
+////        model.addAttribute("bookingDto", bookingDto);
+//        return "room-group-user";
+//    }
 
 
     @GetMapping("/room-group/list")

@@ -57,6 +57,8 @@ public class BookingDto2 {
     @JsonProperty("children")
     private Integer children;
 
+
+
     @Override
     public String toString() {
         return "BookingDto{" +

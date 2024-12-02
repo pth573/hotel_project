@@ -69,6 +69,7 @@ public class ApplicationConfig {
                                 .requestMatchers("/create-customer/**").permitAll()
                                 .requestMatchers("/book-room").permitAll()
                                 .requestMatchers("/chat").permitAll()
+                                .requestMatchers("/admin/calendar").permitAll()
                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**","/dist/**", "/scss/**") // Thêm các đường dẫn tài nguyên tĩnh
                                 .permitAll() // Cho phép truy cập không cần xác thực
                 )

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,38 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .room-feature {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .room-feature li {
+            display: flex;
+            align-items: center; /* Căn chỉnh các phần tử theo chiều dọc */
+            margin-bottom: 10px; /* Giữa các mục li */
+        }
+
+        .room-feature li span {
+            margin-right: 10px; /* Khoảng cách giữa các phần tử span */
+        }
+
+        .services-list span {
+            /*display: inline; !* Đảm bảo các dịch vụ miễn phí hiển thị theo dòng ngang *!*/
+        }
+
+        .service-item {
+            /*display: block; !* Các dịch vụ sẽ hiển thị theo dòng ngang *!*/
+            /*margin-right: 5px; !* Khoảng cách giữa các dịch vụ *!*/
+        }
+        .service-item {
+            /*display: inline;*/
+            display: inline; /* Phần tử inline */
+            word-wrap: break-word; /* Cho phép ngắt dòng trong trường hợp cần thiết */
+        }
+
+    </style>
 
 </head>
 
@@ -123,7 +155,8 @@
         <div class="container-fluid">
             <div class="hotel-search-form">
 
-                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">
+<!--                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">-->
+                <form id="booking-form"  th:action="@{/book-room}"  th:object="${bookingDto}" method="post" class="d-flex flex-column align-items-center">
                     <div class="row justify-content-between align-items-end w-100">
                         <div class="col-6 col-md-2 col-lg-3">
                             <label for="checkIn">Nhận phòng</label>
@@ -169,212 +202,6 @@
                         <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>
                     </div>
                 </form>
-
-
-                <!--                OK-->
-<!--                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">-->
-<!--                    <div class="row justify-content-between align-items-end w-100">-->
-<!--                        <div class="col-6 col-md-2 col-lg-3">-->
-<!--                            <label for="checkIn">Nhận phòng</label>-->
-<!--                            <input type="date" class="form-control" id="checkIn" name="checkInDate" th:value="${bookingDto.checkInDate}"/>-->
-<!--                        </div>-->
-<!--                        <div class="col-6 col-md-2 col-lg-3">-->
-<!--                            <label for="checkOut">Trả phòng</label>-->
-<!--                            <input type="date" class="form-control" id="checkOut" name="checkOutDate" th:value="${bookingDto.checkOutDate}"/>-->
-<!--                        </div>-->
-<!--                        <div class="col-6 col-md-1 col-lg-2">-->
-<!--                            <label for="checkInTime">Giờ nhận phòng</label>-->
-<!--                            <input type="time" class="form-control" id="checkInTime" name="checkInTime" th:value="${bookingDto.checkInTime}"/>-->
-<!--                        </div>-->
-<!--                        <div class="col-6 col-md-1 col-lg-2">-->
-<!--                            <label for="checkOutTime">Giờ trả phòng</label>-->
-<!--                            <input type="time" class="form-control" id="checkOutTime" name="checkOutTime" th:value="${bookingDto.checkOutTime}"/>-->
-<!--                        </div>-->
-<!--                        <div class="col-4 col-md-1">-->
-<!--                            <label for="adults">Người lớn</label>-->
-<!--                            <select name="adults" id="adults" class="form-control" th:value="${bookingDto.adults}">-->
-<!--                                <option value="1">01</option>-->
-<!--                                <option value="2">02</option>-->
-<!--                                <option value="3">03</option>-->
-<!--                                <option value="4">04</option>-->
-<!--                                <option value="5">05</option>-->
-<!--                                <option value="6">06</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                        <div class="col-4 col-md-2 col-lg-1">-->
-<!--                            <label for="children">Trẻ em</label>-->
-<!--                            <select name="children" id="children" class="form-control" th:value="${bookingDto.children}">-->
-<!--                                <option value="1">01</option>-->
-<!--                                <option value="2">02</option>-->
-<!--                                <option value="3">03</option>-->
-<!--                                <option value="4">04</option>-->
-<!--                                <option value="5">05</option>-->
-<!--                                <option value="6">06</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-12 col-md-3 d-flex justify-content-center mt-3">-->
-<!--                        <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-
-
-
-                <!--                <form th:action="@{/room-booking}" th:object="${bookingDto}" method="get" class="d-flex flex-column align-items-center">-->
-                <!--                    <div class="row justify-content-between align-items-end w-100">-->
-                <!--                        <div class="col-6 col-md-2 col-lg-3">-->
-                <!--                            <label for="checkIn">Nhận phòng</label>-->
-                <!--                            <input type="date" class="form-control" id="checkIn" name="checkin-date" th:value="${bookingDto.checkInDate}">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-2 col-lg-3">-->
-                <!--                            <label for="checkOut">Trả phòng</label>-->
-                <!--                            <input type="date" class="form-control" id="checkOut" name="checkout-date" th:value="${bookingDto.checkOutDate}">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-1 col-lg-2">-->
-                <!--                            <label for="checkInTime">Giờ nhận phòng</label>-->
-                <!--                            <input type="time" class="form-control" id="checkInTime" name="checkin-time" th:value="${bookingDto.checkInTime}">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-1 col-lg-2">-->
-                <!--                            <label for="checkOutTime">Giờ trả phòng</label>-->
-                <!--                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time" th:value="${bookingDto.checkOutTime}">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-4 col-md-1">-->
-                <!--                            <label for="adults">Người lớn</label>-->
-                <!--                            <select name="adults" id="adults" class="form-control" th:value="${bookingDto.adults}">-->
-                <!--                                <option value="1">01</option>-->
-                <!--                                <option value="2">02</option>-->
-                <!--                                <option value="3">03</option>-->
-                <!--                                <option value="4">04</option>-->
-                <!--                                <option value="5">05</option>-->
-                <!--                                <option value="6">06</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                        <div class="col-4 col-md-2 col-lg-1">-->
-                <!--                            <label for="children">Trẻ em</label>-->
-                <!--                            <select name="children" id="children" class="form-control" th:value="${bookingDto.children}">-->
-                <!--                                <option value="1">01</option>-->
-                <!--                                <option value="2">02</option>-->
-                <!--                                <option value="3">03</option>-->
-                <!--                                <option value="4">04</option>-->
-                <!--                                <option value="5">05</option>-->
-                <!--                                <option value="6">06</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-12 col-md-3 d-flex justify-content-center mt-3">-->
-                <!--                        <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>-->
-                <!--                    </div>-->
-                <!--                </form>-->
-
-
-                <!--                <form th:action="@{/room-booking}" method="get" class="d-flex flex-column align-items-center">-->
-                <!--                    <div class="row justify-content-between align-items-end w-100">-->
-                <!--                        <div class="col-6 col-md-2 col-lg-3">-->
-                <!--                            <label for="checkIn">Nhận phòng</label>-->
-                <!--                            <input type="date" class="form-control" id="checkIn" name="checkin-date">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-2 col-lg-3">-->
-                <!--                            <label for="checkOut">Trả phòng</label>-->
-                <!--                            <input type="date" class="form-control" id="checkOut" name="checkout-date">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-1 col-lg-2">-->
-                <!--                            <label for="checkInTime">Giờ nhận phòng</label>-->
-                <!--                            <input type="time" class="form-control" id="checkInTime" name="checkin-time">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-1 col-lg-2">-->
-                <!--                            <label for="checkOutTime">Giờ trả phòng</label>-->
-                <!--                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-4 col-md-1">-->
-                <!--                            <label for="adults">Người lớn</label>-->
-                <!--                            <select name="adults" id="adults" class="form-control">-->
-                <!--                                <option value="01">01</option>-->
-                <!--                                <option value="02">02</option>-->
-                <!--                                <option value="03">03</option>-->
-                <!--                                <option value="04">04</option>-->
-                <!--                                <option value="05">05</option>-->
-                <!--                                <option value="06">06</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                        <div class="col-4 col-md-2 col-lg-1">-->
-                <!--                            <label for="children">Trẻ em</label>-->
-                <!--                            <select name="children" id="children" class="form-control">-->
-                <!--                                <option value="01">01</option>-->
-                <!--                                <option value="02">02</option>-->
-                <!--                                <option value="03">03</option>-->
-                <!--                                <option value="04">04</option>-->
-                <!--                                <option value="05">05</option>-->
-                <!--                                <option value="06">06</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-12 col-md-3 d-flex justify-content-center mt-3">-->
-                <!--                        <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>-->
-                <!--                    </div>-->
-                <!--                </form>-->
-
-
-                <!--                <form th:action="@{/room-booking}" method="get">-->
-                <!--                    <div class="row justify-content-between align-items-end">-->
-                <!--                        <div class="col-6 col-md-2 col-lg-3">-->
-                <!--                            <label for="checkIn">Nhận phòng</label>-->
-                <!--                            <input type="date" class="form-control" id="checkIn" name="checkin-date">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-2 col-lg-3">-->
-                <!--                            <label for="checkOut">Trả phòng</label>-->
-                <!--                            <input type="date" class="form-control" id="checkOut" name="checkout-date">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-1 col-lg-2">-->
-                <!--                            <label for="checkInTime">Giờ nhận phòng</label>-->
-                <!--                            <input type="time" class="form-control" id="checkInTime" name="checkin-time">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6 col-md-1 col-lg-2">-->
-                <!--                            <label for="checkOutTime">Giờ trả phòng</label>-->
-                <!--                            <input type="time" class="form-control" id="checkOutTime" name="checkout-time">-->
-                <!--                        </div>-->
-                <!--&lt;!&ndash;                        <div class="col-4 col-md-1">&ndash;&gt;-->
-                <!--&lt;!&ndash;                            <label for="room">Số phòng</label>&ndash;&gt;-->
-                <!--&lt;!&ndash;                            <select name="room" id="room" class="form-control">&ndash;&gt;-->
-                <!--&lt;!&ndash;                                <option value="01">01</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                <option value="02">02</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                <option value="03">03</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                <option value="04">04</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                <option value="05">05</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                <option value="06">06</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;                            </select>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-                <!--                        <div class="col-4 col-md-1">-->
-                <!--                            <label for="adults">Người lớn</label>-->
-                <!--                            <select name="adults" id="adults" class="form-control">-->
-                <!--                                <option value="01">01</option>-->
-                <!--                                <option value="02">02</option>-->
-                <!--                                <option value="03">03</option>-->
-                <!--                                <option value="04">04</option>-->
-                <!--                                <option value="05">05</option>-->
-                <!--                                <option value="06">06</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                        <div class="col-4 col-md-2 col-lg-1">-->
-                <!--                            <label for="children">Trẻ em</label>-->
-                <!--                            <select name="children" id="children" class="form-control">-->
-                <!--                                <option value="01">01</option>-->
-                <!--                                <option value="02">02</option>-->
-                <!--                                <option value="03">03</option>-->
-                <!--                                <option value="04">04</option>-->
-                <!--                                <option value="05">05</option>-->
-                <!--                                <option value="06">06</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-
-                <!--                        <div class="col-12 col-md-3 d-flex justify-content-center">-->
-                <!--                            <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>-->
-                <!--                        </div>-->
-
-                <!--&lt;!&ndash;                        <div class="col-12 col-md-3">&ndash;&gt;-->
-                <!--&lt;!&ndash;                            <button type="submit" class="form-control btn roberto-btn w-100">Tìm kiếm</button>&ndash;&gt;-->
-                <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-                <!--                    </div>-->
-                <!--                </form>-->
             </div>
         </div>
     </div>
@@ -484,28 +311,51 @@
             <!-- Content -->
             <div class="room-content">
                 <h2 th:text="${roomGroup.groupName}" data-animation="fadeInUp" data-delay="100ms"></h2>
-                <h3 th:text="${roomGroup.pricePerNight} + ' vnđ'" data-animation="fadeInUp" data-delay="100ms">
-                    <span>/ Ngày</span>
+                <h3 class="price" th:text="${#strings.replace(#numbers.formatCurrency(roomGroup.pricePerNight), '.00', '')}"  data-animation="fadeInUp" data-delay="100ms">
+                    <span>/Ngày</span>
                 </h3>
-                <ul class="room-feature" data-animation="fadeInUp" data-delay="100ms">
-                    <li><span><i class="fa fa-check"></i> Diện tích</span> <span
-                            th:text="' : ' + ${roomGroup.area} + ' m2'"></span></li>
-                    <li><span><i class="fa fa-check"></i> Số người tối đa</span>
-                        <span th:text="' : ' + ${roomGroup.maxOccupancy}"></span>
-                    </li>
-                    <li><span><i class="fa fa-check"></i> Giường</span>
-                        <span th:text="${roomGroup.bedDescription}"></span>
-                    </li>
 
-                    <li style="text-align: left;">
-                        <span style="display: block; text-align: left;">
-                            <i class="fa fa-check"></i> Dịch vụ miễn phí
-                        </span>
-                        <span th:each="item, iterStat : ${roomGroup.services}"
-                              th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}"
-                              style="display: inline; text-align: left;"></span>
+<!--                .single-room-slide .room-content .room-feature li span-->
+
+                <ul class="room-feature" data-animation="fadeInUp" data-delay="100ms">
+                    <li><span style="display: inline;" ><i class="fa fa-check"></i> Diện tích: </span>
+                        <span style="display: inline;" th:text="${roomGroup.area} + ' m²'"></span>
+                    </li>
+                    <li><span style="display: inline;" ><i class="fa fa-check"></i> Số người tối đa: </span>
+                        <span style="display: inline;" th:text="${roomGroup.maxOccupancy}"></span>
+                    </li>
+                    <li><span style="display: inline;" ><i class="fa fa-check"></i> Giường: </span>
+                        <span style="display: inline;" th:text="${roomGroup.bedDescription}"></span>
+                    </li>
+                    <li>
+                        <span style="display: inline;" ><i class="fa fa-check"></i> Dịch vụ miễn phí:</span>
+                        <span style="display: inline;" th:each="item, iterStat : ${roomGroup.services}" th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}"></span>
+
+<!--                        <span th:each="item, iterStat : ${roomGroup.services} "-->
+<!--                              th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}"-->
+<!--                              style="display: block;" class="service-item"></span>-->
                     </li>
                 </ul>
+
+                <!--                <ul class="room-feature" data-animation="fadeInUp" data-delay="100ms">-->
+<!--                    <li><span><i class="fa fa-check"></i> Diện tích</span> <span-->
+<!--                            th:text="' : ' + ${roomGroup.area} + ' m2'"></span></li>-->
+<!--                    <li><span><i class="fa fa-check"></i> Số người tối đa</span>-->
+<!--                        <span th:text="' : ' + ${roomGroup.maxOccupancy}"></span>-->
+<!--                    </li>-->
+<!--                    <li><span><i class="fa fa-check"></i> Giường</span>-->
+<!--                        <span th:text="${roomGroup.bedDescription}"></span>-->
+<!--                    </li>-->
+
+<!--                    <li style="text-align: left;">-->
+<!--                        <span style="display: block; text-align: left;">-->
+<!--                            <i class="fa fa-check"></i> Dịch vụ miễn phí-->
+<!--                        </span>-->
+<!--                        <span th:each="item, iterStat : ${roomGroup.services}"-->
+<!--                              th:text="${item.serviceName + (iterStat.index < roomGroup.services.size() - 1 ? ', ' : '')}"-->
+<!--                              style="display: inline; text-align: left;"></span>-->
+<!--                    </li>-->
+<!--                </ul>-->
                 <a href="#" class="btn roberto-btn mt-30" data-animation="fadeInUp" data-delay="100ms">Chi tiết</a>
             </div>
         </div>
@@ -896,6 +746,86 @@
 <!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function() {-->
+<!--        // Lặp qua từng nhóm phòng để cập nhật giá-->
+<!--        const roomGroups = /*[[${roomGroups}]]*/ []; // Thay bằng cách lấy dữ liệu roomGroups từ server-->
+
+<!--        roomGroups.forEach(function(roomGroup) {-->
+<!--            // Lấy giá trị giá phòng-->
+<!--            var price = roomGroup.pricePerNight;-->
+<!--            console.log(price);-->
+
+<!--            // Định dạng giá theo kiểu có dấu phân cách hàng nghìn-->
+<!--            var formattedPrice = price.toLocaleString();-->
+
+<!--            console.log(formattedPrice);-->
+<!--            console.log(roomGroup.groupName);-->
+
+<!--            // Cập nhật giá đã định dạng vào phần tử h3 tương ứng-->
+<!--            document.getElementById("price-" + roomGroup.groupName).innerHTML = formattedPrice + ' VND';-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<script>
+    // Gắn sự kiện submit vào form
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('booking-form');
+        console.log("Hi");
+        form.addEventListener('submit', function (e) {
+            // Lấy dữ liệu từ các input
+            const checkInDate = new Date(
+                document.getElementById('checkIn').value + 'T' + document.getElementById('checkInTime').value
+            );
+            const checkOutDate = new Date(
+                document.getElementById('checkOut').value + 'T' + document.getElementById('checkOutTime').value
+            );
+            const now = new Date();
+            const checkInDate1 = new Date(document.getElementById('checkIn').value);
+            // const checkOutDate1 = new Date(document.getElementById('checkOut').value);
+            const now1 = new Date();
+
+            checkInDate1.setHours(0, 0, 0, 0);
+            now1.setHours(0, 0, 0, 0);
+
+            if (checkInDate1 < now1) {
+                alert('Ngày nhận phòng không thể ở quá khứ!');
+                e.preventDefault(); // Ngăn không gửi form
+                return;
+            }
+            // Kiểm tra ngày giờ trả phòng trong quá khứ
+            if (checkOutDate < now) {
+                alert('Ngày giờ trả phòng không thể ở quá khứ!');
+                e.preventDefault(); // Ngăn không gửi form
+                return;
+            }
+            // Kiểm tra ngày giờ trả phòng phải lớn hơn ngày giờ nhận phòng
+            if (checkOutDate <= checkInDate) {
+                alert('Ngày giờ trả phòng phải lớn hơn ngày giờ nhận phòng!');
+                e.preventDefault(); // Ngăn không gửi form
+                return;
+            }
+        });
+    });
+</script>
+
+<script>
+    // Lấy tất cả các phần tử có class "price"
+    var priceElements = document.querySelectorAll(".price");
+
+    // Lặp qua tất cả các phần tử có class "price"
+    priceElements.forEach(function(priceElement) {
+        // Lấy nội dung giá trị trong phần tử <p>
+        var priceText = priceElement.innerText;
+
+        // Xóa ký hiệu "$" và thêm "VND" vào cuối
+        var formattedPrice = priceText.replace('$', '').trim() + ' VND';
+
+        // Cập nhật lại giá trị cho phần tử <p>
+        priceElement.innerText = formattedPrice;
+    });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Ngày hiện tại
@@ -917,6 +847,8 @@
         document.getElementById('checkOutTime').value = "11:00";  // Giờ trả phòng là 11:00
         document.getElementById('adults').value = "2";  // Số người lớn là 2
         document.getElementById('children').value = "0";  // Số trẻ em là 0
+
+
     });
 </script>
 <script th:replace="~{fragments::script}"></script>

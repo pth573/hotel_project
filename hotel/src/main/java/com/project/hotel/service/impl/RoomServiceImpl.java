@@ -6,6 +6,8 @@ import com.project.hotel.model.entity.RoomGroup;
 import com.project.hotel.repository.RoomRepository;
 import com.project.hotel.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,6 +28,16 @@ public class RoomServiceImpl implements RoomService {
             room.setRoomGroup(updatedRoom.getRoomGroup());
             roomRepository.save(room);
         }
+    }
+
+    public boolean isRoomAvailable(Long roomId, BookingDto bookingDto) {
+        String checkInDateTime = bookingDto.getCheckInDate() + " " + bookingDto.getCheckInTime();
+        String checkOutDateTime = bookingDto.getCheckOutDate() + " " + bookingDto.getCheckOutTime();
+        Integer result = roomRepository.checkRoomAvailabilityById(roomId, checkInDateTime, checkOutDateTime);
+        System.out.println("Check");
+        System.out.println(roomId + " " + result);
+        return result == 1;
+//        return result != null && result == 1;  // Trả về true nếu phòng trống, false nếu phòng đã được đặt
     }
 
     @Override
@@ -50,6 +62,11 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<Room> findAll() {
         return roomRepository.findAll();
+    }
+
+    @Override
+    public Page<Room> findAll(Pageable pageable) {
+        return roomRepository.findAll(pageable);
     }
 
     @Override

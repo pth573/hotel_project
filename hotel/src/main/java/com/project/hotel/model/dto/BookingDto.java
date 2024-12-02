@@ -1,6 +1,9 @@
 package com.project.hotel.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.hotel.model.enumType.BookingStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -24,6 +27,11 @@ public class BookingDto {
 //    private Long amountHasPaid;
     private Date formattedCheckInDate;
     private Date formattedCheckOutDate;
+
+    private CustomerDto2 customerDto;
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
+
 //    private Long roomId;
 //    private String email;
 

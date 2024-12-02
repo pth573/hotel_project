@@ -42,6 +42,18 @@
             color: #888; /* Màu xám nhạt cho ngày */
         }
 
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nice-select.open .list {
+            max-height: 200px; /* Giới hạn chiều cao của dropdown */
+            overflow-y: auto;  /* Thêm thanh cuộn dọc khi danh sách quá dài */
+        }
+
+
     </style>
 
 </head>
@@ -180,24 +192,28 @@
 
 
                 <div class="room-details mb-50">
-                    <h4>Thông tin chi tiết phòng</h4>
+                    <h4>Thông tin chi tiết phòng (Các loại giá đã bao gồm VAT)</h4>
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
                             <th>Giá mỗi đêm</th>
-                            <td th:text="${roomGroup.pricePerNight} + ' VNĐ'"></td>
+<!--                            class="price" th:text="${#strings.replace(#numbers.formatCurrency(roomGroup.pricePerNight), '.00', '')}"-->
+                            <td class="price" th:text="${#strings.replace(#numbers.formatCurrency(roomGroup.pricePerNight), '.00', '')}"></td>
                         </tr>
                         <tr>
                             <th>Giá combo 2 giờ</th>
-                            <td th:text="${roomGroup.comboPrice2H} + ' VNĐ'"></td>
+                            <td class="price" th:text="${#strings.replace(#numbers.formatCurrency(roomGroup.comboPrice2H), '.00', '')}"></td>
+<!--                            <td th:text="${roomGroup.comboPrice2H} + ' VNĐ'"></td>-->
                         </tr>
                         <tr>
                             <th>Phụ thu giờ tiếp</th>
-                            <td th:text="${roomGroup.extraHourPrice} + ' VNĐ'"></td>
+                            <td class="price" th:text="${#strings.replace(#numbers.formatCurrency(roomGroup.extraHourPrice), '.00', '')}"></td>
+<!--                            <td th:text="${roomGroup.extraHourPrice} + ' VNĐ'"></td>-->
                         </tr>
                         <tr>
                             <th>Phụ thu thêm người</th>
-                            <td th:text="${roomGroup.extraAdult} + ' VNĐ'"></td>
+                            <td class="price" th:text="${#strings.replace(#numbers.formatCurrency(roomGroup.extraAdult), '.00', '')}"></td>
+<!--                            <td th:text="${roomGroup.extraAdult} + ' VNĐ'"></td>-->
                         </tr>
                         <tr>
                             <th>Số khách tiêu chuẩn</th>
@@ -369,7 +385,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <!-- Dropdown to choose a room -->
-                                    <select name="room" id="room" class="form-control">
+                                    <select name="room" id="room" class="form-control" style="max-height: 200px; overflow-y: auto;">
                                         <th:block th:each="room, iterStat : ${availableRooms}">
                                             <!-- Set the roomId as value and roomName as text -->
                                             <option th:value="${room.roomId}"
@@ -382,10 +398,14 @@
                             </div>
                         </div>
 
+
                         <div class="form-group mb-30">
 <!--                            <label for="room">Chọn phòng</label>-->
-                            <label>Tổng tiền: </label>
-                            <h3 style="margin-left: 130px" class="room-price" th:text="${priceDateTime}"><span> VNĐ</span></h3>
+                            <label>Tổng tiền (Giá đã bao gồm VAT): </label>
+                            <div class="center-content">
+                                <h3 class="room-price price" th:text="${#strings.replace(#numbers.formatCurrency(priceDateTime), '.00', '')}"><span> VND</span></h3>
+                            </div>
+<!--                            <h3  style="margin-left: 130px" class="room-price price" th:text="${#strings.replace(#numbers.formatCurrency(priceDateTime), '.00', '')}"><span> VND</span></h3>-->
                         </div>
 
                         <div class="form-group">
@@ -546,6 +566,22 @@
 
 </body>
 
+<script>
+    // Lấy tất cả các phần tử có class "price"
+    var priceElements = document.querySelectorAll(".price");
+
+    // Lặp qua tất cả các phần tử có class "price"
+    priceElements.forEach(function(priceElement) {
+        // Lấy nội dung giá trị trong phần tử <p>
+        var priceText = priceElement.innerText;
+
+        // Xóa ký hiệu "$" và thêm "VND" vào cuối
+        var formattedPrice = priceText.replace('$', '').trim() + ' VND';
+
+        // Cập nhật lại giá trị cho phần tử <p>
+        priceElement.innerText = formattedPrice;
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

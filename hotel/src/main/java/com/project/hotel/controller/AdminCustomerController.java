@@ -8,6 +8,9 @@ import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
 import com.project.hotel.utils.CustomerUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,31 +38,69 @@ public class AdminCustomerController {
     private final ReviewService reviewService;
 
 
+//    @GetMapping("/admin/user/list")
+//    public String adminUserList(Model model, Principal principal, Locale locale) {
+//        CustomerUtils.getCustomerInfo(principal, customerService, model);
+//        List<Customer> users = customerService.findAll();
+//        List<CustomerDto> customerDtos = users.stream()
+//                .map(customer -> {
+//                    List<BookingDto3> bookingDtos = customer.getBookings().stream()
+//                            .map(booking -> new BookingDto3(
+//                                    booking.getBookingId(),
+//                                    booking.getTotalPrice(),
+//                                    booking.getAmountHasPaid()))
+//                            .collect(Collectors.toList());
+//                    Long totalAmountPaid = customer.getBookings().stream()
+//                            .mapToLong(booking -> booking.getAmountHasPaid() != null ? booking.getAmountHasPaid() : 0L)
+//                            .sum();
+//                    Long totalAmountBooking = customer.getBookings().stream()
+//                            .mapToLong(booking -> booking.getTotalPrice() != null ? booking.getTotalPrice() : 0L)
+//                            .sum();
+//                    return CustomerDto.builder()
+//                            .customerId(customer.getCustomerId())
+//                            .fullName(customer.getFullName())
+//                            .email(customer.getEmail())
+//                            .phoneNumber(customer.getPhoneNumber())
+//                            .address(customer.getAddress())
+//                            .dateOfBirth(customer.getDateOfBirth())
+//                            .password(customer.getPassword())
+//                            .bookings(bookingDtos)
+//                            .totalAmountPaid(totalAmountPaid)
+//                            .totalAmountBooking(totalAmountBooking)
+//                            .build();
+//                })
+//                .collect(Collectors.toList());
+//        model.addAttribute("users", customerDtos);
+//        return "admin-user-list";
+//    }
+
+
     @GetMapping("/admin/user/list")
-    public String adminUserList(Model model, Principal principal, Locale locale) {
+    public String adminUserList(@RequestParam(value = "page", defaultValue = "0") int page,
+                                @RequestParam(value = "size", defaultValue = "10") int size,
+                                Model model, Principal principal, Locale locale) {
+        // Lấy thông tin khách hàng
         CustomerUtils.getCustomerInfo(principal, customerService, model);
-        List<Customer> users = customerService.findAll();
-        List<CustomerDto> customerDtos = users.stream()
+
+        // Phân trang danh sách người dùng
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Customer> userPage = customerService.findAll(pageable);
+
+        // Chuyển đổi danh sách khách hàng sang DTO
+        List<CustomerDto> customerDtos = userPage.getContent().stream()
                 .map(customer -> {
-                    // Chuyển đổi Booking sang BookingDto3
                     List<BookingDto3> bookingDtos = customer.getBookings().stream()
                             .map(booking -> new BookingDto3(
                                     booking.getBookingId(),
                                     booking.getTotalPrice(),
                                     booking.getAmountHasPaid()))
                             .collect(Collectors.toList());
-
-                    // Tính tổng số tiền đã trả từ tất cả bookings, xử lý null cho AmountHasPaid
                     Long totalAmountPaid = customer.getBookings().stream()
                             .mapToLong(booking -> booking.getAmountHasPaid() != null ? booking.getAmountHasPaid() : 0L)
                             .sum();
-
-                    // Tính tổng số tiền đặt chỗ, xử lý null cho TotalPrice
                     Long totalAmountBooking = customer.getBookings().stream()
                             .mapToLong(booking -> booking.getTotalPrice() != null ? booking.getTotalPrice() : 0L)
                             .sum();
-
-                    // Chuyển đổi Customer thành CustomerDto
                     return CustomerDto.builder()
                             .customerId(customer.getCustomerId())
                             .fullName(customer.getFullName())
@@ -67,7 +108,7 @@ public class AdminCustomerController {
                             .phoneNumber(customer.getPhoneNumber())
                             .address(customer.getAddress())
                             .dateOfBirth(customer.getDateOfBirth())
-                            .password(customer.getPassword())  // Nếu cần thiết
+                            .password(customer.getPassword())
                             .bookings(bookingDtos)
                             .totalAmountPaid(totalAmountPaid)
                             .totalAmountBooking(totalAmountBooking)
@@ -75,11 +116,12 @@ public class AdminCustomerController {
                 })
                 .collect(Collectors.toList());
 
-        // Thêm danh sách CustomerDto vào model
+        // Thêm thông tin vào model
         model.addAttribute("users", customerDtos);
-
+        model.addAttribute("userPage", userPage);
         return "admin-user-list";
     }
+
 
 
     @PostMapping("/admin/user/edit")

@@ -92,7 +92,6 @@ public class BookingController {
         model.addAttribute("checkOutTime", bookingDto.getCheckOutTime());
         model.addAttribute("bookingDto", bookingDto);
         return "room-booking";
-
     }
 
     private boolean validateBookingInput(String checkInDate, String checkOutDate, String checkInTime, String checkOutTime, Integer adults, Integer children) {
@@ -105,6 +104,8 @@ public class BookingController {
             Model model,
             RedirectAttributes redirectAttributes
     ) {
+        System.out.println("OKKK");
+        System.out.println(bookingDto);
         List<Room> roomListAvailable = roomService.findRoomAvailable(bookingDto);
         System.out.println("List sz:" + roomListAvailable.size());
         for(Room room : roomListAvailable){
@@ -168,23 +169,24 @@ public class BookingController {
 
         List<RoomGroup> roomGroupAvailable = new ArrayList<>();
         List<Room> availableRooms = roomService.findRoomAvailable(bookingDto);
-
+        List<Room> availableRoomsByRoomGroup  = new ArrayList<>();
+        for (Room room : availableRooms) {
+            if(room.getRoomGroup().getGroupName().equals(roomGroup.getGroupName())){
+                availableRoomsByRoomGroup.add(room);
+            }
+        }
         long availableRoomCount = roomGroup.getRooms().stream()
                 .filter(availableRooms::contains)
                 .count();
-
         long priceDateTime = roomGroupService.calculatePrice(bookingDto, roomGroup);
-
         roomGroup.setAvailableRoomCount(availableRoomCount);
         roomGroup.setPriceDateTime(priceDateTime);
-
         if (availableRoomCount > 0) {
             roomGroupAvailable.add(roomGroup);
         }
-
         List<Review> reviews = reviewService.getReviewsByRoomGroupId(roomGroupId);
         model.addAttribute("bookingDto", bookingDto);
-        model.addAttribute("availableRooms", availableRooms);
+        model.addAttribute("availableRooms", availableRoomsByRoomGroup);
         model.addAttribute("roomGroup", roomGroup);
         model.addAttribute("priceDateTime", priceDateTime);
         model.addAttribute("reviews", reviews);

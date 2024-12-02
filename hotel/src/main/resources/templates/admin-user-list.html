@@ -19,63 +19,180 @@
                 </div>
             </div>
 
-            <!-- Customer Table -->
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Họ và Tên</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th>Địa chỉ</th>
-                    <th>Ngày sinh</th>
-                    <th>Tổng số booking</th>
-                    <th>Tổng tiền booking</th>
-                    <th>Tổng tiền đã thanh toán</th>
-                    <th>Trạng thái</th>
-                    <th>Khác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="customer : ${users}">
-                    <td th:text="${customer.customerId}"></td>
-                    <td th:text="${customer.fullName}"></td>
-                    <td th:text="${customer.email}"></td>
-                    <td th:text="${customer.phoneNumber}"></td>
-                    <td th:text="${customer.address}"></td>
-                    <td th:text="${customer.dateOfBirth}"></td>
-                    <td th:text="${customer.bookings.size()}"></td>
-                    <td th:text="${customer.totalAmountBooking}"></td>
-                    <td th:text="${customer.totalAmountPaid}"></td>
-                    <td>
-                        <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid == 0}">
-                            Đủ (0)
-                        </span>
-                                            <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid > 0}">
-                            Thiếu (<span  th:text="${customer.totalAmountBooking - customer.totalAmountPaid}"></span>)
-                        </span>
-                                            <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid < 0}">
-                            Thừa (<span  th:text="${customer.totalAmountPaid - customer.totalAmountBooking}"></span>)
-                        </span>
-                    </td>
+<!--            &lt;!&ndash; Customer Table &ndash;&gt;-->
+<!--            <table class="table table-striped">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>ID</th>-->
+<!--                    <th>Họ và Tên</th>-->
+<!--                    <th>Email</th>-->
+<!--                    <th>Số điện thoại</th>-->
+<!--                    <th>Địa chỉ</th>-->
+<!--                    <th>Ngày sinh</th>-->
+<!--                    <th>Tổng số booking</th>-->
+<!--                    <th>Tổng tiền booking</th>-->
+<!--                    <th>Tổng tiền đã thanh toán</th>-->
+<!--                    <th>Trạng thái</th>-->
+<!--                    <th>Khác</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="customer : ${users}">-->
+<!--                    <td th:text="${customer.customerId}"></td>-->
+<!--                    <td th:text="${customer.fullName}"></td>-->
+<!--                    <td th:text="${customer.email}"></td>-->
+<!--                    <td th:text="${customer.phoneNumber}"></td>-->
+<!--                    <td th:text="${customer.address}"></td>-->
+<!--                    <td th:text="${customer.dateOfBirth}"></td>-->
+<!--                    <td th:text="${customer.bookings.size()}"></td>-->
+<!--                    <td th:text="${customer.totalAmountBooking}"></td>-->
+<!--                    <td th:text="${customer.totalAmountPaid}"></td>-->
+<!--                    <td>-->
+<!--                        <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid == 0}">-->
+<!--                            Đủ (0)-->
+<!--                        </span>-->
+<!--                                            <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid > 0}">-->
+<!--                            Thiếu (<span  th:text="${customer.totalAmountBooking - customer.totalAmountPaid}"></span>)-->
+<!--                        </span>-->
+<!--                                            <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid < 0}">-->
+<!--                            Thừa (<span  th:text="${customer.totalAmountPaid - customer.totalAmountBooking}"></span>)-->
+<!--                        </span>-->
+<!--                    </td>-->
 
-<!--                    <td th:text="${#numbers.formatDecimal(customer.bookings.stream().mapToLong(b -> b.amountHasPaid).sum(), 1, 'POINT')}"></td>-->
-                    <td>
-                        <button class="btn btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editCustomerModal"
-                                th:attr="data-customer-id=${customer.customerId}">
-                            Sửa
-                        </button>
+<!--&lt;!&ndash;                    <td th:text="${#numbers.formatDecimal(customer.bookings.stream().mapToLong(b -> b.amountHasPaid).sum(), 1, 'POINT')}"></td>&ndash;&gt;-->
+<!--                    <td>-->
+<!--                        <button class="btn btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editCustomerModal"-->
+<!--                                th:attr="data-customer-id=${customer.customerId}">-->
+<!--                            Sửa-->
+<!--                        </button>-->
 
-                        <form th:action="@{/admin/user/delete/{customerId}(customerId=${customer.customerId})}" method="post" style="display: inline;" id="deleteForm">
-                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete()">
-                                Xóa
+<!--                        <form th:action="@{/admin/user/delete/{customerId}(customerId=${customer.customerId})}" method="post" style="display: inline;" id="deleteForm">-->
+<!--                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete()">-->
+<!--                                Xóa-->
+<!--                            </button>-->
+<!--                        </form>-->
+
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+
+
+
+            <div class="container mt-4">
+<!--                <h2>Danh sách người dùng</h2>-->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ và Tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày sinh</th>
+                        <th>Tổng số booking</th>
+                        <th>Tổng tiền booking</th>
+                        <th>Tổng tiền đã thanh toán</th>
+                        <th>Trạng thái</th>
+                        <th>Khác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="customer : ${users}">
+                        <td th:text="${customer.customerId}"></td>
+                        <td th:text="${customer.fullName}"></td>
+                        <td th:text="${customer.email}"></td>
+                        <td th:text="${customer.phoneNumber}"></td>
+                        <td th:text="${customer.address}"></td>
+                        <td th:text="${customer.dateOfBirth}"></td>
+                        <td th:text="${customer.bookings.size()}"></td>
+                        <td th:text="${customer.totalAmountBooking}"></td>
+                        <td th:text="${customer.totalAmountPaid}"></td>
+                        <td>
+                <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid == 0}">
+                    Đủ (0)
+                </span>
+                            <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid > 0}">
+                    Thiếu (<span th:text="${customer.totalAmountBooking - customer.totalAmountPaid}"></span>)
+                </span>
+                            <span th:if="${customer.totalAmountBooking - customer.totalAmountPaid < 0}">
+                    Thừa (<span th:text="${customer.totalAmountPaid - customer.totalAmountBooking}"></span>)
+                </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editCustomerModal"
+                                    th:attr="data-customer-id=${customer.customerId}">
+                                Sửa
                             </button>
-                        </form>
+                            <form th:action="@{/admin/user/delete/{customerId}(customerId=${customer.customerId})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Xóa
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                <!-- Phân trang -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <!-- Nút Previous -->
+                        <li class="page-item" th:classappend="${!userPage.hasPrevious()} ? 'disabled'">
+                            <a class="page-link" th:href="@{/admin/user/list(page=${userPage.number - 1}, size=${userPage.size})}" aria-label="Trước">
+                                <span style="color:black !important;" aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <!-- Số trang -->
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence(0, userPage.totalPages - 1)}"
+                            th:classappend="${i == userPage.number} ? 'active bg-dark'">
+                            <a class="page-link"
+                               th:href="@{/admin/user/list(page=${i}, size=${userPage.size})}"
+                               th:style="${i == userPage.number} ? 'color:white !important; background-color:#343a40 !important; border-color: black;' : 'color:black !important; border-color: #dee2e6;'"
+                               th:text="${i + 1}"></a>
+                        </li>
+
+                        <!-- Nút Next -->
+                        <li class="page-item" th:classappend="${!userPage.hasNext()} ? 'disabled'">
+                            <a class="page-link" th:href="@{/admin/user/list(page=${userPage.number + 1}, size=${userPage.size})}" aria-label="Tiếp">
+                                <span style="color:black" aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+                <!--                <nav aria-label="Page navigation">-->
+<!--                    <ul class="pagination justify-content-center">-->
+<!--                        &lt;!&ndash; Nút Previous &ndash;&gt;-->
+<!--                        <li class="page-item" th:classappend="${!userPage.hasPrevious()} ? 'disabled'">-->
+<!--                            <a class="page-link" th:href="@{/admin/user/list(page=${userPage.number - 1}, size=${userPage.size})}" aria-label="Trước">-->
+<!--                                <span aria-hidden="true">&laquo;</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+<!--                        &lt;!&ndash; Số trang &ndash;&gt;-->
+<!--                        <li class="page-item"-->
+<!--                            th:each="i : ${#numbers.sequence(0, userPage.totalPages - 1)}"-->
+<!--                            th:classappend="${i == userPage.number} ? 'active bg-dark'">-->
+<!--                            <a class="page-link"-->
+<!--                               th:href="@{/admin/user/list(page=${i}, size=${userPage.size})}"-->
+<!--                               th:style="${i == userPage.number} ? 'color:white !important;' : ''"-->
+<!--                               th:text="${i + 1}"></a>-->
+<!--                        </li>-->
+
+<!--                        &lt;!&ndash; Nút Next &ndash;&gt;-->
+<!--                        <li class="page-item" th:classappend="${!userPage.hasNext()} ? 'disabled'">-->
+<!--                            <a class="page-link" th:href="@{/admin/user/list(page=${userPage.number + 1}, size=${userPage.size})}" aria-label="Tiếp">-->
+<!--                                <span aria-hidden="true">&raquo;</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </nav>-->
+            </div>
+
         </div>
 
     </div>
