@@ -46,7 +46,17 @@ public class AdminRevenueController {
             @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate,
             Model model) {
-        List<Booking> bookings = bookingService.findBookingsByDateRange(startDate, endDate);
+//        LocalDate startLocalDate = LocalDate.parse(startDate);
+//        LocalDate endLocalDate = LocalDate.parse(endDate);
+//
+//        // Chuyển thành LocalDateTime (bắt đầu từ 0:00 cho start và kết thúc 23:59:59 cho end)
+//        LocalDateTime startDateTime = startLocalDate.atStartOfDay();
+//        LocalDateTime endDateTime = endLocalDate.atTime(23, 59, 59);
+
+        String startDateTime = startDate + " " + "00:00:00";
+        String endDateTime = endDate + " " + "23:59:59";
+
+        List<Booking> bookings = bookingService.findBookingsByDateRange(startDateTime, endDateTime);
 
         Long totalRevenue = bookings.stream()
                 .mapToLong(Booking::getTotalPrice)

@@ -4,6 +4,8 @@
 -- ------------------------------------------------------
 -- Server version	8.0.38
 
+create database hotel_manager;
+use hotel_manager;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -23,10 +25,10 @@ DROP TABLE IF EXISTS `bed`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bed` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `bed_number` int NOT NULL,
-  `bed_type` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                       `id` int NOT NULL AUTO_INCREMENT,
+                       `bed_number` int NOT NULL,
+                       `bed_type` tinyint DEFAULT NULL,
+                       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,23 +50,23 @@ DROP TABLE IF EXISTS `booking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booking` (
-  `booking_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `check_in_date` varchar(255) DEFAULT NULL,
-  `check_out_date` varchar(255) DEFAULT NULL,
-  `status` enum('ACCEPTED','DELETED','PENDING','REJECTED') DEFAULT NULL,
-  `total_price` bigint DEFAULT NULL,
-  `room_id` bigint NOT NULL,
-  `amount_has_paid` bigint DEFAULT NULL,
-  `payment_status` enum('DEPOSIT_PAID','NOT_PAID','PAID','PENDING') DEFAULT NULL,
-  `customer_id` bigint NOT NULL,
-  PRIMARY KEY (`booking_id`),
-  KEY `FKq83pan5xy2a6rn0qsl9bckqai` (`room_id`),
-  KEY `FKlnnelfsha11xmo2ndjq66fvro` (`customer_id`),
-  CONSTRAINT `FKlnnelfsha11xmo2ndjq66fvro` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  CONSTRAINT `FKq83pan5xy2a6rn0qsl9bckqai` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                           `booking_id` bigint NOT NULL AUTO_INCREMENT,
+                           `created_at` datetime(6) DEFAULT NULL,
+                           `updated_at` datetime(6) DEFAULT NULL,
+                           `check_in_date` varchar(255) DEFAULT NULL,
+                           `check_out_date` varchar(255) DEFAULT NULL,
+                           `status` enum('ACCEPTED','DELETED','PENDING','REJECTED') DEFAULT NULL,
+                           `total_price` bigint DEFAULT NULL,
+                           `room_id` bigint NOT NULL,
+                           `amount_has_paid` bigint DEFAULT NULL,
+                           `payment_status` enum('DEPOSIT_PAID','NOT_PAID','PAID','PENDING') DEFAULT NULL,
+                           `customer_id` bigint NOT NULL,
+                           PRIMARY KEY (`booking_id`),
+                           KEY `FKq83pan5xy2a6rn0qsl9bckqai` (`room_id`),
+                           KEY `FKlnnelfsha11xmo2ndjq66fvro` (`customer_id`),
+                           CONSTRAINT `FKlnnelfsha11xmo2ndjq66fvro` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+                           CONSTRAINT `FKq83pan5xy2a6rn0qsl9bckqai` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +75,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (86,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-01 10:00:00','2024-10-03 10:00:00','ACCEPTED',5000000,16,5000000,'DEPOSIT_PAID',3),(87,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-04 12:00:00','2024-10-07 12:00:00','ACCEPTED',7000000,17,7000000,'PAID',3),(88,'2024-11-24 17:09:37.000000','2024-11-24 17:12:31.021735','2024-10-08 14:00:00','2024-10-10 14:00:00','ACCEPTED',3000000,18,3000000,'NOT_PAID',3),(89,'2024-11-24 17:09:37.000000','2024-11-24 17:12:39.863496','2024-10-11 09:00:00','2024-10-15 09:00:00','ACCEPTED',12000000,19,12000000,'DEPOSIT_PAID',3),(90,'2024-11-24 17:09:37.000000','2024-11-24 17:12:45.711876','2024-10-16 08:00:00','2024-10-19 08:00:00','ACCEPTED',4000000,20,4000000,'PENDING',5),(91,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-20 15:00:00','2024-10-22 15:00:00','ACCEPTED',2000000,21,2000000,'PAID',6),(92,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-23 18:00:00','2024-10-26 18:00:00','PENDING',8000000,22,8000000,'DEPOSIT_PAID',7),(93,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-27 11:00:00','2024-10-29 11:00:00','REJECTED',3500000,23,3500000,'NOT_PAID',8),(94,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-30 13:00:00','2024-11-01 13:00:00','ACCEPTED',9000000,24,8900000,'PAID',9),(95,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-02 14:00:00','2024-11-05 14:00:00','DELETED',6500000,25,2500000,'PENDING',3),(96,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-06 10:00:00','2024-11-08 10:00:00','PENDING',6000000,26,3000000,'DEPOSIT_PAID',3),(97,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-09 16:00:00','2024-11-11 16:00:00','ACCEPTED',7500000,27,7500000,'PAID',3),(98,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-12 17:00:00','2024-11-14 17:00:00','REJECTED',2500000,28,0,'NOT_PAID',3),(99,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-15 19:00:00','2024-11-17 19:00:00','PENDING',10000000,29,5000000,'DEPOSIT_PAID',3),(100,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-18 20:00:00','2024-11-20 20:00:00','DELETED',3000000,16,0,'PENDING',3),(101,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-21 09:00:00','2024-11-23 09:00:00','ACCEPTED',11000000,17,5500000,'PAID',3),(102,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-24 11:00:00','2024-11-26 11:00:00','PENDING',4000000,18,2000000,'DEPOSIT_PAID',3),(103,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-27 14:00:00','2024-11-29 14:00:00','REJECTED',7500000,19,0,'NOT_PAID',3),(104,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-30 15:00:00','2024-12-02 15:00:00','PENDING',8500000,20,4250000,'DEPOSIT_PAID',3),(105,'2024-11-24 17:36:02.043457','2024-11-24 17:36:02.043457','2024-11-24 14:00:00','2024-11-25 11:00:00','PENDING',1000000,16,NULL,NULL,3);
+INSERT INTO `booking` VALUES (86,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-01 10:00:00','2024-10-03 10:00:00','ACCEPTED',5000000,16,5000000,'DEPOSIT_PAID',3),(87,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-04 12:00:00','2024-10-07 12:00:00','ACCEPTED',7000000,17,7000000,'PAID',3),(88,'2024-11-24 17:09:37.000000','2024-11-24 17:12:31.021735','2024-10-08 14:00:00','2024-10-10 14:00:00','ACCEPTED',3000000,18,3000000,'NOT_PAID',3),(89,'2024-11-24 17:09:37.000000','2024-11-24 17:12:39.863496','2024-10-11 09:00:00','2024-10-15 09:00:00','ACCEPTED',12000000,19,12000000,'DEPOSIT_PAID',3),(90,'2024-11-24 17:09:37.000000','2024-11-24 17:12:45.711876','2024-10-16 08:00:00','2024-10-19 08:00:00','ACCEPTED',4000000,20,4000000,'PENDING',5),(91,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-20 15:00:00','2024-10-22 15:00:00','ACCEPTED',2000000,21,2000000,'PAID',6),(92,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-23 18:00:00','2024-10-26 18:00:00','PENDING',8000000,22,8000000,'DEPOSIT_PAID',7),(93,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-27 11:00:00','2024-10-29 11:00:00','REJECTED',3500000,23,3500000,'NOT_PAID',8),(94,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-10-30 13:00:00','2024-11-01 13:00:00','ACCEPTED',9000000,24,8900000,'PAID',9),(95,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-02 14:00:00','2024-11-05 14:00:00','DELETED',6500000,25,2500000,'PENDING',3),(96,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-06 10:00:00','2024-11-08 10:00:00','PENDING',6000000,26,3000000,'DEPOSIT_PAID',3),(97,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-09 16:00:00','2024-11-11 16:00:00','ACCEPTED',7500000,27,7500000,'PAID',3),(98,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-12 17:00:00','2024-11-14 17:00:00','REJECTED',2500000,28,0,'NOT_PAID',3),(99,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-15 19:00:00','2024-11-17 19:00:00','PENDING',10000000,29,5000000,'DEPOSIT_PAID',3),(100,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-18 20:00:00','2024-11-20 20:00:00','DELETED',3000000,16,0,'PENDING',3),(101,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-21 09:00:00','2024-11-23 09:00:00','ACCEPTED',11000000,17,5500000,'PAID',3),(102,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-24 11:00:00','2024-11-26 11:00:00','PENDING',4000000,18,2000000,'DEPOSIT_PAID',3),(103,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-27 14:00:00','2024-11-29 14:00:00','REJECTED',7500000,19,0,'NOT_PAID',3),(104,'2024-11-24 17:09:37.000000','2024-11-24 17:09:37.000000','2024-11-30 15:00:00','2024-12-02 15:00:00','PENDING',8500000,20,4250000,'DEPOSIT_PAID',3),(105,'2024-11-24 17:36:02.043457','2024-11-24 17:36:02.043457','2024-11-24 14:00:00','2024-11-25 11:00:00','PENDING',1000000,16,NULL,NULL,3),(106,'2024-11-29 21:27:01.932828','2024-11-29 21:27:01.932828','2024-11-29 14:00:00','2024-11-30 11:00:00','PENDING',1000000,16,NULL,NULL,3),(107,'2024-11-29 21:33:34.079030','2024-11-29 21:33:34.079030','2024-11-29 14:00:00','2024-11-30 11:00:00','PENDING',1000000,17,NULL,NULL,3),(108,'2024-12-02 04:18:27.884465','2024-12-02 04:18:27.884465','2024-12-02 14:00:00','2024-12-03 11:00:00','PENDING',1000000,16,NULL,NULL,5);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,17 +87,17 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
-  `customer_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `is_deleted` bit(1) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `date_of_birth` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `full_name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`customer_id`)
+                            `customer_id` bigint NOT NULL AUTO_INCREMENT,
+                            `created_at` datetime(6) DEFAULT NULL,
+                            `is_deleted` bit(1) DEFAULT NULL,
+                            `updated_at` datetime(6) DEFAULT NULL,
+                            `address` varchar(255) DEFAULT NULL,
+                            `date_of_birth` varchar(255) DEFAULT NULL,
+                            `email` varchar(255) DEFAULT NULL,
+                            `full_name` varchar(255) DEFAULT NULL,
+                            `password` varchar(255) DEFAULT NULL,
+                            `phone_number` varchar(255) DEFAULT NULL,
+                            PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,12 +119,12 @@ DROP TABLE IF EXISTS `customer_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer_role` (
-  `customer_id` bigint NOT NULL,
-  `role_id` bigint NOT NULL,
-  KEY `FKhfpoop4wxkxlxtlm6j6pqa827` (`role_id`),
-  KEY `FKipr3etk2mjwkv6ahb4x4vwqy3` (`customer_id`),
-  CONSTRAINT `FKhfpoop4wxkxlxtlm6j6pqa827` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`),
-  CONSTRAINT `FKipr3etk2mjwkv6ahb4x4vwqy3` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+                                 `customer_id` bigint NOT NULL,
+                                 `role_id` bigint NOT NULL,
+                                 KEY `FKhfpoop4wxkxlxtlm6j6pqa827` (`role_id`),
+                                 KEY `FKipr3etk2mjwkv6ahb4x4vwqy3` (`customer_id`),
+                                 CONSTRAINT `FKhfpoop4wxkxlxtlm6j6pqa827` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`),
+                                 CONSTRAINT `FKipr3etk2mjwkv6ahb4x4vwqy3` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,17 +146,17 @@ DROP TABLE IF EXISTS `reply`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reply` (
-  `reply_id` bigint NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) DEFAULT NULL,
-  `created_at` datetime(6) DEFAULT NULL,
-  `review_id` bigint DEFAULT NULL,
-  `customer_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`reply_id`),
-  KEY `FKd5ckwt38d4ibe84wlfc3o8jw8` (`review_id`),
-  KEY `FK260040758xk1bj0vur54t3js2` (`customer_id`),
-  CONSTRAINT `FK260040758xk1bj0vur54t3js2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  CONSTRAINT `FKd5ckwt38d4ibe84wlfc3o8jw8` FOREIGN KEY (`review_id`) REFERENCES `review` (`review_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                         `reply_id` bigint NOT NULL AUTO_INCREMENT,
+                         `content` varchar(255) DEFAULT NULL,
+                         `created_at` datetime(6) DEFAULT NULL,
+                         `review_id` bigint DEFAULT NULL,
+                         `customer_id` bigint DEFAULT NULL,
+                         PRIMARY KEY (`reply_id`),
+                         KEY `FKd5ckwt38d4ibe84wlfc3o8jw8` (`review_id`),
+                         KEY `FK260040758xk1bj0vur54t3js2` (`customer_id`),
+                         CONSTRAINT `FK260040758xk1bj0vur54t3js2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+                         CONSTRAINT `FKd5ckwt38d4ibe84wlfc3o8jw8` FOREIGN KEY (`review_id`) REFERENCES `review` (`review_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +165,7 @@ CREATE TABLE `reply` (
 
 LOCK TABLES `reply` WRITE;
 /*!40000 ALTER TABLE `reply` DISABLE KEYS */;
-INSERT INTO `reply` VALUES (4,'Dạ bên mình cám ơn bạn rất nhiều, mong sẽ đưược bạn ủng hộ lần tiếp','2024-11-24 18:05:57.292492',8,5);
+INSERT INTO `reply` VALUES (4,'Dạ bên mình cám ơn bạn rất nhiều, mong sẽ đưược bạn ủng hộ lần tiếp','2024-11-24 18:05:57.292492',8,5),(5,'Rất vui khi được phụ c vụ bạn','2024-11-30 02:06:15.557436',9,5);
 /*!40000 ALTER TABLE `reply` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,18 +177,18 @@ DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
-  `review_id` bigint NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) DEFAULT NULL,
-  `rating` int NOT NULL,
-  `booking_id` bigint DEFAULT NULL,
-  `created_at` datetime(6) DEFAULT NULL,
-  `customer_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`review_id`),
-  KEY `FKk4xawqohtguy5yx5nnpba6yf3` (`booking_id`),
-  KEY `FKgce54o0p6uugoc2tev4awewly` (`customer_id`),
-  CONSTRAINT `FKgce54o0p6uugoc2tev4awewly` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  CONSTRAINT `FKk4xawqohtguy5yx5nnpba6yf3` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                          `review_id` bigint NOT NULL AUTO_INCREMENT,
+                          `content` varchar(255) DEFAULT NULL,
+                          `rating` int NOT NULL,
+                          `booking_id` bigint DEFAULT NULL,
+                          `created_at` datetime(6) DEFAULT NULL,
+                          `customer_id` bigint DEFAULT NULL,
+                          PRIMARY KEY (`review_id`),
+                          KEY `FKk4xawqohtguy5yx5nnpba6yf3` (`booking_id`),
+                          KEY `FKgce54o0p6uugoc2tev4awewly` (`customer_id`),
+                          CONSTRAINT `FKgce54o0p6uugoc2tev4awewly` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+                          CONSTRAINT `FKk4xawqohtguy5yx5nnpba6yf3` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +197,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Phòng xịn, rộng đẹp xinh',5,1,'2024-11-15 13:21:10.746931',3),(2,'Tạm được',2,1,'2024-11-15 13:21:31.937383',3),(3,'Đồ ăn sáng không đủ',1,1,'2024-11-15 13:23:44.268981',3),(4,'Phòng xịn, rộng',4,1,'2024-11-15 13:26:31.441068',3),(5,'Xinh, nhân vên nhiệt tình',3,2,'2024-11-15 13:36:31.946836',3),(8,'Phòng đẹp, sạch sẽ',5,89,'2024-11-24 17:29:57.201717',3);
+INSERT INTO `review` VALUES (1,'Phòng xịn, rộng đẹp xinh',5,1,'2024-11-15 13:21:10.746931',3),(2,'Tạm được',2,1,'2024-11-15 13:21:31.937383',3),(3,'Đồ ăn sáng không đủ',1,1,'2024-11-15 13:23:44.268981',3),(4,'Phòng xịn, rộng',4,1,'2024-11-15 13:26:31.441068',3),(5,'Xinh, nhân vên nhiệt tình',3,2,'2024-11-15 13:36:31.946836',3),(8,'Phòng đẹp, sạch sẽ',5,89,'2024-11-24 17:29:57.201717',3),(9,'Phòng  rất đáng tiền',5,101,'2024-11-30 02:05:29.568610',3);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,9 +209,9 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
-  `role_id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`role_id`)
+                         `role_id` bigint NOT NULL AUTO_INCREMENT,
+                         `name` varchar(255) DEFAULT NULL,
+                         PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -231,16 +233,16 @@ DROP TABLE IF EXISTS `room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room` (
-  `room_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `room_name` varchar(255) DEFAULT NULL,
-  `room_group_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`room_id`),
-  KEY `FK1oxc28nrsip1bmlgynvt12gca` (`room_group_id`),
-  CONSTRAINT `FK1oxc28nrsip1bmlgynvt12gca` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                        `room_id` bigint NOT NULL AUTO_INCREMENT,
+                        `created_at` datetime(6) DEFAULT NULL,
+                        `updated_at` datetime(6) DEFAULT NULL,
+                        `description` varchar(255) DEFAULT NULL,
+                        `room_name` varchar(255) DEFAULT NULL,
+                        `room_group_id` bigint DEFAULT NULL,
+                        PRIMARY KEY (`room_id`),
+                        KEY `FK1oxc28nrsip1bmlgynvt12gca` (`room_group_id`),
+                        CONSTRAINT `FK1oxc28nrsip1bmlgynvt12gca` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +251,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (16,'2024-11-24 16:50:18.294323','2024-11-24 16:50:18.294323','Superior_R1','Superior_R1',32),(17,'2024-11-24 16:50:27.220393','2024-11-24 16:50:27.220393','Superior_R2','Superior_R2',32),(18,'2024-11-24 16:50:38.739198','2024-11-24 16:50:38.739198','Superior_R3','Superior_R3',32),(19,'2024-11-24 16:50:47.944644','2024-11-24 16:50:47.944644','Superior_R4','Superior_R4',32),(20,'2024-11-24 16:51:05.136716','2024-11-24 16:51:05.136716','Deluxe_R1','Deluxe_R1',33),(21,'2024-11-24 16:51:11.257878','2024-11-24 16:51:11.257878','Deluxe_R2','Deluxe_R2',33),(22,'2024-11-24 16:51:18.579479','2024-11-24 16:51:18.579479','Deluxe_R3','Deluxe_R3',33),(23,'2024-11-24 16:51:37.659685','2024-11-24 16:51:37.659685','Premium_R1','Premium_R1',34),(24,'2024-11-24 16:51:45.840205','2024-11-24 16:51:45.840205','Premium_R2','Premium_R2',34),(25,'2024-11-24 16:51:53.857704','2024-11-24 16:51:53.857704','Premium_R3','Premium_R3',34),(26,'2024-11-24 16:52:12.604160','2024-11-24 16:52:12.604160','Suite_R1','Suite_R1',35),(27,'2024-11-24 16:52:19.000950','2024-11-24 16:52:19.000950','Suite_R2','Suite_R2',35),(28,'2024-11-24 16:52:36.688041','2024-11-24 16:52:36.688041','Grand Suite R1','Grand Suite R1',36),(29,'2024-11-24 16:52:44.633068','2024-11-24 16:52:44.633068','Grand Suite R2','Grand Suite R2',36);
+INSERT INTO `room` VALUES (16,'2024-11-24 16:50:18.294323','2024-11-24 16:50:18.294323','Superior_R1','Superior_R1',32),(17,'2024-11-24 16:50:27.220393','2024-11-24 16:50:27.220393','Superior_R2','Superior_R2',32),(18,'2024-11-24 16:50:38.739198','2024-11-24 16:50:38.739198','Superior_R3','Superior_R3',32),(19,'2024-11-24 16:50:47.944644','2024-11-24 16:50:47.944644','Superior_R4','Superior_R4',32),(20,'2024-11-24 16:51:05.136716','2024-11-24 16:51:05.136716','Deluxe_R1','Deluxe_R1',33),(21,'2024-11-24 16:51:11.257878','2024-11-24 16:51:11.257878','Deluxe_R2','Deluxe_R2',33),(22,'2024-11-24 16:51:18.579479','2024-11-24 16:51:18.579479','Deluxe_R3','Deluxe_R3',33),(23,'2024-11-24 16:51:37.659685','2024-11-24 16:51:37.659685','Premium_R1','Premium_R1',34),(24,'2024-11-24 16:51:45.840205','2024-11-24 16:51:45.840205','Premium_R2','Premium_R2',34),(25,'2024-11-24 16:51:53.857704','2024-11-24 16:51:53.857704','Premium_R3','Premium_R3',34),(26,'2024-11-24 16:52:12.604160','2024-11-24 16:52:12.604160','Suite_R1','Suite_R1',35),(27,'2024-11-24 16:52:19.000950','2024-11-24 16:52:19.000950','Suite_R2','Suite_R2',35),(28,'2024-11-24 16:52:36.688041','2024-11-24 16:52:36.688041','Grand Suite R1','Grand Suite R1',36),(29,'2024-11-24 16:52:44.633068','2024-11-24 16:52:44.633068','Grand Suite R2','Grand Suite R2',36),(30,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R5','Superior_R5',32),(31,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R6','Superior_R6',32),(32,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R7','Superior_R7',32),(33,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R8','Superior_R8',32),(34,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R9','Superior_R9',32),(35,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R10','Superior_R10',32),(36,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R11','Superior_R11',32),(37,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R12','Superior_R12',32),(38,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R13','Superior_R13',32),(39,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R14','Superior_R14',32),(40,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R15','Superior_R15',32),(41,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R16','Superior_R16',32),(42,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R17','Superior_R17',32),(43,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R18','Superior_R18',32),(44,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R19','Superior_R19',32),(45,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R20','Superior_R20',32),(46,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R21','Superior_R21',32),(47,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R22','Superior_R22',32),(48,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R23','Superior_R23',32),(49,'2024-11-29 23:38:30.000000','2024-11-29 23:38:30.000000','Superior_R24','Superior_R24',32),(50,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R4','Deluxe_R4',33),(51,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R5','Deluxe_R5',33),(52,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R6','Deluxe_R6',33),(53,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R7','Deluxe_R7',33),(54,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R8','Deluxe_R8',33),(55,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R9','Deluxe_R9',33),(56,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R10','Deluxe_R10',33),(57,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R11','Deluxe_R11',33),(58,'2024-11-29 23:40:08.000000','2024-11-29 23:40:08.000000','Deluxe_R12','Deluxe_R12',33),(59,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R4','Premium_R4',34),(60,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R5','Premium_R5',34),(61,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R6','Premium_R6',34),(62,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R7','Premium_R7',34),(63,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R8','Premium_R8',34),(64,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R9','Premium_R9',34),(65,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R10','Premium_R10',34),(66,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R11','Premium_R11',34),(67,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R12','Premium_R12',34),(68,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R13','Premium_R13',34),(69,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R14','Premium_R14',34),(70,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R15','Premium_R15',34),(71,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R16','Premium_R16',34),(72,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R17','Premium_R17',34),(73,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R18','Premium_R18',34),(74,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R19','Premium_R19',34),(75,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R20','Premium_R20',34),(76,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R21','Premium_R21',34),(77,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R22','Premium_R22',34),(78,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R23','Premium_R23',34),(79,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R24','Premium_R24',34),(80,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R25','Premium_R25',34),(81,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R26','Premium_R26',34),(82,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R27','Premium_R27',34),(83,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R28','Premium_R28',34),(84,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R29','Premium_R29',34),(85,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R30','Premium_R30',34),(86,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R31','Premium_R31',34),(87,'2024-11-29 23:41:08.000000','2024-11-29 23:41:08.000000','Premium_R32','Premium_R32',34),(88,'2024-11-29 23:42:22.000000','2024-11-29 23:42:22.000000','Suite_R3','Suite_R3',35),(89,'2024-11-29 23:42:22.000000','2024-11-29 23:42:22.000000','Suite_R4','Suite_R4',35),(90,'2024-11-29 23:42:28.000000','2024-11-29 23:42:28.000000','Grand_Suite_R3','Grand_Suite_R3',36),(91,'2024-11-29 23:42:28.000000','2024-11-29 23:42:28.000000','Grand_Suite_R4','Grand_Suite_R4',36);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,23 +263,23 @@ DROP TABLE IF EXISTS `room_group`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_group` (
-  `room_group_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `area` float DEFAULT NULL,
-  `combo_price2h` bigint DEFAULT NULL,
-  `description` varchar(500) DEFAULT NULL,
-  `extra_hour_price` bigint DEFAULT NULL,
-  `group_name` varchar(255) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `price_per_night` bigint DEFAULT NULL,
-  `standard_occupancy` int DEFAULT NULL,
-  `extra_adult` bigint DEFAULT NULL,
-  `max_occupancy` int NOT NULL,
-  `num_children_free` int NOT NULL,
-  `available_room_count` bigint DEFAULT NULL,
-  `price_date_time` bigint DEFAULT NULL,
-  PRIMARY KEY (`room_group_id`)
+                              `room_group_id` bigint NOT NULL AUTO_INCREMENT,
+                              `created_at` datetime(6) DEFAULT NULL,
+                              `updated_at` datetime(6) DEFAULT NULL,
+                              `area` float DEFAULT NULL,
+                              `combo_price2h` bigint DEFAULT NULL,
+                              `description` varchar(500) DEFAULT NULL,
+                              `extra_hour_price` bigint DEFAULT NULL,
+                              `group_name` varchar(255) DEFAULT NULL,
+                              `image_url` varchar(255) DEFAULT NULL,
+                              `price_per_night` bigint DEFAULT NULL,
+                              `standard_occupancy` int DEFAULT NULL,
+                              `extra_adult` bigint DEFAULT NULL,
+                              `max_occupancy` int NOT NULL,
+                              `num_children_free` int NOT NULL,
+                              `available_room_count` bigint DEFAULT NULL,
+                              `price_date_time` bigint DEFAULT NULL,
+                              PRIMARY KEY (`room_group_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -299,12 +301,12 @@ DROP TABLE IF EXISTS `room_group_bed`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_group_bed` (
-  `room_group_id` bigint NOT NULL,
-  `bed_id` int NOT NULL,
-  KEY `FKr50oug5577hmvvgxplateoh1b` (`bed_id`),
-  KEY `FKdkx1tdfrorym2yrcv6epidp8p` (`room_group_id`),
-  CONSTRAINT `FKdkx1tdfrorym2yrcv6epidp8p` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`),
-  CONSTRAINT `FKr50oug5577hmvvgxplateoh1b` FOREIGN KEY (`bed_id`) REFERENCES `bed` (`id`)
+                                  `room_group_id` bigint NOT NULL,
+                                  `bed_id` int NOT NULL,
+                                  KEY `FKr50oug5577hmvvgxplateoh1b` (`bed_id`),
+                                  KEY `FKdkx1tdfrorym2yrcv6epidp8p` (`room_group_id`),
+                                  CONSTRAINT `FKdkx1tdfrorym2yrcv6epidp8p` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`),
+                                  CONSTRAINT `FKr50oug5577hmvvgxplateoh1b` FOREIGN KEY (`bed_id`) REFERENCES `bed` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -326,12 +328,12 @@ DROP TABLE IF EXISTS `room_group_service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_group_service` (
-  `room_group_id` bigint NOT NULL,
-  `service_id` bigint NOT NULL,
-  KEY `FKleufvhprvkl5tp3p85d1kh9yd` (`service_id`),
-  KEY `FK6eeu0rmxklaiu8es6e9xquih5` (`room_group_id`),
-  CONSTRAINT `FK6eeu0rmxklaiu8es6e9xquih5` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`),
-  CONSTRAINT `FKleufvhprvkl5tp3p85d1kh9yd` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`)
+                                      `room_group_id` bigint NOT NULL,
+                                      `service_id` bigint NOT NULL,
+                                      KEY `FKleufvhprvkl5tp3p85d1kh9yd` (`service_id`),
+                                      KEY `FK6eeu0rmxklaiu8es6e9xquih5` (`room_group_id`),
+                                      CONSTRAINT `FK6eeu0rmxklaiu8es6e9xquih5` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`),
+                                      CONSTRAINT `FKleufvhprvkl5tp3p85d1kh9yd` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -353,14 +355,14 @@ DROP TABLE IF EXISTS `room_image`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_image` (
-  `image_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `room_group_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`image_id`),
-  KEY `FKrwk8rm0fwvoaa5nnb5str0ffx` (`room_group_id`),
-  CONSTRAINT `FKrwk8rm0fwvoaa5nnb5str0ffx` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`)
+                              `image_id` bigint NOT NULL AUTO_INCREMENT,
+                              `created_at` datetime(6) DEFAULT NULL,
+                              `updated_at` datetime(6) DEFAULT NULL,
+                              `image_url` varchar(255) DEFAULT NULL,
+                              `room_group_id` bigint DEFAULT NULL,
+                              PRIMARY KEY (`image_id`),
+                              KEY `FKrwk8rm0fwvoaa5nnb5str0ffx` (`room_group_id`),
+                              CONSTRAINT `FKrwk8rm0fwvoaa5nnb5str0ffx` FOREIGN KEY (`room_group_id`) REFERENCES `room_group` (`room_group_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -382,12 +384,12 @@ DROP TABLE IF EXISTS `room_service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_service` (
-  `room_id` bigint NOT NULL,
-  `service_id` bigint NOT NULL,
-  KEY `FKn5ff8ekvf2ayw3o35ctksyfyp` (`service_id`),
-  KEY `FK3jb3uo6oi9pyw63s0ulnlss32` (`room_id`),
-  CONSTRAINT `FK3jb3uo6oi9pyw63s0ulnlss32` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`),
-  CONSTRAINT `FKn5ff8ekvf2ayw3o35ctksyfyp` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`)
+                                `room_id` bigint NOT NULL,
+                                `service_id` bigint NOT NULL,
+                                KEY `FKn5ff8ekvf2ayw3o35ctksyfyp` (`service_id`),
+                                KEY `FK3jb3uo6oi9pyw63s0ulnlss32` (`room_id`),
+                                CONSTRAINT `FK3jb3uo6oi9pyw63s0ulnlss32` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`),
+                                CONSTRAINT `FKn5ff8ekvf2ayw3o35ctksyfyp` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -408,13 +410,13 @@ DROP TABLE IF EXISTS `service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
-  `service_id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `service_name` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL,
-  PRIMARY KEY (`service_id`)
+                           `service_id` bigint NOT NULL AUTO_INCREMENT,
+                           `created_at` datetime(6) DEFAULT NULL,
+                           `updated_at` datetime(6) DEFAULT NULL,
+                           `description` varchar(255) DEFAULT NULL,
+                           `service_name` varchar(255) DEFAULT NULL,
+                           `price` double NOT NULL,
+                           PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -437,4 +439,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-26 22:01:36
+-- Dump completed on 2024-12-03 19:04:21

@@ -1,5 +1,7 @@
 package com.project.hotel.controller;
 import com.project.hotel.model.dto.BookingDto;
+import com.project.hotel.model.dto.CustomerDto2;
+import com.project.hotel.model.dto.RoomDTO2;
 import com.project.hotel.model.entity.*;
 import com.project.hotel.model.enumType.BedType;
 import com.project.hotel.service.*;
@@ -16,7 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +48,65 @@ public class RoomGroupController {
         }
         return "room-group-user";
     }
+
+//    @GetMapping("/admin/calendar")
+//    public String showCalendar(Model model) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//        // Lấy danh sách các phòng
+//        List<Room> rooms = roomService.findAll();
+//        List<RoomDTO2> roomDtos = new ArrayList<>();
+//
+//        for (Room room : rooms) {
+//            RoomDTO2 roomDto = new RoomDTO2();
+//            roomDto.setRoomId(room.getRoomId());
+//            roomDto.setRoomName(room.getRoomName());
+//            roomDto.setDescription(room.getDescription());
+//
+//            // Thêm booking của phòng vào DTO
+//            List<BookingDto> bookingDtos = new ArrayList<>();
+//            for (Booking booking : room.getBookings()) {
+//                BookingDto bookingDto = new BookingDto();
+//                bookingDto.setRoomId(room.getRoomId());
+//                bookingDto.setCheckInDate(booking.getCheckInDate());
+//                bookingDto.setCheckOutDate(booking.getCheckOutDate());
+//                bookingDto.setAmountHasPaid(booking.getAmountHasPaid());
+//                bookingDto.setTotalPrice(booking.getTotalPrice());
+//                bookingDto.setStatus(booking.getStatus());
+//
+//                // Format ngày
+//                String checkInDateStr = bookingDto.getCheckInDate();
+//                LocalDate checkInDate = LocalDate.parse(checkInDateStr, formatter);
+//                String checkOutDateStr = bookingDto.getCheckOutDate();
+//                LocalDate checkOutDate = LocalDate.parse(checkOutDateStr, formatter);
+//
+//                bookingDto.setFormattedCheckInDate(java.util.Date.from(checkInDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//                bookingDto.setFormattedCheckOutDate(java.util.Date.from(checkOutDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//
+//                // Lấy thông tin người dùng từ Booking và ánh xạ vào CustomerDto2
+//                if (booking.getUser() != null) {
+//                    CustomerDto2 customerDto = CustomerDto2.builder()
+//                            .customerId(booking.getUser().getCustomerId())
+//                            .email(booking.getUser().getEmail())
+//                            .fullName(booking.getUser().getFullName())
+//                            .phoneNumber(booking.getUser().getPhoneNumber())
+//                            .build();
+//                    bookingDto.setCustomerDto(customerDto);
+//                }
+//
+//                bookingDtos.add(bookingDto);
+//            }
+//
+//            roomDto.setBookingDtos(bookingDtos);
+//            roomDtos.add(roomDto);
+//        }
+//
+//        model.addAttribute("rooms", roomDtos);
+//        model.addAttribute("currentMonth", LocalDate.now().getMonthValue());
+//        model.addAttribute("daysInMonth", getDaysInMonth(LocalDate.now()));
+//        return "admin-calendar";
+//    }
+
 
     @GetMapping("/room-group/{roomGroupId}")
     public String roomGroupDetail(

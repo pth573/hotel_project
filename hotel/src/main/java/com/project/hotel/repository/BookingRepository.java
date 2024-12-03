@@ -28,5 +28,13 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findBookingsByDateRange(@Param("startDate") String startDate,
                                           @Param("endDate") String endDate);
 
+//    @Query("SELECT b FROM Booking b WHERE CAST(b.createdAt AS string) BETWEEN :startDate AND :endDate")
+//    List<Booking> findBookingsByDateRange(@Param("startDate") String startDate,
+//                                                 @Param("endDate") String endDate);
+
+//
+//    @Query("SELECT b FROM Booking b WHERE CAST(b.checkInDate AS string) BETWEEN :startDate AND :endDate")
+//    List<Booking> findBookingsByDateRange(@Param("startDate") String startDate,
+//                                          @Param("endDate") String endDate);
 
 }
